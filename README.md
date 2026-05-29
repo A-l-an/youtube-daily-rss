@@ -5,7 +5,7 @@ This project builds a daily RSS 2.0 feed from the latest public videos of:
 - 视野环球财经 / `@RhinoFinance`
 - NaNa说美股 / `@NaNaShuoMeiGu`
 
-It checks YouTube Atom feeds, tries public captions first, optionally falls back to ASR, summarizes available text with an OpenAI-compatible model, and writes `public/feed.xml`.
+It checks YouTube Atom feeds, tries public captions first, optionally falls back to ASR, summarizes available text with an OpenAI-compatible model, and writes `public/feed.xml` plus per-video digest pages under `public/items/`.
 
 ## Quick Start
 
@@ -87,13 +87,13 @@ Processing order:
 RSS items include:
 
 - title: `[频道名] 视频标题`
-- link: original YouTube URL
+- link: hosted digest page, for example `https://a-l-an.github.io/youtube-daily-rss/items/VIDEO_ID.html`
 - guid: YouTube video ID
 - pubDate: original video published time when available
-- description: HTML digest
+- description and `content:encoded`: HTML digest
 - categories: `YouTube Digest`, `Finance`, `Stock Market`, and source status
 
-The digest is structured for scanning in an RSS reader. It includes an overall summary plus grouped bullet sections for individual stocks, indices, sectors, and macro themes mentioned in the video.
+The digest is structured for scanning in an RSS reader. It includes an overall summary plus grouped bullet sections for individual stocks, indices, sectors, and macro themes mentioned in the video. The original YouTube URL is kept inside the digest body, but it is no longer the RSS item's primary link, so readers should open the text digest page first.
 
 ## Caption and ASR Limitations
 
