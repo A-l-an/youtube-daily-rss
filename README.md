@@ -115,14 +115,14 @@ If direct YouTube audio extraction fails or is not appropriate, ASR is skipped o
 2. In repository settings, add the secret `HKUST_GZ_API_KEY`.
 3. Optionally add repository variables:
    - `HKUST_GZ_BASE_URL`: `https://gpt-api.hkust-gz.edu.cn/v1`
-   - `SUMMARY_MODEL`: `gpt-3.5-turbo`
+   - `SUMMARY_MODEL`: `DeepSeek-V4-Pro`
    - `ASR_MODEL`: `whisper-1`
 4. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
 5. Run **Daily YouTube RSS Digest** manually once from the Actions tab.
 6. Subscribe to:
 
 ```text
-https://OWNER.github.io/REPOSITORY/feed.xml
+https://a-l-an.github.io/youtube-daily-rss/feed.xml
 ```
 
 Update `rss.link` in `config.yml` to the final URL once known.
