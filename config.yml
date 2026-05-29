@@ -1,0 +1,36 @@
+timezone: Asia/Shanghai
+schedule_time: "10:00"
+
+channels:
+  - name: "视野环球财经"
+    channel_id: "UCFQsi7WaF5X41tcuOryDk8w"
+    handle: "@RhinoFinance"
+  - name: "NaNa说美股"
+    channel_id: "UCFhJ8ZFg9W4kLwFTBBNIjOw"
+    handle: "@NaNaShuoMeiGu"
+
+transcript:
+  preferred_languages: ["zh-Hans", "zh", "zh-CN", "en"]
+  allow_auto_captions: true
+
+asr:
+  enabled: true
+  provider: "hkust_gz"
+  model: "whisper-1"
+  language_candidates: ["zh", "en"]
+  chunk_seconds: 300
+  allow_youtube_audio_download: true
+
+summary:
+  provider: "hkust_gz"
+  language: "zh-CN"
+  model: "gpt-3.5-turbo"
+  fallback_models: ["gpt-4o-mini", "gpt-4o"]
+  max_key_points: 8
+  include_financial_disclaimer: true
+
+rss:
+  title: "Daily YouTube Finance Digest"
+  description: "Daily summaries of 视野环球财经 and NaNa说美股"
+  link: "https://example.com/feed.xml"
+  output_path: "public/feed.xml"
