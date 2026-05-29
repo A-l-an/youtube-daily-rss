@@ -5,7 +5,7 @@ This project builds a daily RSS 2.0 feed from the latest public videos of:
 - 视野环球财经 / `@RhinoFinance`
 - NaNa说美股 / `@NaNaShuoMeiGu`
 
-It checks YouTube Atom feeds, tries public captions first, optionally falls back to ASR, summarizes available text with an OpenAI-compatible model, and writes `public/feed.xml` plus per-video digest pages under `public/items/`.
+It checks YouTube Atom feeds, tries public captions first, optionally falls back to ASR, merges both channels into one daily summary with an OpenAI-compatible model, and writes `public/feed.xml` plus hosted digest pages under `public/items/`.
 
 ## Quick Start
 
@@ -72,28 +72,29 @@ No YouTube API key is required for this.
 
 ## Pipeline Behavior
 
-For each channel, the pipeline processes only the latest public video unless `--force` is used.
+For each run, the pipeline fetches the latest public video from each channel and creates one merged daily RSS item for that pair of videos unless the same pair has already been published. Use `--force` to rebuild the latest pair.
 
 Processing order:
 
-1. Fetch latest video from the channel Atom feed.
-2. Skip if the video ID already exists in `state.json`.
-3. Try captions with `youtube-transcript-api`.
+1. Fetch the latest video from each channel Atom feed.
+2. Skip only when the current pair of latest videos already has a merged `daily_digest` item.
+3. For each video, try captions with `youtube-transcript-api`.
 4. If captions fail and this is not a dry run, try optional ASR through the HKUST-GZ OpenAI-compatible speech endpoint.
-5. If text exists, generate a Simplified Chinese digest through the configured OpenAI-compatible chat endpoint.
-6. If text or LLM summary is unavailable, still publish a link-only RSS item.
-7. Write `state.json`, `summaries.json`, and `public/feed.xml`.
+5. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
+6. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
+7. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
+8. Write `state.json`, `summaries.json`, and `public/feed.xml`.
 
 RSS items include:
 
-- title: `[频道名] 视频标题`
-- link: hosted digest page, for example `https://a-l-an.github.io/youtube-daily-rss/items/VIDEO_ID.html`
-- guid: YouTube video ID
-- pubDate: original video published time when available
+- title: one merged daily digest title
+- link: hosted digest page, for example `https://a-l-an.github.io/youtube-daily-rss/items/daily-VIDEO_ID-VIDEO_ID.html`
+- guid: merged digest ID built from the latest video IDs
+- pubDate: digest processing time
 - description and `content:encoded`: HTML digest
 - categories: `YouTube Digest`, `Finance`, `Stock Market`, and source status
 
-The digest is structured for scanning in an RSS reader. It includes an overall summary plus grouped bullet sections for individual stocks, indices, sectors, and macro themes mentioned in the video. The original YouTube URL is kept inside the digest body, but it is no longer the RSS item's primary link, so readers should open the text digest page first.
+The digest is structured for scanning in an RSS reader. It includes one overall summary plus merged bullet sections for individual stocks, indices, sectors, and macro themes mentioned by either channel. If both creators discuss the same stock or sector, their views are shown in the same section rather than as two separate items. Original YouTube URLs are kept inside the digest body, but they are not the RSS item's primary link, so readers should open the text digest page first.
 
 ## Caption and ASR Limitations
 

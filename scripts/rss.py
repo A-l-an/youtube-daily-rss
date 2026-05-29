@@ -89,6 +89,44 @@ def item_page_url(config: Dict[str, Any], digest: Dict[str, Any]) -> str:
     return urljoin(site_url, relative_path) if site_url else relative_path
 
 
+def _display_title(digest: Dict[str, Any]) -> str:
+    title = digest.get("title") or "Untitled digest"
+    if digest.get("item_type") == "daily_digest":
+        return str(title)
+    return f"[{digest.get('channel_name')}] {title}"
+
+
+def _sources_label(digest: Dict[str, Any]) -> str:
+    source_videos = digest.get("source_videos")
+    if isinstance(source_videos, list) and source_videos:
+        labels = [str(video.get("channel_name") or "未知频道") for video in source_videos if isinstance(video, dict)]
+        return " + ".join(dict.fromkeys(labels))
+    return str(digest.get("channel_name") or "")
+
+
+def _source_actions_html(digest: Dict[str, Any]) -> str:
+    links: List[str] = []
+    source_videos = digest.get("source_videos")
+    if isinstance(source_videos, list):
+        for video in source_videos:
+            if not isinstance(video, dict):
+                continue
+            url = video.get("url")
+            if not url:
+                continue
+            label = video.get("channel_name") or video.get("title") or "原视频"
+            links.append(
+                f'<a class="button" href="{_escape(url)}" rel="noopener noreferrer">'
+                f'打开{_escape(label)}原视频</a>'
+            )
+
+    if not links and digest.get("url"):
+        links.append(
+            f'<a class="button" href="{_escape(digest.get("url"))}" rel="noopener noreferrer">打开原视频</a>'
+        )
+    return "\n        ".join(links)
+
+
 def _page_styles() -> str:
     return """
     :root {
@@ -183,12 +221,12 @@ def _page_styles() -> str:
 
 
 def _render_item_page(config: Dict[str, Any], digest: Dict[str, Any]) -> str:
-    title = f"[{digest.get('channel_name')}] {digest.get('title')}"
+    title = _display_title(digest)
     feed_url = _feed_url(config)
-    original_url = digest.get("url") or ""
     source_status = digest.get("source_status") or "link-only"
     summary_status = digest.get("summary_status") or "unknown"
     summary_html = digest.get("summary_html") or "<p>No digest is available for this item.</p>"
+    source_actions = _source_actions_html(digest)
 
     alternate = ""
     if feed_url:
@@ -217,7 +255,7 @@ def _render_item_page(config: Dict[str, Any], digest: Dict[str, Any]) -> str:
         <span class="pill">摘要状态：{_escape(summary_status)}</span>
       </div>
       <div class="actions">
-        <a class="button" href="{_escape(original_url)}" rel="noopener noreferrer">打开原视频</a>
+        {source_actions}
         <a class="button" href="{_escape(feed_url)}">RSS feed</a>
       </div>
     </header>
@@ -242,8 +280,8 @@ def _render_index_page(config: Dict[str, Any], items: List[Dict[str, Any]]) -> s
     for digest in sorted(items, key=_sort_key, reverse=True):
         rows.append(
             "<li>"
-            f"<a href=\"{_escape(item_page_url(config, digest))}\">{_escape(digest.get('title'))}</a>"
-            f"<br><small>{_escape(digest.get('channel_name'))} · {_escape(digest.get('published') or '')} · "
+            f"<a href=\"{_escape(item_page_url(config, digest))}\">{_escape(_display_title(digest))}</a>"
+            f"<br><small>{_escape(_sources_label(digest))} · {_escape(digest.get('published') or '')} · "
             f"{_escape(digest.get('source_status') or 'link-only')}</small>"
             "</li>"
         )
@@ -318,10 +356,10 @@ def build_rss(config: Dict[str, Any], items: List[Dict[str, Any]]) -> ET.Element
 
     for digest in sorted(items, key=_sort_key, reverse=True):
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = f"[{digest.get('channel_name')}] {digest.get('title')}"
+        ET.SubElement(item, "title").text = _display_title(digest)
         ET.SubElement(item, "link").text = item_page_url(config, digest)
         guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
-        guid.text = digest.get("video_id")
+        guid.text = digest.get("guid") or digest.get("digest_id") or digest.get("video_id")
         ET.SubElement(item, "pubDate").text = _rss_date(digest.get("published") or digest.get("processed_at"))
         ET.SubElement(item, "description").text = digest.get("summary_html", "")
         ET.SubElement(item, f"{{{CONTENT_NS}}}encoded").text = digest.get("summary_html", "")

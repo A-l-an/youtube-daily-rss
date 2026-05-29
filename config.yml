@@ -31,6 +31,6 @@ summary:
 
 rss:
   title: "Daily YouTube Finance Digest"
-  description: "Daily summaries of 视野环球财经 and NaNa说美股"
+  description: "Daily merged summaries of 视野环球财经 and NaNa说美股"
   link: "https://a-l-an.github.io/youtube-daily-rss/feed.xml"
   output_path: "public/feed.xml"

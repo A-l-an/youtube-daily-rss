@@ -5,7 +5,8 @@ import json
 import logging
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
+from zoneinfo import ZoneInfo
 
 import yaml
 from dotenv import load_dotenv
@@ -13,7 +14,7 @@ from dotenv import load_dotenv
 from asr import ASRResult, transcribe_video
 from fetch_youtube import Video, fetch_latest_video
 from rss import write_rss
-from summarize import SummaryResult, render_link_only_digest, summarize_transcript
+from summarize import SummaryResult, summarize_daily_digest
 from transcript import TranscriptResult, get_transcript
 
 
@@ -49,16 +50,37 @@ def load_config() -> Dict[str, Any]:
 def ensure_state_shape(state: Dict[str, Any]) -> Dict[str, Any]:
     state.setdefault("last_run_at", None)
     state.setdefault("processed_videos", {})
+    state.setdefault("daily_digests", {})
     return state
 
 
 def ensure_summaries_shape(summaries: Dict[str, Any]) -> Dict[str, Any]:
-    summaries.setdefault("items", [])
+    items = summaries.setdefault("items", [])
+    legacy_items = summaries.setdefault("legacy_video_items", [])
+    daily_items: List[Dict[str, Any]] = []
+    legacy_ids = {item.get("video_id") for item in legacy_items}
+
+    for item in items:
+        video_id = str(item.get("video_id") or "")
+        if item.get("item_type") == "daily_digest" or item.get("digest_id") or video_id.startswith("daily-"):
+            item["item_type"] = "daily_digest"
+            daily_items.append(item)
+            continue
+        if item.get("video_id") not in legacy_ids:
+            legacy_items.append(item)
+            legacy_ids.add(item.get("video_id"))
+
+    summaries["items"] = daily_items
     return summaries
 
 
-def upsert_summary(summaries: Dict[str, Any], item: Dict[str, Any]) -> None:
-    existing = [old for old in summaries.get("items", []) if old.get("video_id") != item.get("video_id")]
+def upsert_daily_summary(summaries: Dict[str, Any], item: Dict[str, Any]) -> None:
+    digest_id = item.get("digest_id") or item.get("video_id")
+    existing = [
+        old
+        for old in summaries.get("items", [])
+        if (old.get("digest_id") or old.get("video_id")) != digest_id
+    ]
     existing.append(item)
     summaries["items"] = existing
 
@@ -79,13 +101,43 @@ def content_source(source_status: str) -> str:
     return "metadata only"
 
 
-def process_video(
+def local_date_label(config: Dict[str, Any]) -> str:
+    timezone_name = config.get("timezone", "Asia/Shanghai")
+    try:
+        tzinfo = ZoneInfo(timezone_name)
+    except Exception:
+        tzinfo = timezone.utc
+    return datetime.now(timezone.utc).astimezone(tzinfo).strftime("%Y-%m-%d")
+
+
+def daily_digest_id(videos: List[Video]) -> str:
+    video_ids = [video.video_id for video in videos if video.video_id]
+    return "daily-" + "-".join(video_ids) if video_ids else "daily-empty"
+
+
+def has_daily_summary(summaries: Dict[str, Any], digest_id: str) -> bool:
+    return any((item.get("digest_id") or item.get("video_id")) == digest_id for item in summaries.get("items", []))
+
+
+def combined_source_status(records: List[Dict[str, Any]]) -> str:
+    statuses = sorted({str(record.get("source_status") or "link-only") for record in records})
+    if not statuses:
+        return "link-only"
+    if len(statuses) == 1:
+        return statuses[0]
+    return "mixed"
+
+
+def combined_content_source(records: List[Dict[str, Any]]) -> str:
+    sources = sorted({str(record.get("content_source") or "metadata only") for record in records})
+    return " + ".join(sources) if sources else "metadata only"
+
+
+def collect_video_content(
     video: Video,
     config: Dict[str, Any],
-    state: Dict[str, Any],
-    summaries: Dict[str, Any],
     dry_run: bool,
-) -> Optional[Dict[str, Any]]:
+) -> Dict[str, Any]:
     video_dict = video.to_dict()
     logging.info("[%s] detected latest video: %s (%s)", video.channel_name, video.title, video.video_id)
 
@@ -118,30 +170,11 @@ def process_video(
     if dry_run:
         preview = text[:1200].replace("\n", " ") if text else "(no transcript text available)"
         logging.info("[%s] dry-run source_status=%s; text preview: %s", video.channel_name, source_status, preview)
-        return None
 
-    if text:
-        summary_result = summarize_transcript(video_dict, text, content_source(source_status), config.get("summary", {}))
-    else:
-        summary_result = SummaryResult(status="link_only", summary_html=render_link_only_digest(video_dict))
-
-    logging.info(
-        "[%s] summary status=%s model=%s error=%s",
-        video.channel_name,
-        summary_result.status,
-        getattr(summary_result, "model", None),
-        getattr(summary_result, "error_message", None),
-    )
-
-    processed_at = utc_now_iso()
-    item = {
+    return {
         **video_dict,
-        "processed_at": processed_at,
         "source_status": source_status,
         "content_source": content_source(source_status),
-        "summary_status": summary_result.status,
-        "summary_model": getattr(summary_result, "model", None),
-        "summary_error": getattr(summary_result, "error_message", None),
         "transcript_status": transcript_result.status,
         "transcript_language": transcript_result.language,
         "transcript_source": transcript_result.source,
@@ -149,89 +182,208 @@ def process_video(
         "asr_status": asr_result.status,
         "asr_model": asr_result.model,
         "asr_error": asr_result.error_message,
+        "text": text,
+    }
+
+
+def failed_video_record(video: Video, exc: Exception) -> Dict[str, Any]:
+    video_dict = video.to_dict()
+    message = str(exc)
+    return {
+        **video_dict,
+        "source_status": "link-only",
+        "content_source": "metadata only",
+        "transcript_status": "failed",
+        "transcript_language": None,
+        "transcript_source": "unknown",
+        "transcript_error": message,
+        "asr_status": "failed",
+        "asr_model": None,
+        "asr_error": message,
+        "text": "",
+    }
+
+
+def source_video_snapshot(record: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        key: value
+        for key, value in record.items()
+        if key
+        in {
+            "channel_name",
+            "channel_id",
+            "handle",
+            "video_id",
+            "title",
+            "url",
+            "published",
+            "source_status",
+            "content_source",
+            "transcript_status",
+            "transcript_language",
+            "transcript_source",
+            "transcript_error",
+            "asr_status",
+            "asr_model",
+            "asr_error",
+        }
+    }
+
+
+def build_daily_item(
+    digest_id: str,
+    records: List[Dict[str, Any]],
+    summary_result: SummaryResult,
+    config: Dict[str, Any],
+) -> Dict[str, Any]:
+    processed_at = utc_now_iso()
+    summary_data = getattr(summary_result, "summary_data", None) or {}
+    title = summary_data.get("title") or f"{local_date_label(config)} 美股视频融合摘要"
+    source_videos = [source_video_snapshot(record) for record in records]
+
+    return {
+        "item_type": "daily_digest",
+        "digest_id": digest_id,
+        "video_id": digest_id,
+        "source_video_ids": [record.get("video_id") for record in records],
+        "channel_name": "视野环球财经 + NaNa说美股",
+        "title": title,
+        "url": "",
+        "published": processed_at,
+        "processed_at": processed_at,
+        "source_status": combined_source_status(records),
+        "content_source": combined_content_source(records),
+        "summary_status": summary_result.status,
+        "summary_model": getattr(summary_result, "model", None),
+        "summary_error": getattr(summary_result, "error_message", None),
+        "summary_data": summary_data or None,
+        "source_videos": source_videos,
         "summary_html": summary_result.summary_html,
     }
 
-    upsert_summary(summaries, item)
-    state["processed_videos"][video.video_id] = {
-        "channel_name": video.channel_name,
-        "channel_id": video.channel_id,
-        "title": video.title,
-        "url": video.url,
-        "published": video.published,
+
+def mark_state_processed(
+    state: Dict[str, Any],
+    digest_id: str,
+    records: List[Dict[str, Any]],
+    summary_result: SummaryResult,
+    processed_at: str,
+) -> None:
+    for record in records:
+        video_id = record.get("video_id")
+        if not video_id:
+            continue
+        state["processed_videos"][video_id] = {
+            "channel_name": record.get("channel_name"),
+            "channel_id": record.get("channel_id"),
+            "title": record.get("title"),
+            "url": record.get("url"),
+            "published": record.get("published"),
+            "processed_at": processed_at,
+            "daily_digest_id": digest_id,
+            "transcript_status": record.get("transcript_status"),
+            "transcript_language": record.get("transcript_language"),
+            "transcript_source": record.get("transcript_source"),
+            "asr_status": record.get("asr_status"),
+            "summary_status": summary_result.status,
+            "source_status": record.get("source_status"),
+        }
+
+    state["daily_digests"][digest_id] = {
         "processed_at": processed_at,
-        "transcript_status": transcript_result.status,
-        "transcript_language": transcript_result.language,
-        "transcript_source": transcript_result.source,
-        "asr_status": asr_result.status,
+        "source_video_ids": [record.get("video_id") for record in records],
         "summary_status": summary_result.status,
-        "source_status": source_status,
+        "summary_model": getattr(summary_result, "model", None),
+        "source_status": combined_source_status(records),
     }
-    logging.info("[%s] RSS item prepared source_status=%s", video.channel_name, source_status)
-    return item
 
 
 def run(args: argparse.Namespace) -> int:
     load_dotenv(ROOT / ".env")
     config = load_config()
-    state = ensure_state_shape(load_json(STATE_PATH, {"last_run_at": None, "processed_videos": {}}))
+    state = ensure_state_shape(load_json(STATE_PATH, {"last_run_at": None, "processed_videos": {}, "daily_digests": {}}))
     summaries = ensure_summaries_shape(load_json(SUMMARIES_PATH, {"items": []}))
 
-    processed_count = 0
+    latest_videos: List[Video] = []
     for channel in config.get("channels", []):
         try:
             video = fetch_latest_video(channel)
+            latest_videos.append(video)
         except Exception as exc:
             logging.exception("[%s] failed to fetch latest video: %s", channel.get("name", "unknown"), exc)
             continue
 
-        already_processed = video.video_id in state.get("processed_videos", {})
-        if already_processed and not args.force:
-            logging.info("[%s] skip already processed video: %s", video.channel_name, video.video_id)
-            continue
+    if not latest_videos:
+        logging.error("No latest videos were fetched; RSS will be regenerated from existing daily summaries only")
+        if not args.dry_run:
+            feed_path = write_rss(config, summaries.get("items", []), ROOT)
+            logging.info("RSS feed regenerated from existing items: %s", feed_path)
+        return 1
 
-        try:
-            item = process_video(video, config, state, summaries, dry_run=args.dry_run)
-            if item is not None:
-                processed_count += 1
-        except Exception as exc:
-            logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
-            if not args.dry_run:
-                video_dict = video.to_dict()
-                processed_at = utc_now_iso()
-                item = {
-                    **video_dict,
-                    "processed_at": processed_at,
-                    "source_status": "link-only",
-                    "content_source": "metadata only",
-                    "summary_status": "failed",
-                    "summary_error": str(exc),
-                    "summary_html": render_link_only_digest(video_dict, f"Processing failed: {exc}. The original video link is provided."),
-                }
-                upsert_summary(summaries, item)
-                state["processed_videos"][video.video_id] = {
-                    "channel_name": video.channel_name,
-                    "channel_id": video.channel_id,
-                    "title": video.title,
-                    "url": video.url,
-                    "published": video.published,
-                    "processed_at": processed_at,
-                    "transcript_status": "failed",
-                    "asr_status": "failed",
-                    "summary_status": "failed",
-                    "source_status": "link-only",
-                }
-                processed_count += 1
+    digest_id = daily_digest_id(latest_videos)
+    daily_exists = has_daily_summary(summaries, digest_id)
+    new_video_ids = [
+        video.video_id
+        for video in latest_videos
+        if video.video_id not in state.get("processed_videos", {})
+    ]
+    should_process = args.dry_run or args.force or not daily_exists or bool(new_video_ids)
 
-    if args.dry_run:
-        logging.info("dry-run complete; no files were modified")
+    logging.info(
+        "latest daily digest candidate=%s videos=%s daily_exists=%s new_video_ids=%s",
+        digest_id,
+        ", ".join(video.video_id for video in latest_videos),
+        daily_exists,
+        ", ".join(new_video_ids) or "none",
+    )
+
+    if not should_process:
+        logging.info("skip daily digest; latest video set already has a merged RSS item")
+        state["last_run_at"] = utc_now_iso()
+        save_json(STATE_PATH, state)
+        save_json(SUMMARIES_PATH, summaries)
+        feed_path = write_rss(config, summaries.get("items", []), ROOT)
+        logging.info("RSS feed generated: %s (0 new/updated daily item)", feed_path)
         return 0
 
-    state["last_run_at"] = utc_now_iso()
+    records: List[Dict[str, Any]] = []
+    for video in latest_videos:
+        try:
+            records.append(collect_video_content(video, config, dry_run=args.dry_run))
+        except Exception as exc:
+            logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
+            records.append(failed_video_record(video, exc))
+
+    if args.dry_run:
+        source_status = combined_source_status(records)
+        available_text = sum(1 for record in records if str(record.get("text") or "").strip())
+        logging.info(
+            "dry-run complete; would generate one merged daily digest %s source_status=%s text_sources=%d/%d; no files were modified",
+            digest_id,
+            source_status,
+            available_text,
+            len(records),
+        )
+        return 0
+
+    summary_result = summarize_daily_digest(records, config.get("summary", {}))
+    logging.info(
+        "[daily] summary status=%s model=%s error=%s",
+        summary_result.status,
+        getattr(summary_result, "model", None),
+        getattr(summary_result, "error_message", None),
+    )
+
+    daily_item = build_daily_item(digest_id, records, summary_result, config)
+    upsert_daily_summary(summaries, daily_item)
+    mark_state_processed(state, digest_id, records, summary_result, daily_item["processed_at"])
+    logging.info("[daily] RSS item prepared digest_id=%s source_status=%s", digest_id, daily_item["source_status"])
+
+    state["last_run_at"] = daily_item["processed_at"]
     save_json(STATE_PATH, state)
     save_json(SUMMARIES_PATH, summaries)
     feed_path = write_rss(config, summaries.get("items", []), ROOT)
-    logging.info("RSS feed generated: %s (%d new/updated item(s))", feed_path, processed_count)
+    logging.info("RSS feed generated: %s (1 new/updated daily item)", feed_path)
     return 0
 
 
