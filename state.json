@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-05-31T06:13:04.594449+00:00",
+  "last_run_at": "2026-06-01T06:50:03.098463+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -37,8 +37,8 @@
       "title": "美股 IGV软件爆发，还涨吗？能追吗？软件重点个股点位！MSFT、PLTR、ORCL、IBM等！尾盘走势，今天不算！",
       "url": "https://www.youtube.com/watch?v=9j0I-CW-Zys",
       "published": "2026-05-30T01:30:42+00:00",
-      "processed_at": "2026-05-30T05:43:48.262100+00:00",
-      "daily_digest_id": "daily-9j0I-CW-Zys-YtNDgxL5Yco",
+      "processed_at": "2026-06-01T06:50:03.098463+00:00",
+      "daily_digest_id": "daily-9j0I-CW-Zys",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -78,6 +78,15 @@
       "source_video_ids": [
         "9j0I-CW-Zys",
         "YtNDgxL5Yco"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-9j0I-CW-Zys": {
+      "processed_at": "2026-06-01T06:50:03.098463+00:00",
+      "source_video_ids": [
+        "9j0I-CW-Zys"
       ],
       "summary_status": "link_only",
       "summary_model": null,
