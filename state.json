@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-04T13:44:05.391186+00:00",
+  "last_run_at": "2026-06-04T14:00:58.383439+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -67,14 +67,14 @@
       "title": "美股 NFLX八连跌！ISRG、TSLA！AMZN、NVDA、MSFT到站！AVGO前瞻失误！CRWD高估回吐！",
       "url": "https://www.youtube.com/watch?v=s9eZ3_5v2tA",
       "published": "2026-06-04T01:36:11+00:00",
-      "processed_at": "2026-06-04T13:44:05.391186+00:00",
+      "processed_at": "2026-06-04T14:00:58.383439+00:00",
       "daily_digest_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "failed",
+      "asr_status": "success",
       "summary_status": "success",
-      "source_status": "link-only"
+      "source_status": "ASR"
     },
     "63aBg1GrUlQ": {
       "channel_name": "NaNa说美股",
@@ -82,7 +82,7 @@
       "title": "要带崩整个市场了吗？！NaNa说美股(2026.06.03)",
       "url": "https://www.youtube.com/watch?v=63aBg1GrUlQ",
       "published": "2026-06-03T22:19:33+00:00",
-      "processed_at": "2026-06-04T13:44:05.391186+00:00",
+      "processed_at": "2026-06-04T14:00:58.383439+00:00",
       "daily_digest_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
@@ -123,7 +123,7 @@
       "source_status": "link-only"
     },
     "daily-s9eZ3_5v2tA-63aBg1GrUlQ": {
-      "processed_at": "2026-06-04T13:44:05.391186+00:00",
+      "processed_at": "2026-06-04T14:00:58.383439+00:00",
       "source_video_ids": [
         "s9eZ3_5v2tA",
         "63aBg1GrUlQ"
