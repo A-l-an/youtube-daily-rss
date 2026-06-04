@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-04T11:48:07.260395+00:00",
+  "last_run_at": "2026-06-04T11:49:52.940122+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -67,13 +67,13 @@
       "title": "美股 NFLX八连跌！ISRG、TSLA！AMZN、NVDA、MSFT到站！AVGO前瞻失误！CRWD高估回吐！",
       "url": "https://www.youtube.com/watch?v=s9eZ3_5v2tA",
       "published": "2026-06-04T01:36:11+00:00",
-      "processed_at": "2026-06-04T11:48:07.260395+00:00",
+      "processed_at": "2026-06-04T11:49:52.940122+00:00",
       "daily_digest_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
-      "transcript_status": "failed",
+      "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "failed",
-      "summary_status": "link_only",
+      "asr_status": "skipped",
+      "summary_status": "failed",
       "source_status": "link-only"
     },
     "63aBg1GrUlQ": {
@@ -82,14 +82,14 @@
       "title": "要带崩整个市场了吗？！NaNa说美股(2026.06.03)",
       "url": "https://www.youtube.com/watch?v=63aBg1GrUlQ",
       "published": "2026-06-03T22:19:33+00:00",
-      "processed_at": "2026-06-04T11:48:07.260395+00:00",
+      "processed_at": "2026-06-04T11:49:52.940122+00:00",
       "daily_digest_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
-      "transcript_status": "failed",
-      "transcript_language": null,
-      "transcript_source": "unknown",
-      "asr_status": "failed",
-      "summary_status": "link_only",
-      "source_status": "link-only"
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -123,14 +123,14 @@
       "source_status": "link-only"
     },
     "daily-s9eZ3_5v2tA-63aBg1GrUlQ": {
-      "processed_at": "2026-06-04T11:48:07.260395+00:00",
+      "processed_at": "2026-06-04T11:49:52.940122+00:00",
       "source_video_ids": [
         "s9eZ3_5v2tA",
         "63aBg1GrUlQ"
       ],
-      "summary_status": "link_only",
-      "summary_model": null,
-      "source_status": "link-only"
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }

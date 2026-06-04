@@ -5,6 +5,12 @@ on:
     # 10:00 Asia/Shanghai / Taipei is 02:00 UTC.
     - cron: "0 2 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Reprocess latest videos even if the daily item already exists"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -50,7 +56,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
             python scripts/main.py --force
           else
             python scripts/main.py
