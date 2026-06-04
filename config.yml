@@ -12,6 +12,10 @@ channels:
 transcript:
   preferred_languages: ["zh-Hans", "zh", "zh-CN", "en"]
   allow_auto_captions: true
+  yt_dlp_fallback:
+    enabled: true
+    subtitle_format: "vtt"
+    sleep_interval_seconds: 2
 
 asr:
   enabled: true

@@ -56,7 +56,9 @@ The cron expression is:
 0 2 * * *
 ```
 
-The workflow also supports manual `workflow_dispatch`.
+The workflow also supports manual `workflow_dispatch`. Manual runs default to reusing the latest existing daily item; set `force=true` only when you intentionally want to reprocess the latest videos.
+
+The scheduled workflow is designed for a macOS self-hosted runner, not a GitHub-hosted cloud runner. This avoids common YouTube blocking against cloud provider IP ranges.
 
 ## Configuration
 
@@ -79,11 +81,12 @@ Processing order:
 1. Fetch the latest video from each channel Atom feed.
 2. Skip only when the current pair of latest videos already has a merged `daily_digest` item.
 3. For each video, try captions with `youtube-transcript-api`.
-4. If captions fail and this is not a dry run, try optional ASR through the HKUST-GZ OpenAI-compatible speech endpoint.
-5. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
-6. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
-7. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
-8. Write `state.json`, `summaries.json`, and `public/feed.xml`.
+4. If captions fail, try public subtitles and auto captions through `yt-dlp`, preferring manual subtitles before auto captions.
+5. If captions still fail and this is not a dry run, try optional ASR through the HKUST-GZ OpenAI-compatible speech endpoint.
+6. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
+7. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
+8. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
+9. Write `state.json`, `summaries.json`, and `public/feed.xml`.
 
 RSS items include:
 
@@ -98,7 +101,7 @@ The digest is structured for scanning in an RSS reader. It includes one overall 
 
 ## Caption and ASR Limitations
 
-Caption extraction depends on public YouTube transcript availability. Some videos have no captions, blocked captions, incomplete auto captions, or language tracks that do not match the configured preferences.
+Caption extraction depends on public YouTube transcript availability. Some videos have no captions, blocked captions, incomplete auto captions, or language tracks that do not match the configured preferences. The pipeline tries both `youtube-transcript-api` and `yt-dlp` subtitle extraction before falling back to audio ASR.
 
 ASR is optional and only runs when:
 
@@ -113,14 +116,18 @@ If direct YouTube audio extraction fails or is not appropriate, ASR is skipped o
 ## GitHub Pages Deployment
 
 1. Push this project to a GitHub repository.
-2. In repository settings, add the secret `HKUST_GZ_API_KEY`.
-3. Optionally add repository variables:
+2. Register a macOS self-hosted runner for the repository.
+   - Required labels: `self-hosted`, `macOS`, `youtube-rss`
+   - Keep the Mac awake, online, and able to access YouTube at the scheduled time.
+   - Install `ffmpeg` and ensure `python` is available on the runner service PATH.
+3. In repository settings, add the secret `HKUST_GZ_API_KEY`.
+4. Optionally add repository variables:
    - `HKUST_GZ_BASE_URL`: `https://gpt-api.hkust-gz.edu.cn/v1`
    - `SUMMARY_MODEL`: `DeepSeek-V4-Pro`
    - `ASR_MODEL`: `whisper-1`
-4. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
-5. Run **Daily YouTube RSS Digest** manually once from the Actions tab.
-6. Subscribe to:
+5. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
+6. Run **Daily YouTube RSS Digest** manually once from the Actions tab.
+7. Subscribe to:
 
 ```text
 https://a-l-an.github.io/youtube-daily-rss/feed.xml
