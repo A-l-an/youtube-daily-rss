@@ -22,7 +22,21 @@ class ASRResult:
         return asdict(self)
 
 
-def _download_audio(video_url: str, output_dir: Path) -> Path:
+def _audio_candidates(output_dir: Path) -> List[Path]:
+    ignored_suffixes = {".part", ".ytdl", ".json"}
+    return [
+        path
+        for path in sorted(output_dir.glob("audio.*"))
+        if path.is_file() and path.suffix.lower() not in ignored_suffixes
+    ]
+
+
+def _download_audio(
+    video_url: str,
+    output_dir: Path,
+    attempts: int = 3,
+    sleep_seconds: float = 5,
+) -> Path:
     import yt_dlp
 
     outtmpl = str(output_dir / "audio.%(ext)s")
@@ -30,8 +44,15 @@ def _download_audio(video_url: str, output_dir: Path) -> Path:
         "format": "bestaudio/best",
         "outtmpl": outtmpl,
         "quiet": True,
+        "noprogress": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"player_client": ["android"]}},
+        "continuedl": True,
+        "retries": 10,
+        "fragment_retries": 10,
+        "extractor_retries": 3,
+        "file_access_retries": 3,
+        "socket_timeout": 30,
+        "extractor_args": {"youtube": {"player_client": ["android", "mweb", "web"]}},
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
@@ -40,13 +61,30 @@ def _download_audio(video_url: str, output_dir: Path) -> Path:
             }
         ],
     }
-    with yt_dlp.YoutubeDL(options) as ydl:
-        ydl.download([video_url])
+    last_error: Optional[Exception] = None
+    max_attempts = max(1, attempts)
+    for attempt in range(1, max_attempts + 1):
+        try:
+            with yt_dlp.YoutubeDL(options) as ydl:
+                ydl.download([video_url])
+        except Exception as exc:
+            last_error = exc
+            candidates = _audio_candidates(output_dir)
+            if candidates:
+                return candidates[0]
+            if attempt < max_attempts:
+                time.sleep(sleep_seconds * attempt)
+            continue
 
-    candidates = sorted(output_dir.glob("audio.*"))
-    if not candidates:
-        raise RuntimeError("yt-dlp did not produce an audio file")
-    return candidates[0]
+        candidates = _audio_candidates(output_dir)
+        if candidates:
+            return candidates[0]
+        last_error = RuntimeError("yt-dlp did not produce an audio file")
+        if attempt < max_attempts:
+            time.sleep(sleep_seconds * attempt)
+
+    message = str(last_error) if last_error else "yt-dlp did not produce an audio file"
+    raise RuntimeError(f"yt-dlp audio download failed after {max_attempts} attempt(s): {message}")
 
 
 def _chunk_audio(audio_path: Path, output_dir: Path, chunk_seconds: int) -> List[Path]:
@@ -143,7 +181,12 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
         client = make_openai_compatible_client(credentials)
         with tempfile.TemporaryDirectory(prefix="youtube-rss-asr-") as tmp:
             tmpdir = Path(tmp)
-            audio_path = _download_audio(video_url, tmpdir)
+            audio_path = _download_audio(
+                video_url,
+                tmpdir,
+                attempts=int(asr_config.get("download_attempts", 3)),
+                sleep_seconds=float(asr_config.get("download_sleep_seconds", 5)),
+            )
             chunk_paths = _chunk_audio(
                 audio_path,
                 tmpdir,

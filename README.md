@@ -119,7 +119,7 @@ If direct YouTube audio extraction fails or is not appropriate, ASR is skipped o
 2. Register a macOS self-hosted runner for the repository.
    - Required labels: `self-hosted`, `macOS`, `youtube-rss`
    - Keep the Mac awake, online, and able to access YouTube at the scheduled time.
-   - Install `ffmpeg` and ensure `python` is available on the runner service PATH.
+   - Install `ffmpeg` and GNU tar (`brew install gnu-tar`) and ensure `python`, `ffmpeg`, and `gtar` are available on the runner service PATH.
 3. In repository settings, add the secret `HKUST_GZ_API_KEY`.
 4. Optionally add repository variables:
    - `HKUST_GZ_BASE_URL`: `https://gpt-api.hkust-gz.edu.cn/v1`

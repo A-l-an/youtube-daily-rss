@@ -23,6 +23,8 @@ asr:
   model: "whisper-1"
   language_candidates: ["zh", "en"]
   chunk_seconds: 300
+  download_attempts: 3
+  download_sleep_seconds: 5
   allow_youtube_audio_download: true
 
 summary:

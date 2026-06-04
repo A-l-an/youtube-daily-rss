@@ -36,6 +36,7 @@ jobs:
         run: |
           python --version
           ffmpeg -version
+          gtar --version
           test -w "$GITHUB_WORKSPACE"
           curl -fsSL --max-time 20 "https://www.youtube.com/feeds/videos.xml?channel_id=UCFQsi7WaF5X41tcuOryDk8w" >/dev/null
 
