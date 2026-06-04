@@ -314,11 +314,8 @@ def run(args: argparse.Namespace) -> int:
             continue
 
     if not latest_videos:
-        logging.error("No latest videos were fetched; RSS will be regenerated from existing daily summaries only")
-        if not args.dry_run:
-            feed_path = write_rss(config, summaries.get("items", []), ROOT)
-            logging.info("RSS feed regenerated from existing items: %s", feed_path)
-        return 1
+        logging.error("No latest videos were fetched; keeping existing RSS, summaries, and state unchanged")
+        return 0
 
     digest_id = daily_digest_id(latest_videos)
     daily_exists = has_daily_summary(summaries, digest_id)

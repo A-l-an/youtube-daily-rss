@@ -297,7 +297,7 @@ def summarize_transcript(
     except Exception as exc:
         html_text = render_link_only_digest(
             video,
-            f"LLM summary was unavailable because AI credentials are not configured: {exc}. The original video link is provided.",
+            "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
         return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))
@@ -409,7 +409,7 @@ def summarize_daily_digest(
     except Exception as exc:
         html_text = render_daily_link_only_digest(
             videos_for_render,
-            f"LLM summary was unavailable because AI credentials are not configured: {exc}. The original video links are provided.",
+            "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
         return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))

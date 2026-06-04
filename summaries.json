@@ -697,6 +697,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=9j0I-CW-Zys\">美股 IGV软件爆发，还涨吗？能追吗？软件重点个股点位！MSFT、PLTR、ORCL、IBM等！尾盘走势，今天不算！</a><br><small>2026-05-30T01:30:42+00:00 · 内容来源：metadata only</small></li></ul><p>Transcript and ASR were unavailable, so only the original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
+      "video_id": "daily-s9eZ3_5v2tA-63aBg1GrUlQ",
+      "source_video_ids": [
+        "s9eZ3_5v2tA",
+        "63aBg1GrUlQ"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-06-04 美股视频融合摘要",
+      "url": "",
+      "published": "2026-06-04T11:43:50.420246+00:00",
+      "processed_at": "2026-06-04T11:43:50.420246+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Missing HKUST_GZ_API_KEY",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "s9eZ3_5v2tA",
+          "title": "美股 NFLX八连跌！ISRG、TSLA！AMZN、NVDA、MSFT到站！AVGO前瞻失误！CRWD高估回吐！",
+          "url": "https://www.youtube.com/watch?v=s9eZ3_5v2tA",
+          "published": "2026-06-04T01:36:11+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=s9eZ3_5v2tA! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!",
+          "asr_status": "skipped",
+          "asr_model": "whisper-1",
+          "asr_error": "Missing HKUST_GZ_API_KEY"
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "63aBg1GrUlQ",
+          "title": "要带崩整个市场了吗？！NaNa说美股(2026.06.03)",
+          "url": "https://www.youtube.com/watch?v=63aBg1GrUlQ",
+          "published": "2026-06-03T22:19:33+00:00",
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=s9eZ3_5v2tA\">美股 NFLX八连跌！ISRG、TSLA！AMZN、NVDA、MSFT到站！AVGO前瞻失误！CRWD高估回吐！</a><br><small>2026-06-04T01:36:11+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=63aBg1GrUlQ\">要带崩整个市场了吗？！NaNa说美股(2026.06.03)</a><br><small>2026-06-03T22:19:33+00:00 · 内容来源：YouTube captions</small></li></ul><p>模型摘要暂不可用，已保留原视频链接。</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [

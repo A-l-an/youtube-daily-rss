@@ -38,6 +38,9 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
 
+      - name: Run tests
+        run: python -m unittest discover -s tests
+
       - name: Generate feed
         env:
           HKUST_GZ_API_KEY: ${{ secrets.HKUST_GZ_API_KEY }}
