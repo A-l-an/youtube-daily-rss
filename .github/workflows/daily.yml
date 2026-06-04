@@ -49,7 +49,12 @@ jobs:
           ASR_MODEL: ${{ vars.ASR_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: python scripts/main.py
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python scripts/main.py --force
+          else
+            python scripts/main.py
+          fi
 
       - name: Commit generated state and feed
         run: |
