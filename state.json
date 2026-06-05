@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-04T14:00:58.383439+00:00",
+  "last_run_at": "2026-06-05T06:26:22.697009+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -90,6 +90,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "XhVljidKI9E": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 标普拒绝SPCX快速纳入！SOXX、SMH大动静，位置更新！投行上调UNH，注意接近目标！",
+      "url": "https://www.youtube.com/watch?v=XhVljidKI9E",
+      "published": "2026-06-05T01:44:45+00:00",
+      "processed_at": "2026-06-05T06:26:22.697009+00:00",
+      "daily_digest_id": "daily-XhVljidKI9E-ZXUv1zNPHNA",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "ZXUv1zNPHNA": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "空费半吓出屎来！NaNa说美股(2026.06.04)",
+      "url": "https://www.youtube.com/watch?v=ZXUv1zNPHNA",
+      "published": "2026-06-04T22:18:24+00:00",
+      "processed_at": "2026-06-05T06:26:22.697009+00:00",
+      "daily_digest_id": "daily-XhVljidKI9E-ZXUv1zNPHNA",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -127,6 +157,16 @@
       "source_video_ids": [
         "s9eZ3_5v2tA",
         "63aBg1GrUlQ"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-XhVljidKI9E-ZXUv1zNPHNA": {
+      "processed_at": "2026-06-05T06:26:22.697009+00:00",
+      "source_video_ids": [
+        "XhVljidKI9E",
+        "ZXUv1zNPHNA"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
