@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-05T06:26:22.697009+00:00",
+  "last_run_at": "2026-06-06T05:56:19.072301+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -120,6 +120,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "2c2dLCaCjzQ": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 三个推手，引半导体暴跌！后市看法！ SOXX、SMH、META、MSFT、TSLA等！",
+      "url": "https://www.youtube.com/watch?v=2c2dLCaCjzQ",
+      "published": "2026-06-06T01:54:55+00:00",
+      "processed_at": "2026-06-06T05:56:19.072301+00:00",
+      "daily_digest_id": "daily-2c2dLCaCjzQ-k3-RLwkJKpI",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "k3-RLwkJKpI": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "上车了，上的救护车！NaNa说美股(2026.06.05)",
+      "url": "https://www.youtube.com/watch?v=k3-RLwkJKpI",
+      "published": "2026-06-05T22:34:02+00:00",
+      "processed_at": "2026-06-06T05:56:19.072301+00:00",
+      "daily_digest_id": "daily-2c2dLCaCjzQ-k3-RLwkJKpI",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -170,6 +200,16 @@
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-2c2dLCaCjzQ-k3-RLwkJKpI": {
+      "processed_at": "2026-06-06T05:56:19.072301+00:00",
+      "source_video_ids": [
+        "2c2dLCaCjzQ",
+        "k3-RLwkJKpI"
+      ],
+      "summary_status": "success",
+      "summary_model": "gpt-3.5-turbo",
       "source_status": "mixed"
     }
   }
