@@ -38,7 +38,6 @@ jobs:
           ffmpeg -version
           gtar --version
           test -w "$GITHUB_WORKSPACE"
-          curl -fsSL --max-time 20 "https://www.youtube.com/feeds/videos.xml?channel_id=UCFQsi7WaF5X41tcuOryDk8w" >/dev/null
 
       - name: Install Python dependencies
         run: |
@@ -46,6 +45,9 @@ jobs:
           python -m venv .venv-ci
           .venv-ci/bin/python -m pip install --upgrade pip
           .venv-ci/bin/python -m pip install -r requirements.txt
+
+      - name: Preflight YouTube RSS feeds
+        run: .venv-ci/bin/python scripts/preflight_youtube_feeds.py
 
       - name: Run tests
         run: .venv-ci/bin/python -m unittest discover -s tests
