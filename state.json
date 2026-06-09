@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-08T06:52:52.316429+00:00",
+  "last_run_at": "2026-06-09T06:11:59.367656+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -150,6 +150,21 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "_HFLokoMO6o": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "仁勋欧巴喊你抄底！NaNa说美股(2026.06.08)",
+      "url": "https://www.youtube.com/watch?v=_HFLokoMO6o",
+      "published": "2026-06-08T22:19:21+00:00",
+      "processed_at": "2026-06-09T06:11:59.367656+00:00",
+      "daily_digest_id": "daily-_HFLokoMO6o",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -211,6 +226,15 @@
       "summary_status": "success",
       "summary_model": "gpt-3.5-turbo",
       "source_status": "mixed"
+    },
+    "daily-_HFLokoMO6o": {
+      "processed_at": "2026-06-09T06:11:59.367656+00:00",
+      "source_video_ids": [
+        "_HFLokoMO6o"
+      ],
+      "summary_status": "success",
+      "summary_model": "gpt-3.5-turbo",
+      "source_status": "captions"
     }
   }
 }
