@@ -12,6 +12,20 @@ from fetch_youtube import Video, fetch_latest_video
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config.yml"
+TRANSIENT_FETCH_MARKERS = (
+    "request_error=",
+    "SSLEOFError",
+    "EOF occurred in violation of protocol",
+    "ReadTimeout",
+    "ConnectTimeout",
+    "ConnectionError",
+    "Connection aborted",
+    "Connection reset",
+    "RemoteDisconnected",
+    "ProxyError",
+    "NameResolutionError",
+    "Temporary failure in name resolution",
+)
 
 
 def load_config(path: Path) -> Dict[str, Any]:
@@ -39,7 +53,11 @@ def check_channels(channels: Iterable[Dict[str, Any]]) -> Tuple[List[Video], Lis
     return successes, failures
 
 
-def run(config_path: Path, min_success: int) -> int:
+def is_transient_fetch_error(message: str) -> bool:
+    return any(marker in message for marker in TRANSIENT_FETCH_MARKERS)
+
+
+def run(config_path: Path, min_success: int, allow_transient_outage: bool = False) -> int:
     config = load_config(config_path)
     channels = config.get("channels") or []
     if not channels:
@@ -48,14 +66,26 @@ def run(config_path: Path, min_success: int) -> int:
 
     successes, failures = check_channels(channels)
     if len(successes) < min_success:
-        logging.error(
-            "YouTube RSS preflight failed: %d/%d channel feed(s) reachable; need at least %d",
+        transient_outage = (
+            allow_transient_outage
+            and bool(failures)
+            and all(is_transient_fetch_error(message) for _, message in failures)
+        )
+        log = logging.warning if transient_outage else logging.error
+        log(
+            "YouTube RSS preflight %s: %d/%d channel feed(s) reachable; need at least %d",
+            "warning" if transient_outage else "failed",
             len(successes),
             len(channels),
             min_success,
         )
         for label, message in failures:
-            logging.error("[preflight] %s error: %s", label, message)
+            log("[preflight] %s error: %s", label, message)
+        if transient_outage:
+            logging.warning(
+                "Continuing because every failed feed looked like a transient network/proxy outage"
+            )
+            return 0
         return 1
 
     if failures:
@@ -73,6 +103,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate configured YouTube Atom feeds")
     parser.add_argument("--config", type=Path, default=CONFIG_PATH, help="Path to config.yml")
     parser.add_argument("--min-success", type=int, default=1, help="Minimum reachable channel feeds required")
+    parser.add_argument(
+        "--allow-transient-outage",
+        action="store_true",
+        help="Warn instead of failing when every unreachable feed failed with a transient network/proxy error",
+    )
     parser.add_argument("--log-level", default="INFO", help="Python logging level")
     return parser.parse_args()
 
@@ -83,7 +118,7 @@ def main() -> int:
         level=getattr(logging, args.log_level.upper(), logging.INFO),
         format="%(asctime)s %(levelname)s %(message)s",
     )
-    return run(args.config, args.min_success)
+    return run(args.config, args.min_success, allow_transient_outage=args.allow_transient_outage)
 
 
 if __name__ == "__main__":

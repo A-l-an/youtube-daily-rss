@@ -47,7 +47,7 @@ jobs:
           .venv-ci/bin/python -m pip install -r requirements.txt
 
       - name: Preflight YouTube RSS feeds
-        run: .venv-ci/bin/python scripts/preflight_youtube_feeds.py
+        run: .venv-ci/bin/python scripts/preflight_youtube_feeds.py --allow-transient-outage
 
       - name: Run tests
         run: .venv-ci/bin/python -m unittest discover -s tests

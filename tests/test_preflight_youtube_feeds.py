@@ -55,6 +55,47 @@ class PreflightYouTubeFeedsTests(unittest.TestCase):
         ):
             self.assertEqual(preflight_youtube_feeds.run(Path("config.yml"), min_success=1), 1)
 
+    def test_run_allows_transient_network_outage_when_enabled(self) -> None:
+        config = {
+            "channels": [
+                {"name": "Proxy Flake 1", "channel_id": "UCflake1"},
+                {"name": "Proxy Flake 2", "channel_id": "UCflake2"},
+            ]
+        }
+        error = (
+            "Failed to fetch latest YouTube feed: attempt 3: "
+            "request_error=HTTPSConnectionPool(host='www.youtube.com'): SSLEOFError"
+        )
+
+        with (
+            patch.object(preflight_youtube_feeds, "load_config", return_value=config),
+            patch.object(preflight_youtube_feeds, "fetch_latest_video", side_effect=RuntimeError(error)),
+        ):
+            self.assertEqual(
+                preflight_youtube_feeds.run(
+                    Path("config.yml"),
+                    min_success=1,
+                    allow_transient_outage=True,
+                ),
+                0,
+            )
+
+    def test_run_still_fails_for_non_transient_outage_when_enabled(self) -> None:
+        config = {"channels": [{"name": "Broken", "channel_id": "UCbroken"}]}
+
+        with (
+            patch.object(preflight_youtube_feeds, "load_config", return_value=config),
+            patch.object(preflight_youtube_feeds, "fetch_latest_video", side_effect=RuntimeError("HTTP 404")),
+        ):
+            self.assertEqual(
+                preflight_youtube_feeds.run(
+                    Path("config.yml"),
+                    min_success=1,
+                    allow_transient_outage=True,
+                ),
+                1,
+            )
+
     def test_run_passes_when_one_configured_feed_is_reachable(self) -> None:
         config = {
             "channels": [
