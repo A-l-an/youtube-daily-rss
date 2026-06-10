@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-09T06:11:59.367656+00:00",
+  "last_run_at": "2026-06-10T17:11:35.222105+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -165,6 +165,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "3NTCCjzOzuQ": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 多空胜负未付！SOXX剩2天自救！IGV区间震荡更新！AMD、ORCL、PLTR！担心MSFT的如何保护？",
+      "url": "https://www.youtube.com/watch?v=3NTCCjzOzuQ",
+      "published": "2026-06-10T01:46:29+00:00",
+      "processed_at": "2026-06-10T17:11:35.222105+00:00",
+      "daily_digest_id": "daily-3NTCCjzOzuQ-vPlfo0eNd58",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "vPlfo0eNd58": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "纳斯达克不套人！NaNa说美股(2026.06.09)",
+      "url": "https://www.youtube.com/watch?v=vPlfo0eNd58",
+      "published": "2026-06-09T22:26:41+00:00",
+      "processed_at": "2026-06-10T17:11:35.222105+00:00",
+      "daily_digest_id": "daily-3NTCCjzOzuQ-vPlfo0eNd58",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -235,6 +265,16 @@
       "summary_status": "success",
       "summary_model": "gpt-3.5-turbo",
       "source_status": "captions"
+    },
+    "daily-3NTCCjzOzuQ-vPlfo0eNd58": {
+      "processed_at": "2026-06-10T17:11:35.222105+00:00",
+      "source_video_ids": [
+        "3NTCCjzOzuQ",
+        "vPlfo0eNd58"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
