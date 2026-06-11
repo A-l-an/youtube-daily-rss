@@ -80,6 +80,87 @@ class PreflightYouTubeFeedsTests(unittest.TestCase):
                 0,
             )
 
+    def test_run_allows_server_error_outage_when_enabled(self) -> None:
+        config = {
+            "channels": [
+                {"name": "Server Error 1", "channel_id": "UCerr1"},
+                {"name": "Server Error 2", "channel_id": "UCerr2"},
+            ]
+        }
+        error = (
+            "Failed to fetch latest YouTube feed for UCerr1: attempt 3: "
+            "HTTP 500; content-type=text/html; charset=UTF-8"
+        )
+
+        with (
+            patch.object(preflight_youtube_feeds, "load_config", return_value=config),
+            patch.object(preflight_youtube_feeds, "fetch_latest_video", side_effect=RuntimeError(error)),
+        ):
+            self.assertEqual(
+                preflight_youtube_feeds.run(
+                    Path("config.yml"),
+                    min_success=1,
+                    allow_transient_outage=True,
+                ),
+                0,
+            )
+
+    def test_run_allows_404_corroborated_by_transient_failure_when_enabled(self) -> None:
+        config = {
+            "channels": [
+                {"name": "Server Error", "channel_id": "UCerr"},
+                {"name": "Phantom 404", "channel_id": "UCgone"},
+            ]
+        }
+        errors = {
+            "UCerr": (
+                "Failed to fetch latest YouTube feed for UCerr: attempt 3: "
+                "HTTP 500; content-type=text/html; charset=UTF-8"
+            ),
+            "UCgone": (
+                "Failed to fetch latest YouTube feed for UCgone: attempt 3: "
+                "HTTP 404; content-type=text/html; charset=UTF-8"
+            ),
+        }
+
+        def fetch(channel):
+            raise RuntimeError(errors[channel["channel_id"]])
+
+        with (
+            patch.object(preflight_youtube_feeds, "load_config", return_value=config),
+            patch.object(preflight_youtube_feeds, "fetch_latest_video", side_effect=fetch),
+        ):
+            self.assertEqual(
+                preflight_youtube_feeds.run(
+                    Path("config.yml"),
+                    min_success=1,
+                    allow_transient_outage=True,
+                ),
+                0,
+            )
+
+    def test_run_still_fails_when_every_failure_is_404_when_enabled(self) -> None:
+        config = {
+            "channels": [
+                {"name": "Gone 1", "channel_id": "UCgone1"},
+                {"name": "Gone 2", "channel_id": "UCgone2"},
+            ]
+        }
+        error = "Failed to fetch latest YouTube feed: attempt 3: HTTP 404; content-type=text/html"
+
+        with (
+            patch.object(preflight_youtube_feeds, "load_config", return_value=config),
+            patch.object(preflight_youtube_feeds, "fetch_latest_video", side_effect=RuntimeError(error)),
+        ):
+            self.assertEqual(
+                preflight_youtube_feeds.run(
+                    Path("config.yml"),
+                    min_success=1,
+                    allow_transient_outage=True,
+                ),
+                1,
+            )
+
     def test_run_still_fails_for_non_transient_outage_when_enabled(self) -> None:
         config = {"channels": [{"name": "Broken", "channel_id": "UCbroken"}]}
 
