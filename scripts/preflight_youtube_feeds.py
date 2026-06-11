@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
@@ -26,6 +27,12 @@ TRANSIENT_FETCH_MARKERS = (
     "NameResolutionError",
     "Temporary failure in name resolution",
 )
+TRANSIENT_HTTP_STATUS_RE = re.compile(r"\bHTTP (?:5\d\d|429)\b")
+# YouTube has been observed returning generic Google 404 error pages for valid
+# channel feeds during outages, so a 404 alone cannot be trusted as proof the
+# channel is gone. It is honored as transient only when another channel in the
+# same run failed with an unambiguous transient error.
+AMBIGUOUS_HTTP_STATUS_RE = re.compile(r"\bHTTP 404\b")
 
 
 def load_config(path: Path) -> Dict[str, Any]:
@@ -54,7 +61,24 @@ def check_channels(channels: Iterable[Dict[str, Any]]) -> Tuple[List[Video], Lis
 
 
 def is_transient_fetch_error(message: str) -> bool:
-    return any(marker in message for marker in TRANSIENT_FETCH_MARKERS)
+    if any(marker in message for marker in TRANSIENT_FETCH_MARKERS):
+        return True
+    return bool(TRANSIENT_HTTP_STATUS_RE.search(message))
+
+
+def is_ambiguous_fetch_error(message: str) -> bool:
+    return bool(AMBIGUOUS_HTTP_STATUS_RE.search(message))
+
+
+def is_transient_outage(failures: List[Tuple[str, str]]) -> bool:
+    if not failures:
+        return False
+    if not any(is_transient_fetch_error(message) for _, message in failures):
+        return False
+    return all(
+        is_transient_fetch_error(message) or is_ambiguous_fetch_error(message)
+        for _, message in failures
+    )
 
 
 def run(config_path: Path, min_success: int, allow_transient_outage: bool = False) -> int:
@@ -66,11 +90,7 @@ def run(config_path: Path, min_success: int, allow_transient_outage: bool = Fals
 
     successes, failures = check_channels(channels)
     if len(successes) < min_success:
-        transient_outage = (
-            allow_transient_outage
-            and bool(failures)
-            and all(is_transient_fetch_error(message) for _, message in failures)
-        )
+        transient_outage = allow_transient_outage and is_transient_outage(failures)
         log = logging.warning if transient_outage else logging.error
         log(
             "YouTube RSS preflight %s: %d/%d channel feed(s) reachable; need at least %d",
@@ -83,7 +103,8 @@ def run(config_path: Path, min_success: int, allow_transient_outage: bool = Fals
             log("[preflight] %s error: %s", label, message)
         if transient_outage:
             logging.warning(
-                "Continuing because every failed feed looked like a transient network/proxy outage"
+                "Continuing because every failed feed looked like a transient outage "
+                "(network/proxy error, HTTP 5xx/429, or HTTP 404 corroborated by another transient failure)"
             )
             return 0
         return 1
