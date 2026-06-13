@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-11T13:10:42.117235+00:00",
+  "last_run_at": "2026-06-13T06:24:31.827530+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -225,6 +225,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "gOJ_XkhYuKw": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 SPCX后续几个重要时间点！纳指100调整，ALAB、CRWV、NBIS、RKLB、TER！对冲基金猛打方向盘！",
+      "url": "https://www.youtube.com/watch?v=gOJ_XkhYuKw",
+      "published": "2026-06-13T01:39:48+00:00",
+      "processed_at": "2026-06-13T06:24:31.827530+00:00",
+      "daily_digest_id": "daily-gOJ_XkhYuKw-e6gZp1BHIa4",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "e6gZp1BHIa4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "全美梭哈！NaNa说美股(2026.06.12)",
+      "url": "https://www.youtube.com/watch?v=e6gZp1BHIa4",
+      "published": "2026-06-12T23:19:23+00:00",
+      "processed_at": "2026-06-13T06:24:31.827530+00:00",
+      "daily_digest_id": "daily-gOJ_XkhYuKw-e6gZp1BHIa4",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -311,6 +341,16 @@
       "source_video_ids": [
         "Rh11N0XAgEc",
         "WPX61Ipg5QI"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-gOJ_XkhYuKw-e6gZp1BHIa4": {
+      "processed_at": "2026-06-13T06:24:31.827530+00:00",
+      "source_video_ids": [
+        "gOJ_XkhYuKw",
+        "e6gZp1BHIa4"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
