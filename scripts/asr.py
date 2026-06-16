@@ -61,6 +61,14 @@ def _download_audio(
             }
         ],
     }
+    try:
+        import ytdlp_opts
+
+        ytdlp_opts.merge_into(options, audio=True)
+    except Exception as exc:  # never let access-hardening break the legacy path
+        import logging
+
+        logging.warning("ytdlp_opts.merge_into (audio) skipped: %s", exc)
     last_error: Optional[Exception] = None
     max_attempts = max(1, attempts)
     for attempt in range(1, max_attempts + 1):

@@ -1,4 +1,7 @@
 feedparser>=6.0.11
+# curl_cffi powers yt-dlp's --impersonate (browser-TLS) to pass YouTube's bot gate.
+# Requires a non-anaconda Python venv (anaconda's OpenSSL clashes with its BoringSSL).
+curl_cffi>=0.7.0
 httpx[socks]>=0.28.1
 openai>=1.70.0
 pydub>=0.25.1

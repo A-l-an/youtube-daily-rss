@@ -139,8 +139,19 @@ def _download_yt_dlp_subtitle(
         "quiet": True,
         "no_warnings": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"player_client": ["android", "mweb", "web"]}},
+        # NB: do NOT force player_client here. With cookies, "android" is skipped
+        # (no cookie support) and "mweb" needs a GVS PO token; yt-dlp's default
+        # clients + the EJS JS-challenge solver retrieve captions correctly.
+        # Override only via YTDLP_SUBTITLE_CLIENTS if ever needed.
     }
+    try:
+        import ytdlp_opts
+
+        ytdlp_opts.merge_into(options, audio=False)
+    except Exception as exc:  # never let access-hardening break the legacy path
+        import logging
+
+        logging.warning("ytdlp_opts.merge_into (subtitle) skipped: %s", exc)
     with yt_dlp.YoutubeDL(options) as ydl:
         ydl.download([f"https://www.youtube.com/watch?v={video_id}"])
 

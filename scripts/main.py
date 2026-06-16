@@ -301,6 +301,12 @@ def mark_state_processed(
 def run(args: argparse.Namespace) -> int:
     load_dotenv(ROOT / ".env")
     config = load_config()
+    try:
+        import ytdlp_opts
+
+        ytdlp_opts.bootstrap_env_from_config(config)
+    except Exception as exc:
+        logging.warning("youtube_access env bootstrap skipped: %s", exc)
     state = ensure_state_shape(load_json(STATE_PATH, {"last_run_at": None, "processed_videos": {}, "daily_digests": {}}))
     summaries = ensure_summaries_shape(load_json(SUMMARIES_PATH, {"items": []}))
 

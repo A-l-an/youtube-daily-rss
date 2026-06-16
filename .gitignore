@@ -6,3 +6,6 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 tmp/
+# Never commit YouTube session cookies (the real file lives under ~/.config).
+*cookies*.txt
+cookies/

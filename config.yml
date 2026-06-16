@@ -9,6 +9,21 @@ channels:
     channel_id: "UCFhJ8ZFg9W4kLwFTBBNIjOw"
     handle: "@NaNaShuoMeiGu"
 
+# How yt-dlp gets past YouTube's bot gate. All values are overridable by env vars
+# (YTDLP_COOKIES, YT_IMPERSONATE, YTDLP_AUDIO_CLIENTS, YTDLP_SUBTITLE_CLIENTS,
+# YTDLP_POT_BASE_URL); env always wins. See docs/INCIDENT-2026-06-16-*.md.
+youtube_access:
+  # Netscape cookies.txt exported from a logged-in YouTube session.
+  # Keep this file OUT of git. Refresh it when channels start going link-only again.
+  cookies_file: "~/.config/youtube-daily-rss/youtube-cookies.txt"
+  # curl_cffi browser-TLS target; set to "none" to disable impersonation.
+  impersonate: "chrome-131"
+  # Optional player-client overrides (leave commented to keep code defaults):
+  # audio_player_clients: ["android", "mweb", "web"]
+  # subtitle_player_clients: ["android", "mweb", "web"]
+  # Optional bgutil PO-token provider (HTTP mode) for SABR-gated audio:
+  # pot_base_url: "http://127.0.0.1:4416"
+
 transcript:
   preferred_languages: ["zh-Hans", "zh", "zh-CN", "en"]
   allow_auto_captions: true

@@ -34,17 +34,32 @@ jobs:
 
       - name: Preflight local runner
         run: |
-          python --version
-          ffmpeg -version
-          gtar --version
+          # Put Homebrew + Deno on PATH for all later steps (yt-dlp needs a JS runtime).
+          echo "/opt/homebrew/bin" >> "$GITHUB_PATH"
+          echo "$HOME/.deno/bin" >> "$GITHUB_PATH"
+          ffmpeg -version | head -1 || /opt/homebrew/bin/ffmpeg -version | head -1
+          gtar --version | head -1
           test -w "$GITHUB_WORKSPACE"
+          # Deno is required by modern yt-dlp; install on demand if missing.
+          /opt/homebrew/bin/deno --version >/dev/null 2>&1 || /opt/homebrew/bin/brew install deno
+          /opt/homebrew/bin/deno --version | head -1
 
       - name: Install Python dependencies
         run: |
+          # curl_cffi (yt-dlp --impersonate) needs a non-anaconda Python: anaconda's
+          # OpenSSL clashes with curl_cffi's BoringSSL ("invalid library"). Pick the
+          # newest clean interpreter available, falling back to the system one.
+          PYTHON_BIN=""
+          for cand in /opt/homebrew/bin/python3.13 /opt/homebrew/bin/python3.12 \
+                      /opt/homebrew/bin/python3.11 /usr/bin/python3; do
+            if [ -x "$cand" ]; then PYTHON_BIN="$cand"; break; fi
+          done
+          echo "Using PYTHON_BIN=$PYTHON_BIN ($($PYTHON_BIN --version 2>&1))"
           rm -rf .venv-ci
-          python -m venv .venv-ci
+          "$PYTHON_BIN" -m venv .venv-ci
           .venv-ci/bin/python -m pip install --upgrade pip
           .venv-ci/bin/python -m pip install -r requirements.txt
+          .venv-ci/bin/python -c "import curl_cffi, yt_dlp; print('curl_cffi', curl_cffi.__version__, '| yt-dlp', yt_dlp.version.__version__)"
 
       - name: Preflight YouTube RSS feeds
         run: .venv-ci/bin/python scripts/preflight_youtube_feeds.py --allow-transient-outage
