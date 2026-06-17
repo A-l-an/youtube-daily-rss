@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, Optional
 
@@ -81,10 +82,73 @@ def _fetch_and_parse_feed(feed_url: str, channel_id: str):
     raise RuntimeError(f"Failed to fetch latest YouTube feed for {channel_id}: {last_error}")
 
 
+def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Exception) -> Video:
+    """Discovery fallback for when YouTube's Atom feed endpoint is down/404.
+
+    Lists the channel's newest upload via yt-dlp (channel /videos tab), reusing the
+    cookies + impersonate + EJS hardening from ytdlp_opts. The /feeds/videos.xml
+    endpoint has been observed returning Google 404 pages site-wide while the
+    channel page itself stays reachable.
+    """
+    channel_id = channel["channel_id"]
+    url = f"https://www.youtube.com/channel/{channel_id}/videos"
+    options: Dict[str, Any] = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "extract_flat": "in_playlist",
+        "playlistend": 1,
+    }
+    try:
+        import ytdlp_opts
+
+        ytdlp_opts.merge_into(options, audio=False)
+    except Exception as exc:  # hardening is best-effort
+        logging.warning("ytdlp_opts.merge_into (discovery) skipped: %s", exc)
+
+    try:
+        import yt_dlp
+
+        with yt_dlp.YoutubeDL(options) as ydl:
+            info = ydl.extract_info(url, download=False)
+    except Exception as ytdlp_exc:
+        raise RuntimeError(
+            f"Failed to fetch latest video for {channel_id}: "
+            f"Atom feed error [{feed_exc}]; yt-dlp fallback error [{ytdlp_exc}]"
+        ) from ytdlp_exc
+
+    entries = [e for e in ((info or {}).get("entries") or []) if e and e.get("id")]
+    if not entries:
+        raise RuntimeError(
+            f"Failed to fetch latest video for {channel_id}: "
+            f"Atom feed error [{feed_exc}]; yt-dlp fallback returned no videos"
+        )
+
+    entry = entries[0]
+    video_id = entry["id"]
+    return Video(
+        channel_name=channel.get("name", channel_id),
+        channel_id=channel_id,
+        handle=channel.get("handle", ""),
+        video_id=video_id,
+        title=entry.get("title") or f"YouTube video {video_id}",
+        url=entry.get("url") or entry.get("webpage_url") or f"https://www.youtube.com/watch?v={video_id}",
+        published=None,
+    )
+
+
 def fetch_latest_video(channel: Dict[str, Any]) -> Video:
     channel_id = channel["channel_id"]
     feed_url = YOUTUBE_FEED_URL.format(channel_id=channel_id)
-    parsed = _fetch_and_parse_feed(feed_url, channel_id)
+    try:
+        parsed = _fetch_and_parse_feed(feed_url, channel_id)
+    except Exception as feed_exc:
+        logging.warning(
+            "[%s] Atom feed unavailable (%s); falling back to yt-dlp channel discovery",
+            channel.get("name", channel_id),
+            feed_exc,
+        )
+        return _fetch_latest_via_ytdlp(channel, feed_exc)
 
     entry = parsed.entries[0]
     video_id = getattr(entry, "yt_videoid", None)

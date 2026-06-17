@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 import sys
 import unittest
 from unittest.mock import patch
@@ -69,7 +70,33 @@ class FetchYouTubeTests(unittest.TestCase):
         self.assertEqual(video.video_id, "abc123")
         self.assertEqual(get_mock.call_count, 2)
 
-    def test_fetch_latest_video_raises_with_response_diagnostic(self) -> None:
+    def test_fetch_latest_video_falls_back_to_ytdlp_when_feed_down(self) -> None:
+        # YouTube's Atom endpoint has returned site-wide 404s; discovery must survive it.
+        channel = {"name": "Example", "channel_id": "UCexample", "handle": "@ex"}
+        notfound = FakeResponse(b"<html>404</html>", status_code=404, content_type="text/html")
+
+        class FakeYDL:
+            def __init__(self, options):
+                pass
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+            def extract_info(self, url, download=False):
+                return {"entries": [{"id": "xy789", "title": "Newest", "url": "https://www.youtube.com/watch?v=xy789"}]}
+
+        with patch.object(fetch_youtube.requests, "get", return_value=notfound), \
+                patch.dict(sys.modules, {"yt_dlp": SimpleNamespace(YoutubeDL=FakeYDL)}):
+            video = fetch_youtube.fetch_latest_video(channel)
+
+        self.assertEqual(video.video_id, "xy789")
+        self.assertEqual(video.title, "Newest")
+        self.assertEqual(video.channel_name, "Example")
+
+    def test_fetch_latest_video_raises_when_feed_and_ytdlp_both_fail(self) -> None:
         channel = {"name": "Example", "channel_id": "UCexample"}
         blocked = FakeResponse(
             b"<html><body>Service unavailable from upstream</body></html>",
@@ -77,7 +104,21 @@ class FetchYouTubeTests(unittest.TestCase):
             content_type="text/html",
         )
 
-        with patch.object(fetch_youtube.requests, "get", return_value=blocked) as get_mock:
+        class FakeYDL:
+            def __init__(self, options):
+                pass
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+            def extract_info(self, url, download=False):
+                raise RuntimeError("ytdlp boom")
+
+        with patch.object(fetch_youtube.requests, "get", return_value=blocked) as get_mock, \
+                patch.dict(sys.modules, {"yt_dlp": SimpleNamespace(YoutubeDL=FakeYDL)}):
             with self.assertRaisesRegex(RuntimeError, "HTTP 503") as raised:
                 fetch_youtube.fetch_latest_video(channel)
 
@@ -85,6 +126,7 @@ class FetchYouTubeTests(unittest.TestCase):
         message = str(raised.exception)
         self.assertIn("content-type=text/html", message)
         self.assertIn("body_preview=", message)
+        self.assertIn("yt-dlp fallback error", message)
 
 
 if __name__ == "__main__":

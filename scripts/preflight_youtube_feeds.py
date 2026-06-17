@@ -83,6 +83,12 @@ def is_transient_outage(failures: List[Tuple[str, str]]) -> bool:
 
 def run(config_path: Path, min_success: int, allow_transient_outage: bool = False) -> int:
     config = load_config(config_path)
+    try:
+        import ytdlp_opts
+
+        ytdlp_opts.bootstrap_env_from_config(config)
+    except Exception as exc:
+        logging.warning("youtube_access env bootstrap skipped: %s", exc)
     channels = config.get("channels") or []
     if not channels:
         logging.error("YouTube RSS preflight failed: no channels configured in %s", config_path)
