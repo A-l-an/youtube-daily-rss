@@ -152,4 +152,49 @@ cookies/impersonate/Deno are missing, behavior is no worse than today's link-onl
 - **Runner schedule drift:** cron is 02:00 UTC (10:00 CST) but today's run fired at 07:21 UTC
   (15:21 CST) — the Mac/runner was asleep/offline until then. Unrelated to this incident, but
   worth fixing separately (keep the runner awake, or move to a hosted runner) so the digest is
-  punctual.
+  punctual. → **Addressed 2026-06-17, see §8.**
+
+---
+
+## 8. Follow-up 2026-06-17 — RSS-feed outage + reliable scheduling
+
+Two more failure modes surfaced the next day (this automation fails intermittently because it
+has *several* independent single points of failure; each is now hardened):
+
+### 8a. Discovery broke — YouTube's RSS feed endpoint 404s site-wide
+`https://www.youtube.com/feeds/videos.xml?channel_id=...` started returning **HTTP 404** (generic
+Google error page) for **every** channel — confirmed even on MrBeast — while
+`https://www.youtube.com/channel/<id>/videos` returned 200. Both the preflight and `fetch_youtube`
+discovered videos *only* through that feed, so the preflight aborted the whole job (`0/2 reachable`)
+and nothing was pushed.
+
+Fix (commit `4d9aa74`): `fetch_youtube.fetch_latest_video` now falls back to **yt-dlp channel
+discovery** (`--flat-playlist --playlist-end 1` on the channel `/videos` tab, reusing the
+cookies+impersonate+EJS hardening) whenever the Atom feed fails. One change covers preflight +
+main run. Verified live: RSS 404 → yt-dlp found `N4My1EBsdU0` (视野环球财经) and `H1EsclCDeuI`
+(NaNa); digest published. The lesson + the `youtube_fetch_pipeline.py` script fix are recorded in
+the `media-to-text` skill (troubleshooting table + `discover_channel`).
+
+### 8b. Scheduling — GitHub cron is unreliable; trigger locally instead
+GitHub's scheduled-cron dispatch is best-effort: the "daily" runs landed 06:11–07:21 UTC
+(≈14–15 CST) instead of the configured 02:00 UTC (10:00 CST), and on 06-17 never dispatched at all.
+
+Fix: a macOS **launchd agent** triggers the workflow at exactly 10:00 local, bypassing GitHub cron:
+- `scripts/trigger_daily.sh` → installed (executable) at `~/.config/youtube-daily-rss/trigger_daily.sh`
+  and run by `~/Library/LaunchAgents/com.alan.youtube-daily-rss.plist` (`StartCalendarInterval`
+  10:00). It just calls `gh workflow run daily.yml` (workflow_dispatch → dispatched in seconds →
+  runs on the self-hosted runner on this same Mac). Full pipeline unchanged; GitHub `schedule:`
+  stays as a backup.
+- **TCC gotcha:** a launchd agent gets `Operation not permitted` executing a script under
+  `~/Documents` (TCC-protected). Keep the executed copy in `~/.config` (not protected).
+- **Caveat:** `StartCalendarInterval` fires at 10:00 if the Mac is awake, else on next wake. For
+  guaranteed on-time runs even when asleep: `sudo pmset repeat wakeorpoweron MTWRFSU 09:58:00`.
+  Manage: `launchctl bootout/bootstrap gui/$(id -u) <plist>`; logs in `~/.config/youtube-daily-rss/`.
+
+### Reliability checklist (when "it worked yesterday, failed today")
+1. **link-only / no analysis** → bot gate or expired cookies → `bash scripts/refresh_cookies.sh` (§5).
+2. **job fails at preflight, feeds 404** → RSS outage → yt-dlp discovery fallback handles it (§8a);
+   if it still fails, YouTube changed something — check `media-to-text` troubleshooting.
+3. **no run at all that day** → GitHub cron skipped it → the launchd trigger (§8b) covers this; check
+   `~/.config/youtube-daily-rss/launchd-trigger.log`.
+4. **audio/SABR 403** → ensure Deno + `--remote-components ejs:github` present (§5).
