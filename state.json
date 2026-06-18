@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-17T07:04:14.087014+00:00",
+  "last_run_at": "2026-06-18T02:08:10.361186+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -291,9 +291,9 @@
       "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
       "title": "美股 你不买，我不买，都看戏！SPCX吸血，期权看点！SOXX大跌更新，MSFT取消ORCL租用协议！",
       "url": "https://www.youtube.com/watch?v=N4My1EBsdU0",
-      "published": null,
-      "processed_at": "2026-06-17T06:22:52.653740+00:00",
-      "daily_digest_id": "daily-N4My1EBsdU0-H1EsclCDeuI",
+      "published": "2026-06-17T01:26:27+00:00",
+      "processed_at": "2026-06-18T02:08:10.361186+00:00",
+      "daily_digest_id": "daily-N4My1EBsdU0-qj5z706O6J4",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -309,6 +309,21 @@
       "published": null,
       "processed_at": "2026-06-17T06:22:52.653740+00:00",
       "daily_digest_id": "daily-N4My1EBsdU0-H1EsclCDeuI",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
+    },
+    "qj5z706O6J4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "全鹰了！这还咋整？NaNa说美股(2026.06.17)",
+      "url": "https://www.youtube.com/watch?v=qj5z706O6J4",
+      "published": "2026-06-17T21:50:42+00:00",
+      "processed_at": "2026-06-18T02:08:10.361186+00:00",
+      "daily_digest_id": "daily-N4My1EBsdU0-qj5z706O6J4",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "yt_dlp_manual_subtitle",
@@ -431,6 +446,16 @@
       "source_video_ids": [
         "N4My1EBsdU0",
         "H1EsclCDeuI"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-N4My1EBsdU0-qj5z706O6J4": {
+      "processed_at": "2026-06-18T02:08:10.361186+00:00",
+      "source_video_ids": [
+        "N4My1EBsdU0",
+        "qj5z706O6J4"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
