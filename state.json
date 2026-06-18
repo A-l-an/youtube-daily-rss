@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-18T02:08:10.361186+00:00",
+  "last_run_at": "2026-06-18T07:00:22.851645+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -321,15 +321,30 @@
       "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
       "title": "全鹰了！这还咋整？NaNa说美股(2026.06.17)",
       "url": "https://www.youtube.com/watch?v=qj5z706O6J4",
-      "published": "2026-06-17T21:50:42+00:00",
-      "processed_at": "2026-06-18T02:08:10.361186+00:00",
-      "daily_digest_id": "daily-N4My1EBsdU0-qj5z706O6J4",
+      "published": null,
+      "processed_at": "2026-06-18T07:00:22.851645+00:00",
+      "daily_digest_id": "daily-8j_ryWAcTWE-qj5z706O6J4",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "yt_dlp_manual_subtitle",
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "8j_ryWAcTWE": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 新鹰派美联储，撤回指引不预判！NFLX、ISRG还建吗？SPCX新赌场，明天上线！",
+      "url": "https://www.youtube.com/watch?v=8j_ryWAcTWE",
+      "published": null,
+      "processed_at": "2026-06-18T07:00:22.851645+00:00",
+      "daily_digest_id": "daily-8j_ryWAcTWE-qj5z706O6J4",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
     }
   },
   "daily_digests": {
@@ -455,6 +470,16 @@
       "processed_at": "2026-06-18T02:08:10.361186+00:00",
       "source_video_ids": [
         "N4My1EBsdU0",
+        "qj5z706O6J4"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-8j_ryWAcTWE-qj5z706O6J4": {
+      "processed_at": "2026-06-18T07:00:22.851645+00:00",
+      "source_video_ids": [
+        "8j_ryWAcTWE",
         "qj5z706O6J4"
       ],
       "summary_status": "success",
