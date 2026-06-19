@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-18T07:00:22.851645+00:00",
+  "last_run_at": "2026-06-19T02:08:52.621955+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -345,6 +345,36 @@
       "asr_status": "success",
       "summary_status": "success",
       "source_status": "ASR"
+    },
+    "SAmPvlm_JQg": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 小点声：AI行业正在拐弯！Token使用，服务器租赁价格大跌！未来两周，酱油且混乱，和基本面无关！SPCX发债，筹码交换！",
+      "url": "https://www.youtube.com/watch?v=SAmPvlm_JQg",
+      "published": "2026-06-19T01:44:05+00:00",
+      "processed_at": "2026-06-19T02:08:52.621955+00:00",
+      "daily_digest_id": "daily-SAmPvlm_JQg-xpjv4m-CRXs",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "xpjv4m-CRXs": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "变脸比翻书还快！NaNa说美股(2026.06.18)",
+      "url": "https://www.youtube.com/watch?v=xpjv4m-CRXs",
+      "published": "2026-06-18T21:29:12+00:00",
+      "processed_at": "2026-06-19T02:08:52.621955+00:00",
+      "daily_digest_id": "daily-SAmPvlm_JQg-xpjv4m-CRXs",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -481,6 +511,16 @@
       "source_video_ids": [
         "8j_ryWAcTWE",
         "qj5z706O6J4"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-SAmPvlm_JQg-xpjv4m-CRXs": {
+      "processed_at": "2026-06-19T02:08:52.621955+00:00",
+      "source_video_ids": [
+        "SAmPvlm_JQg",
+        "xpjv4m-CRXs"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
