@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-22T07:16:23.297012+00:00",
+  "last_run_at": "2026-06-23T02:36:40.550711+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -375,6 +375,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "iWGjM9UPErc": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 四大科技凉了吗？GOOG、AMZN、MSFT、META！行政令推量子加速IBM！6月跌7月涨？",
+      "url": "https://www.youtube.com/watch?v=iWGjM9UPErc",
+      "published": "2026-06-23T01:37:13+00:00",
+      "processed_at": "2026-06-23T02:36:40.550711+00:00",
+      "daily_digest_id": "daily-iWGjM9UPErc-wjAUpgtb5f8",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "wjAUpgtb5f8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "这下挂在树杈上了！NaNa说美股(2026.06.22)",
+      "url": "https://www.youtube.com/watch?v=wjAUpgtb5f8",
+      "published": "2026-06-22T23:41:00+00:00",
+      "processed_at": "2026-06-23T02:36:40.550711+00:00",
+      "daily_digest_id": "daily-iWGjM9UPErc-wjAUpgtb5f8",
+      "transcript_status": "success",
+      "transcript_language": "zh-CN",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -521,6 +551,16 @@
       "source_video_ids": [
         "SAmPvlm_JQg",
         "xpjv4m-CRXs"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-iWGjM9UPErc-wjAUpgtb5f8": {
+      "processed_at": "2026-06-23T02:36:40.550711+00:00",
+      "source_video_ids": [
+        "iWGjM9UPErc",
+        "wjAUpgtb5f8"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
