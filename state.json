@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-24T07:39:38.522376+00:00",
+  "last_run_at": "2026-06-25T06:38:10.842775+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -411,9 +411,9 @@
       "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
       "title": "美股 多空都别慌，跌幅不够，杀伤不够！三股抛压洪流逐步逼近！SPY、QQQ、SOXX、SMH更新！MU财报期权押注很疯狂！",
       "url": "https://www.youtube.com/watch?v=vddYtCWZ2CE",
-      "published": "2026-06-24T01:52:17+00:00",
-      "processed_at": "2026-06-24T07:39:38.522376+00:00",
-      "daily_digest_id": "daily-vddYtCWZ2CE-EWt37Paj8jk",
+      "published": null,
+      "processed_at": "2026-06-25T06:38:10.842775+00:00",
+      "daily_digest_id": "daily-vddYtCWZ2CE-AaI_-qrg-IU",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -429,6 +429,21 @@
       "published": "2026-06-23T22:42:44+00:00",
       "processed_at": "2026-06-24T07:39:38.522376+00:00",
       "daily_digest_id": "daily-vddYtCWZ2CE-EWt37Paj8jk",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
+    },
+    "AaI_-qrg-IU": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "这次绝对不原谅他555…！NaNa说美股(2026.06.24)",
+      "url": "https://www.youtube.com/watch?v=AaI_-qrg-IU",
+      "published": null,
+      "processed_at": "2026-06-25T06:38:10.842775+00:00",
+      "daily_digest_id": "daily-vddYtCWZ2CE-AaI_-qrg-IU",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "yt_dlp_manual_subtitle",
@@ -601,6 +616,16 @@
       "source_video_ids": [
         "vddYtCWZ2CE",
         "EWt37Paj8jk"
+      ],
+      "summary_status": "success",
+      "summary_model": "gpt-3.5-turbo",
+      "source_status": "mixed"
+    },
+    "daily-vddYtCWZ2CE-AaI_-qrg-IU": {
+      "processed_at": "2026-06-25T06:38:10.842775+00:00",
+      "source_video_ids": [
+        "vddYtCWZ2CE",
+        "AaI_-qrg-IU"
       ],
       "summary_status": "success",
       "summary_model": "gpt-3.5-turbo",
