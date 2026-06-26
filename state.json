@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-25T06:38:10.842775+00:00",
+  "last_run_at": "2026-06-26T02:10:32.757142+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -450,6 +450,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "rpxuSaJ1pdw": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 MU业绩爆表，峰值预测在哪？四大科技花钱挨揍，到底还有没有王法了？",
+      "url": "https://www.youtube.com/watch?v=rpxuSaJ1pdw",
+      "published": "2026-06-26T01:31:54+00:00",
+      "processed_at": "2026-06-26T02:10:32.757142+00:00",
+      "daily_digest_id": "daily-rpxuSaJ1pdw-79Xmybav0cw",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "79Xmybav0cw": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "突然翻脸！NaNa说美股(2026.06.25)",
+      "url": "https://www.youtube.com/watch?v=79Xmybav0cw",
+      "published": "2026-06-25T21:24:42+00:00",
+      "processed_at": "2026-06-26T02:10:32.757142+00:00",
+      "daily_digest_id": "daily-rpxuSaJ1pdw-79Xmybav0cw",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -629,6 +659,16 @@
       ],
       "summary_status": "success",
       "summary_model": "gpt-3.5-turbo",
+      "source_status": "mixed"
+    },
+    "daily-rpxuSaJ1pdw-79Xmybav0cw": {
+      "processed_at": "2026-06-26T02:10:32.757142+00:00",
+      "source_video_ids": [
+        "rpxuSaJ1pdw",
+        "79Xmybav0cw"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
     }
   }
