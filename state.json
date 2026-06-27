@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-26T06:05:33.115216+00:00",
+  "last_run_at": "2026-06-27T02:11:02.549543+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -480,6 +480,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "Mh54eRsTm9c": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 画风突变，软件行了？大盘抛售破位风险未解除！半导体横盘2周！MSFT略硬，辛苦GOOG！",
+      "url": "https://www.youtube.com/watch?v=Mh54eRsTm9c",
+      "published": "2026-06-27T01:20:04+00:00",
+      "processed_at": "2026-06-27T02:11:02.549543+00:00",
+      "daily_digest_id": "daily-Mh54eRsTm9c-EJsDTPil_N8",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "EJsDTPil_N8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "gg思密达😑！NaNa说美股(2026.06.26)",
+      "url": "https://www.youtube.com/watch?v=EJsDTPil_N8",
+      "published": "2026-06-26T21:45:49+00:00",
+      "processed_at": "2026-06-27T02:11:02.549543+00:00",
+      "daily_digest_id": "daily-Mh54eRsTm9c-EJsDTPil_N8",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -666,6 +696,16 @@
       "source_video_ids": [
         "rpxuSaJ1pdw",
         "79Xmybav0cw"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-Mh54eRsTm9c-EJsDTPil_N8": {
+      "processed_at": "2026-06-27T02:11:02.549543+00:00",
+      "source_video_ids": [
+        "Mh54eRsTm9c",
+        "EJsDTPil_N8"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
