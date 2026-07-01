@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-06-30T09:58:22.993580+00:00",
+  "last_run_at": "2026-07-01T02:07:40.367994+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -517,8 +517,8 @@
       "title": "美股 大盘练柔术！凹进去，凸出来！MU、AVGO、MRVL、GOOG、TSLA、SPCX、RKLB、IGV反弹乐观能走多远？",
       "url": "https://www.youtube.com/watch?v=sa78kwXZJmw",
       "published": "2026-06-30T01:35:01+00:00",
-      "processed_at": "2026-06-30T09:58:22.993580+00:00",
-      "daily_digest_id": "daily-sa78kwXZJmw-SdLAbKSCV_c",
+      "processed_at": "2026-07-01T02:07:40.367994+00:00",
+      "daily_digest_id": "daily-sa78kwXZJmw-C25yj2CrDDg",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -534,6 +534,21 @@
       "published": "2026-06-29T22:07:34+00:00",
       "processed_at": "2026-06-30T09:58:22.993580+00:00",
       "daily_digest_id": "daily-sa78kwXZJmw-SdLAbKSCV_c",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
+    },
+    "C25yj2CrDDg": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "强撸出牛市！NaNa说美股(2026.06.30)",
+      "url": "https://www.youtube.com/watch?v=C25yj2CrDDg",
+      "published": "2026-06-30T22:22:57+00:00",
+      "processed_at": "2026-07-01T02:07:40.367994+00:00",
+      "daily_digest_id": "daily-sa78kwXZJmw-C25yj2CrDDg",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "yt_dlp_manual_subtitle",
@@ -749,6 +764,16 @@
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-sa78kwXZJmw-C25yj2CrDDg": {
+      "processed_at": "2026-07-01T02:07:40.367994+00:00",
+      "source_video_ids": [
+        "sa78kwXZJmw",
+        "C25yj2CrDDg"
+      ],
+      "summary_status": "success",
+      "summary_model": "gpt-3.5-turbo",
       "source_status": "mixed"
     }
   }
