@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-01T06:30:24.456369+00:00",
+  "last_run_at": "2026-07-02T02:03:20.219251+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -562,14 +562,29 @@
       "title": "美股 6月收关，科技不领涨！消费股怎么了？MCD、NKE、COST、WMT！",
       "url": "https://www.youtube.com/watch?v=sWSsmljlgJg",
       "published": null,
-      "processed_at": "2026-07-01T06:30:24.456369+00:00",
-      "daily_digest_id": "daily-sWSsmljlgJg-C25yj2CrDDg",
+      "processed_at": "2026-07-02T02:03:20.219251+00:00",
+      "daily_digest_id": "daily-sWSsmljlgJg-YI4L4kHMKKc",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "success",
-      "summary_status": "success",
-      "source_status": "ASR"
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "YI4L4kHMKKc": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "绊倒体火烧连营！NaNa说美股(2026.07.01)",
+      "url": "https://www.youtube.com/watch?v=YI4L4kHMKKc",
+      "published": "2026-07-01T22:19:04+00:00",
+      "processed_at": "2026-07-02T02:03:20.219251+00:00",
+      "daily_digest_id": "daily-sWSsmljlgJg-YI4L4kHMKKc",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -800,6 +815,16 @@
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
+    },
+    "daily-sWSsmljlgJg-YI4L4kHMKKc": {
+      "processed_at": "2026-07-02T02:03:20.219251+00:00",
+      "source_video_ids": [
+        "sWSsmljlgJg",
+        "YI4L4kHMKKc"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
     }
   }
 }
