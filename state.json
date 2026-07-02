@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-02T02:03:20.219251+00:00",
+  "last_run_at": "2026-07-02T05:56:57.630813+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -576,9 +576,24 @@
       "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
       "title": "绊倒体火烧连营！NaNa说美股(2026.07.01)",
       "url": "https://www.youtube.com/watch?v=YI4L4kHMKKc",
-      "published": "2026-07-01T22:19:04+00:00",
-      "processed_at": "2026-07-02T02:03:20.219251+00:00",
-      "daily_digest_id": "daily-sWSsmljlgJg-YI4L4kHMKKc",
+      "published": null,
+      "processed_at": "2026-07-02T05:56:57.630813+00:00",
+      "daily_digest_id": "daily-6B5uh-9C8kI-YI4L4kHMKKc",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "6B5uh-9C8kI": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META重挫半导体！打响资本支出裂痕第一枪！IGV个股，只看放量的，PLTR、APP、NOW！",
+      "url": "https://www.youtube.com/watch?v=6B5uh-9C8kI",
+      "published": null,
+      "processed_at": "2026-07-02T05:56:57.630813+00:00",
+      "daily_digest_id": "daily-6B5uh-9C8kI-YI4L4kHMKKc",
       "transcript_status": "failed",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -820,6 +835,16 @@
       "processed_at": "2026-07-02T02:03:20.219251+00:00",
       "source_video_ids": [
         "sWSsmljlgJg",
+        "YI4L4kHMKKc"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-6B5uh-9C8kI-YI4L4kHMKKc": {
+      "processed_at": "2026-07-02T05:56:57.630813+00:00",
+      "source_video_ids": [
+        "6B5uh-9C8kI",
         "YI4L4kHMKKc"
       ],
       "summary_status": "link_only",
