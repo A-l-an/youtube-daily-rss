@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-06T06:25:54.651268+00:00",
+  "last_run_at": "2026-07-11T06:30:15.594483+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -630,6 +630,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "edbeWlDeOLo": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META人工智能模型跳楼价！SBUX、IBM、MSFT！",
+      "url": "https://www.youtube.com/watch?v=edbeWlDeOLo",
+      "published": "2026-07-10T10:23:52+00:00",
+      "processed_at": "2026-07-11T06:30:15.594483+00:00",
+      "daily_digest_id": "daily-edbeWlDeOLo-xBCPkYJz-dE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "xBCPkYJz-dE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "又幸福了！NaNa说美股(2026.07.08)",
+      "url": "https://www.youtube.com/watch?v=xBCPkYJz-dE",
+      "published": "2026-07-08T22:37:15+00:00",
+      "processed_at": "2026-07-11T06:30:15.594483+00:00",
+      "daily_digest_id": "daily-edbeWlDeOLo-xBCPkYJz-dE",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -900,6 +930,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-edbeWlDeOLo-xBCPkYJz-dE": {
+      "processed_at": "2026-07-11T06:30:15.594483+00:00",
+      "source_video_ids": [
+        "edbeWlDeOLo",
+        "xBCPkYJz-dE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
