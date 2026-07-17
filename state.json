@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-13T15:05:41.413602+00:00",
+  "last_run_at": "2026-07-17T02:05:03.512960+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -660,6 +660,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "HMWl5Vyvn48": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 半导体，进一步，退两步！陷阱还是机会？ASML、TSM上调前瞻仍下跌！NFLX、ISRG，财报表演双人跳水！MU、SNDK！",
+      "url": "https://www.youtube.com/watch?v=HMWl5Vyvn48",
+      "published": "2026-07-16T23:14:27+00:00",
+      "processed_at": "2026-07-17T02:05:03.512960+00:00",
+      "daily_digest_id": "daily-HMWl5Vyvn48-wg5GQPMrh_8",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "wg5GQPMrh_8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "咋全崩了？！NaNa说美股(2026.07.16)",
+      "url": "https://www.youtube.com/watch?v=wg5GQPMrh_8",
+      "published": "2026-07-16T22:33:16+00:00",
+      "processed_at": "2026-07-17T02:05:03.512960+00:00",
+      "daily_digest_id": "daily-HMWl5Vyvn48-wg5GQPMrh_8",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -936,6 +966,16 @@
       "source_video_ids": [
         "edbeWlDeOLo",
         "xBCPkYJz-dE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-HMWl5Vyvn48-wg5GQPMrh_8": {
+      "processed_at": "2026-07-17T02:05:03.512960+00:00",
+      "source_video_ids": [
+        "HMWl5Vyvn48",
+        "wg5GQPMrh_8"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
