@@ -29,6 +29,38 @@ def _escape(value: Any) -> str:
     return html.escape("" if value is None else str(value), quote=True)
 
 
+DAILY_DIGEST_TITLE_PATTERN = re.compile(r"\A<h2>[^<>]*</h2>")
+
+
+def _render_daily_digest_title(title: Any) -> str:
+    return f"<h2>{_escape(title)}</h2>"
+
+
+def retitle_rendered_daily_summary(result: SummaryResult, title: str) -> SummaryResult:
+    """Retitle only the leading heading emitted by the daily renderers.
+
+    Both daily structured and daily link-only renderers have a strict leading
+    ``<h2>...</h2>`` contract. Refusing any other shape keeps this operation
+    fail-closed and avoids replacing matching dates elsewhere in the body.
+    """
+    match = DAILY_DIGEST_TITLE_PATTERN.match(result.summary_html or "")
+    if match is None:
+        raise ValueError("Daily summary HTML does not start with the controlled <h2> title")
+
+    summary_data = result.summary_data
+    if isinstance(summary_data, dict):
+        summary_data = dict(summary_data)
+        summary_data["title"] = title
+
+    return SummaryResult(
+        status=result.status,
+        summary_html=_render_daily_digest_title(title) + result.summary_html[match.end() :],
+        model=result.model,
+        error_message=result.error_message,
+        summary_data=summary_data,
+    )
+
+
 def _list_items(values: Any) -> str:
     if not values:
         return "<li>未提及或无法从文本中可靠识别。</li>"

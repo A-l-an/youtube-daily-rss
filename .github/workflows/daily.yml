@@ -7,10 +7,15 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Reprocess latest videos even if the daily item already exists"
+        description: "Reprocess the selected latest or report-date item even if it already exists"
         required: false
         default: false
         type: boolean
+      report_date:
+        description: "Ended local date to rebuild (YYYY-MM-DD); leave empty for latest videos"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: write
@@ -75,12 +80,18 @@ jobs:
           ASR_MODEL: ${{ vars.ASR_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          WORKFLOW_EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_FORCE: ${{ inputs.force }}
+          WORKFLOW_REPORT_DATE: ${{ inputs.report_date }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
-            .venv-ci/bin/python scripts/main.py --force
-          else
-            .venv-ci/bin/python scripts/main.py
+          args=()
+          if [ "$WORKFLOW_EVENT_NAME" = "workflow_dispatch" ] && [ "$WORKFLOW_FORCE" = "true" ]; then
+            args+=(--force)
           fi
+          if [ "$WORKFLOW_EVENT_NAME" = "workflow_dispatch" ] && [ -n "$WORKFLOW_REPORT_DATE" ]; then
+            args+=(--report-date "$WORKFLOW_REPORT_DATE")
+          fi
+          .venv-ci/bin/python scripts/main.py "${args[@]}"
 
       - name: Commit generated state and feed
         run: |

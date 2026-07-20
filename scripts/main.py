@@ -3,18 +3,19 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from datetime import datetime, timezone
+import re
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo
 
 import yaml
 from dotenv import load_dotenv
 
 from asr import ASRResult, transcribe_video
-from fetch_youtube import Video, fetch_latest_video
+from fetch_youtube import Video, fetch_latest_video, fetch_video_for_report_date
 from rss import write_rss
-from summarize import SummaryResult, summarize_daily_digest
+from summarize import SummaryResult, retitle_rendered_daily_summary, summarize_daily_digest
 from transcript import TranscriptResult, get_transcript
 
 
@@ -108,6 +109,60 @@ def local_date_label(config: Dict[str, Any]) -> str:
     except Exception:
         tzinfo = timezone.utc
     return datetime.now(timezone.utc).astimezone(tzinfo).strftime("%Y-%m-%d")
+
+
+def configured_timezone(config: Dict[str, Any]) -> ZoneInfo:
+    timezone_name = str(config.get("timezone") or "Asia/Shanghai")
+    try:
+        return ZoneInfo(timezone_name)
+    except Exception as exc:
+        raise ValueError(f"Invalid configured timezone: {timezone_name!r}") from exc
+
+
+def parse_ended_report_date(
+    value: str,
+    config: Dict[str, Any],
+    now: Optional[datetime] = None,
+) -> date:
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value or ""):
+        raise ValueError("--report-date must use YYYY-MM-DD format")
+    try:
+        report_date = date.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError(f"Invalid --report-date: {value!r}") from exc
+
+    local_timezone = configured_timezone(config)
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    local_today = current.astimezone(local_timezone).date()
+    if report_date >= local_today:
+        raise ValueError(
+            f"--report-date must be an ended local date before {local_today.isoformat()} "
+            f"in {local_timezone.key}"
+        )
+    return report_date
+
+
+def report_date_published_iso(report_date: date, config: Dict[str, Any]) -> str:
+    cutoff_local = datetime.combine(
+        report_date + timedelta(days=1),
+        time.min,
+        tzinfo=configured_timezone(config),
+    )
+    return (cutoff_local - timedelta(microseconds=1)).astimezone(timezone.utc).isoformat()
+
+
+def report_date_digest_id(report_date: date) -> str:
+    return f"daily-date-{report_date.isoformat()}"
+
+
+REPORT_DATE_TITLE_PREFIX = re.compile(r"^\s*\d{4}-\d{2}-\d{2}\s*(?:[-–—:：|]\s*)?")
+
+
+def title_for_report_date(report_date: date, title: Any) -> str:
+    title_without_date = REPORT_DATE_TITLE_PREFIX.sub("", str(title or "")).strip()
+    return f"{report_date.isoformat()} {title_without_date or '美股视频融合摘要'}"
 
 
 def daily_digest_id(videos: List[Video]) -> str:
@@ -235,13 +290,19 @@ def build_daily_item(
     records: List[Dict[str, Any]],
     summary_result: SummaryResult,
     config: Dict[str, Any],
+    report_date: Optional[date] = None,
+    published: Optional[str] = None,
 ) -> Dict[str, Any]:
     processed_at = utc_now_iso()
     summary_data = getattr(summary_result, "summary_data", None) or {}
     title = summary_data.get("title") or f"{local_date_label(config)} 美股视频融合摘要"
+    if report_date is not None:
+        title = title_for_report_date(report_date, title)
+        summary_result = retitle_rendered_daily_summary(summary_result, title)
+        summary_data = getattr(summary_result, "summary_data", None) or {}
     source_videos = [source_video_snapshot(record) for record in records]
 
-    return {
+    item = {
         "item_type": "daily_digest",
         "digest_id": digest_id,
         "video_id": digest_id,
@@ -249,7 +310,7 @@ def build_daily_item(
         "channel_name": "视野环球财经 + NaNa说美股",
         "title": title,
         "url": "",
-        "published": processed_at,
+        "published": published or processed_at,
         "processed_at": processed_at,
         "source_status": combined_source_status(records),
         "content_source": combined_content_source(records),
@@ -260,6 +321,9 @@ def build_daily_item(
         "source_videos": source_videos,
         "summary_html": summary_result.summary_html,
     }
+    if report_date is not None:
+        item["report_date"] = report_date.isoformat()
+    return item
 
 
 def mark_state_processed(
@@ -268,12 +332,16 @@ def mark_state_processed(
     records: List[Dict[str, Any]],
     summary_result: SummaryResult,
     processed_at: str,
+    report_date: Optional[date] = None,
+    preserve_existing_video_links: bool = False,
 ) -> None:
     for record in records:
         video_id = record.get("video_id")
         if not video_id:
             continue
-        state["processed_videos"][video_id] = {
+        if preserve_existing_video_links and video_id in state["processed_videos"]:
+            continue
+        processed_video = {
             "channel_name": record.get("channel_name"),
             "channel_id": record.get("channel_id"),
             "title": record.get("title"),
@@ -288,19 +356,36 @@ def mark_state_processed(
             "summary_status": summary_result.status,
             "source_status": record.get("source_status"),
         }
+        if report_date is not None:
+            processed_video["report_date"] = report_date.isoformat()
+        state["processed_videos"][video_id] = processed_video
 
-    state["daily_digests"][digest_id] = {
+    daily_digest = {
         "processed_at": processed_at,
         "source_video_ids": [record.get("video_id") for record in records],
         "summary_status": summary_result.status,
         "summary_model": getattr(summary_result, "model", None),
         "source_status": combined_source_status(records),
     }
+    if report_date is not None:
+        daily_digest["report_date"] = report_date.isoformat()
+    state["daily_digests"][digest_id] = daily_digest
 
 
 def run(args: argparse.Namespace) -> int:
     load_dotenv(ROOT / ".env")
     config = load_config()
+    dry_run = bool(getattr(args, "dry_run", False))
+    force = bool(getattr(args, "force", False))
+    report_date_value = getattr(args, "report_date", None)
+    target_report_date: Optional[date] = None
+    if report_date_value:
+        try:
+            target_report_date = parse_ended_report_date(str(report_date_value), config)
+        except ValueError as exc:
+            logging.error("Invalid report date: %s; no files were modified", exc)
+            return 2
+
     try:
         import ytdlp_opts
 
@@ -310,27 +395,49 @@ def run(args: argparse.Namespace) -> int:
     state = ensure_state_shape(load_json(STATE_PATH, {"last_run_at": None, "processed_videos": {}, "daily_digests": {}}))
     summaries = ensure_summaries_shape(load_json(SUMMARIES_PATH, {"items": []}))
 
+    digest_id = report_date_digest_id(target_report_date) if target_report_date is not None else None
+    if digest_id and has_daily_summary(summaries, digest_id) and not force and not dry_run:
+        logging.info("skip report-date digest %s; it already exists and no files were modified", digest_id)
+        return 0
+
     latest_videos: List[Video] = []
-    for channel in config.get("channels", []):
+    channels = config.get("channels", []) or []
+    fetch_failed = False
+    for channel in channels:
         try:
-            video = fetch_latest_video(channel)
+            if target_report_date is not None:
+                video = fetch_video_for_report_date(
+                    channel,
+                    target_report_date,
+                    str(config.get("timezone") or "Asia/Shanghai"),
+                )
+            else:
+                video = fetch_latest_video(channel)
             latest_videos.append(video)
         except Exception as exc:
             logging.exception("[%s] failed to fetch latest video: %s", channel.get("name", "unknown"), exc)
+            fetch_failed = True
             continue
+
+    if target_report_date is not None and (fetch_failed or not channels or len(latest_videos) != len(channels)):
+        logging.error(
+            "report-date selection failed for %s; every channel needs one trustworthy Atom entry; no files were modified",
+            target_report_date.isoformat(),
+        )
+        return 1
 
     if not latest_videos:
         logging.error("No latest videos were fetched; keeping existing RSS, summaries, and state unchanged")
         return 0
 
-    digest_id = daily_digest_id(latest_videos)
+    digest_id = digest_id or daily_digest_id(latest_videos)
     daily_exists = has_daily_summary(summaries, digest_id)
     new_video_ids = [
         video.video_id
         for video in latest_videos
         if video.video_id not in state.get("processed_videos", {})
     ]
-    should_process = args.dry_run or args.force or not daily_exists or bool(new_video_ids)
+    should_process = dry_run or force or not daily_exists or bool(new_video_ids)
 
     logging.info(
         "latest daily digest candidate=%s videos=%s daily_exists=%s new_video_ids=%s",
@@ -341,23 +448,18 @@ def run(args: argparse.Namespace) -> int:
     )
 
     if not should_process:
-        logging.info("skip daily digest; latest video set already has a merged RSS item")
-        state["last_run_at"] = utc_now_iso()
-        save_json(STATE_PATH, state)
-        save_json(SUMMARIES_PATH, summaries)
-        feed_path = write_rss(config, summaries.get("items", []), ROOT)
-        logging.info("RSS feed generated: %s (0 new/updated daily item)", feed_path)
+        logging.info("skip daily digest; latest video set already has a merged RSS item; no files were modified")
         return 0
 
     records: List[Dict[str, Any]] = []
     for video in latest_videos:
         try:
-            records.append(collect_video_content(video, config, dry_run=args.dry_run))
+            records.append(collect_video_content(video, config, dry_run=dry_run))
         except Exception as exc:
             logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
             records.append(failed_video_record(video, exc))
 
-    if args.dry_run:
+    if dry_run:
         source_status = combined_source_status(records)
         available_text = sum(1 for record in records if str(record.get("text") or "").strip())
         logging.info(
@@ -377,9 +479,28 @@ def run(args: argparse.Namespace) -> int:
         getattr(summary_result, "error_message", None),
     )
 
-    daily_item = build_daily_item(digest_id, records, summary_result, config)
+    daily_item = build_daily_item(
+        digest_id,
+        records,
+        summary_result,
+        config,
+        report_date=target_report_date,
+        published=(
+            report_date_published_iso(target_report_date, config)
+            if target_report_date is not None
+            else None
+        ),
+    )
     upsert_daily_summary(summaries, daily_item)
-    mark_state_processed(state, digest_id, records, summary_result, daily_item["processed_at"])
+    mark_state_processed(
+        state,
+        digest_id,
+        records,
+        summary_result,
+        daily_item["processed_at"],
+        report_date=target_report_date,
+        preserve_existing_video_links=target_report_date is not None,
+    )
     logging.info("[daily] RSS item prepared digest_id=%s source_status=%s", digest_id, daily_item["source_status"])
 
     state["last_run_at"] = daily_item["processed_at"]
@@ -394,6 +515,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build daily YouTube finance digest RSS feed")
     parser.add_argument("--dry-run", action="store_true", help="Fetch and inspect latest videos without writing state or RSS")
     parser.add_argument("--force", action="store_true", help="Reprocess the latest video from each channel")
+    parser.add_argument(
+        "--report-date",
+        metavar="YYYY-MM-DD",
+        help="Build one idempotent digest for an ended local date using only trusted Atom timestamps",
+    )
     parser.add_argument("--log-level", default="INFO", help="Python logging level")
     return parser.parse_args()
 

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, asdict
+from datetime import date, datetime, time, timedelta, timezone
 from typing import Any, Dict, Optional
+from zoneinfo import ZoneInfo
 
 import feedparser
 import requests
@@ -82,6 +84,80 @@ def _fetch_and_parse_feed(feed_url: str, channel_id: str):
     raise RuntimeError(f"Failed to fetch latest YouTube feed for {channel_id}: {last_error}")
 
 
+def _video_from_entry(channel: Dict[str, Any], parsed: Any, entry: Any) -> Video:
+    channel_id = channel["channel_id"]
+    video_id = getattr(entry, "yt_videoid", None)
+    if not video_id:
+        entry_id = getattr(entry, "id", "")
+        video_id = entry_id.rsplit(":", 1)[-1] if entry_id else None
+    if not video_id:
+        raise RuntimeError(f"Could not determine video ID for entry in {channel_id}")
+
+    return Video(
+        channel_name=channel.get("name", getattr(parsed.feed, "title", channel_id)),
+        channel_id=channel_id,
+        handle=channel.get("handle", ""),
+        video_id=video_id,
+        title=getattr(entry, "title", f"YouTube video {video_id}"),
+        url=getattr(entry, "link", f"https://www.youtube.com/watch?v={video_id}"),
+        published=getattr(entry, "published", None),
+    )
+
+
+def _trusted_published_datetime(value: Any) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("missing published timestamp")
+    try:
+        published = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"invalid published timestamp: {value!r}") from exc
+    if published.tzinfo is None:
+        raise ValueError(f"published timestamp has no timezone: {value!r}")
+    return published.astimezone(timezone.utc)
+
+
+def fetch_video_for_report_date(
+    channel: Dict[str, Any],
+    report_date: date,
+    timezone_name: str,
+) -> Video:
+    """Return the latest trusted Atom entry before the report-date cutoff.
+
+    Historical selection deliberately has no yt-dlp fallback: flat channel
+    discovery does not provide a trustworthy publication timestamp, so using it
+    could silently select a video from after the requested date.
+    """
+    channel_id = channel["channel_id"]
+    try:
+        local_timezone = ZoneInfo(timezone_name)
+    except Exception as exc:
+        raise RuntimeError(f"Invalid report timezone {timezone_name!r}") from exc
+
+    cutoff_local = datetime.combine(report_date + timedelta(days=1), time.min, tzinfo=local_timezone)
+    cutoff_utc = cutoff_local.astimezone(timezone.utc)
+    feed_url = YOUTUBE_FEED_URL.format(channel_id=channel_id)
+    parsed = _fetch_and_parse_feed(feed_url, channel_id)
+
+    candidates = []
+    for entry in parsed.entries:
+        try:
+            published = _trusted_published_datetime(getattr(entry, "published", None))
+            video = _video_from_entry(channel, parsed, entry)
+        except (RuntimeError, ValueError) as exc:
+            raise RuntimeError(
+                f"Untrusted Atom entry for {channel_id}; refusing historical selection: {exc}"
+            ) from exc
+        if published < cutoff_utc:
+            candidates.append((published, video))
+
+    if not candidates:
+        raise RuntimeError(
+            f"No Atom entry with a trustworthy published timestamp exists before "
+            f"the {report_date.isoformat()} cutoff for {channel_id}"
+        )
+    return max(candidates, key=lambda candidate: candidate[0])[1]
+
+
 def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Exception) -> Video:
     """Discovery fallback for when YouTube's Atom feed endpoint is down/404.
 
@@ -150,20 +226,4 @@ def fetch_latest_video(channel: Dict[str, Any]) -> Video:
         )
         return _fetch_latest_via_ytdlp(channel, feed_exc)
 
-    entry = parsed.entries[0]
-    video_id = getattr(entry, "yt_videoid", None)
-    if not video_id:
-        entry_id = getattr(entry, "id", "")
-        video_id = entry_id.rsplit(":", 1)[-1] if entry_id else None
-    if not video_id:
-        raise RuntimeError(f"Could not determine video ID for latest entry in {channel_id}")
-
-    return Video(
-        channel_name=channel.get("name", getattr(parsed.feed, "title", channel_id)),
-        channel_id=channel_id,
-        handle=channel.get("handle", ""),
-        video_id=video_id,
-        title=getattr(entry, "title", f"YouTube video {video_id}"),
-        url=getattr(entry, "link", f"https://www.youtube.com/watch?v={video_id}"),
-        published=getattr(entry, "published", None),
-    )
+    return _video_from_entry(channel, parsed, parsed.entries[0])

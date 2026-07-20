@@ -43,6 +43,17 @@ Reprocess the latest video from each channel:
 python scripts/main.py --force
 ```
 
+Rebuild one already-ended local date without changing the default latest-video behavior:
+
+```bash
+python scripts/main.py --report-date 2026-07-20
+```
+
+Date backfills use the latest trustworthy Atom entry from each channel before that
+date's local end-of-day cutoff. They fail without writing files if the date is today
+or later, any Atom timestamp is untrusted, or either channel has no eligible entry.
+Use `--force` with `--report-date` only to replace that same date's deterministic item.
+
 ## Schedule
 
 The GitHub Actions workflow runs daily at:
@@ -56,7 +67,7 @@ The cron expression is:
 0 2 * * *
 ```
 
-The workflow also supports manual `workflow_dispatch`. Manual runs default to reusing the latest existing daily item; set `force=true` only when you intentionally want to reprocess the latest videos.
+The workflow also supports manual `workflow_dispatch`. Manual runs default to reusing the latest existing daily item; set `report_date` to an ended local `YYYY-MM-DD` for a date backfill, and set `force=true` only when you intentionally want to replace the selected latest or dated item.
 
 The scheduled workflow is designed for a macOS self-hosted runner, not a GitHub-hosted cloud runner. This avoids common YouTube blocking against cloud provider IP ranges.
 
@@ -86,7 +97,7 @@ Processing order:
 6. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
 7. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
 8. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
-9. Write `state.json`, `summaries.json`, and `public/feed.xml`.
+9. Write `state.json`, `summaries.json`, and `public/feed.xml`. A repeated non-force run is a true no-op when its latest pair or dated item already exists.
 
 RSS items include:
 
@@ -98,6 +109,10 @@ RSS items include:
 - categories: `YouTube Digest`, `Finance`, `Stock Market`, and source status
 
 The digest is structured for scanning in an RSS reader. It includes one overall summary plus merged bullet sections for individual stocks, indices, sectors, and macro themes mentioned by either channel. If both creators discuss the same stock or sector, their views are shown in the same section rather than as two separate items. Original YouTube URLs are kept inside the digest body, but they are not the RSS item's primary link, so readers should open the text digest page first.
+
+Date-backfill items use GUID `daily-date-YYYY-MM-DD`, store `report_date` in the
+item and digest state, force the same date prefix onto the title, and use the target
+date's last local instant as `pubDate`; `processed_at` remains the actual run time.
 
 ## Caption and ASR Limitations
 
