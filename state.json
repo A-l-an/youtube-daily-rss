@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-20T12:10:04.306871+00:00",
+  "last_run_at": "2026-07-22T10:01:26.246032+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -705,6 +705,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "eI_tRH_svoU": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 半导体又行了？四大科技继续跷跷板！ CTA更新！ORCL还有没有底？",
+      "url": "https://www.youtube.com/watch?v=eI_tRH_svoU",
+      "published": "2026-07-22T03:29:56+00:00",
+      "processed_at": "2026-07-22T10:01:26.246032+00:00",
+      "daily_digest_id": "daily-eI_tRH_svoU-hWlppq8bvks",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "hWlppq8bvks": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "不说了，我先敷脸去了😵！NaNa说美股(2026.07.21)",
+      "url": "https://www.youtube.com/watch?v=hWlppq8bvks",
+      "published": "2026-07-21T22:34:23+00:00",
+      "processed_at": "2026-07-22T10:01:26.246032+00:00",
+      "daily_digest_id": "daily-eI_tRH_svoU-hWlppq8bvks",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1005,6 +1035,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-eI_tRH_svoU-hWlppq8bvks": {
+      "processed_at": "2026-07-22T10:01:26.246032+00:00",
+      "source_video_ids": [
+        "eI_tRH_svoU",
+        "hWlppq8bvks"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
