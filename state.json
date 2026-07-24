@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-23T10:09:27.417389+00:00",
+  "last_run_at": "2026-07-24T02:06:58.754764+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -765,6 +765,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "tIItozASBrc": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 大家一起连滚带爬！GOOG、QQQ、SPY、SOXX补充！INTC盘后镰刀这么急吗？LMT小幅提升前瞻。",
+      "url": "https://www.youtube.com/watch?v=tIItozASBrc",
+      "published": "2026-07-24T00:09:07+00:00",
+      "processed_at": "2026-07-24T02:06:58.754764+00:00",
+      "daily_digest_id": "daily-tIItozASBrc-U_80aIORMG4",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "U_80aIORMG4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "陈长老的讲话艺术不行啊，越讲越往下掉😅NaNa说美股(2026.07.23)",
+      "url": "https://www.youtube.com/watch?v=U_80aIORMG4",
+      "published": "2026-07-23T21:53:04+00:00",
+      "processed_at": "2026-07-24T02:06:58.754764+00:00",
+      "daily_digest_id": "daily-tIItozASBrc-U_80aIORMG4",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1081,6 +1111,16 @@
       "source_video_ids": [
         "L0-7XCbYi00",
         "7sX1KXi__VM"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-tIItozASBrc-U_80aIORMG4": {
+      "processed_at": "2026-07-24T02:06:58.754764+00:00",
+      "source_video_ids": [
+        "tIItozASBrc",
+        "U_80aIORMG4"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
