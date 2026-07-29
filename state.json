@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-28T14:52:49.980220+00:00",
+  "last_run_at": "2026-07-29T09:41:20.911678+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -840,6 +840,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "uIyfT_-lp6M": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 不要在这里做空SOXX！TSLA新波段和长线！AMD、GLW、NOW！CTA巨浪抛售点更新！",
+      "url": "https://www.youtube.com/watch?v=uIyfT_-lp6M",
+      "published": "2026-07-29T01:39:50+00:00",
+      "processed_at": "2026-07-29T09:41:20.911678+00:00",
+      "daily_digest_id": "daily-uIyfT_-lp6M-lmybNBGZa0E",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "lmybNBGZa0E": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "美股瑟瑟发抖… NaNa说美股(2026.07.28)",
+      "url": "https://www.youtube.com/watch?v=lmybNBGZa0E",
+      "published": "2026-07-28T22:42:33+00:00",
+      "processed_at": "2026-07-29T09:41:20.911678+00:00",
+      "daily_digest_id": "daily-uIyfT_-lp6M-lmybNBGZa0E",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1186,6 +1216,16 @@
       "source_video_ids": [
         "BFnI3bjo3tA",
         "WuCItbJ2iBM"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-uIyfT_-lp6M-lmybNBGZa0E": {
+      "processed_at": "2026-07-29T09:41:20.911678+00:00",
+      "source_video_ids": [
+        "uIyfT_-lp6M",
+        "lmybNBGZa0E"
       ],
       "summary_status": "link_only",
       "summary_model": null,
