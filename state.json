@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-29T09:41:20.911678+00:00",
+  "last_run_at": "2026-07-30T08:13:50.252458+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -870,6 +870,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "G7tU5l484JA": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 MSFT不跟风，AI货币化顺利！META继续燃烧自己！沃什凭一己之力干翻市场！超额收益SPY、QQQ越来越近！SOXX新变化，叠加看大盘脸色！",
+      "url": "https://www.youtube.com/watch?v=G7tU5l484JA",
+      "published": "2026-07-30T01:03:05+00:00",
+      "processed_at": "2026-07-30T08:13:50.252458+00:00",
+      "daily_digest_id": "daily-G7tU5l484JA-X5fpqNfC_B0",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "X5fpqNfC_B0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "最终还是沃什扛下了所有😵 NaNa说美股(2026.07.29)",
+      "url": "https://www.youtube.com/watch?v=X5fpqNfC_B0",
+      "published": "2026-07-29T23:02:51+00:00",
+      "processed_at": "2026-07-30T08:13:50.252458+00:00",
+      "daily_digest_id": "daily-G7tU5l484JA-X5fpqNfC_B0",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1226,6 +1256,16 @@
       "source_video_ids": [
         "uIyfT_-lp6M",
         "lmybNBGZa0E"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-G7tU5l484JA-X5fpqNfC_B0": {
+      "processed_at": "2026-07-30T08:13:50.252458+00:00",
+      "source_video_ids": [
+        "G7tU5l484JA",
+        "X5fpqNfC_B0"
       ],
       "summary_status": "link_only",
       "summary_model": null,
