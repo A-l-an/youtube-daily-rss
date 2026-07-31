@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-30T08:13:50.252458+00:00",
+  "last_run_at": "2026-07-31T08:06:49.367864+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -900,6 +900,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "MElmmd9ByYo": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 暴涨！下跌结束了吗？AMZN上调支出为何大涨？AAPL强势业务拖后腿！SOXX、QQQ!",
+      "url": "https://www.youtube.com/watch?v=MElmmd9ByYo",
+      "published": "2026-07-31T01:33:43+00:00",
+      "processed_at": "2026-07-31T08:06:49.367864+00:00",
+      "daily_digest_id": "daily-MElmmd9ByYo-4IpKGg-sfdo",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "4IpKGg-sfdo": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "今天最惨的人出现了！NaNa说美股(2026.07.30)",
+      "url": "https://www.youtube.com/watch?v=4IpKGg-sfdo",
+      "published": "2026-07-30T22:34:23+00:00",
+      "processed_at": "2026-07-31T08:06:49.367864+00:00",
+      "daily_digest_id": "daily-MElmmd9ByYo-4IpKGg-sfdo",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1266,6 +1296,16 @@
       "source_video_ids": [
         "G7tU5l484JA",
         "X5fpqNfC_B0"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-MElmmd9ByYo-4IpKGg-sfdo": {
+      "processed_at": "2026-07-31T08:06:49.367864+00:00",
+      "source_video_ids": [
+        "MElmmd9ByYo",
+        "4IpKGg-sfdo"
       ],
       "summary_status": "link_only",
       "summary_model": null,
