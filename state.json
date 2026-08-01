@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-07-31T08:06:49.367864+00:00",
+  "last_run_at": "2026-08-01T13:23:37.035989+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -930,6 +930,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "S8UbAl4f_aU": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 下周标普，能创新高吗？ AMZN财报为何强于GOOG？PLTR、LRCX、LLY！纳指、半导体承压！",
+      "url": "https://www.youtube.com/watch?v=S8UbAl4f_aU",
+      "published": "2026-08-01T01:19:01+00:00",
+      "processed_at": "2026-08-01T13:23:37.035989+00:00",
+      "daily_digest_id": "daily-S8UbAl4f_aU-3u24qyWjSVM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "3u24qyWjSVM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "早盘闪崩真相！NaNa说美股(2026.07.31)",
+      "url": "https://www.youtube.com/watch?v=3u24qyWjSVM",
+      "published": "2026-07-31T22:27:01+00:00",
+      "processed_at": "2026-08-01T13:23:37.035989+00:00",
+      "daily_digest_id": "daily-S8UbAl4f_aU-3u24qyWjSVM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1310,6 +1340,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-S8UbAl4f_aU-3u24qyWjSVM": {
+      "processed_at": "2026-08-01T13:23:37.035989+00:00",
+      "source_video_ids": [
+        "S8UbAl4f_aU",
+        "3u24qyWjSVM"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
