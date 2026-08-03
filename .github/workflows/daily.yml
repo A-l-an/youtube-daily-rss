@@ -4,6 +4,11 @@ on:
   schedule:
     # 10:00 Asia/Shanghai / Taipei is 02:00 UTC.
     - cron: "0 2 * * *"
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/backfill-request"
   workflow_dispatch:
     inputs:
       force:
@@ -83,6 +88,7 @@ jobs:
           WORKFLOW_EVENT_NAME: ${{ github.event_name }}
           WORKFLOW_FORCE: ${{ inputs.force }}
           WORKFLOW_REPORT_DATE: ${{ inputs.report_date }}
+          BACKFILL_REQUEST_PATH: .github/backfill-request
         run: |
           args=()
           if [ "$WORKFLOW_EVENT_NAME" = "workflow_dispatch" ] && [ "$WORKFLOW_FORCE" = "true" ]; then
@@ -90,6 +96,12 @@ jobs:
           fi
           if [ "$WORKFLOW_EVENT_NAME" = "workflow_dispatch" ] && [ -n "$WORKFLOW_REPORT_DATE" ]; then
             args+=(--report-date "$WORKFLOW_REPORT_DATE")
+          fi
+          if [ "$WORKFLOW_EVENT_NAME" = "push" ]; then
+            requested_report_date="$(
+              .venv-ci/bin/python scripts/validate_backfill_request.py "$BACKFILL_REQUEST_PATH"
+            )"
+            args+=(--report-date "$requested_report_date")
           fi
           .venv-ci/bin/python scripts/main.py "${args[@]}"
 

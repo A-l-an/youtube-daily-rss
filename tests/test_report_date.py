@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import argparse
 from datetime import date, datetime, timezone
+import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 from typing import Optional
 import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
+
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +24,7 @@ import fetch_youtube
 import main as main_module
 import rss as rss_module
 import summarize as summarize_module
+import validate_backfill_request
 from fetch_youtube import Video
 from summarize import SummaryResult
 
@@ -339,7 +344,105 @@ class ReportDateBehaviorTests(unittest.TestCase):
         rss_mock.assert_not_called()
 
 
-class WorkflowDispatchTests(unittest.TestCase):
+class BackfillRequestValidationTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.config = {"timezone": "Asia/Shanghai"}
+        self.now = datetime(2026, 7, 21, 2, 0, tzinfo=timezone.utc)
+
+    def validate_bytes(self, payload: bytes) -> str:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            request_path = Path(temporary_directory) / "backfill-request"
+            request_path.write_bytes(payload)
+            return validate_backfill_request.validate_request(
+                request_path, self.config, now=self.now
+            )
+
+    def test_accepts_one_ended_date_with_or_without_final_lf(self) -> None:
+        self.assertEqual(self.validate_bytes(b"2026-07-20"), "2026-07-20")
+        self.assertEqual(self.validate_bytes(b"2026-07-20\n"), "2026-07-20")
+
+    def test_missing_file_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            request_path = Path(temporary_directory) / "missing"
+            with self.assertRaisesRegex(ValueError, "missing"):
+                validate_backfill_request.validate_request(
+                    request_path, self.config, now=self.now
+                )
+
+    def test_empty_file_fails_closed(self) -> None:
+        with self.assertRaisesRegex(ValueError, "empty"):
+            self.validate_bytes(b"")
+
+    def test_multiple_lines_fail_closed(self) -> None:
+        for payload in (b"2026-07-19\n2026-07-20\n", b"2026-07-20\n\n"):
+            with self.subTest(payload=payload), self.assertRaisesRegex(
+                ValueError, "exactly one line"
+            ):
+                self.validate_bytes(payload)
+
+    def test_cr_and_crlf_fail_closed(self) -> None:
+        for payload in (b"2026-07-20\r", b"2026-07-20\r\n"):
+            with self.subTest(payload=payload), self.assertRaisesRegex(
+                ValueError, "CR/CRLF"
+            ):
+                self.validate_bytes(payload)
+
+    def test_non_ten_character_or_invalid_date_fails_closed(self) -> None:
+        for payload in (b"2026-7-20\n", b"2026-07-200\n", b"2026-02-30\n"):
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                self.validate_bytes(payload)
+
+    def test_current_or_future_local_date_fails_closed(self) -> None:
+        for payload in (b"2026-07-21\n", b"2026-07-22\n"):
+            with self.subTest(payload=payload), self.assertRaisesRegex(
+                ValueError, "ended local date"
+            ):
+                self.validate_bytes(payload)
+
+
+class WorkflowTriggerTests(unittest.TestCase):
+    @staticmethod
+    def load_workflow() -> dict:
+        workflow_path = ROOT / ".github" / "workflows" / "daily.yml"
+        return yaml.load(workflow_path.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
+
+    @classmethod
+    def generate_step(cls) -> dict:
+        workflow = cls.load_workflow()
+        return next(
+            step
+            for step in workflow["jobs"]["build"]["steps"]
+            if step.get("name") == "Generate feed"
+        )
+
+    @classmethod
+    def run_argv_harness(cls, event_name: str, **env_overrides: str) -> subprocess.CompletedProcess[str]:
+        generate_script = cls.generate_step()["run"]
+        main_command = '.venv-ci/bin/python scripts/main.py "${args[@]}"'
+        capture_command = (
+            'if [ "${#args[@]}" -gt 0 ]; then printf \'%s\\n\' "${args[@]}"; fi'
+        )
+        harness = generate_script.replace(main_command, capture_command)
+        if harness == generate_script:
+            raise AssertionError("Generate feed main command was not found")
+        environment = {
+            **os.environ,
+            "WORKFLOW_EVENT_NAME": event_name,
+            "WORKFLOW_FORCE": "",
+            "WORKFLOW_REPORT_DATE": "",
+            "BACKFILL_REQUEST_PATH": ".github/backfill-request",
+            **env_overrides,
+        }
+        return subprocess.run(
+            ["bash", "--noprofile", "--norc", "-e", "-o", "pipefail"],
+            input=harness,
+            text=True,
+            capture_output=True,
+            cwd=ROOT,
+            env=environment,
+            check=False,
+        )
+
     def test_report_date_is_passed_through_env_and_quoted_argv(self) -> None:
         workflow = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
         self.assertIn("report_date:", workflow)
@@ -347,6 +450,70 @@ class WorkflowDispatchTests(unittest.TestCase):
         self.assertIn('args+=(--report-date "$WORKFLOW_REPORT_DATE")', workflow)
         self.assertIn('.venv-ci/bin/python scripts/main.py "${args[@]}"', workflow)
         self.assertNotIn("scripts/main.py --report-date ${{ inputs.report_date }}", workflow)
+
+    def test_push_is_narrowly_scoped_to_master_and_request_path(self) -> None:
+        workflow = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
+        self.assertIn("  push:\n    branches:\n      - master", workflow)
+        self.assertIn('    paths:\n      - ".github/backfill-request"', workflow)
+        self.assertIn("BACKFILL_REQUEST_PATH: .github/backfill-request", workflow)
+        self.assertIn(
+            '.venv-ci/bin/python scripts/validate_backfill_request.py "$BACKFILL_REQUEST_PATH"',
+            workflow,
+        )
+        self.assertIn('args+=(--report-date "$requested_report_date")', workflow)
+        self.assertNotIn("eval ", workflow)
+
+    def test_schedule_and_workflow_dispatch_triggers_remain_present(self) -> None:
+        triggers = self.load_workflow()["on"]
+        self.assertEqual(triggers["schedule"], [{"cron": "0 2 * * *"}])
+        self.assertEqual(
+            triggers["push"],
+            {"branches": ["master"], "paths": [".github/backfill-request"]},
+        )
+        self.assertIn("report_date", triggers["workflow_dispatch"]["inputs"])
+
+    def test_generate_shell_parses_and_each_event_builds_expected_argv(self) -> None:
+        syntax = subprocess.run(
+            ["bash", "--noprofile", "--norc", "-n"],
+            input=self.generate_step()["run"],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(syntax.returncode, 0, syntax.stderr)
+
+        schedule = self.run_argv_harness("schedule")
+        self.assertEqual(schedule.returncode, 0, schedule.stderr)
+        self.assertEqual(schedule.stdout.splitlines(), [])
+
+        dispatch = self.run_argv_harness(
+            "workflow_dispatch",
+            WORKFLOW_FORCE="true",
+            WORKFLOW_REPORT_DATE="2026-07-19",
+        )
+        self.assertEqual(dispatch.returncode, 0, dispatch.stderr)
+        self.assertEqual(
+            dispatch.stdout.splitlines(),
+            ["--force", "--report-date", "2026-07-19"],
+        )
+
+        push = self.run_argv_harness("push")
+        self.assertEqual(push.returncode, 0, push.stderr)
+        self.assertEqual(
+            push.stdout.splitlines(),
+            ["--report-date", "2026-07-20"],
+        )
+
+    def test_invalid_push_request_stops_before_main_argv(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            request_path = Path(temporary_directory) / "backfill-request"
+            request_path.write_bytes(b"2026-07-20\r\n")
+            result = self.run_argv_harness(
+                "push", BACKFILL_REQUEST_PATH=str(request_path)
+            )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, "")
+        self.assertIn("Invalid backfill request", result.stderr)
 
 
 if __name__ == "__main__":
