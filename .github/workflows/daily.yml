@@ -9,6 +9,7 @@ on:
       - master
     paths:
       - ".github/backfill-request"
+      - ".github/backfill-request-sequence"
   workflow_dispatch:
     inputs:
       force:
@@ -89,6 +90,7 @@ jobs:
           WORKFLOW_FORCE: ${{ inputs.force }}
           WORKFLOW_REPORT_DATE: ${{ inputs.report_date }}
           BACKFILL_REQUEST_PATH: .github/backfill-request
+          BACKFILL_REQUEST_SEQUENCE_PATH: .github/backfill-request-sequence
         run: |
           args=()
           if [ "$WORKFLOW_EVENT_NAME" = "workflow_dispatch" ] && [ "$WORKFLOW_FORCE" = "true" ]; then
@@ -98,6 +100,9 @@ jobs:
             args+=(--report-date "$WORKFLOW_REPORT_DATE")
           fi
           if [ "$WORKFLOW_EVENT_NAME" = "push" ]; then
+            requested_sequence="$(
+              .venv-ci/bin/python scripts/validate_backfill_request_sequence.py "$BACKFILL_REQUEST_SEQUENCE_PATH"
+            )"
             requested_report_date="$(
               .venv-ci/bin/python scripts/validate_backfill_request.py "$BACKFILL_REQUEST_PATH"
             )"

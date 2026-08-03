@@ -25,6 +25,7 @@ import main as main_module
 import rss as rss_module
 import summarize as summarize_module
 import validate_backfill_request
+import validate_backfill_request_sequence
 from fetch_youtube import Video
 from summarize import SummaryResult
 
@@ -400,6 +401,34 @@ class BackfillRequestValidationTests(unittest.TestCase):
                 self.validate_bytes(payload)
 
 
+class BackfillRequestSequenceValidationTests(unittest.TestCase):
+    def validate_bytes(self, payload: bytes) -> str:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            sequence_path = Path(temporary_directory) / "backfill-request-sequence"
+            sequence_path.write_bytes(payload)
+            return validate_backfill_request_sequence.validate_sequence(sequence_path)
+
+    def test_accepts_canonical_non_negative_integer_with_optional_final_lf(self) -> None:
+        for payload, expected in ((b"0", "0"), (b"1\n", "1"), (b"123456789", "123456789")):
+            with self.subTest(payload=payload):
+                self.assertEqual(self.validate_bytes(payload), expected)
+
+    def test_missing_empty_or_multiple_lines_fail_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            sequence_path = Path(temporary_directory) / "missing"
+            with self.assertRaisesRegex(ValueError, "missing"):
+                validate_backfill_request_sequence.validate_sequence(sequence_path)
+
+        for payload in (b"", b"1\n\n", b"1\n2\n"):
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                self.validate_bytes(payload)
+
+    def test_noncanonical_or_non_ascii_values_fail_closed(self) -> None:
+        for payload in (b"01\n", b"-1\n", b"+1\n", b" 1\n", b"1 \n", b"1\r\n", "１\n".encode()):
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                self.validate_bytes(payload)
+
+
 class WorkflowTriggerTests(unittest.TestCase):
     @staticmethod
     def load_workflow() -> dict:
@@ -431,6 +460,7 @@ class WorkflowTriggerTests(unittest.TestCase):
             "WORKFLOW_FORCE": "",
             "WORKFLOW_REPORT_DATE": "",
             "BACKFILL_REQUEST_PATH": ".github/backfill-request",
+            "BACKFILL_REQUEST_SEQUENCE_PATH": ".github/backfill-request-sequence",
             **env_overrides,
         }
         return subprocess.run(
@@ -451,16 +481,26 @@ class WorkflowTriggerTests(unittest.TestCase):
         self.assertIn('.venv-ci/bin/python scripts/main.py "${args[@]}"', workflow)
         self.assertNotIn("scripts/main.py --report-date ${{ inputs.report_date }}", workflow)
 
-    def test_push_is_narrowly_scoped_to_master_and_request_path(self) -> None:
+    def test_push_is_narrowly_scoped_to_master_request_and_sequence_paths(self) -> None:
         workflow = (ROOT / ".github" / "workflows" / "daily.yml").read_text(encoding="utf-8")
         self.assertIn("  push:\n    branches:\n      - master", workflow)
         self.assertIn('    paths:\n      - ".github/backfill-request"', workflow)
+        self.assertIn('      - ".github/backfill-request-sequence"', workflow)
         self.assertIn("BACKFILL_REQUEST_PATH: .github/backfill-request", workflow)
+        self.assertIn(
+            "BACKFILL_REQUEST_SEQUENCE_PATH: .github/backfill-request-sequence",
+            workflow,
+        )
         self.assertIn(
             '.venv-ci/bin/python scripts/validate_backfill_request.py "$BACKFILL_REQUEST_PATH"',
             workflow,
         )
+        self.assertIn(
+            '.venv-ci/bin/python scripts/validate_backfill_request_sequence.py "$BACKFILL_REQUEST_SEQUENCE_PATH"',
+            workflow,
+        )
         self.assertIn('args+=(--report-date "$requested_report_date")', workflow)
+        self.assertNotIn('args+=(--report-date "$requested_sequence")', workflow)
         self.assertNotIn("eval ", workflow)
 
     def test_schedule_and_workflow_dispatch_triggers_remain_present(self) -> None:
@@ -468,9 +508,29 @@ class WorkflowTriggerTests(unittest.TestCase):
         self.assertEqual(triggers["schedule"], [{"cron": "0 2 * * *"}])
         self.assertEqual(
             triggers["push"],
-            {"branches": ["master"], "paths": [".github/backfill-request"]},
+            {
+                "branches": ["master"],
+                "paths": [
+                    ".github/backfill-request",
+                    ".github/backfill-request-sequence",
+                ],
+            },
         )
         self.assertIn("report_date", triggers["workflow_dispatch"]["inputs"])
+
+    def test_generated_commit_cannot_retrigger_push_workflow(self) -> None:
+        workflow = self.load_workflow()
+        commit_step = next(
+            step
+            for step in workflow["jobs"]["build"]["steps"]
+            if step.get("name") == "Commit generated state and feed"
+        )
+        git_add_lines = [
+            line.strip()
+            for line in commit_step["run"].splitlines()
+            if line.strip().startswith("git add ")
+        ]
+        self.assertEqual(git_add_lines, ["git add state.json summaries.json public"])
 
     def test_generate_shell_parses_and_each_event_builds_expected_argv(self) -> None:
         syntax = subprocess.run(
@@ -499,9 +559,12 @@ class WorkflowTriggerTests(unittest.TestCase):
 
         push = self.run_argv_harness("push")
         self.assertEqual(push.returncode, 0, push.stderr)
+        expected_report_date = (ROOT / ".github" / "backfill-request").read_text(
+            encoding="ascii"
+        ).strip()
         self.assertEqual(
             push.stdout.splitlines(),
-            ["--report-date", "2026-07-20"],
+            ["--report-date", expected_report_date],
         )
 
     def test_invalid_push_request_stops_before_main_argv(self) -> None:
@@ -514,6 +577,30 @@ class WorkflowTriggerTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(result.stdout, "")
         self.assertIn("Invalid backfill request", result.stderr)
+
+    def test_missing_push_request_stops_before_main_argv(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            result = self.run_argv_harness(
+                "push",
+                BACKFILL_REQUEST_PATH=str(Path(temporary_directory) / "missing"),
+            )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, "")
+        self.assertIn("Invalid backfill request", result.stderr)
+
+    def test_invalid_or_missing_sequence_stops_before_main_argv(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            invalid_path = temporary_root / "invalid"
+            invalid_path.write_bytes(b"01\n")
+            for sequence_path in (invalid_path, temporary_root / "missing"):
+                with self.subTest(sequence_path=sequence_path):
+                    result = self.run_argv_harness(
+                        "push", BACKFILL_REQUEST_SEQUENCE_PATH=str(sequence_path)
+                    )
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(result.stdout, "")
+                    self.assertIn("Invalid backfill request sequence", result.stderr)
 
 
 if __name__ == "__main__":
