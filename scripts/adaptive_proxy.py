@@ -61,6 +61,7 @@ LIBCYBER_HELPER_EXECUTABLE = (
     "/Library/PrivilegedHelperTools/com.libcyber.pirate.helper"
 )
 PROC_PIDPATHINFO_MAXSIZE = 4096
+MAX_ACTIVE_CONFIG_BYTES = 2 * 1024 * 1024
 
 
 class AdaptiveProxyError(RuntimeError):
@@ -191,6 +192,115 @@ def libcyber_config_path(home: Path) -> Path:
     return home / LIBCYBER_CONFIG_RELATIVE
 
 
+def metadata_signature(metadata: os.stat_result) -> Tuple[int, ...]:
+    return (
+        metadata.st_dev,
+        metadata.st_ino,
+        metadata.st_mode,
+        metadata.st_uid,
+        metadata.st_size,
+        metadata.st_mtime_ns,
+        metadata.st_ctime_ns,
+    )
+
+
+def read_trusted_libcyber_config(home: Path) -> Optional[str]:
+    """Open the fixed config without following symlinks and read one stable fd."""
+    if not home.is_absolute():
+        return None
+    required_flags = ("O_DIRECTORY", "O_NOFOLLOW")
+    if any(not hasattr(os, name) for name in required_flags):
+        return None
+    directory_flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    file_flags = os.O_RDONLY | os.O_NOFOLLOW
+    if hasattr(os, "O_CLOEXEC"):
+        directory_flags |= os.O_CLOEXEC
+        file_flags |= os.O_CLOEXEC
+    if hasattr(os, "O_NONBLOCK"):
+        file_flags |= os.O_NONBLOCK
+
+    directory_fds: List[int] = []
+    file_fd: Optional[int] = None
+    try:
+        current_fd = os.open(str(home), directory_flags)
+        directory_fds.append(current_fd)
+        home_metadata = os.fstat(current_fd)
+        if (
+            not stat.S_ISDIR(home_metadata.st_mode)
+            or home_metadata.st_uid != os.getuid()
+        ):
+            return None
+        expected_owner = home_metadata.st_uid
+        if home_metadata.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+            return None
+
+        parts = LIBCYBER_CONFIG_RELATIVE.parts
+        for part in parts[:-1]:
+            next_fd = os.open(part, directory_flags, dir_fd=current_fd)
+            directory_fds.append(next_fd)
+            current_fd = next_fd
+            directory_metadata = os.fstat(current_fd)
+            if (
+                not stat.S_ISDIR(directory_metadata.st_mode)
+                or directory_metadata.st_uid != expected_owner
+                or directory_metadata.st_mode & (stat.S_IWGRP | stat.S_IWOTH)
+            ):
+                return None
+
+        file_name = parts[-1]
+        file_fd = os.open(file_name, file_flags, dir_fd=current_fd)
+        before = os.fstat(file_fd)
+        forbidden_mode = (
+            stat.S_IWGRP
+            | stat.S_IWOTH
+            | stat.S_IXUSR
+            | stat.S_IXGRP
+            | stat.S_IXOTH
+        )
+        if (
+            not stat.S_ISREG(before.st_mode)
+            or before.st_uid != expected_owner
+            or before.st_nlink != 1
+            or before.st_mode & forbidden_mode
+            or before.st_size > MAX_ACTIVE_CONFIG_BYTES
+        ):
+            return None
+
+        payload = bytearray()
+        while len(payload) <= MAX_ACTIVE_CONFIG_BYTES:
+            chunk = os.read(
+                file_fd,
+                min(64 * 1024, MAX_ACTIVE_CONFIG_BYTES + 1 - len(payload)),
+            )
+            if not chunk:
+                break
+            payload.extend(chunk)
+        if len(payload) > MAX_ACTIVE_CONFIG_BYTES:
+            return None
+
+        after = os.fstat(file_fd)
+        named_after = os.stat(file_name, dir_fd=current_fd, follow_symlinks=False)
+        if (
+            metadata_signature(before) != metadata_signature(after)
+            or metadata_signature(after) != metadata_signature(named_after)
+        ):
+            return None
+        return bytes(payload).decode("utf-8", errors="strict")
+    except (OSError, UnicodeError):
+        return None
+    finally:
+        if file_fd is not None:
+            try:
+                os.close(file_fd)
+            except OSError:
+                pass
+        for directory_fd in reversed(directory_fds):
+            try:
+                os.close(directory_fd)
+            except OSError:
+                pass
+
+
 def configured_libcyber_ports(home: Path) -> Dict[str, int]:
     """Read only top-level HTTP/SOCKS ports from LibCyber's active config.
 
@@ -198,15 +308,8 @@ def configured_libcyber_ports(home: Path) -> Dict[str, int]:
     non-decimal, or out-of-range recognized fields reject the entire LibCyber
     configuration.  Subscription/profile files are never scanned.
     """
-    path = libcyber_config_path(home)
-    try:
-        metadata = path.lstat()
-        if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISREG(metadata.st_mode):
-            return {}
-        if metadata.st_size > 2 * 1024 * 1024:
-            return {}
-        text = path.read_text(encoding="utf-8", errors="strict")
-    except (OSError, UnicodeError):
+    text = read_trusted_libcyber_config(home)
+    if text is None:
         return {}
     if "\x00" in text:
         return {}
@@ -271,22 +374,8 @@ def process_parent_and_args(
     return int(match.group(1)), match.group(2)
 
 
-def loopback_listener_pid(port: int, lsof_bin: str = "/usr/sbin/lsof") -> Optional[int]:
-    """Return the sole PID listening on this loopback TCP port, else fail closed."""
-    if not (1 <= port <= 65535):
-        return None
-    rc, output = run_text(
-        [
-            lsof_bin,
-            "-nP",
-            "-a",
-            f"-iTCP:{port}",
-            "-sTCP:LISTEN",
-            "-Fpn",
-        ],
-        timeout=4.0,
-    )
-    if rc != 0 or "\x00" in output:
+def parse_lsof_loopback_listener_pid(port: int, output: str) -> Optional[int]:
+    if not (1 <= port <= 65535) or "\x00" in output:
         return None
 
     names_by_pid: Dict[int, List[str]] = {}
@@ -316,14 +405,110 @@ def loopback_listener_pid(port: int, lsof_bin: str = "/usr/sbin/lsof") -> Option
     return pid
 
 
+def netstat_line_pid(port: int, fields: Sequence[str]) -> Optional[int]:
+    """Parse one strict macOS `netstat -anv -p tcp` LISTEN record."""
+    if len(fields) < 19 or fields[0] not in ("tcp4", "tcp6"):
+        return None
+    expected_local = (
+        f"127.0.0.1.{port}" if fields[0] == "tcp4" else f"::1.{port}"
+    )
+    if fields[3] != expected_local:
+        return None
+    if fields[4] != "*.*" or fields[5] != "LISTEN":
+        return None
+    if any(not fields[index].isdigit() for index in (1, 2, 6, 7, 8, 9)):
+        return None
+
+    trailing = fields[-8:]
+    if (
+        any(not re.fullmatch(r"[0-9A-Fa-f]+", value) for value in trailing[:5])
+        or not trailing[5].isdigit()
+        or not trailing[6].isdigit()
+        or not re.fullmatch(r"[0-9A-Fa-f]+", trailing[7])
+    ):
+        return None
+    process_field = " ".join(fields[10:-8])
+    process_match = re.fullmatch(r".+:([1-9][0-9]*)", process_field)
+    if not process_match:
+        return None
+    return int(process_match.group(1))
+
+
+def parse_netstat_loopback_listener_pid(port: int, output: str) -> Optional[int]:
+    """Return one PID only when every target-port LISTEN record is trustworthy."""
+    if not (1 <= port <= 65535) or "\x00" in output:
+        return None
+    listener_pids = set()
+    target_suffix = f".{port}"
+    for line in output.splitlines():
+        fields = line.split()
+        if not fields or fields[0] not in ("tcp4", "tcp6"):
+            continue
+        if len(fields) < 6:
+            if any(value.endswith(target_suffix) for value in fields[1:]):
+                return None
+            continue
+        local_address = fields[3]
+        state_value = fields[5]
+        if not local_address.endswith(target_suffix):
+            if state_value == "LISTEN" and any(
+                value.endswith(target_suffix) for value in fields[1:]
+            ):
+                return None
+            continue
+        if state_value != "LISTEN":
+            continue
+        if local_address not in (f"127.0.0.1.{port}", f"::1.{port}"):
+            return None
+        pid = netstat_line_pid(port, fields)
+        if pid is None:
+            return None
+        listener_pids.add(pid)
+    if len(listener_pids) != 1:
+        return None
+    return next(iter(listener_pids))
+
+
+def loopback_listener_pid(
+    port: int,
+    lsof_bin: str = "/usr/sbin/lsof",
+    netstat_bin: str = "/usr/sbin/netstat",
+) -> Optional[int]:
+    """Return the sole loopback listener PID, falling back if lsof is denied."""
+    if not (1 <= port <= 65535):
+        return None
+    rc, output = run_text(
+        [
+            lsof_bin,
+            "-nP",
+            "-a",
+            f"-iTCP:{port}",
+            "-sTCP:LISTEN",
+            "-Fpn",
+        ],
+        timeout=4.0,
+    )
+    if rc == 0:
+        return parse_lsof_loopback_listener_pid(port, output)
+    if output.strip():
+        return None
+    rc, output = run_text([netstat_bin, "-anv", "-p", "tcp"], timeout=5.0)
+    if rc != 0:
+        return None
+    return parse_netstat_loopback_listener_pid(port, output)
+
+
 def listener_is_trusted_libcyber(
     port: int,
     config_path: Path,
     lsof_bin: str = "/usr/sbin/lsof",
     ps_bin: str = "/bin/ps",
+    netstat_bin: str = "/usr/sbin/netstat",
 ) -> bool:
     """Bind a LibCyber loopback listener to its core/helper/config lineage."""
-    pid = loopback_listener_pid(port, lsof_bin=lsof_bin)
+    pid = loopback_listener_pid(
+        port, lsof_bin=lsof_bin, netstat_bin=netstat_bin
+    )
     if pid is None:
         return False
     core_executable = process_executable(pid)
@@ -351,7 +536,9 @@ def listener_is_trusted_libcyber(
     return (
         process_executable(pid) == core_executable
         and process_executable(parent_pid) == LIBCYBER_HELPER_EXECUTABLE
-        and loopback_listener_pid(port, lsof_bin=lsof_bin) == pid
+        and loopback_listener_pid(
+            port, lsof_bin=lsof_bin, netstat_bin=netstat_bin
+        ) == pid
     )
 
 
@@ -383,7 +570,11 @@ def listener_is_trusted_clash(port: int, lsof_bin: str = "/usr/sbin/lsof") -> bo
 
 
 def discover_candidates(
-    home: Path, scutil_bin: str, lsof_bin: str, ps_bin: str = "/bin/ps"
+    home: Path,
+    scutil_bin: str,
+    lsof_bin: str,
+    ps_bin: str = "/bin/ps",
+    netstat_bin: str = "/usr/sbin/netstat",
 ) -> List[str]:
     """Discover DIRECT plus active-config allowlisted loopback HTTP ports."""
     candidates = [DIRECT]
@@ -431,6 +622,7 @@ def discover_candidates(
             libcyber_config_path(home),
             lsof_bin=lsof_bin,
             ps_bin=ps_bin,
+            netstat_bin=netstat_bin,
         )
     ):
         route = f"{LOOPBACK_PREFIX}{libcyber_http_port}"
@@ -824,6 +1016,7 @@ def parser() -> argparse.ArgumentParser:
     evaluate_parser.add_argument("--scutil-bin", default="/usr/sbin/scutil")
     evaluate_parser.add_argument("--lsof-bin", default="/usr/sbin/lsof")
     evaluate_parser.add_argument("--ps-bin", default="/bin/ps")
+    evaluate_parser.add_argument("--netstat-bin", default="/usr/sbin/netstat")
     evaluate_parser.add_argument("--probe-successes", type=int, default=2)
     evaluate_parser.add_argument("--connect-timeout", type=int, default=5)
     evaluate_parser.add_argument("--max-time", type=int, default=10)
@@ -870,7 +1063,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     candidates.insert(0, DIRECT)
             else:
                 candidates = discover_candidates(
-                    Path.home(), args.scutil_bin, args.lsof_bin, args.ps_bin
+                    Path.home(),
+                    args.scutil_bin,
+                    args.lsof_bin,
+                    args.ps_bin,
+                    args.netstat_bin,
                 )
             health = probe_candidates(
                 candidates,

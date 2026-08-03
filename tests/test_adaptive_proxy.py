@@ -22,6 +22,18 @@ CORE = adaptive_proxy.LIBCYBER_CORE_EXECUTABLES[0]
 HELPER = adaptive_proxy.LIBCYBER_HELPER_EXECUTABLE
 
 
+def netstat_listener_line(
+    local_address: str,
+    pid: int = 4242,
+    display_name: str = "untrusted-display-name",
+) -> str:
+    return (
+        f"tcp4 0 0 {local_address} *.* LISTEN 0 0 131072 131072 "
+        f"{display_name}:{pid} 00180 00000006 000000000bace862 "
+        "00000000 00000800 1 0 000000\n"
+    )
+
+
 class LibCyberDiscoveryTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -50,14 +62,25 @@ class LibCyberDiscoveryTests(unittest.TestCase):
         core_executable: str = CORE,
         core_config: Optional[Path] = None,
         listener_address: Optional[str] = None,
+        lsof_denied: bool = False,
+        netstat_output: Optional[str] = None,
     ):
         helper_pid = 4241
         active_config = self.config_path if core_config is None else core_config
 
         def fake_run_text(command, timeout=5.0):
             if command[0] == "/fake/lsof":
+                if lsof_denied:
+                    return 1, ""
                 address = listener_address or f"127.0.0.1:{port}"
                 return 0, f"p{listener_pid}\nn{address}\n"
+            if command[0] == "/fake/netstat":
+                output = netstat_output
+                if output is None:
+                    output = netstat_listener_line(
+                        f"127.0.0.1.{port}", listener_pid
+                    )
+                return 0, output
             if command[0] == "/fake/ps":
                 pid = int(command[2])
                 if pid == listener_pid:
@@ -85,7 +108,11 @@ class LibCyberDiscoveryTests(unittest.TestCase):
             side_effect=fake_process_executable,
         ):
             return adaptive_proxy.discover_candidates(
-                self.home, "/fake/scutil", "/fake/lsof", "/fake/ps"
+                self.home,
+                "/fake/scutil",
+                "/fake/lsof",
+                "/fake/ps",
+                "/fake/netstat",
             )
 
     def test_trusted_libcyber_8890_is_selected_after_two_healthy_cycles(self) -> None:
@@ -111,6 +138,56 @@ class LibCyberDiscoveryTests(unittest.TestCase):
             self.discover_with_fixtures(17777),
             ["DIRECT", "LOOPBACK:17777"],
         )
+
+    def test_root_owned_lsof_denied_uses_netstat_pid_not_display_name(self) -> None:
+        self.write_config("port: 8890\nsocks-port: 8891\n")
+        self.assertEqual(
+            self.discover_with_fixtures(
+                8890,
+                lsof_denied=True,
+                netstat_output=netstat_listener_line(
+                    "127.0.0.1.8890", display_name="spoofable-name-is-ignored"
+                ),
+            ),
+            ["DIRECT", "LOOPBACK:8890"],
+        )
+
+    def test_netstat_same_pid_duplicates_are_unique_but_two_pids_are_rejected(self) -> None:
+        one_pid = netstat_listener_line("127.0.0.1.8890", 4242) * 2
+        self.assertEqual(
+            adaptive_proxy.parse_netstat_loopback_listener_pid(8890, one_pid),
+            4242,
+        )
+        two_pids = one_pid + netstat_listener_line("127.0.0.1.8890", 4343)
+        self.assertIsNone(
+            adaptive_proxy.parse_netstat_loopback_listener_pid(8890, two_pids)
+        )
+
+    def test_netstat_non_loopback_target_port_is_rejected(self) -> None:
+        self.assertIsNone(
+            adaptive_proxy.parse_netstat_loopback_listener_pid(
+                8890,
+                netstat_listener_line("127.0.0.1.8890")
+                + netstat_listener_line("*.8890"),
+            )
+        )
+
+    def test_netstat_malformed_target_record_is_rejected(self) -> None:
+        malicious_records = (
+            (
+                "tcp4 0 0 127.0.0.1.8890 *.* LISTEN 0 0 131072 131072 "
+                "forged:4242 00180 not-hex 000000000bace862 00000000 "
+                "00000800 1 0 000000\n"
+            ),
+            "tcp4 0 127.0.0.1.8890 *.* LISTEN\n",
+        )
+        for record in malicious_records:
+            with self.subTest(record=record):
+                self.assertIsNone(
+                    adaptive_proxy.parse_netstat_loopback_listener_pid(
+                        8890, record
+                    )
+                )
 
     def test_stale_listener_bound_to_another_config_is_rejected(self) -> None:
         self.write_config("port: 8890\nsocks-port: 8891\n")
@@ -153,6 +230,35 @@ class LibCyberDiscoveryTests(unittest.TestCase):
                     adaptive_proxy.configured_libcyber_ports(self.home), {}
                 )
 
+    def test_config_symlink_is_rejected_without_following_it(self) -> None:
+        target = self.home / "attacker.yaml"
+        target.write_text("port: 8890\nsocks-port: 8891\n", encoding="utf-8")
+        self.config_path.symlink_to(target)
+        self.assertEqual(adaptive_proxy.configured_libcyber_ports(self.home), {})
+
+    def test_config_path_swap_during_fd_read_is_rejected(self) -> None:
+        self.write_config("port: 8890\nsocks-port: 8891\n")
+        replacement = self.home / "replacement.yaml"
+        replacement.write_text("port: 17777\nsocks-port: 17778\n", encoding="utf-8")
+        real_read = os.read
+        swapped = False
+
+        def swapping_read(fd, count):
+            nonlocal swapped
+            data = real_read(fd, count)
+            if not swapped:
+                os.replace(replacement, self.config_path)
+                swapped = True
+            return data
+
+        with patch.object(adaptive_proxy.os, "read", side_effect=swapping_read):
+            self.assertEqual(adaptive_proxy.configured_libcyber_ports(self.home), {})
+
+    def test_group_or_world_writable_config_is_rejected(self) -> None:
+        self.write_config("port: 8890\nsocks-port: 8891\n")
+        self.config_path.chmod(0o666)
+        self.assertEqual(adaptive_proxy.configured_libcyber_ports(self.home), {})
+
     def test_socks_only_config_is_not_mislabeled_as_http(self) -> None:
         self.write_config("socks-port: 8891\n")
         self.assertEqual(
@@ -161,7 +267,11 @@ class LibCyberDiscoveryTests(unittest.TestCase):
         )
         self.assertEqual(
             adaptive_proxy.discover_candidates(
-                self.home, "/fake/scutil", "/fake/lsof", "/fake/ps"
+                self.home,
+                "/fake/scutil",
+                "/fake/lsof",
+                "/fake/ps",
+                "/fake/netstat",
             ),
             ["DIRECT"],
         )
@@ -178,7 +288,11 @@ class ExistingRouteRegressionTests(unittest.TestCase):
             },
         ):
             candidates = adaptive_proxy.discover_candidates(
-                Path(temporary_directory), "/fake/scutil", "/fake/lsof", "/fake/ps"
+                Path(temporary_directory),
+                "/fake/scutil",
+                "/fake/lsof",
+                "/fake/ps",
+                "/fake/netstat",
             )
         self.assertEqual(candidates, ["DIRECT", "LOOPBACK:7897"])
 
