@@ -514,10 +514,10 @@ def listener_is_trusted_libcyber(
     core_executable = process_executable(pid)
     if core_executable not in LIBCYBER_CORE_EXECUTABLES:
         return False
-    process = process_parent_and_args(pid, ps_bin=ps_bin)
-    if process is None:
+    core_process = process_parent_and_args(pid, ps_bin=ps_bin)
+    if core_process is None:
         return False
-    parent_pid, args = process
+    parent_pid, args = core_process
     if parent_pid <= 1 or not args.startswith(core_executable + " "):
         return False
     config_argument = " -f " + str(config_path)
@@ -525,20 +525,24 @@ def listener_is_trusted_libcyber(
         return False
     if process_executable(parent_pid) != LIBCYBER_HELPER_EXECUTABLE:
         return False
-    parent = process_parent_and_args(parent_pid, ps_bin=ps_bin)
-    if parent is None:
+    helper_process = process_parent_and_args(parent_pid, ps_bin=ps_bin)
+    if helper_process is None:
         return False
-    _grandparent_pid, parent_args = parent
+    _grandparent_pid, parent_args = helper_process
     if parent_args != LIBCYBER_HELPER_EXECUTABLE:
         return False
-    # Re-read kernel-backed identity and the listener after the ps lookups so a
-    # process exit/PID-reuse race cannot turn a stale observation into trust.
+    # First re-read the listener, then re-read both complete lineage tuples and
+    # kernel-backed executable paths.  A PID-reuse or argv/parent drift on
+    # either side of the listener observation therefore fails closed.
+    if loopback_listener_pid(
+        port, lsof_bin=lsof_bin, netstat_bin=netstat_bin
+    ) != pid:
+        return False
     return (
         process_executable(pid) == core_executable
+        and process_parent_and_args(pid, ps_bin=ps_bin) == core_process
         and process_executable(parent_pid) == LIBCYBER_HELPER_EXECUTABLE
-        and loopback_listener_pid(
-            port, lsof_bin=lsof_bin, netstat_bin=netstat_bin
-        ) == pid
+        and process_parent_and_args(parent_pid, ps_bin=ps_bin) == helper_process
     )
 
 

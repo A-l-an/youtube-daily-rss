@@ -207,6 +207,92 @@ class LibCyberDiscoveryTests(unittest.TestCase):
             ["DIRECT"],
         )
 
+    def test_core_lineage_drift_after_listener_reread_is_rejected(self) -> None:
+        core_args = f"{CORE} -d /safe/libs -f {self.config_path}"
+        core_initial = (4241, core_args)
+        helper_initial = (1, HELPER)
+        drift_cases = {
+            "core_args": (4241, core_args + " --changed"),
+            "core_ppid": (4341, core_args),
+        }
+        for name, core_final in drift_cases.items():
+            with self.subTest(name=name), patch.object(
+                adaptive_proxy,
+                "loopback_listener_pid",
+                side_effect=[4242, 4242],
+            ), patch.object(
+                adaptive_proxy,
+                "process_executable",
+                side_effect=[CORE, HELPER, CORE],
+            ), patch.object(
+                adaptive_proxy,
+                "process_parent_and_args",
+                side_effect=[
+                    core_initial,
+                    helper_initial,
+                    core_final,
+                ],
+            ):
+                self.assertFalse(
+                    adaptive_proxy.listener_is_trusted_libcyber(
+                        8890, self.config_path, "/fake/lsof", "/fake/ps"
+                    )
+                )
+
+    def test_helper_lineage_drift_after_listener_reread_is_rejected(self) -> None:
+        core_args = f"{CORE} -d /safe/libs -f {self.config_path}"
+        core_initial = (4241, core_args)
+        helper_initial = (1, HELPER)
+        drift_cases = {
+            "helper_args": (1, HELPER + " --changed"),
+            "grandparent_pid": (99, HELPER),
+        }
+        for name, helper_final in drift_cases.items():
+            with self.subTest(name=name), patch.object(
+                adaptive_proxy,
+                "loopback_listener_pid",
+                side_effect=[4242, 4242],
+            ), patch.object(
+                adaptive_proxy,
+                "process_executable",
+                side_effect=[CORE, HELPER, CORE, HELPER],
+            ), patch.object(
+                adaptive_proxy,
+                "process_parent_and_args",
+                side_effect=[
+                    core_initial,
+                    helper_initial,
+                    core_initial,
+                    helper_final,
+                ],
+            ):
+                self.assertFalse(
+                    adaptive_proxy.listener_is_trusted_libcyber(
+                        8890, self.config_path, "/fake/lsof", "/fake/ps"
+                    )
+                )
+
+    def test_listener_pid_drift_between_lineage_snapshots_is_rejected(self) -> None:
+        core_args = f"{CORE} -d /safe/libs -f {self.config_path}"
+        with patch.object(
+            adaptive_proxy,
+            "loopback_listener_pid",
+            side_effect=[4242, 4343],
+        ), patch.object(
+            adaptive_proxy,
+            "process_executable",
+            side_effect=[CORE, HELPER],
+        ), patch.object(
+            adaptive_proxy,
+            "process_parent_and_args",
+            side_effect=[(4241, core_args), (1, HELPER)],
+        ):
+            self.assertFalse(
+                adaptive_proxy.listener_is_trusted_libcyber(
+                    8890, self.config_path, "/fake/lsof", "/fake/ps"
+                )
+            )
+
     def test_non_loopback_listener_is_rejected(self) -> None:
         self.write_config("port: 8890\nsocks-port: 8891\n")
         self.assertEqual(
