@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-01T13:23:37.035989+00:00",
+  "last_run_at": "2026-08-03T14:36:01.353486+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1350,6 +1350,17 @@
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
+    },
+    "daily-date-2026-07-20": {
+      "processed_at": "2026-08-03T14:36:01.353486+00:00",
+      "source_video_ids": [
+        "HMWl5Vyvn48",
+        "EzCxdhxErFI"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed",
+      "report_date": "2026-07-20"
     }
   }
 }
