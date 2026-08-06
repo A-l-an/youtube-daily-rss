@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-04T02:04:50.030075+00:00",
+  "last_run_at": "2026-08-06T05:27:37.834701+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -990,6 +990,21 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "8NsPftLZ8t0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "这是犯了啥天条吗？！NaNa说美股(2026.08.05)",
+      "url": "https://www.youtube.com/watch?v=8NsPftLZ8t0",
+      "published": "2026-08-05T22:54:21+00:00",
+      "processed_at": "2026-08-06T05:27:37.834701+00:00",
+      "daily_digest_id": "daily-8NsPftLZ8t0",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1423,6 +1438,15 @@
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
+    },
+    "daily-8NsPftLZ8t0": {
+      "processed_at": "2026-08-06T05:27:37.834701+00:00",
+      "source_video_ids": [
+        "8NsPftLZ8t0"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "captions"
     }
   }
 }
