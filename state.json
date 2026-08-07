@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-07T02:04:39.520714+00:00",
+  "last_run_at": "2026-08-07T04:35:55.892750+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1012,13 +1012,13 @@
       "title": "美股 MSFT超买加顶背离！GOOG债多了不愁！NET、DDOG、UBER！SPCX抛压不及预期！",
       "url": "https://www.youtube.com/watch?v=fkixxl86L_U",
       "published": "2026-08-07T00:59:29+00:00",
-      "processed_at": "2026-08-07T02:04:39.520714+00:00",
-      "daily_digest_id": "daily-fkixxl86L_U-uaLsQW9UXyY",
+      "processed_at": "2026-08-07T04:35:55.892750+00:00",
+      "daily_digest_id": "daily-fkixxl86L_U",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
       "asr_status": "failed",
-      "summary_status": "success",
+      "summary_status": "link_only",
       "source_status": "link-only"
     },
     "uaLsQW9UXyY": {
@@ -1487,6 +1487,15 @@
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
+    },
+    "daily-fkixxl86L_U": {
+      "processed_at": "2026-08-07T04:35:55.892750+00:00",
+      "source_video_ids": [
+        "fkixxl86L_U"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
     }
   }
 }
