@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-07T04:35:55.892750+00:00",
+  "last_run_at": "2026-08-08T05:44:40.844820+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1035,6 +1035,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "vXlqWhsJzxI": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA完好、NOW突破！UNH、SHOP更新！前车之鉴，直到2028，数据中心绝不能大退潮！对比互联网泡沫、房地产浪潮！",
+      "url": "https://www.youtube.com/watch?v=vXlqWhsJzxI",
+      "published": "2026-08-08T00:57:06+00:00",
+      "processed_at": "2026-08-08T05:44:40.844820+00:00",
+      "daily_digest_id": "daily-vXlqWhsJzxI-Rot4ru609RQ",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "Rot4ru609RQ": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "再也不听黄大仙吹牛了！NaNa说美股(2026.08.07)",
+      "url": "https://www.youtube.com/watch?v=Rot4ru609RQ",
+      "published": "2026-08-07T22:25:36+00:00",
+      "processed_at": "2026-08-08T05:44:40.844820+00:00",
+      "daily_digest_id": "daily-vXlqWhsJzxI-Rot4ru609RQ",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1496,6 +1526,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-vXlqWhsJzxI-Rot4ru609RQ": {
+      "processed_at": "2026-08-08T05:44:40.844820+00:00",
+      "source_video_ids": [
+        "vXlqWhsJzxI",
+        "Rot4ru609RQ"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }

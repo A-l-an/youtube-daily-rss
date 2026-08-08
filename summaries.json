@@ -15820,6 +15820,448 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=fkixxl86L_U\">美股 MSFT超买加顶背离！GOOG债多了不愁！NET、DDOG、UBER！SPCX抛压不及预期！</a><br><small>2026-08-07T00:59:29+00:00 · 内容来源：metadata only</small></li></ul><p>Transcript and ASR were unavailable, so only the original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-vXlqWhsJzxI-Rot4ru609RQ",
+      "video_id": "daily-vXlqWhsJzxI-Rot4ru609RQ",
+      "source_video_ids": [
+        "vXlqWhsJzxI",
+        "Rot4ru609RQ"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "每日融合摘要：非农爆冷推高科技股，TEAM财报暴涨，AI算力与光通信板块分化",
+      "url": "",
+      "published": "2026-08-08T05:44:40.844820+00:00",
+      "processed_at": "2026-08-08T05:44:40.844820+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": null,
+      "summary_data": {
+        "title": "每日融合摘要：非农爆冷推高科技股，TEAM财报暴涨，AI算力与光通信板块分化",
+        "one_sentence_summary": "美国7月非农意外减少，加息预期降温推动美股全线上扬，科技股强势反弹，TEAM财报后暴涨35%，AI算力与光通信板块内部出现分化。",
+        "source_quality_note": "视野环球财经仅有元数据，无实际视频文本内容，因此该频道观点完全缺失。NaNa说美股来源为YouTube captions，内容完整。",
+        "asset_sections": [
+          {
+            "name": "SPY / 标普500指数",
+            "type": "index",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股认为标普500在非农数据公布后强势反弹，结构性突破形态依然成立，逼空行情可能推动指数继续走高。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏多。标普500在7720-7760区间窄幅震荡后向上，结构性突破形态成立，逼空行情下可能继续拉升突破7800。",
+                "evidence": "“标普500指数又抖起来了，在 7720– 7760区间完成窄幅震荡结算”；“SPX强行突破 7600 箱体并向上延伸的结构性突破形态依然成立”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "美国7月非农就业人数意外减少2.3万人，远低于预期的增加8万人。",
+              "5月和6月新增就业人数合计向下修正10.3万人。",
+              "失业率降至4.1%，为两年最低。",
+              "数据公布后，股指期货拉升，美债收益率与美元指数走低。",
+              "交易员降低美联储加息预期，9月加息概率从58%降至41.9%。"
+            ],
+            "risks": [
+              "美银牛熊指标跃升至9.7，接近2021年以来最高，Hartnett警告是时候降低风险，转向防御性资产。",
+              "逼空行情可能随时结束，市场存在回调风险。"
+            ]
+          },
+          {
+            "name": "QQQ / 纳斯达克指数",
+            "type": "index",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股指出纳指本周累涨5.19%，在逼空结束前很可能先创新高，资金可能从道指轮动至科技股。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏多。纳指保持强势，逼空行情下可能先创新高，资金或从道指轮动至科技股。",
+                "evidence": "“本周纳指累涨了5.19%，在逼空结束之前，很可能会先创新高”；“也许后面资金可能会再次轮动到科技股那边，道指回落，纳指继续走高”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "美债收益率回落，推动科技股涨幅迅速扩大。",
+              "美国第二季度国内需求增速达到三年来最快水平，经济基本面稳健。"
+            ],
+            "risks": [
+              "市场看涨情绪已过头，美银警告降低风险。",
+              "道指走弱，三大股指出现分化，可能预示整体市场动能不均衡。"
+            ]
+          },
+          {
+            "name": "TEAM / Atlassian",
+            "type": "stock",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股对TEAM财报表现极为看好，股价飙升35.3%创上市以来最大单日涨幅，云业务和AI能力推动强劲增长，CEO宣布购买2.5亿美元股票彰显信心。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏多。财报亮眼，云业务驱动增长，公司借助AI构建竞争护城河，CEO增持彰显信心，股价可能扭转走势开启主升浪。",
+                "evidence": "“股价飙升了35.3%，创下其自2015年上市以来的最大单日涨幅”；“公司业务非但没有被AI边缘化，反而正在借助AI能力与云端壁垒构建起更深的竞争护城河”；“CEO Mike Cannon-Brookes还宣布计划在公开市场上购买高达2.5亿美元的公司股票”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "季度调整后每股收益1.87美元，大幅高于预期的1.50美元。",
+              "总营收同比猛增28%至17.7亿美元，超过预期的16.6亿美元。",
+              "云业务收入12亿美元，同比增速加快至31%。",
+              "订阅年度经常性收入(ARR)增长23%至66亿美元。",
+              "剩余履约义务(RPO)同比激增44%至48.2亿美元。",
+              "财报发布前，TEAM股价年内已累计下跌约32%。"
+            ],
+            "risks": [
+              "股价单日涨幅巨大，短期可能存在获利回吐压力。",
+              "AI颠覆软件的恐惧此前导致股价大跌，长期竞争格局仍不确定。"
+            ]
+          },
+          {
+            "name": "AI算力基础设施 / Neocloud主题",
+            "type": "sector",
+            "overall_stance": "中性偏多",
+            "merged_summary": "NaNa说美股讨论了Neocloud主题ETF NCLD，认为其提供高纯度AI算力敞口但集中度极高，本质是NBIS+CRWV双龙头组合。同时提及NEBIUS即将公布财报，将是重新评估Neocloud多空逻辑的重要节点，中长期前景看好但短期波动难免。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "中性偏多。NCLD ETF提供高纯度敞口但风险集中；NEBIUS财报是重要节点，中长期前景美好，但短期股价波动难免。",
+                "evidence": "“集中度非常高，NBIS、CRWV两家公司合计占比就超过58%了...本质上却更接近「NBIS+CRWV双龙头组合」”；“NEBIUS下周三8.12日就公布财报了，这将成为市场重新评估Neocloud多空逻辑的第一个重要节点”；“财报后的股价波动只是短期的，中长线的前景是美好的”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "Roundhill推出Neocloud主题ETF NCLD，包括NBIS、CRWV及加密矿企转型的AI数据中心公司。",
+              "NCLD初始资产规模约100万美元，因算力股下跌已缩水至89万美元。",
+              "NEBIUS将于8月12日公布财报。",
+              "最近几个存储公司财报炸裂但股价依然被砸，市场关注订单转化为收入的进展、资本开支增速、GPU折旧、融资成本和股权稀释等问题。"
+            ],
+            "risks": [
+              "NCLD ETF资产规模极小，流动性风险高。",
+              "NEBIUS财报可能无法满足市场最乐观预期，导致股价下跌。",
+              "AI算力需求强劲的方向正确不代表股价一定上涨，市场存在预期差。"
+            ]
+          },
+          {
+            "name": "光通信板块 / COHR, LITE, MRVL, AXTI, AAOI",
+            "type": "sector",
+            "overall_stance": "偏多（结构性看好）",
+            "merged_summary": "NaNa说美股指出光通信概念走强，AXTI涨近18%，COHR升逾13%，板块快速反弹接近6月高点。频道最关注COHR、LITE和MRVL三家，认为COHR与LITE更具纯正光通信和产能落地确定性，MRVL受非AI业务拖累爆发力较弱。AXTI作为上游供应商弹性大但面临中美科技限制政策风险，AAOI属于高风险高Beta的波段炒作标的。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏多。光通信板块暴力反弹，看好COHR与LITE的纯正性和确定性，MRVL相对拉跨，AXTI弹性大但政策风险高，AAOI是高风险彩票股。",
+                "evidence": "“光通信概念走强，AXTI股价涨近18%, COHR升逾13%”；“这三家都有英伟达 20 亿美元的资金背书”；“如果追求‘纯正的光通信 + 产能落地的确定性’，还是选COHR与LITE就够了”；“AXTI...属于缘政治夹心饼...如果中美科技限制进一步加剧，它的出货和许可会面临极高的政策风险”；“AAOI就是支中下游的高杠杆妖股...属于典型的高风险、高 Beta 的波段炒作标的”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "COHR、LITE、MRVL三家均有英伟达20亿美元资金背书。",
+              "AXTI是COHR和LITE的上游供应商，提供磷化铟（InP）衬底晶圆，核心生产基地在中国。",
+              "AXTI此前受中国对镓/锗及关键矿产出口许可影响，股价回撤幅度达-75%。",
+              "AAOI靠大客户微软翻盘，规模和技术积累落后于COHR，不具备上游光芯片自研能力。"
+            ],
+            "risks": [
+              "中美科技限制进一步加剧可能严重影响AXTI的出货和许可。",
+              "AAOI一旦丢失主要云巨头份额，股价可能出现崩塌式下跌。",
+              "光通信板块快速反弹后接近前高，短期可能面临获利回吐压力。"
+            ]
+          },
+          {
+            "name": "VST / Vistra Corp.",
+            "type": "stock",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股认为VST财报不及预期，收入与净利润均下滑，但市场已提前消化部分利空，股价探底回升，核心经营EBITDA增长和与英伟达、KKR的合资企业提供中长期价值支撑，短期维持区间震荡。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "中性。财报逊色但股价未崩，市场已消化利空，短线底部128-130美元坚固，上方150-155美元为压力区，维持区间震荡。",
+                "evidence": "“VST交出的这份成绩单就相对逊色了”；“股价今天并没有一路开闸放水跌破130美元，反而在探底后被买盘拉回”；“$128 - $130 是目前非常坚固的短线底部，上方$150-$155则是阶段性获利落袋的压力区”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "VST二季度收入40亿美元，同比-5.5%，大幅不及预期的54.6亿美元。",
+              "净利润3.05亿美元，同比-7%，不及预期的5.56亿美元，受4.88亿美元衍生品未实现损失影响。",
+              "2026全年业绩指引仅重申而非上调。",
+              "核心经营EBITDA同比大增31%。",
+              "与英伟达、KKR联合成立数字基础设施合资企业Helix Digital。"
+            ],
+            "risks": [
+              "收入与净利润均下滑，增长趋势被打破，与更广泛的增长叙事相悖。",
+              "全年指引未上调，市场可能对未来增长持续性存疑。"
+            ]
+          },
+          {
+            "name": "TTD / The Trade Desk",
+            "type": "stock",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股对TTD财报后股价再跌22%表示失望，认为广告技术业务前景黯淡，调侃公司应转型AI数据中心。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏空。财报后股价暴跌，营收增长乏力，建议公司转型AI数据中心，对现有业务模式不看好。",
+                "evidence": "“TTD这股票真的废了，财报后股价又跌了22%”；“我建议公司董事会及时回头是岸，立即宣布转型干AI数据中心，干什么广告，没出息”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "TTD Q2营收7.15亿美元，同比仅增长3%，不及预期。",
+              "调整后每股收益0.34美元，高于预期的0.18美元。",
+              "预计Q3营收6.5亿美元。",
+              "客户留存率持续维持在95%以上。",
+              "第二季度动用约7800万美元现金回购股票。"
+            ],
+            "risks": [
+              "营收增长大幅放缓，面临META、谷歌、X等巨头的激烈竞争。",
+              "股价持续溃败，市场信心严重不足。"
+            ]
+          },
+          {
+            "name": "ABNB / Airbnb",
+            "type": "stock",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股指出ABNB财报强劲，股价跳空大涨，收入与EPS均超预期，酒店业务增速达民宿3倍，公司上调全年指引。但创作者个人分享了对民宿的负面体验，偏好酒店。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "偏多（基于财报）。财报数据强劲，股价跳空大涨，公司上调指引。但创作者个人因床虱体验不再住民宿，偏好酒店。",
+                "evidence": "“横盘万年的ABNB终于动了，财报强劲，股价跳空大涨”；“第二季收入同比增长17%至36亿美元，EPS 1.37美元，均超预期”；“酒店增速达民宿3倍，公司上调全年业绩指引”；“被床虱咬了后，就再也不住民宿了”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "ABNB第二季度收入36亿美元，同比增长17%，超预期。",
+              "EPS 1.37美元，超预期。",
+              "酒店业务增速达民宿3倍。",
+              "公司上调全年业绩指引。"
+            ],
+            "risks": [
+              "酒店业务增速远超民宿，核心民宿业务可能面临增长瓶颈。",
+              "创作者个人负面体验不构成投资建议，但反映了部分消费者对民宿质量的担忧。"
+            ]
+          },
+          {
+            "name": "宏观：美国经济与货币政策",
+            "type": "macro",
+            "overall_stance": "中性偏多（经济稳健，加息预期降温）",
+            "merged_summary": "NaNa说美股认为非农爆冷导致加息预期降温，坏消息被当好消息处理，利好股市。美国经济基本面稳健，第二季度国内需求增速三年来最快，美伊战争被市场视为噪音。但美银警告市场看涨情绪过头，建议降低风险。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "中性偏多。非农爆冷降低加息预期，利好股市；经济基本面稳健，战争影响被消化；但需警惕市场情绪过热风险。",
+                "evidence": "“非农意外爆冷，加息预期降温，坏消息被当好消息处理”；“美国第二季度国内需求增速达到三年来最快水平，所以美伊战争也就被当成了噪音”；“美银警告市场看涨情绪已过头...Hartnett表示，是时候降低风险”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无文本内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "美国7月非农就业减少2.3万人，预期增加8万人。",
+              "失业率降至4.1%，为两年最低。",
+              "5月和6月新增就业合计下修10.3万人。",
+              "9月加息概率从58%降至41.9%。",
+              "美国第二季度国内需求增速为三年来最快。",
+              "中东局势持续第六个月，但美国经济似乎成功应对。",
+              "美银牛熊指标升至9.7，接近2021年以来最高。"
+            ],
+            "risks": [
+              "市场看涨情绪可能已过头，存在回调风险。",
+              "非农数据可能失真，劳动力参与率继续下滑。",
+              "美联储政策路径仍不确定，后续数据可能改变预期。"
+            ]
+          }
+        ],
+        "core_key_points": [
+          "美国7月非农意外减少2.3万人，远逊预期，加息预期大幅降温，9月加息概率降至41.9%，推动美股全线上扬。",
+          "标普500结构性突破形态成立，纳指本周累涨5.19%，逼空行情下可能继续创新高，但道指走弱，三大股指出现分化。",
+          "TEAM财报大超预期，股价暴涨35.3%，云业务和AI能力驱动增长，CEO宣布增持2.5亿美元股票。",
+          "AI算力基础设施板块关注度上升，NCLD ETF提供高纯度敞口但集中度极高，NEBIUS财报将是重要多空节点。",
+          "光通信板块暴力反弹，COHR与LITE被看好，AXTI弹性大但面临中美科技限制政策风险，AAOI属高风险炒作标的。",
+          "VST财报不及预期但股价抗跌，市场已消化利空，核心EBITDA增长和与英伟达合资企业提供支撑。",
+          "TTD财报后再跌22%，广告技术业务增长乏力，面临巨头激烈竞争。",
+          "美银牛熊指标升至9.7，警告市场看涨情绪过头，建议降低风险转向防御性资产。"
+        ],
+        "market_views": [
+          "NaNa说美股：非农爆冷降低加息预期，利好股市，逼空行情下纳指可能先创新高，但需警惕市场情绪过热风险。",
+          "NaNa说美股：TEAM财报证明公司未被AI边缘化，反而借助AI构建护城河，股价有望扭转走势。",
+          "NaNa说美股：AI算力中长期前景美好，但短期股价波动难免，NEBIUS财报是关键节点。",
+          "NaNa说美股：光通信板块中COHR与LITE更具确定性，MRVL受非AI业务拖累，AXTI和AAOI风险较高。",
+          "NaNa说美股：VST短线区间震荡，TTD业务前景黯淡，ABNB财报强劲但民宿业务面临挑战。",
+          "视野环球财经：无可用观点（视频文本缺失）。"
+        ],
+        "mentioned_assets_events": [
+          "SPY/标普500指数",
+          "QQQ/纳斯达克指数",
+          "道琼斯工业指数",
+          "TEAM/Atlassian",
+          "VST/Vistra Corp.",
+          "TTD/The Trade Desk",
+          "ABNB/Airbnb",
+          "COHR/Coherent",
+          "LITE/Lumentum",
+          "MRVL/Marvell Technology",
+          "AXTI/AXT Inc.",
+          "AAOI/Applied Optoelectronics",
+          "NBIS/Nebius",
+          "CRWV/CoreWeave",
+          "NCLD ETF",
+          "IREN/Iris Energy",
+          "CIFR/Cipher Mining",
+          "美国7月非农就业数据",
+          "美联储加息预期",
+          "美银牛熊指标",
+          "中东局势/美伊战争",
+          "光通信板块",
+          "AI算力基础设施/Neocloud",
+          "存储芯片板块"
+        ],
+        "investor_takeaways": [
+          "宏观经济数据（如非农）对市场情绪和美联储政策预期有重大影响，需密切关注。",
+          "科技股内部轮动明显，AI相关软件（TEAM）和硬件（光通信）表现分化，选股重要性提升。",
+          "财报季个股波动剧烈，超预期可能带来暴涨（TEAM），不及预期可能导致持续下跌（TTD），需分散风险。",
+          "市场情绪指标（如美银牛熊指标）处于高位时，可能预示短期回调风险，注意仓位管理。",
+          "地缘政治风险（如中美科技限制）对特定供应链个股（AXTI）影响显著，投资前需评估政策风险。",
+          "ETF工具（如NCLD）可提供主题敞口，但需注意集中度风险和资产规模过小的流动性问题。"
+        ],
+        "watch_original": "只看部分",
+        "uncertainties_or_risks": [
+          "视野环球财经视频文本完全缺失，该频道观点无法纳入，摘要仅反映NaNa说美股单一视角。",
+          "NaNa说美股来源为YouTube自动字幕，可能存在识别错误。",
+          "非农数据波动大，单月数据可能不代表趋势，后续可能修正。",
+          "逼空行情难以预测持续时间，一旦结束可能引发快速回调。",
+          "中美科技限制政策走向不确定，可能对相关个股产生重大影响。",
+          "AI算力板块估值较高，财报季可能出现‘买预期、卖事实’的走势。"
+        ],
+        "disclaimer": "该摘要仅用于信息整理，不构成投资建议。市场有风险，投资需谨慎。所有观点均来自原始视频创作者，不代表摘要整理者立场。"
+      },
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "vXlqWhsJzxI",
+          "title": "美股 NVDA完好、NOW突破！UNH、SHOP更新！前车之鉴，直到2028，数据中心绝不能大退潮！对比互联网泡沫、房地产浪潮！",
+          "url": "https://www.youtube.com/watch?v=vXlqWhsJzxI",
+          "published": "2026-08-08T00:57:06+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=vXlqWhsJzxI! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; manual zh: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; manual zh-CN: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; manual en: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; auto zh-Hans: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; auto zh: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; auto zh-CN: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.; auto en: Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target.",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "yt-dlp audio download failed after 3 attempt(s): Impersonate target \"chrome-131\" is not available. Use --list-impersonate-targets to see available targets. You may be missing dependencies required to support this target."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "Rot4ru609RQ",
+          "title": "再也不听黄大仙吹牛了！NaNa说美股(2026.08.07)",
+          "url": "https://www.youtube.com/watch?v=Rot4ru609RQ",
+          "published": "2026-08-07T22:25:36+00:00",
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日融合摘要：非农爆冷推高科技股，TEAM财报暴涨，AI算力与光通信板块分化</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><p><strong>文本质量提示：</strong>以下来源没有可用字幕或转写文本，仅按元数据保留：视野环球财经。 视野环球财经仅有元数据，无实际视频文本内容，因此该频道观点完全缺失。NaNa说美股来源为YouTube captions，内容完整。</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=vXlqWhsJzxI\">美股 NVDA完好、NOW突破！UNH、SHOP更新！前车之鉴，直到2028，数据中心绝不能大退潮！对比互联网泡沫、房地产浪潮！</a><br><small>2026-08-08T00:57:06+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=Rot4ru609RQ\">再也不听黄大仙吹牛了！NaNa说美股(2026.08.07)</a><br><small>2026-08-07T22:25:36+00:00 · 内容来源：YouTube captions</small></li></ul><p><strong>一句话总结：</strong>美国7月非农意外减少，加息预期降温推动美股全线上扬，科技股强势反弹，TEAM财报后暴涨35%，AI算力与光通信板块内部出现分化。</p><h3>按股票 / 指数 / 行业 / 宏观主题融合</h3><section><h3>SPY / 标普500指数 <small>(index / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股认为标普500在非农数据公布后强势反弹，结构性突破形态依然成立，逼空行情可能推动指数继续走高。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏多。标普500在7720-7760区间窄幅震荡后向上，结构性突破形态成立，逼空行情下可能继续拉升突破7800。 证据/依据：“标普500指数又抖起来了，在 7720– 7760区间完成窄幅震荡结算”；“SPX强行突破 7600 箱体并向上延伸的结构性突破形态依然成立”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>美国7月非农就业人数意外减少2.3万人，远低于预期的增加8万人。</li><li>5月和6月新增就业人数合计向下修正10.3万人。</li><li>失业率降至4.1%，为两年最低。</li><li>数据公布后，股指期货拉升，美债收益率与美元指数走低。</li><li>交易员降低美联储加息预期，9月加息概率从58%降至41.9%。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>美银牛熊指标跃升至9.7，接近2021年以来最高，Hartnett警告是时候降低风险，转向防御性资产。</li><li>逼空行情可能随时结束，市场存在回调风险。</li></ul></section><section><h3>QQQ / 纳斯达克指数 <small>(index / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出纳指本周累涨5.19%，在逼空结束前很可能先创新高，资金可能从道指轮动至科技股。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏多。纳指保持强势，逼空行情下可能先创新高，资金或从道指轮动至科技股。 证据/依据：“本周纳指累涨了5.19%，在逼空结束之前，很可能会先创新高”；“也许后面资金可能会再次轮动到科技股那边，道指回落，纳指继续走高”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>美债收益率回落，推动科技股涨幅迅速扩大。</li><li>美国第二季度国内需求增速达到三年来最快水平，经济基本面稳健。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>市场看涨情绪已过头，美银警告降低风险。</li><li>道指走弱，三大股指出现分化，可能预示整体市场动能不均衡。</li></ul></section><section><h3>TEAM / Atlassian <small>(stock / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股对TEAM财报表现极为看好，股价飙升35.3%创上市以来最大单日涨幅，云业务和AI能力推动强劲增长，CEO宣布购买2.5亿美元股票彰显信心。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏多。财报亮眼，云业务驱动增长，公司借助AI构建竞争护城河，CEO增持彰显信心，股价可能扭转走势开启主升浪。 证据/依据：“股价飙升了35.3%，创下其自2015年上市以来的最大单日涨幅”；“公司业务非但没有被AI边缘化，反而正在借助AI能力与云端壁垒构建起更深的竞争护城河”；“CEO Mike Cannon-Brookes还宣布计划在公开市场上购买高达2.5亿美元的公司股票”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>季度调整后每股收益1.87美元，大幅高于预期的1.50美元。</li><li>总营收同比猛增28%至17.7亿美元，超过预期的16.6亿美元。</li><li>云业务收入12亿美元，同比增速加快至31%。</li><li>订阅年度经常性收入(ARR)增长23%至66亿美元。</li><li>剩余履约义务(RPO)同比激增44%至48.2亿美元。</li><li>财报发布前，TEAM股价年内已累计下跌约32%。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>股价单日涨幅巨大，短期可能存在获利回吐压力。</li><li>AI颠覆软件的恐惧此前导致股价大跌，长期竞争格局仍不确定。</li></ul></section><section><h3>AI算力基础设施 / Neocloud主题 <small>(sector / 中性偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股讨论了Neocloud主题ETF NCLD，认为其提供高纯度AI算力敞口但集中度极高，本质是NBIS+CRWV双龙头组合。同时提及NEBIUS即将公布财报，将是重新评估Neocloud多空逻辑的重要节点，中长期前景看好但短期波动难免。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>中性偏多。NCLD ETF提供高纯度敞口但风险集中；NEBIUS财报是重要节点，中长期前景美好，但短期股价波动难免。 证据/依据：“集中度非常高，NBIS、CRWV两家公司合计占比就超过58%了...本质上却更接近「NBIS+CRWV双龙头组合」”；“NEBIUS下周三8.12日就公布财报了，这将成为市场重新评估Neocloud多空逻辑的第一个重要节点”；“财报后的股价波动只是短期的，中长线的前景是美好的”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>Roundhill推出Neocloud主题ETF NCLD，包括NBIS、CRWV及加密矿企转型的AI数据中心公司。</li><li>NCLD初始资产规模约100万美元，因算力股下跌已缩水至89万美元。</li><li>NEBIUS将于8月12日公布财报。</li><li>最近几个存储公司财报炸裂但股价依然被砸，市场关注订单转化为收入的进展、资本开支增速、GPU折旧、融资成本和股权稀释等问题。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>NCLD ETF资产规模极小，流动性风险高。</li><li>NEBIUS财报可能无法满足市场最乐观预期，导致股价下跌。</li><li>AI算力需求强劲的方向正确不代表股价一定上涨，市场存在预期差。</li></ul></section><section><h3>光通信板块 / COHR, LITE, MRVL, AXTI, AAOI <small>(sector / 偏多（结构性看好）)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出光通信概念走强，AXTI涨近18%，COHR升逾13%，板块快速反弹接近6月高点。频道最关注COHR、LITE和MRVL三家，认为COHR与LITE更具纯正光通信和产能落地确定性，MRVL受非AI业务拖累爆发力较弱。AXTI作为上游供应商弹性大但面临中美科技限制政策风险，AAOI属于高风险高Beta的波段炒作标的。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏多。光通信板块暴力反弹，看好COHR与LITE的纯正性和确定性，MRVL相对拉跨，AXTI弹性大但政策风险高，AAOI是高风险彩票股。 证据/依据：“光通信概念走强，AXTI股价涨近18%, COHR升逾13%”；“这三家都有英伟达 20 亿美元的资金背书”；“如果追求‘纯正的光通信 + 产能落地的确定性’，还是选COHR与LITE就够了”；“AXTI...属于缘政治夹心饼...如果中美科技限制进一步加剧，它的出货和许可会面临极高的政策风险”；“AAOI就是支中下游的高杠杆妖股...属于典型的高风险、高 Beta 的波段炒作标的”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>COHR、LITE、MRVL三家均有英伟达20亿美元资金背书。</li><li>AXTI是COHR和LITE的上游供应商，提供磷化铟（InP）衬底晶圆，核心生产基地在中国。</li><li>AXTI此前受中国对镓/锗及关键矿产出口许可影响，股价回撤幅度达-75%。</li><li>AAOI靠大客户微软翻盘，规模和技术积累落后于COHR，不具备上游光芯片自研能力。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>中美科技限制进一步加剧可能严重影响AXTI的出货和许可。</li><li>AAOI一旦丢失主要云巨头份额，股价可能出现崩塌式下跌。</li><li>光通信板块快速反弹后接近前高，短期可能面临获利回吐压力。</li></ul></section><section><h3>VST / Vistra Corp. <small>(stock / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股认为VST财报不及预期，收入与净利润均下滑，但市场已提前消化部分利空，股价探底回升，核心经营EBITDA增长和与英伟达、KKR的合资企业提供中长期价值支撑，短期维持区间震荡。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>中性。财报逊色但股价未崩，市场已消化利空，短线底部128-130美元坚固，上方150-155美元为压力区，维持区间震荡。 证据/依据：“VST交出的这份成绩单就相对逊色了”；“股价今天并没有一路开闸放水跌破130美元，反而在探底后被买盘拉回”；“$128 - $130 是目前非常坚固的短线底部，上方$150-$155则是阶段性获利落袋的压力区”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>VST二季度收入40亿美元，同比-5.5%，大幅不及预期的54.6亿美元。</li><li>净利润3.05亿美元，同比-7%，不及预期的5.56亿美元，受4.88亿美元衍生品未实现损失影响。</li><li>2026全年业绩指引仅重申而非上调。</li><li>核心经营EBITDA同比大增31%。</li><li>与英伟达、KKR联合成立数字基础设施合资企业Helix Digital。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>收入与净利润均下滑，增长趋势被打破，与更广泛的增长叙事相悖。</li><li>全年指引未上调，市场可能对未来增长持续性存疑。</li></ul></section><section><h3>TTD / The Trade Desk <small>(stock / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股对TTD财报后股价再跌22%表示失望，认为广告技术业务前景黯淡，调侃公司应转型AI数据中心。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏空。财报后股价暴跌，营收增长乏力，建议公司转型AI数据中心，对现有业务模式不看好。 证据/依据：“TTD这股票真的废了，财报后股价又跌了22%”；“我建议公司董事会及时回头是岸，立即宣布转型干AI数据中心，干什么广告，没出息”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>TTD Q2营收7.15亿美元，同比仅增长3%，不及预期。</li><li>调整后每股收益0.34美元，高于预期的0.18美元。</li><li>预计Q3营收6.5亿美元。</li><li>客户留存率持续维持在95%以上。</li><li>第二季度动用约7800万美元现金回购股票。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>营收增长大幅放缓，面临META、谷歌、X等巨头的激烈竞争。</li><li>股价持续溃败，市场信心严重不足。</li></ul></section><section><h3>ABNB / Airbnb <small>(stock / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出ABNB财报强劲，股价跳空大涨，收入与EPS均超预期，酒店业务增速达民宿3倍，公司上调全年指引。但创作者个人分享了对民宿的负面体验，偏好酒店。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>偏多（基于财报）。财报数据强劲，股价跳空大涨，公司上调指引。但创作者个人因床虱体验不再住民宿，偏好酒店。 证据/依据：“横盘万年的ABNB终于动了，财报强劲，股价跳空大涨”；“第二季收入同比增长17%至36亿美元，EPS 1.37美元，均超预期”；“酒店增速达民宿3倍，公司上调全年业绩指引”；“被床虱咬了后，就再也不住民宿了”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>ABNB第二季度收入36亿美元，同比增长17%，超预期。</li><li>EPS 1.37美元，超预期。</li><li>酒店业务增速达民宿3倍。</li><li>公司上调全年业绩指引。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>酒店业务增速远超民宿，核心民宿业务可能面临增长瓶颈。</li><li>创作者个人负面体验不构成投资建议，但反映了部分消费者对民宿质量的担忧。</li></ul></section><section><h3>宏观：美国经济与货币政策 <small>(macro / 中性偏多（经济稳健，加息预期降温）)</small></h3><p><strong>合并摘要：</strong>NaNa说美股认为非农爆冷导致加息预期降温，坏消息被当好消息处理，利好股市。美国经济基本面稳健，第二季度国内需求增速三年来最快，美伊战争被市场视为噪音。但美银警告市场看涨情绪过头，建议降低风险。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>中性偏多。非农爆冷降低加息预期，利好股市；经济基本面稳健，战争影响被消化；但需警惕市场情绪过热风险。 证据/依据：“非农意外爆冷，加息预期降温，坏消息被当好消息处理”；“美国第二季度国内需求增速达到三年来最快水平，所以美伊战争也就被当成了噪音”；“美银警告市场看涨情绪已过头...Hartnett表示，是时候降低风险”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无文本内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>美国7月非农就业减少2.3万人，预期增加8万人。</li><li>失业率降至4.1%，为两年最低。</li><li>5月和6月新增就业合计下修10.3万人。</li><li>9月加息概率从58%降至41.9%。</li><li>美国第二季度国内需求增速为三年来最快。</li><li>中东局势持续第六个月，但美国经济似乎成功应对。</li><li>美银牛熊指标升至9.7，接近2021年以来最高。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>市场看涨情绪可能已过头，存在回调风险。</li><li>非农数据可能失真，劳动力参与率继续下滑。</li><li>美联储政策路径仍不确定，后续数据可能改变预期。</li></ul></section><h3>核心要点</h3><ul><li>美国7月非农意外减少2.3万人，远逊预期，加息预期大幅降温，9月加息概率降至41.9%，推动美股全线上扬。</li><li>标普500结构性突破形态成立，纳指本周累涨5.19%，逼空行情下可能继续创新高，但道指走弱，三大股指出现分化。</li><li>TEAM财报大超预期，股价暴涨35.3%，云业务和AI能力驱动增长，CEO宣布增持2.5亿美元股票。</li><li>AI算力基础设施板块关注度上升，NCLD ETF提供高纯度敞口但集中度极高，NEBIUS财报将是重要多空节点。</li><li>光通信板块暴力反弹，COHR与LITE被看好，AXTI弹性大但面临中美科技限制政策风险，AAOI属高风险炒作标的。</li><li>VST财报不及预期但股价抗跌，市场已消化利空，核心EBITDA增长和与英伟达合资企业提供支撑。</li><li>TTD财报后再跌22%，广告技术业务增长乏力，面临巨头激烈竞争。</li><li>美银牛熊指标升至9.7，警告市场看涨情绪过头，建议降低风险转向防御性资产。</li></ul><h3>关键市场观点</h3><ul><li>NaNa说美股：非农爆冷降低加息预期，利好股市，逼空行情下纳指可能先创新高，但需警惕市场情绪过热风险。</li><li>NaNa说美股：TEAM财报证明公司未被AI边缘化，反而借助AI构建护城河，股价有望扭转走势。</li><li>NaNa说美股：AI算力中长期前景美好，但短期股价波动难免，NEBIUS财报是关键节点。</li><li>NaNa说美股：光通信板块中COHR与LITE更具确定性，MRVL受非AI业务拖累，AXTI和AAOI风险较高。</li><li>NaNa说美股：VST短线区间震荡，TTD业务前景黯淡，ABNB财报强劲但民宿业务面临挑战。</li><li>视野环球财经：无可用观点（视频文本缺失）。</li></ul><h3>涉及的股票、指数、行业或宏观事件</h3><ul><li>SPY/标普500指数</li><li>QQQ/纳斯达克指数</li><li>道琼斯工业指数</li><li>TEAM/Atlassian</li><li>VST/Vistra Corp.</li><li>TTD/The Trade Desk</li><li>ABNB/Airbnb</li><li>COHR/Coherent</li><li>LITE/Lumentum</li><li>MRVL/Marvell Technology</li><li>AXTI/AXT Inc.</li><li>AAOI/Applied Optoelectronics</li><li>NBIS/Nebius</li><li>CRWV/CoreWeave</li><li>NCLD ETF</li><li>IREN/Iris Energy</li><li>CIFR/Cipher Mining</li><li>美国7月非农就业数据</li><li>美联储加息预期</li><li>美银牛熊指标</li><li>中东局势/美伊战争</li><li>光通信板块</li><li>AI算力基础设施/Neocloud</li><li>存储芯片板块</li></ul><h3>对普通投资者的启发</h3><ul><li>宏观经济数据（如非农）对市场情绪和美联储政策预期有重大影响，需密切关注。</li><li>科技股内部轮动明显，AI相关软件（TEAM）和硬件（光通信）表现分化，选股重要性提升。</li><li>财报季个股波动剧烈，超预期可能带来暴涨（TEAM），不及预期可能导致持续下跌（TTD），需分散风险。</li><li>市场情绪指标（如美银牛熊指标）处于高位时，可能预示短期回调风险，注意仓位管理。</li><li>地缘政治风险（如中美科技限制）对特定供应链个股（AXTI）影响显著，投资前需评估政策风险。</li><li>ETF工具（如NCLD）可提供主题敞口，但需注意集中度风险和资产规模过小的流动性问题。</li></ul><p><strong>值不值得看原视频：</strong>只看部分</p><h3>需要注意的不确定性或风险</h3><ul><li>视野环球财经视频文本完全缺失，该频道观点无法纳入，摘要仅反映NaNa说美股单一视角。</li><li>NaNa说美股来源为YouTube自动字幕，可能存在识别错误。</li><li>非农数据波动大，单月数据可能不代表趋势，后续可能修正。</li><li>逼空行情难以预测持续时间，一旦结束可能引发快速回调。</li><li>中美科技限制政策走向不确定，可能对相关个股产生重大影响。</li><li>AI算力板块估值较高，财报季可能出现‘买预期、卖事实’的走势。</li></ul><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议。市场有风险，投资需谨慎。所有观点均来自原始视频创作者，不代表摘要整理者立场。</p>"
     }
   ],
   "legacy_video_items": [
