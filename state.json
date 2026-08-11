@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-08T05:44:40.844820+00:00",
+  "last_run_at": "2026-08-11T02:05:18.507899+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1065,6 +1065,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "gN9uUJPqipo": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA再增5000亿循环融资！MSFT下月加高护城河！一只加仓计划！BRK二季度加速回购！",
+      "url": "https://www.youtube.com/watch?v=gN9uUJPqipo",
+      "published": "2026-08-11T01:02:18+00:00",
+      "processed_at": "2026-08-11T02:05:18.507899+00:00",
+      "daily_digest_id": "daily-gN9uUJPqipo-g-iwL0sWAtc",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "g-iwL0sWAtc": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "一条帖子吓退全网！NaNa说美股(2026.08.10)",
+      "url": "https://www.youtube.com/watch?v=g-iwL0sWAtc",
+      "published": "2026-08-10T22:38:44+00:00",
+      "processed_at": "2026-08-11T02:05:18.507899+00:00",
+      "daily_digest_id": "daily-gN9uUJPqipo-g-iwL0sWAtc",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1532,6 +1562,16 @@
       "source_video_ids": [
         "vXlqWhsJzxI",
         "Rot4ru609RQ"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-gN9uUJPqipo-g-iwL0sWAtc": {
+      "processed_at": "2026-08-11T02:05:18.507899+00:00",
+      "source_video_ids": [
+        "gN9uUJPqipo",
+        "g-iwL0sWAtc"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
