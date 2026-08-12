@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-11T02:05:18.507899+00:00",
+  "last_run_at": "2026-08-12T02:06:48.247586+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1095,6 +1095,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "Fu_h7lMTYU8": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 三个风险，现在如何？GOOG加速倒车！软件IGV，成分股跟踪！ORCL、PLTR、CRM、INTU、APP、ADBE！",
+      "url": "https://www.youtube.com/watch?v=Fu_h7lMTYU8",
+      "published": "2026-08-12T00:51:53+00:00",
+      "processed_at": "2026-08-12T02:06:48.247586+00:00",
+      "daily_digest_id": "daily-Fu_h7lMTYU8-_F47Le2bq3Y",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "_F47Le2bq3Y": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "心里的石头落地了！NaNa说美股(2026.08.11)",
+      "url": "https://www.youtube.com/watch?v=_F47Le2bq3Y",
+      "published": "2026-08-11T21:58:28+00:00",
+      "processed_at": "2026-08-12T02:06:48.247586+00:00",
+      "daily_digest_id": "daily-Fu_h7lMTYU8-_F47Le2bq3Y",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1572,6 +1602,16 @@
       "source_video_ids": [
         "gN9uUJPqipo",
         "g-iwL0sWAtc"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-Fu_h7lMTYU8-_F47Le2bq3Y": {
+      "processed_at": "2026-08-12T02:06:48.247586+00:00",
+      "source_video_ids": [
+        "Fu_h7lMTYU8",
+        "_F47Le2bq3Y"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
