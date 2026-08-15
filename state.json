@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-14T02:02:12.560269+00:00",
+  "last_run_at": "2026-08-15T02:02:13.948448+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1185,6 +1185,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "7IraEqi0ZKs": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 机构二季度13 F，加减仓哪些！大空头Michael Burry最新操作，真的相当空！",
+      "url": "https://www.youtube.com/watch?v=7IraEqi0ZKs",
+      "published": "2026-08-15T00:29:07+00:00",
+      "processed_at": "2026-08-15T02:02:13.948448+00:00",
+      "daily_digest_id": "daily-7IraEqi0ZKs-SsuE_RsCMu8",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "SsuE_RsCMu8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "抄黄老板的作业！NaNa说美股(2026.08.14)",
+      "url": "https://www.youtube.com/watch?v=SsuE_RsCMu8",
+      "published": "2026-08-14T22:31:08+00:00",
+      "processed_at": "2026-08-15T02:02:13.948448+00:00",
+      "daily_digest_id": "daily-7IraEqi0ZKs-SsuE_RsCMu8",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1692,6 +1722,16 @@
       "source_video_ids": [
         "MFB-Fp4F15A",
         "0xNrrUz8xb0"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-7IraEqi0ZKs-SsuE_RsCMu8": {
+      "processed_at": "2026-08-15T02:02:13.948448+00:00",
+      "source_video_ids": [
+        "7IraEqi0ZKs",
+        "SsuE_RsCMu8"
       ],
       "summary_status": "link_only",
       "summary_model": null,
