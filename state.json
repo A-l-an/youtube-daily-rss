@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-15T02:02:13.948448+00:00",
+  "last_run_at": "2026-08-18T02:04:13.833286+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1215,6 +1215,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "Am7QxgzrUek": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 对冲基金最新仓位，软件VS半导体！SOXX、IGV、QQQ！META、MSFT正常回撤！",
+      "url": "https://www.youtube.com/watch?v=Am7QxgzrUek",
+      "published": "2026-08-18T00:38:43+00:00",
+      "processed_at": "2026-08-18T02:04:13.833286+00:00",
+      "daily_digest_id": "daily-Am7QxgzrUek--sDPjFDNwYI",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "-sDPjFDNwYI": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "钱全砸这里了！NaNa说美股(2026.08.17)",
+      "url": "https://www.youtube.com/watch?v=-sDPjFDNwYI",
+      "published": "2026-08-17T21:40:09+00:00",
+      "processed_at": "2026-08-18T02:04:13.833286+00:00",
+      "daily_digest_id": "daily-Am7QxgzrUek--sDPjFDNwYI",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1736,6 +1766,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-Am7QxgzrUek--sDPjFDNwYI": {
+      "processed_at": "2026-08-18T02:04:13.833286+00:00",
+      "source_video_ids": [
+        "Am7QxgzrUek",
+        "-sDPjFDNwYI"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
