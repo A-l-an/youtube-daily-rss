@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-18T02:04:13.833286+00:00",
+  "last_run_at": "2026-08-20T02:06:32.577830+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1245,6 +1245,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "19S-O_bla-A": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 MRVL抢单AVGO！AMD更新！财政部加码回购债券！为什么？钱哪来？QE吗？",
+      "url": "https://www.youtube.com/watch?v=19S-O_bla-A",
+      "published": "2026-08-20T00:39:59+00:00",
+      "processed_at": "2026-08-20T02:06:32.577830+00:00",
+      "daily_digest_id": "daily-19S-O_bla-A-BeEMMrXEsJ4",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "BeEMMrXEsJ4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "迈万亿同学又回来了！NaNa说美股(2026.08.19)",
+      "url": "https://www.youtube.com/watch?v=BeEMMrXEsJ4",
+      "published": "2026-08-19T22:09:31+00:00",
+      "processed_at": "2026-08-20T02:06:32.577830+00:00",
+      "daily_digest_id": "daily-19S-O_bla-A-BeEMMrXEsJ4",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -1772,6 +1802,16 @@
       "source_video_ids": [
         "Am7QxgzrUek",
         "-sDPjFDNwYI"
+      ],
+      "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-19S-O_bla-A-BeEMMrXEsJ4": {
+      "processed_at": "2026-08-20T02:06:32.577830+00:00",
+      "source_video_ids": [
+        "19S-O_bla-A",
+        "BeEMMrXEsJ4"
       ],
       "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
