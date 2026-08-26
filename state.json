@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-25T04:47:25.833619+00:00",
+  "last_run_at": "2026-08-26T02:03:00.128562+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1365,6 +1365,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "wz13N6Q4-tg": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 无聊行情即将结束！回购债券的隐藏动机！LULU、NKE、INTU！",
+      "url": "https://www.youtube.com/watch?v=wz13N6Q4-tg",
+      "published": "2026-08-26T00:53:22+00:00",
+      "processed_at": "2026-08-26T02:03:00.128562+00:00",
+      "daily_digest_id": "daily-wz13N6Q4-tg-wuzTZ62ShYM",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "wuzTZ62ShYM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "取代QQQ，我批准了！NaNa说美股(2026.08.25)",
+      "url": "https://www.youtube.com/watch?v=wuzTZ62ShYM",
+      "published": "2026-08-25T23:15:56+00:00",
+      "processed_at": "2026-08-26T02:03:00.128562+00:00",
+      "daily_digest_id": "daily-wz13N6Q4-tg-wuzTZ62ShYM",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1932,6 +1962,16 @@
       "source_video_ids": [
         "Z9T89cdzuyo",
         "w6kimcKVP2s"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-wz13N6Q4-tg-wuzTZ62ShYM": {
+      "processed_at": "2026-08-26T02:03:00.128562+00:00",
+      "source_video_ids": [
+        "wz13N6Q4-tg",
+        "wuzTZ62ShYM"
       ],
       "summary_status": "link_only",
       "summary_model": null,
