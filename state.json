@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-26T02:03:00.128562+00:00",
+  "last_run_at": "2026-08-27T02:02:58.858934+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1395,6 +1395,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "aiO11zglFjc": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA业绩强劲，苦新高已久！META官司和解！CRM加速AI转型业绩上调！",
+      "url": "https://www.youtube.com/watch?v=aiO11zglFjc",
+      "published": null,
+      "processed_at": "2026-08-27T02:02:58.858934+00:00",
+      "daily_digest_id": "daily-aiO11zglFjc-KUxMjJCiAu4",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "KUxMjJCiAu4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "村里发金山了！NaNa说美股(2026.08.26)",
+      "url": "https://www.youtube.com/watch?v=KUxMjJCiAu4",
+      "published": "2026-08-26T22:42:22+00:00",
+      "processed_at": "2026-08-27T02:02:58.858934+00:00",
+      "daily_digest_id": "daily-aiO11zglFjc-KUxMjJCiAu4",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -1972,6 +2002,16 @@
       "source_video_ids": [
         "wz13N6Q4-tg",
         "wuzTZ62ShYM"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-aiO11zglFjc-KUxMjJCiAu4": {
+      "processed_at": "2026-08-27T02:02:58.858934+00:00",
+      "source_video_ids": [
+        "aiO11zglFjc",
+        "KUxMjJCiAu4"
       ],
       "summary_status": "link_only",
       "summary_model": null,
