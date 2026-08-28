@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-27T02:02:58.858934+00:00",
+  "last_run_at": "2026-08-28T02:03:20.466250+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1425,6 +1425,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "kXr89fM66C4": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 罕见吸血，半导体、软件齐飞！IGV暴涨突破剑指新高！PLTR、NOW、MSFT！CRWD、MRVL财报！",
+      "url": "https://www.youtube.com/watch?v=kXr89fM66C4",
+      "published": "2026-08-28T01:08:10+00:00",
+      "processed_at": "2026-08-28T02:03:20.466250+00:00",
+      "daily_digest_id": "daily-kXr89fM66C4-B8_QGcx1bC8",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "B8_QGcx1bC8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "大哥吃席，小弟们干瞪眼！NaNa说美股(2026.08.27)",
+      "url": "https://www.youtube.com/watch?v=B8_QGcx1bC8",
+      "published": "2026-08-27T21:33:38+00:00",
+      "processed_at": "2026-08-28T02:03:20.466250+00:00",
+      "daily_digest_id": "daily-kXr89fM66C4-B8_QGcx1bC8",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -2012,6 +2042,16 @@
       "source_video_ids": [
         "aiO11zglFjc",
         "KUxMjJCiAu4"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
+    },
+    "daily-kXr89fM66C4-B8_QGcx1bC8": {
+      "processed_at": "2026-08-28T02:03:20.466250+00:00",
+      "source_video_ids": [
+        "kXr89fM66C4",
+        "B8_QGcx1bC8"
       ],
       "summary_status": "link_only",
       "summary_model": null,
