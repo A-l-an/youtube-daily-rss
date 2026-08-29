@@ -19401,6 +19401,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=kXr89fM66C4\">美股 罕见吸血，半导体、软件齐飞！IGV暴涨突破剑指新高！PLTR、NOW、MSFT！CRWD、MRVL财报！</a><br><small>2026-08-28T01:08:10+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=B8_QGcx1bC8\">大哥吃席，小弟们干瞪眼！NaNa说美股(2026.08.27)</a><br><small>2026-08-27T21:33:38+00:00 · 内容来源：metadata only</small></li></ul><p>Transcript and ASR were unavailable, so only the original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-XJeU_be2gGU-6GOQDGy7iZg",
+      "video_id": "daily-XJeU_be2gGU-6GOQDGy7iZg",
+      "source_video_ids": [
+        "XJeU_be2gGU",
+        "6GOQDGy7iZg"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-08-29 美股视频融合摘要",
+      "url": "",
+      "published": "2026-08-29T02:02:12.957256+00:00",
+      "processed_at": "2026-08-29T02:02:12.957256+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "XJeU_be2gGU",
+          "title": "美股 供应商循环融资裂痕！NVDA后撤，半导体逆转！沃什大战贝森特！",
+          "url": "https://www.youtube.com/watch?v=XJeU_be2gGU",
+          "published": "2026-08-29T00:41:10+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=XJeU_be2gGU! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "zh: Connection error.; en: Connection error."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "6GOQDGy7iZg",
+          "title": "这是要送美股上路？NaNa说美股(2026.08.28)",
+          "url": "https://www.youtube.com/watch?v=6GOQDGy7iZg",
+          "published": "2026-08-28T23:09:27+00:00",
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=XJeU_be2gGU\">美股 供应商循环融资裂痕！NVDA后撤，半导体逆转！沃什大战贝森特！</a><br><small>2026-08-29T00:41:10+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=6GOQDGy7iZg\">这是要送美股上路？NaNa说美股(2026.08.28)</a><br><small>2026-08-28T23:09:27+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [
