@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-08-29T02:02:12.957256+00:00",
+  "last_run_at": "2026-09-01T02:02:43.539974+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1485,6 +1485,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "4M7w7DR865M": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 最差9月，CTA更新！JPM战术转向，减仓多头！对冲基金上周仓位！AMZN遭起诉掉块肉！",
+      "url": "https://www.youtube.com/watch?v=4M7w7DR865M",
+      "published": "2026-09-01T00:34:00+00:00",
+      "processed_at": "2026-09-01T02:02:43.539974+00:00",
+      "daily_digest_id": "daily-4M7w7DR865M-vq4zdkmoMjY",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "vq4zdkmoMjY": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "千挑万选买了这个腊鸡！NaNa说美股(2026.08.31)",
+      "url": "https://www.youtube.com/watch?v=vq4zdkmoMjY",
+      "published": "2026-08-31T22:13:10+00:00",
+      "processed_at": "2026-09-01T02:02:43.539974+00:00",
+      "daily_digest_id": "daily-4M7w7DR865M-vq4zdkmoMjY",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2092,6 +2122,16 @@
       "source_video_ids": [
         "XJeU_be2gGU",
         "6GOQDGy7iZg"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-4M7w7DR865M-vq4zdkmoMjY": {
+      "processed_at": "2026-09-01T02:02:43.539974+00:00",
+      "source_video_ids": [
+        "4M7w7DR865M",
+        "vq4zdkmoMjY"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
