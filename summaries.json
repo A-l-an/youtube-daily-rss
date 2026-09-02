@@ -19519,6 +19519,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=4M7w7DR865M\">美股 最差9月，CTA更新！JPM战术转向，减仓多头！对冲基金上周仓位！AMZN遭起诉掉块肉！</a><br><small>2026-09-01T00:34:00+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=vq4zdkmoMjY\">千挑万选买了这个腊鸡！NaNa说美股(2026.08.31)</a><br><small>2026-08-31T22:13:10+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-XdQF1csLbnk-lgxEIMcibno",
+      "video_id": "daily-XdQF1csLbnk-lgxEIMcibno",
+      "source_video_ids": [
+        "XdQF1csLbnk",
+        "lgxEIMcibno"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-09-02 美股视频融合摘要",
+      "url": "",
+      "published": "2026-09-02T02:04:07.190942+00:00",
+      "processed_at": "2026-09-02T02:04:07.190942+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "XdQF1csLbnk",
+          "title": "美股 QQQ、IWM、SOXX、SMH、风险位置！SPY、IGV相对安全！持仓计划更新！",
+          "url": "https://www.youtube.com/watch?v=XdQF1csLbnk",
+          "published": "2026-09-02T00:43:29+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=XdQF1csLbnk! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "zh: Connection error.; en: Connection error."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "lgxEIMcibno",
+          "title": "不玩了，把钱还我！NaNa说美股(2026.09.01)",
+          "url": "https://www.youtube.com/watch?v=lgxEIMcibno",
+          "published": "2026-09-01T23:26:13+00:00",
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=XdQF1csLbnk\">美股 QQQ、IWM、SOXX、SMH、风险位置！SPY、IGV相对安全！持仓计划更新！</a><br><small>2026-09-02T00:43:29+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=lgxEIMcibno\">不玩了，把钱还我！NaNa说美股(2026.09.01)</a><br><small>2026-09-01T23:26:13+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [
