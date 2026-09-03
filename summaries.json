@@ -19578,6 +19578,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=XdQF1csLbnk\">美股 QQQ、IWM、SOXX、SMH、风险位置！SPY、IGV相对安全！持仓计划更新！</a><br><small>2026-09-02T00:43:29+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=lgxEIMcibno\">不玩了，把钱还我！NaNa说美股(2026.09.01)</a><br><small>2026-09-01T23:26:13+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-RgGeU0w9GZo-B8iNnRmsu8E",
+      "video_id": "daily-RgGeU0w9GZo-B8iNnRmsu8E",
+      "source_video_ids": [
+        "RgGeU0w9GZo",
+        "B8iNnRmsu8E"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-09-03 美股视频融合摘要",
+      "url": "",
+      "published": "2026-09-03T02:03:19.558215+00:00",
+      "processed_at": "2026-09-03T02:03:19.558215+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "RgGeU0w9GZo",
+          "title": "美股 NVDA黄仁勋“喊单”奏效！AVGO有惊无险，PANW放缓代价！褐皮书：物价，消费，就业，增长！",
+          "url": "https://www.youtube.com/watch?v=RgGeU0w9GZo",
+          "published": "2026-09-03T00:53:01+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=RgGeU0w9GZo! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "zh: Connection error.; en: Connection error."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "B8iNnRmsu8E",
+          "title": "陈老板的饼甜又香！NaNa说美股(2026.09.02)",
+          "url": "https://www.youtube.com/watch?v=B8iNnRmsu8E",
+          "published": "2026-09-02T22:00:27+00:00",
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=RgGeU0w9GZo\">美股 NVDA黄仁勋“喊单”奏效！AVGO有惊无险，PANW放缓代价！褐皮书：物价，消费，就业，增长！</a><br><small>2026-09-03T00:53:01+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=B8iNnRmsu8E\">陈老板的饼甜又香！NaNa说美股(2026.09.02)</a><br><small>2026-09-02T22:00:27+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [

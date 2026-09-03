@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-02T02:04:07.190942+00:00",
+  "last_run_at": "2026-09-03T02:03:19.558215+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1545,6 +1545,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "RgGeU0w9GZo": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA黄仁勋“喊单”奏效！AVGO有惊无险，PANW放缓代价！褐皮书：物价，消费，就业，增长！",
+      "url": "https://www.youtube.com/watch?v=RgGeU0w9GZo",
+      "published": "2026-09-03T00:53:01+00:00",
+      "processed_at": "2026-09-03T02:03:19.558215+00:00",
+      "daily_digest_id": "daily-RgGeU0w9GZo-B8iNnRmsu8E",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "B8iNnRmsu8E": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "陈老板的饼甜又香！NaNa说美股(2026.09.02)",
+      "url": "https://www.youtube.com/watch?v=B8iNnRmsu8E",
+      "published": "2026-09-02T22:00:27+00:00",
+      "processed_at": "2026-09-03T02:03:19.558215+00:00",
+      "daily_digest_id": "daily-RgGeU0w9GZo-B8iNnRmsu8E",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2172,6 +2202,16 @@
       "source_video_ids": [
         "XdQF1csLbnk",
         "lgxEIMcibno"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-RgGeU0w9GZo-B8iNnRmsu8E": {
+      "processed_at": "2026-09-03T02:03:19.558215+00:00",
+      "source_video_ids": [
+        "RgGeU0w9GZo",
+        "B8iNnRmsu8E"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
