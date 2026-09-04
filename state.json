@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-03T02:03:19.558215+00:00",
+  "last_run_at": "2026-09-04T02:03:28.378061+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1575,6 +1575,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "vynRw9NT7TQ": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 TSLA突破，强弱区间！MSFT对AI货币化充满信心！四大科技共振！AMD成了之前的NVDA！",
+      "url": "https://www.youtube.com/watch?v=vynRw9NT7TQ",
+      "published": null,
+      "processed_at": "2026-09-04T02:03:28.378061+00:00",
+      "daily_digest_id": "daily-vynRw9NT7TQ-MxvVC6ec_fE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "MxvVC6ec_fE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "立刻抄作业！NaNa说美股(2026.09.03)",
+      "url": "https://www.youtube.com/watch?v=MxvVC6ec_fE",
+      "published": null,
+      "processed_at": "2026-09-04T02:03:28.378061+00:00",
+      "daily_digest_id": "daily-vynRw9NT7TQ-MxvVC6ec_fE",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2212,6 +2242,16 @@
       "source_video_ids": [
         "RgGeU0w9GZo",
         "B8iNnRmsu8E"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-vynRw9NT7TQ-MxvVC6ec_fE": {
+      "processed_at": "2026-09-04T02:03:28.378061+00:00",
+      "source_video_ids": [
+        "vynRw9NT7TQ",
+        "MxvVC6ec_fE"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
