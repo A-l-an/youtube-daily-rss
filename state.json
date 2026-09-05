@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-04T02:03:28.378061+00:00",
+  "last_run_at": "2026-09-05T02:33:57.244695+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1605,6 +1605,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "bdzWer7gNII": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 OpenAI给半导体打鸡血！SOXX底部已成？ORCL、AMD、NVDA！TSLA遭行政狙击！",
+      "url": "https://www.youtube.com/watch?v=bdzWer7gNII",
+      "published": "2026-09-05T00:58:39+00:00",
+      "processed_at": "2026-09-05T02:33:57.244695+00:00",
+      "daily_digest_id": "daily-bdzWer7gNII-12MpTsMmbi4",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "12MpTsMmbi4": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "医生，我感觉我又行了！NaNa说美股(2026.09.04)",
+      "url": "https://www.youtube.com/watch?v=12MpTsMmbi4",
+      "published": null,
+      "processed_at": "2026-09-05T02:33:57.244695+00:00",
+      "daily_digest_id": "daily-bdzWer7gNII-12MpTsMmbi4",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2252,6 +2282,16 @@
       "source_video_ids": [
         "vynRw9NT7TQ",
         "MxvVC6ec_fE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-bdzWer7gNII-12MpTsMmbi4": {
+      "processed_at": "2026-09-05T02:33:57.244695+00:00",
+      "source_video_ids": [
+        "bdzWer7gNII",
+        "12MpTsMmbi4"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
