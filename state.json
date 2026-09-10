@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-09T02:03:54.786242+00:00",
+  "last_run_at": "2026-09-10T02:06:56.038798+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1665,6 +1665,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "N8BjausuEsI": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META大招豪赌AI代理！对GOOG、AMZN影响！SOXX还需一天确认！财政部回购不及预期！AAPL开始折叠！",
+      "url": "https://www.youtube.com/watch?v=N8BjausuEsI",
+      "published": null,
+      "processed_at": "2026-09-10T02:06:56.038798+00:00",
+      "daily_digest_id": "daily-N8BjausuEsI-H6xHTsOVJBU",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "H6xHTsOVJBU": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "趴体TIME连开3天！NaNa说美股(2026.09.09)",
+      "url": "https://www.youtube.com/watch?v=H6xHTsOVJBU",
+      "published": null,
+      "processed_at": "2026-09-10T02:06:56.038798+00:00",
+      "daily_digest_id": "daily-N8BjausuEsI-H6xHTsOVJBU",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2332,6 +2362,16 @@
       "source_video_ids": [
         "fLp8kUbv_u8",
         "QIwdqG9qVr0"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-N8BjausuEsI-H6xHTsOVJBU": {
+      "processed_at": "2026-09-10T02:06:56.038798+00:00",
+      "source_video_ids": [
+        "N8BjausuEsI",
+        "H6xHTsOVJBU"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
