@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-10T02:06:56.038798+00:00",
+  "last_run_at": "2026-09-11T02:03:42.848785+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1695,6 +1695,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "dTQmi_hrOpU": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 ORCL缺乏惊喜，ADBE底气不足！SOXX遇阻、IGV破位！CTA触发标普承压，VIX苏醒！",
+      "url": "https://www.youtube.com/watch?v=dTQmi_hrOpU",
+      "published": "2026-09-11T01:05:57+00:00",
+      "processed_at": "2026-09-11T02:03:42.848785+00:00",
+      "daily_digest_id": "daily-dTQmi_hrOpU-K_8J8PV7ehM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "K_8J8PV7ehM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "4连跌了，尊严在哪里，底线又在哪里？NaNa说美股(2026.09.10)",
+      "url": "https://www.youtube.com/watch?v=K_8J8PV7ehM",
+      "published": "2026-09-10T22:45:27+00:00",
+      "processed_at": "2026-09-11T02:03:42.848785+00:00",
+      "daily_digest_id": "daily-dTQmi_hrOpU-K_8J8PV7ehM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2372,6 +2402,16 @@
       "source_video_ids": [
         "N8BjausuEsI",
         "H6xHTsOVJBU"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-dTQmi_hrOpU-K_8J8PV7ehM": {
+      "processed_at": "2026-09-11T02:03:42.848785+00:00",
+      "source_video_ids": [
+        "dTQmi_hrOpU",
+        "K_8J8PV7ehM"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
