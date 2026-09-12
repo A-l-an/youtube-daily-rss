@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-11T02:03:42.848785+00:00",
+  "last_run_at": "2026-09-12T02:03:00.609042+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1725,6 +1725,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "71FEJcz9VCY": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 凯投宏观：AI泡沫潜在破灭，五个警告信号！8月财政报告恶化，利息飙升！SOXX跟踪！",
+      "url": "https://www.youtube.com/watch?v=71FEJcz9VCY",
+      "published": "2026-09-12T01:19:05+00:00",
+      "processed_at": "2026-09-12T02:03:00.609042+00:00",
+      "daily_digest_id": "daily-71FEJcz9VCY-_6zHlUKHz58",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "_6zHlUKHz58": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "快回来，村里发美国国债了！NaNa说美股(2026.09.11)",
+      "url": "https://www.youtube.com/watch?v=_6zHlUKHz58",
+      "published": "2026-09-11T22:22:07+00:00",
+      "processed_at": "2026-09-12T02:03:00.609042+00:00",
+      "daily_digest_id": "daily-71FEJcz9VCY-_6zHlUKHz58",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2412,6 +2442,16 @@
       "source_video_ids": [
         "dTQmi_hrOpU",
         "K_8J8PV7ehM"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-71FEJcz9VCY-_6zHlUKHz58": {
+      "processed_at": "2026-09-12T02:03:00.609042+00:00",
+      "source_video_ids": [
+        "71FEJcz9VCY",
+        "_6zHlUKHz58"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
