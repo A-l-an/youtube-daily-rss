@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-12T02:03:00.609042+00:00",
+  "last_run_at": "2026-09-16T02:07:48.325903+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1755,6 +1755,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "EB4-BTw4ETQ": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA、META不同意AI放缓！加息后，标普、利率走势！SPY、QQQ、SOXX、SMH较差的情况，跌至哪里？",
+      "url": "https://www.youtube.com/watch?v=EB4-BTw4ETQ",
+      "published": "2026-09-16T01:10:03+00:00",
+      "processed_at": "2026-09-16T02:07:48.325903+00:00",
+      "daily_digest_id": "daily-EB4-BTw4ETQ-cClr4gSBknM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR"
+    },
+    "cClr4gSBknM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "沃什：现在辞职还来得及吗？？NaNa说美股(2026.09.15)",
+      "url": "https://www.youtube.com/watch?v=cClr4gSBknM",
+      "published": null,
+      "processed_at": "2026-09-16T02:07:48.325903+00:00",
+      "daily_digest_id": "daily-EB4-BTw4ETQ-cClr4gSBknM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2454,6 +2484,16 @@
         "_6zHlUKHz58"
       ],
       "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-EB4-BTw4ETQ-cClr4gSBknM": {
+      "processed_at": "2026-09-16T02:07:48.325903+00:00",
+      "source_video_ids": [
+        "EB4-BTw4ETQ",
+        "cClr4gSBknM"
+      ],
+      "summary_status": "success",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
     }
