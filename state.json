@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-16T02:07:48.325903+00:00",
+  "last_run_at": "2026-09-17T02:03:06.923559+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1785,6 +1785,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "v88zbUVrp8w": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 美联储27年预期撕裂！AI威胁叙事，网络安全爆炒！PANW、CRWD、FTNT！META忘记讲，看置顶评论！",
+      "url": "https://www.youtube.com/watch?v=v88zbUVrp8w",
+      "published": "2026-09-17T01:44:00+00:00",
+      "processed_at": "2026-09-17T02:03:06.923559+00:00",
+      "daily_digest_id": "daily-v88zbUVrp8w-dBzA4ZpvUQ8",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "dBzA4ZpvUQ8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "老道脸着地了！NaNa说美股(2026.09.16)",
+      "url": "https://www.youtube.com/watch?v=dBzA4ZpvUQ8",
+      "published": null,
+      "processed_at": "2026-09-17T02:03:06.923559+00:00",
+      "daily_digest_id": "daily-v88zbUVrp8w-dBzA4ZpvUQ8",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2494,6 +2524,16 @@
         "cClr4gSBknM"
       ],
       "summary_status": "success",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-v88zbUVrp8w-dBzA4ZpvUQ8": {
+      "processed_at": "2026-09-17T02:03:06.923559+00:00",
+      "source_video_ids": [
+        "v88zbUVrp8w",
+        "dBzA4ZpvUQ8"
+      ],
+      "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
     }
