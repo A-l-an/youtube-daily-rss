@@ -20541,6 +20541,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=v88zbUVrp8w\">美股 美联储27年预期撕裂！AI威胁叙事，网络安全爆炒！PANW、CRWD、FTNT！META忘记讲，看置顶评论！</a><br><small>2026-09-17T01:44:00+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=dBzA4ZpvUQ8\">老道脸着地了！NaNa说美股(2026.09.16)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-G_zzWcUSTfY-B13uS6zct4s",
+      "video_id": "daily-G_zzWcUSTfY-B13uS6zct4s",
+      "source_video_ids": [
+        "G_zzWcUSTfY",
+        "B13uS6zct4s"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-09-18 美股视频融合摘要",
+      "url": "",
+      "published": "2026-09-18T02:03:16.969658+00:00",
+      "processed_at": "2026-09-18T02:03:16.969658+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "G_zzWcUSTfY",
+          "title": "美股 共识预期：半导体无路可退！QQQ、IWM、AMD、META！",
+          "url": "https://www.youtube.com/watch?v=G_zzWcUSTfY",
+          "published": null,
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=G_zzWcUSTfY! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "zh: Connection error.; en: Connection error."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "B13uS6zct4s",
+          "title": "村里刚通网，昨天降息了？NaNa说美股(2026.09.17)",
+          "url": "https://www.youtube.com/watch?v=B13uS6zct4s",
+          "published": null,
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=G_zzWcUSTfY\">美股 共识预期：半导体无路可退！QQQ、IWM、AMD、META！</a><br><small>发布时间未知 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=B13uS6zct4s\">村里刚通网，昨天降息了？NaNa说美股(2026.09.17)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [
