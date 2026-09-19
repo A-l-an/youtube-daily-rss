@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-18T02:03:16.969658+00:00",
+  "last_run_at": "2026-09-19T02:03:48.204699+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1822,8 +1822,8 @@
       "title": "美股 共识预期：半导体无路可退！QQQ、IWM、AMD、META！",
       "url": "https://www.youtube.com/watch?v=G_zzWcUSTfY",
       "published": null,
-      "processed_at": "2026-09-18T02:03:16.969658+00:00",
-      "daily_digest_id": "daily-G_zzWcUSTfY-B13uS6zct4s",
+      "processed_at": "2026-09-19T02:03:48.204699+00:00",
+      "daily_digest_id": "daily-G_zzWcUSTfY-JxIbEt20rik",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -1839,6 +1839,21 @@
       "published": null,
       "processed_at": "2026-09-18T02:03:16.969658+00:00",
       "daily_digest_id": "daily-G_zzWcUSTfY-B13uS6zct4s",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
+    },
+    "JxIbEt20rik": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "LEO玩的好刺激！NaNa说美股(2026.09.18)",
+      "url": "https://www.youtube.com/watch?v=JxIbEt20rik",
+      "published": null,
+      "processed_at": "2026-09-19T02:03:48.204699+00:00",
+      "daily_digest_id": "daily-G_zzWcUSTfY-JxIbEt20rik",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
@@ -2572,6 +2587,16 @@
       "source_video_ids": [
         "G_zzWcUSTfY",
         "B13uS6zct4s"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-G_zzWcUSTfY-JxIbEt20rik": {
+      "processed_at": "2026-09-19T02:03:48.204699+00:00",
+      "source_video_ids": [
+        "G_zzWcUSTfY",
+        "JxIbEt20rik"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
