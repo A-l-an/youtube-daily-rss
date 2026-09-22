@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-19T02:03:48.204699+00:00",
+  "last_run_at": "2026-09-22T02:03:36.052950+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1860,6 +1860,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "Wpbwn2Pj3kQ": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META、AMD联手起飞！QQQ、SOXX、IGV，全部突破！对冲基金、散户，在买什么？",
+      "url": "https://www.youtube.com/watch?v=Wpbwn2Pj3kQ",
+      "published": "2026-09-22T01:11:27+00:00",
+      "processed_at": "2026-09-22T02:03:36.052950+00:00",
+      "daily_digest_id": "daily-Wpbwn2Pj3kQ-dM4qkaPySe0",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "dM4qkaPySe0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "不识牛市真面目，只缘身在熊圈中！NaNa说美股(2026.09.21)",
+      "url": "https://www.youtube.com/watch?v=dM4qkaPySe0",
+      "published": null,
+      "processed_at": "2026-09-22T02:03:36.052950+00:00",
+      "daily_digest_id": "daily-Wpbwn2Pj3kQ-dM4qkaPySe0",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2597,6 +2627,16 @@
       "source_video_ids": [
         "G_zzWcUSTfY",
         "JxIbEt20rik"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-Wpbwn2Pj3kQ-dM4qkaPySe0": {
+      "processed_at": "2026-09-22T02:03:36.052950+00:00",
+      "source_video_ids": [
+        "Wpbwn2Pj3kQ",
+        "dM4qkaPySe0"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
