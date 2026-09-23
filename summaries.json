@@ -20718,6 +20718,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=Wpbwn2Pj3kQ\">美股 META、AMD联手起飞！QQQ、SOXX、IGV，全部突破！对冲基金、散户，在买什么？</a><br><small>2026-09-22T01:11:27+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=dM4qkaPySe0\">不识牛市真面目，只缘身在熊圈中！NaNa说美股(2026.09.21)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-XFCufoG9DVc-4BvyVOHzZZg",
+      "video_id": "daily-XFCufoG9DVc-4BvyVOHzZZg",
+      "source_video_ids": [
+        "XFCufoG9DVc",
+        "4BvyVOHzZZg"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-09-23 美股视频融合摘要",
+      "url": "",
+      "published": "2026-09-23T02:03:40.591449+00:00",
+      "processed_at": "2026-09-23T02:03:40.591449+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "XFCufoG9DVc",
+          "title": "美股 META肉搏AMZN，别被带歪！SHOP受益！AI巨头加速推新模型！德州更严厉暂停数据中心！金融XLF怎么了？",
+          "url": "https://www.youtube.com/watch?v=XFCufoG9DVc",
+          "published": null,
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=XFCufoG9DVc! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "zh: Connection error.; en: Connection error."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "4BvyVOHzZZg",
+          "title": "美股也打土豪分钱啊？！NaNa说美股(2026.09.22)",
+          "url": "https://www.youtube.com/watch?v=4BvyVOHzZZg",
+          "published": null,
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=XFCufoG9DVc\">美股 META肉搏AMZN，别被带歪！SHOP受益！AI巨头加速推新模型！德州更严厉暂停数据中心！金融XLF怎么了？</a><br><small>发布时间未知 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=4BvyVOHzZZg\">美股也打土豪分钱啊？！NaNa说美股(2026.09.22)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [

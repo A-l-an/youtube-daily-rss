@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-22T02:03:36.052950+00:00",
+  "last_run_at": "2026-09-23T02:03:40.591449+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1890,6 +1890,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "XFCufoG9DVc": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META肉搏AMZN，别被带歪！SHOP受益！AI巨头加速推新模型！德州更严厉暂停数据中心！金融XLF怎么了？",
+      "url": "https://www.youtube.com/watch?v=XFCufoG9DVc",
+      "published": null,
+      "processed_at": "2026-09-23T02:03:40.591449+00:00",
+      "daily_digest_id": "daily-XFCufoG9DVc-4BvyVOHzZZg",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "4BvyVOHzZZg": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "美股也打土豪分钱啊？！NaNa说美股(2026.09.22)",
+      "url": "https://www.youtube.com/watch?v=4BvyVOHzZZg",
+      "published": null,
+      "processed_at": "2026-09-23T02:03:40.591449+00:00",
+      "daily_digest_id": "daily-XFCufoG9DVc-4BvyVOHzZZg",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2637,6 +2667,16 @@
       "source_video_ids": [
         "Wpbwn2Pj3kQ",
         "dM4qkaPySe0"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-XFCufoG9DVc-4BvyVOHzZZg": {
+      "processed_at": "2026-09-23T02:03:40.591449+00:00",
+      "source_video_ids": [
+        "XFCufoG9DVc",
+        "4BvyVOHzZZg"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
