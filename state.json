@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-23T02:03:40.591449+00:00",
+  "last_run_at": "2026-09-24T02:04:02.248127+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1920,6 +1920,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "h1-YBhMV3CA": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 10年期国债收益暴涨！MSFT加入价格战！AVGO的新风险！MCD四年新低！COST财报波动！",
+      "url": "https://www.youtube.com/watch?v=h1-YBhMV3CA",
+      "published": null,
+      "processed_at": "2026-09-24T02:04:02.248127+00:00",
+      "daily_digest_id": "daily-h1-YBhMV3CA-S53iIEnGogw",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
+    },
+    "S53iIEnGogw": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "这次又是哪来的信心？NaNa说美股(2026.09.23)",
+      "url": "https://www.youtube.com/watch?v=S53iIEnGogw",
+      "published": null,
+      "processed_at": "2026-09-24T02:04:02.248127+00:00",
+      "daily_digest_id": "daily-h1-YBhMV3CA-S53iIEnGogw",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "link_only",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -2681,6 +2711,16 @@
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
       "source_status": "mixed"
+    },
+    "daily-h1-YBhMV3CA-S53iIEnGogw": {
+      "processed_at": "2026-09-24T02:04:02.248127+00:00",
+      "source_video_ids": [
+        "h1-YBhMV3CA",
+        "S53iIEnGogw"
+      ],
+      "summary_status": "link_only",
+      "summary_model": null,
+      "source_status": "link-only"
     }
   }
 }
