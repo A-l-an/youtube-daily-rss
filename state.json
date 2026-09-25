@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-24T02:04:02.248127+00:00",
+  "last_run_at": "2026-09-25T02:03:30.550278+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1950,6 +1950,36 @@
       "asr_status": "failed",
       "summary_status": "link_only",
       "source_status": "link-only"
+    },
+    "6NOiINBIbew": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META杀红眼，抢游戏地盘！ORCL遇到更大麻烦！GOOG、AMZN继续等人！COST纹丝不动！",
+      "url": "https://www.youtube.com/watch?v=6NOiINBIbew",
+      "published": null,
+      "processed_at": "2026-09-25T02:03:30.550278+00:00",
+      "daily_digest_id": "daily-6NOiINBIbew-TpGDgieIAak",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "TpGDgieIAak": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "忽如一夜春风来！NaNa说美股(2026.09.24)",
+      "url": "https://www.youtube.com/watch?v=TpGDgieIAak",
+      "published": "2026-09-24T23:22:07+00:00",
+      "processed_at": "2026-09-25T02:03:30.550278+00:00",
+      "daily_digest_id": "daily-6NOiINBIbew-TpGDgieIAak",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2721,6 +2751,16 @@
       "summary_status": "link_only",
       "summary_model": null,
       "source_status": "link-only"
+    },
+    "daily-6NOiINBIbew-TpGDgieIAak": {
+      "processed_at": "2026-09-25T02:03:30.550278+00:00",
+      "source_video_ids": [
+        "6NOiINBIbew",
+        "TpGDgieIAak"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
     }
   }
 }
