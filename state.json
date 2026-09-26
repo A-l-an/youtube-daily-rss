@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-25T02:03:30.550278+00:00",
+  "last_run_at": "2026-09-26T02:03:46.088941+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -1980,6 +1980,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "OyiGHowGOSI": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 MSFT中秋送大礼突破！META歇脚，TSM高看！QQQ、SOXX、SPY！",
+      "url": "https://www.youtube.com/watch?v=OyiGHowGOSI",
+      "published": null,
+      "processed_at": "2026-09-26T02:03:46.088941+00:00",
+      "daily_digest_id": "daily-OyiGHowGOSI-Y3lw2AZB-CA",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "Y3lw2AZB-CA": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "那我也跟着买点儿吧….NaNa说美股(2026.09.25)",
+      "url": "https://www.youtube.com/watch?v=Y3lw2AZB-CA",
+      "published": null,
+      "processed_at": "2026-09-26T02:03:46.088941+00:00",
+      "daily_digest_id": "daily-OyiGHowGOSI-Y3lw2AZB-CA",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2757,6 +2787,16 @@
       "source_video_ids": [
         "6NOiINBIbew",
         "TpGDgieIAak"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-OyiGHowGOSI-Y3lw2AZB-CA": {
+      "processed_at": "2026-09-26T02:03:46.088941+00:00",
+      "source_video_ids": [
+        "OyiGHowGOSI",
+        "Y3lw2AZB-CA"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
