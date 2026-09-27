@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-26T02:03:46.088941+00:00",
+  "last_run_at": "2026-09-27T02:02:51.838479+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2002,14 +2002,29 @@
       "title": "那我也跟着买点儿吧….NaNa说美股(2026.09.25)",
       "url": "https://www.youtube.com/watch?v=Y3lw2AZB-CA",
       "published": null,
-      "processed_at": "2026-09-26T02:03:46.088941+00:00",
-      "daily_digest_id": "daily-OyiGHowGOSI-Y3lw2AZB-CA",
+      "processed_at": "2026-09-27T02:02:51.838479+00:00",
+      "daily_digest_id": "daily-kD5hGfArUf0-Y3lw2AZB-CA",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "kD5hGfArUf0": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "（会员第303期）定量分析大盘，别被情绪左右！VIX 期限结构（Term Structure）用法！加仓、减仓、买保护，还是别动！",
+      "url": "https://www.youtube.com/watch?v=kD5hGfArUf0",
+      "published": null,
+      "processed_at": "2026-09-27T02:02:51.838479+00:00",
+      "daily_digest_id": "daily-kD5hGfArUf0-Y3lw2AZB-CA",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -2796,6 +2811,16 @@
       "processed_at": "2026-09-26T02:03:46.088941+00:00",
       "source_video_ids": [
         "OyiGHowGOSI",
+        "Y3lw2AZB-CA"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-kD5hGfArUf0-Y3lw2AZB-CA": {
+      "processed_at": "2026-09-27T02:02:51.838479+00:00",
+      "source_video_ids": [
+        "kD5hGfArUf0",
         "Y3lw2AZB-CA"
       ],
       "summary_status": "failed",
