@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-27T02:02:51.838479+00:00",
+  "last_run_at": "2026-09-30T06:23:19.884835+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2025,6 +2025,36 @@
       "asr_status": "failed",
       "summary_status": "failed",
       "source_status": "link-only"
+    },
+    "CpXRqkEIscI": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 META真快、ORCL哪里止跌？ASML、LRCX潜在突破！神准摩根大通：战术看涨！CTA：不大跌主买！",
+      "url": "https://www.youtube.com/watch?v=CpXRqkEIscI",
+      "published": null,
+      "processed_at": "2026-09-30T06:23:19.884835+00:00",
+      "daily_digest_id": "daily-CpXRqkEIscI-2Ci7OynnUqk",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "2Ci7OynnUqk": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "我多想回到家乡，再回到ATH身旁🥹NaNa说美股(2026.09.29)",
+      "url": "https://www.youtube.com/watch?v=2Ci7OynnUqk",
+      "published": null,
+      "processed_at": "2026-09-30T06:23:19.884835+00:00",
+      "daily_digest_id": "daily-CpXRqkEIscI-2Ci7OynnUqk",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2822,6 +2852,16 @@
       "source_video_ids": [
         "kD5hGfArUf0",
         "Y3lw2AZB-CA"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-CpXRqkEIscI-2Ci7OynnUqk": {
+      "processed_at": "2026-09-30T06:23:19.884835+00:00",
+      "source_video_ids": [
+        "CpXRqkEIscI",
+        "2Ci7OynnUqk"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
