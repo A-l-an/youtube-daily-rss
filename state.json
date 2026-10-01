@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-09-30T06:23:19.884835+00:00",
+  "last_run_at": "2026-10-01T08:11:48.542486+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2055,6 +2055,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "cGSEmqIyFf0": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 PCE推迟加息至12月！MU财报好坏各半！SNDK、GOOG、LLY、TRV！",
+      "url": "https://www.youtube.com/watch?v=cGSEmqIyFf0",
+      "published": "2026-10-01T00:50:37+00:00",
+      "processed_at": "2026-10-01T08:11:48.542486+00:00",
+      "daily_digest_id": "daily-cGSEmqIyFf0-c2x0-yD7SsQ",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "c2x0-yD7SsQ": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "冲鸭~~~ ！NaNa说美股(2026.09.30)",
+      "url": "https://www.youtube.com/watch?v=c2x0-yD7SsQ",
+      "published": "2026-09-30T23:21:50+00:00",
+      "processed_at": "2026-10-01T08:11:48.542486+00:00",
+      "daily_digest_id": "daily-cGSEmqIyFf0-c2x0-yD7SsQ",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2862,6 +2892,16 @@
       "source_video_ids": [
         "CpXRqkEIscI",
         "2Ci7OynnUqk"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-cGSEmqIyFf0-c2x0-yD7SsQ": {
+      "processed_at": "2026-10-01T08:11:48.542486+00:00",
+      "source_video_ids": [
+        "cGSEmqIyFf0",
+        "c2x0-yD7SsQ"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
