@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-01T08:11:48.542486+00:00",
+  "last_run_at": "2026-10-02T09:21:22.457841+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2085,6 +2085,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "LWHKiYV-8pU": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 SMH突破，SOXX差一点！NKE财报灾难前瞻！Anthropic IPO可能强上，基本信息！",
+      "url": "https://www.youtube.com/watch?v=LWHKiYV-8pU",
+      "published": "2026-10-02T00:41:20+00:00",
+      "processed_at": "2026-10-02T09:21:22.457841+00:00",
+      "daily_digest_id": "daily-LWHKiYV-8pU-EcMX0ub9gSg",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "EcMX0ub9gSg": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "退休老人一声吼给买起来的？NaNa说美股(2026.10.01)",
+      "url": "https://www.youtube.com/watch?v=EcMX0ub9gSg",
+      "published": "2026-10-01T22:18:41+00:00",
+      "processed_at": "2026-10-02T09:21:22.457841+00:00",
+      "daily_digest_id": "daily-LWHKiYV-8pU-EcMX0ub9gSg",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2902,6 +2932,16 @@
       "source_video_ids": [
         "cGSEmqIyFf0",
         "c2x0-yD7SsQ"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-LWHKiYV-8pU-EcMX0ub9gSg": {
+      "processed_at": "2026-10-02T09:21:22.457841+00:00",
+      "source_video_ids": [
+        "LWHKiYV-8pU",
+        "EcMX0ub9gSg"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
