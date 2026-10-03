@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-02T09:21:22.457841+00:00",
+  "last_run_at": "2026-10-03T08:11:19.189642+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2115,6 +2115,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "gm7968MOWmo": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 QQQ收盘新高！AMZN出售芯片不过了？SOXX跟随SMH突破！TSLA交付超预期！APP下个避险位置！",
+      "url": "https://www.youtube.com/watch?v=gm7968MOWmo",
+      "published": "2026-10-03T00:32:55+00:00",
+      "processed_at": "2026-10-03T08:11:19.189642+00:00",
+      "daily_digest_id": "daily-gm7968MOWmo-khnPevsQ_TE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "khnPevsQ_TE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "放弃做空，皈依神教🤓！NaNa说美股(2026.10.02)",
+      "url": "https://www.youtube.com/watch?v=khnPevsQ_TE",
+      "published": "2026-10-02T23:00:48+00:00",
+      "processed_at": "2026-10-03T08:11:19.189642+00:00",
+      "daily_digest_id": "daily-gm7968MOWmo-khnPevsQ_TE",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2942,6 +2972,16 @@
       "source_video_ids": [
         "LWHKiYV-8pU",
         "EcMX0ub9gSg"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-gm7968MOWmo-khnPevsQ_TE": {
+      "processed_at": "2026-10-03T08:11:19.189642+00:00",
+      "source_video_ids": [
+        "gm7968MOWmo",
+        "khnPevsQ_TE"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
