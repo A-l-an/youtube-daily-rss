@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-03T08:11:19.189642+00:00",
+  "last_run_at": "2026-10-06T15:57:53.705720+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2145,6 +2145,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "lWd7zsWV-4I": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 NVDA、TSM、MSFT！对冲基金：不加仓，等抬轿子！标普各种相关性瓦解！",
+      "url": "https://www.youtube.com/watch?v=lWd7zsWV-4I",
+      "published": "2026-10-06T00:36:17+00:00",
+      "processed_at": "2026-10-06T15:57:53.705720+00:00",
+      "daily_digest_id": "daily-lWd7zsWV-4I-U6QdbKBgEdE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "U6QdbKBgEdE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "霸道总裁爱上能抄底的我！NaNa说美股(2026.10.05)",
+      "url": "https://www.youtube.com/watch?v=U6QdbKBgEdE",
+      "published": "2026-10-05T22:48:47+00:00",
+      "processed_at": "2026-10-06T15:57:53.705720+00:00",
+      "daily_digest_id": "daily-lWd7zsWV-4I-U6QdbKBgEdE",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -2982,6 +3012,16 @@
       "source_video_ids": [
         "gm7968MOWmo",
         "khnPevsQ_TE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-lWd7zsWV-4I-U6QdbKBgEdE": {
+      "processed_at": "2026-10-06T15:57:53.705720+00:00",
+      "source_video_ids": [
+        "lWd7zsWV-4I",
+        "U6QdbKBgEdE"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
