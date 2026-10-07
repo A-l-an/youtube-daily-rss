@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-06T15:57:53.705720+00:00",
+  "last_run_at": "2026-10-07T05:14:52.302135+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2175,6 +2175,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "wxKcxcjSq5o": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 MRVL、AMD、ISRG、CEG！三季度财报看什么？10大公司EPS贡献超过490！",
+      "url": "https://www.youtube.com/watch?v=wxKcxcjSq5o",
+      "published": "2026-10-07T00:36:16+00:00",
+      "processed_at": "2026-10-07T05:14:52.302135+00:00",
+      "daily_digest_id": "daily-wxKcxcjSq5o-chOchL89sw8",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "chOchL89sw8": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "生产队的驴都没有美股这么能拉！NaNa说美股(2026.10.06)",
+      "url": "https://www.youtube.com/watch?v=chOchL89sw8",
+      "published": "2026-10-06T22:46:46+00:00",
+      "processed_at": "2026-10-07T05:14:52.302135+00:00",
+      "daily_digest_id": "daily-wxKcxcjSq5o-chOchL89sw8",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3022,6 +3052,16 @@
       "source_video_ids": [
         "lWd7zsWV-4I",
         "U6QdbKBgEdE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-wxKcxcjSq5o-chOchL89sw8": {
+      "processed_at": "2026-10-07T05:14:52.302135+00:00",
+      "source_video_ids": [
+        "wxKcxcjSq5o",
+        "chOchL89sw8"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
