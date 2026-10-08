@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-07T05:14:52.302135+00:00",
+  "last_run_at": "2026-10-08T08:54:16.581721+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2205,6 +2205,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "o3v28EEIdb4": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 大盘伸个懒腰！ SPCX又又又发债！AAPL扩大智能家居版图！CAT怎么了？META正常回撤！",
+      "url": "https://www.youtube.com/watch?v=o3v28EEIdb4",
+      "published": "2026-10-08T00:26:22+00:00",
+      "processed_at": "2026-10-08T08:54:16.581721+00:00",
+      "daily_digest_id": "daily-o3v28EEIdb4-d5LrRI7cDVA",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "d5LrRI7cDVA": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "镰刀无处不在！NaNa说美股(2026.10.07)",
+      "url": "https://www.youtube.com/watch?v=d5LrRI7cDVA",
+      "published": "2026-10-07T23:06:41+00:00",
+      "processed_at": "2026-10-08T08:54:16.581721+00:00",
+      "daily_digest_id": "daily-o3v28EEIdb4-d5LrRI7cDVA",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3062,6 +3092,16 @@
       "source_video_ids": [
         "wxKcxcjSq5o",
         "chOchL89sw8"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-o3v28EEIdb4-d5LrRI7cDVA": {
+      "processed_at": "2026-10-08T08:54:16.581721+00:00",
+      "source_video_ids": [
+        "o3v28EEIdb4",
+        "d5LrRI7cDVA"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
