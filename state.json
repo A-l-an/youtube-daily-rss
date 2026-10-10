@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-09T07:54:18.056141+00:00",
+  "last_run_at": "2026-10-10T10:54:24.877256+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2242,8 +2242,8 @@
       "title": "美股 科技股、半导体失血！消费股领涨，XLP重要位置！SMH、SOXX完成修复！SPY、QQQ、XLK长线点位更新！",
       "url": "https://www.youtube.com/watch?v=-e3gyj_NP7c",
       "published": "2026-10-09T00:39:17+00:00",
-      "processed_at": "2026-10-09T07:54:18.056141+00:00",
-      "daily_digest_id": "daily--e3gyj_NP7c-tTEtnjc14i4",
+      "processed_at": "2026-10-10T10:54:24.877256+00:00",
+      "daily_digest_id": "daily--e3gyj_NP7c-c09YoUMv0tE",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -2259,6 +2259,21 @@
       "published": "2026-10-08T23:25:16+00:00",
       "processed_at": "2026-10-09T07:54:18.056141+00:00",
       "daily_digest_id": "daily--e3gyj_NP7c-tTEtnjc14i4",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
+    },
+    "c09YoUMv0tE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "烽火戏诸侯！NaNa说美股(2026.10.09)",
+      "url": "https://www.youtube.com/watch?v=c09YoUMv0tE",
+      "published": "2026-10-09T23:07:18+00:00",
+      "processed_at": "2026-10-10T10:54:24.877256+00:00",
+      "daily_digest_id": "daily--e3gyj_NP7c-c09YoUMv0tE",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
@@ -3142,6 +3157,16 @@
       "source_video_ids": [
         "-e3gyj_NP7c",
         "tTEtnjc14i4"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily--e3gyj_NP7c-c09YoUMv0tE": {
+      "processed_at": "2026-10-10T10:54:24.877256+00:00",
+      "source_video_ids": [
+        "-e3gyj_NP7c",
+        "c09YoUMv0tE"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
