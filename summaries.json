@@ -21544,6 +21544,65 @@
         }
       ],
       "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=-e3gyj_NP7c\">美股 科技股、半导体失血！消费股领涨，XLP重要位置！SMH、SOXX完成修复！SPY、QQQ、XLK长线点位更新！</a><br><small>2026-10-09T00:39:17+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=c09YoUMv0tE\">烽火戏诸侯！NaNa说美股(2026.10.09)</a><br><small>2026-10-09T23:07:18+00:00 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
+    },
+    {
+      "item_type": "daily_digest",
+      "digest_id": "daily-xOY53crL1ZA-c09YoUMv0tE",
+      "video_id": "daily-xOY53crL1ZA-c09YoUMv0tE",
+      "source_video_ids": [
+        "xOY53crL1ZA",
+        "c09YoUMv0tE"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "2026-10-11 美股视频融合摘要",
+      "url": "",
+      "published": "2026-10-11T02:28:52.550260+00:00",
+      "processed_at": "2026-10-11T02:28:52.550260+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "summary_error": "Connection error.",
+      "summary_data": null,
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "xOY53crL1ZA",
+          "title": "（会员第305期）掌握数据，跟随趋势！如何追踪标普、个股、EPS业绩修正？几个隐藏的免费数据入口！使用方法！",
+          "url": "https://www.youtube.com/watch?v=xOY53crL1ZA",
+          "published": null,
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "failed",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=xOY53crL1ZA! This is most likely caused by:\n\nThe video is unplayable for the following reason: Join this channel to get access to members-only content like this video, and other exclusive perks.\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh-CN: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual en: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-Hans: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-CN: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto en: ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks.",
+          "asr_status": "failed",
+          "asr_model": "whisper-1",
+          "asr_error": "yt-dlp audio download failed after 3 attempt(s): ERROR: [youtube] xOY53crL1ZA: Join this channel to get access to members-only content like this video, and other exclusive perks."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "c09YoUMv0tE",
+          "title": "烽火戏诸侯！NaNa说美股(2026.10.09)",
+          "url": "https://www.youtube.com/watch?v=c09YoUMv0tE",
+          "published": null,
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR"
+        }
+      ],
+      "summary_html": "<h2>每日美股视频融合摘要</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=xOY53crL1ZA\">（会员第305期）掌握数据，跟随趋势！如何追踪标普、个股、EPS业绩修正？几个隐藏的免费数据入口！使用方法！</a><br><small>发布时间未知 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=c09YoUMv0tE\">烽火戏诸侯！NaNa说美股(2026.10.09)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p>LLM summary failed: Connection error.. The original video links are provided.</p><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p>"
     }
   ],
   "legacy_video_items": [
