@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-11T02:28:52.550260+00:00",
+  "last_run_at": "2026-10-13T02:42:11.599793+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2295,6 +2295,36 @@
       "asr_status": "failed",
       "summary_status": "failed",
       "source_status": "link-only"
+    },
+    "cr3MV3KTHRE": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 对冲基金，抛售哪些？做多哪些？META、MSFT、XLI，存储重伤，竞争加剧！MU、SNDK位置！",
+      "url": "https://www.youtube.com/watch?v=cr3MV3KTHRE",
+      "published": "2026-10-13T01:44:30+00:00",
+      "processed_at": "2026-10-13T02:42:11.599793+00:00",
+      "daily_digest_id": "daily-cr3MV3KTHRE-udtkcHXHFTU",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "udtkcHXHFTU": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "华尔街又下狠手！NaNa说美股(2026.10.12)",
+      "url": "https://www.youtube.com/watch?v=udtkcHXHFTU",
+      "published": "2026-10-12T22:41:26+00:00",
+      "processed_at": "2026-10-13T02:42:11.599793+00:00",
+      "daily_digest_id": "daily-cr3MV3KTHRE-udtkcHXHFTU",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3192,6 +3222,16 @@
       "source_video_ids": [
         "xOY53crL1ZA",
         "c09YoUMv0tE"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-cr3MV3KTHRE-udtkcHXHFTU": {
+      "processed_at": "2026-10-13T02:42:11.599793+00:00",
+      "source_video_ids": [
+        "cr3MV3KTHRE",
+        "udtkcHXHFTU"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
