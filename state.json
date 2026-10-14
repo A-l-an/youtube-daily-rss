@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-13T02:42:11.599793+00:00",
+  "last_run_at": "2026-10-14T02:04:54.429746+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2325,6 +2325,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "JlFrJ45B6zU": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 资本支出：三季度增速见顶！SOXX、SMH反复拉扯！UNH已计价，JPM不及格！",
+      "url": "https://www.youtube.com/watch?v=JlFrJ45B6zU",
+      "published": null,
+      "processed_at": "2026-10-14T02:04:54.429746+00:00",
+      "daily_digest_id": "daily-JlFrJ45B6zU-SRbS5CpslEM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "SRbS5CpslEM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "上车了！NaNa说美股(2026.10.13)",
+      "url": "https://www.youtube.com/watch?v=SRbS5CpslEM",
+      "published": null,
+      "processed_at": "2026-10-14T02:04:54.429746+00:00",
+      "daily_digest_id": "daily-JlFrJ45B6zU-SRbS5CpslEM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3232,6 +3262,16 @@
       "source_video_ids": [
         "cr3MV3KTHRE",
         "udtkcHXHFTU"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-JlFrJ45B6zU-SRbS5CpslEM": {
+      "processed_at": "2026-10-14T02:04:54.429746+00:00",
+      "source_video_ids": [
+        "JlFrJ45B6zU",
+        "SRbS5CpslEM"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
