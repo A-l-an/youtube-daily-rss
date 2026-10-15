@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-14T02:04:54.429746+00:00",
+  "last_run_at": "2026-10-15T02:03:59.212878+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2355,6 +2355,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "ttrjfdl-Ne4": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 短期洗牌，还是大跌开始？CRWV信贷引发AI交易混乱！ASML财报粗犷，叫好不叫座！",
+      "url": "https://www.youtube.com/watch?v=ttrjfdl-Ne4",
+      "published": null,
+      "processed_at": "2026-10-15T02:03:59.212878+00:00",
+      "daily_digest_id": "daily-ttrjfdl-Ne4-C5E-Ji19NSc",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "C5E-Ji19NSc": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "跌的蛋疼！NaNa说美股(2026.10.14)",
+      "url": "https://www.youtube.com/watch?v=C5E-Ji19NSc",
+      "published": null,
+      "processed_at": "2026-10-15T02:03:59.212878+00:00",
+      "daily_digest_id": "daily-ttrjfdl-Ne4-C5E-Ji19NSc",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3272,6 +3302,16 @@
       "source_video_ids": [
         "JlFrJ45B6zU",
         "SRbS5CpslEM"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-ttrjfdl-Ne4-C5E-Ji19NSc": {
+      "processed_at": "2026-10-15T02:03:59.212878+00:00",
+      "source_video_ids": [
+        "ttrjfdl-Ne4",
+        "C5E-Ji19NSc"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
