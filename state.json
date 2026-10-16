@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-15T02:03:59.212878+00:00",
+  "last_run_at": "2026-10-16T05:23:52.731825+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2385,6 +2385,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "SbZltIBvi7M": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 对冲基金清空1年来AI仓位！不看好人工智能了吗？举例NVDA对比AMD！",
+      "url": "https://www.youtube.com/watch?v=SbZltIBvi7M",
+      "published": null,
+      "processed_at": "2026-10-16T05:23:52.731825+00:00",
+      "daily_digest_id": "daily-SbZltIBvi7M-JLMIET3SP58",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "JLMIET3SP58": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "达子又收新小弟！NaNa说美股(2026.10.15)",
+      "url": "https://www.youtube.com/watch?v=JLMIET3SP58",
+      "published": null,
+      "processed_at": "2026-10-16T05:23:52.731825+00:00",
+      "daily_digest_id": "daily-SbZltIBvi7M-JLMIET3SP58",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3312,6 +3342,16 @@
       "source_video_ids": [
         "ttrjfdl-Ne4",
         "C5E-Ji19NSc"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-SbZltIBvi7M-JLMIET3SP58": {
+      "processed_at": "2026-10-16T05:23:52.731825+00:00",
+      "source_video_ids": [
+        "SbZltIBvi7M",
+        "JLMIET3SP58"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
