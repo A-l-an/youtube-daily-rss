@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-16T05:23:52.731825+00:00",
+  "last_run_at": "2026-10-17T06:31:00.138443+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2415,6 +2415,36 @@
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "dpDUZnMjzJk": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 纳指重挫，Anthropic增速失望，IPO估值下调！AI高增长交易动摇！TSM持仓计划更新！SPY、QQQ、SOXX、SMH！",
+      "url": "https://www.youtube.com/watch?v=dpDUZnMjzJk",
+      "published": null,
+      "processed_at": "2026-10-17T06:31:00.138443+00:00",
+      "daily_digest_id": "daily-dpDUZnMjzJk-IkWe67W44f0",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "IkWe67W44f0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "流言四起人心惶惶！NaNa说美股(2026.10.16)",
+      "url": "https://www.youtube.com/watch?v=IkWe67W44f0",
+      "published": null,
+      "processed_at": "2026-10-17T06:31:00.138443+00:00",
+      "daily_digest_id": "daily-dpDUZnMjzJk-IkWe67W44f0",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3352,6 +3382,16 @@
       "source_video_ids": [
         "SbZltIBvi7M",
         "JLMIET3SP58"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-dpDUZnMjzJk-IkWe67W44f0": {
+      "processed_at": "2026-10-17T06:31:00.138443+00:00",
+      "source_video_ids": [
+        "dpDUZnMjzJk",
+        "IkWe67W44f0"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
