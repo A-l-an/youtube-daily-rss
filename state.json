@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-17T06:31:00.138443+00:00",
+  "last_run_at": "2026-10-18T06:57:39.902771+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2437,14 +2437,29 @@
       "title": "流言四起人心惶惶！NaNa说美股(2026.10.16)",
       "url": "https://www.youtube.com/watch?v=IkWe67W44f0",
       "published": null,
-      "processed_at": "2026-10-17T06:31:00.138443+00:00",
-      "daily_digest_id": "daily-dpDUZnMjzJk-IkWe67W44f0",
+      "processed_at": "2026-10-18T06:57:39.902771+00:00",
+      "daily_digest_id": "daily-A4p5t_F4mQs-IkWe67W44f0",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
       "summary_status": "failed",
       "source_status": "captions"
+    },
+    "A4p5t_F4mQs": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "（会员第306期）补充26年8月24-10月09，2026年10月12日-16日，重要公司Q3财报后2026、2027前瞻估值，强支撑点位！",
+      "url": "https://www.youtube.com/watch?v=A4p5t_F4mQs",
+      "published": null,
+      "processed_at": "2026-10-18T06:57:39.902771+00:00",
+      "daily_digest_id": "daily-A4p5t_F4mQs-IkWe67W44f0",
+      "transcript_status": "failed",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -3391,6 +3406,16 @@
       "processed_at": "2026-10-17T06:31:00.138443+00:00",
       "source_video_ids": [
         "dpDUZnMjzJk",
+        "IkWe67W44f0"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-A4p5t_F4mQs-IkWe67W44f0": {
+      "processed_at": "2026-10-18T06:57:39.902771+00:00",
+      "source_video_ids": [
+        "A4p5t_F4mQs",
         "IkWe67W44f0"
       ],
       "summary_status": "failed",
