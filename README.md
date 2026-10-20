@@ -21,9 +21,26 @@ cp .env.example .env
 Edit `.env` and set:
 
 ```bash
+DEEPSEEK_API_KEY=your_deepseek_api_key
+DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
+# Optional, for the independent ASR fallback:
 HKUST_GZ_API_KEY=your_hkust_gz_api_key
 HKUST_GZ_BASE_URL=https://gpt-api.hkust-gz.edu.cn/v1
 ```
+
+Summaries use the official DeepSeek API with `deepseek-flash`. DeepSeek credentials
+are resolved from environment variables, then the project's `.env`, then the
+read-only local fallback `/Users/alan/.config/janus-ai/providers.env`. Only the
+`deepseek` provider reads that shared file, and it reads only `DEEPSEEK_API_KEY`
+and `DEEPSEEK_BASE_URL`; it never substitutes an HKUST-GZ or OpenAI key. The base
+URL must be `https://api.deepseek.com/v1` or `https://api.deepseek.com`.
+ASR continues to use its separate HKUST-GZ credentials and `whisper-1` model.
+
+The DeepSeek request uses JSON output, disables thinking, and caps output at 16384
+tokens. Empty content, an empty JSON object, or `finish_reason=length` is treated
+as a failed summary.
+See the official [JSON output](https://api-docs.deepseek.com/zh-cn/guides/json_mode/)
+and [thinking mode](https://api-docs.deepseek.com/zh-cn/guides/thinking_mode/) guides.
 
 Run a no-write check:
 
@@ -135,11 +152,21 @@ If direct YouTube audio extraction fails or is not appropriate, ASR is skipped o
    - Required labels: `self-hosted`, `macOS`, `youtube-rss`
    - Keep the Mac awake, online, and able to access YouTube at the scheduled time.
    - Install `ffmpeg` and GNU tar (`brew install gnu-tar`) and ensure `python`, `ffmpeg`, and `gtar` are available on the runner service PATH.
-3. In repository settings, add the secret `HKUST_GZ_API_KEY`.
+3. On the Janus `alan` runner, keep the DeepSeek key in the canonical local
+   `/Users/alan/.config/janus-ai/providers.env` with permissions `600`. The
+   credential resolver uses this file read-only when the workflow's DeepSeek
+   secret is empty; no copy to GitHub Secrets is required on this runner.
+   For other runners, add the repository secret `DEEPSEEK_API_KEY` for summaries.
+   Keep `HKUST_GZ_API_KEY` for the independent ASR fallback.
 4. Optionally add repository variables:
+   - `DEEPSEEK_BASE_URL`: `https://api.deepseek.com/v1` (the default if unset)
    - `HKUST_GZ_BASE_URL`: `https://gpt-api.hkust-gz.edu.cn/v1`
-   - `SUMMARY_MODEL`: `DeepSeek-V4-Pro`
+   - `SUMMARY_MODEL`: `deepseek-flash`
    - `ASR_MODEL`: `whisper-1`
+   - When migrating an existing deployment, **change the old `SUMMARY_MODEL`
+     repository variable from `DeepSeek-V4-Pro` to `deepseek-flash`, or remove it**.
+     This variable overrides `config.yml`; the old school model ID is not valid
+     for this configuration. No school/OpenAI fallback models are configured.
 5. Go to **Settings -> Pages** and set the source to **GitHub Actions**.
 6. Run **Daily YouTube RSS Digest** manually once from the Actions tab.
 7. Subscribe to:
@@ -158,7 +185,7 @@ Recommended setup:
 
 - Build command: `python -m pip install -r requirements.txt && python scripts/main.py`
 - Output directory: `public`
-- Environment variable: `HKUST_GZ_API_KEY`
+- Environment variables: `DEEPSEEK_API_KEY`, plus `HKUST_GZ_API_KEY` if ASR is enabled
 
 Cloudflare Pages scheduled builds are not as direct as GitHub Actions cron. A practical setup is to keep GitHub Actions generating and committing `public/feed.xml`, then let Cloudflare Pages deploy from the repository.
 
@@ -166,7 +193,7 @@ Cloudflare Pages scheduled builds are not as direct as GitHub Actions cron. A pr
 
 - `scripts/fetch_youtube.py`: YouTube Atom feed fetcher
 - `scripts/transcript.py`: public transcript/caption extraction
-- `scripts/ai_client.py`: HKUST-GZ/OpenAI-compatible credential and client helpers
+- `scripts/ai_client.py`: isolated DeepSeek, HKUST-GZ, and OpenAI credential/client helpers
 - `scripts/asr.py`: optional ASR fallback
 - `scripts/summarize.py`: digest generation and HTML rendering
 - `scripts/rss.py`: RSS 2.0 writer

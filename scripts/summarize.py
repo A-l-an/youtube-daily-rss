@@ -279,7 +279,7 @@ def _extract_json(text: str) -> Dict[str, Any]:
         return json.loads(match.group(0))
 
 
-def _response_content(response: Any) -> str:
+def _response_content(response: Any, *, reject_truncated: bool = False) -> str:
     if hasattr(response, "model_dump"):
         dumped = response.model_dump()
         if dumped.get("error"):
@@ -287,6 +287,8 @@ def _response_content(response: Any) -> str:
         choices = dumped.get("choices")
         if not choices:
             raise RuntimeError("LLM response did not include choices")
+        if reject_truncated and choices[0].get("finish_reason") == "length":
+            raise RuntimeError("LLM response reached the output token limit (finish_reason=length)")
         message = choices[0].get("message") or {}
         return message.get("content") or "{}"
 
@@ -296,10 +298,32 @@ def _response_content(response: Any) -> str:
         if error:
             raise RuntimeError(str(error))
         raise RuntimeError("LLM response did not include choices")
+    if reject_truncated and getattr(choices[0], "finish_reason", None) == "length":
+        raise RuntimeError("LLM response reached the output token limit (finish_reason=length)")
     return choices[0].message.content or "{}"
 
 
-def _call_openai_json(client: Any, model: str, system_prompt: str, user_prompt: str) -> Dict[str, Any]:
+def _summary_model(summary_config: Dict[str, Any]) -> str:
+    if summary_config.get("provider") == "deepseek":
+        return os.getenv("SUMMARY_MODEL") or summary_config.get("model") or "deepseek-flash"
+    return os.getenv("SUMMARY_MODEL") or os.getenv("OPENAI_SUMMARY_MODEL") or summary_config.get("model", "gpt-4o-mini")
+
+
+def _safe_summary_error(error: Exception, api_key: Optional[str]) -> str:
+    message = str(error)
+    return message.replace(api_key, "[REDACTED]") if api_key else message
+
+
+def _call_openai_json(
+    client: Any, model: str, system_prompt: str, user_prompt: str, *, deepseek: bool = False
+) -> Dict[str, Any]:
+    kwargs: Dict[str, Any] = {}
+    if deepseek:
+        kwargs.update(
+            response_format={"type": "json_object"},
+            max_tokens=16384,
+            extra_body={"thinking": {"type": "disabled"}},
+        )
     response = client.chat.completions.create(
         model=model,
         temperature=0.2,
@@ -307,10 +331,14 @@ def _call_openai_json(client: Any, model: str, system_prompt: str, user_prompt: 
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
+        **kwargs,
     )
-    content = _response_content(response)
+    content = _response_content(response, reject_truncated=deepseek)
 
-    return _extract_json(content)
+    data = _extract_json(content)
+    if deepseek and (not isinstance(data, dict) or not data):
+        raise ValueError("LLM response did not include a non-empty JSON object")
+    return data
 
 
 def summarize_transcript(
@@ -322,9 +350,11 @@ def summarize_transcript(
     if not transcript_text.strip():
         return SummaryResult(status="link_only", summary_html=render_link_only_digest(video))
 
-    model = os.getenv("SUMMARY_MODEL") or os.getenv("OPENAI_SUMMARY_MODEL") or summary_config.get("model", "gpt-4o-mini")
+    model = _summary_model(summary_config)
+    api_key: Optional[str] = None
     try:
         credentials = resolve_ai_credentials(summary_config, default_provider="hkust_gz")
+        api_key = credentials.api_key
         client = make_openai_compatible_client(credentials)
     except Exception as exc:
         html_text = render_link_only_digest(
@@ -332,7 +362,9 @@ def summarize_transcript(
             "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
-        return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))
+        return SummaryResult(
+            status="failed", model=model, summary_html=html_text, error_message=_safe_summary_error(exc, api_key)
+        )
 
     max_chars = int(summary_config.get("max_transcript_chars", DEFAULT_MAX_TRANSCRIPT_CHARS))
     truncated = len(transcript_text) > max_chars
@@ -388,7 +420,9 @@ def summarize_transcript(
     try:
         for candidate_model in models:
             try:
-                data = _call_openai_json(client, candidate_model, system_prompt, user_prompt)
+                data = _call_openai_json(
+                    client, candidate_model, system_prompt, user_prompt, deepseek=credentials.provider == "deepseek"
+                )
                 summary_html = _render_structured_digest(video, content_source, data, transcript_note)
                 return SummaryResult(
                     status="success",
@@ -403,10 +437,12 @@ def summarize_transcript(
     except Exception as exc:
         html_text = render_link_only_digest(
             video,
-            f"LLM summary failed: {exc}. The original video link is provided.",
+            "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
-        return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))
+        return SummaryResult(
+            status="failed", model=model, summary_html=html_text, error_message=_safe_summary_error(exc, api_key)
+        )
 
 
 def summarize_daily_digest(
@@ -434,9 +470,11 @@ def summarize_daily_digest(
             summary_html=render_daily_link_only_digest(videos_for_render, content_source=content_source),
         )
 
-    model = os.getenv("SUMMARY_MODEL") or os.getenv("OPENAI_SUMMARY_MODEL") or summary_config.get("model", "gpt-4o-mini")
+    model = _summary_model(summary_config)
+    api_key: Optional[str] = None
     try:
         credentials = resolve_ai_credentials(summary_config, default_provider="hkust_gz")
+        api_key = credentials.api_key
         client = make_openai_compatible_client(credentials)
     except Exception as exc:
         html_text = render_daily_link_only_digest(
@@ -444,7 +482,9 @@ def summarize_daily_digest(
             "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
-        return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))
+        return SummaryResult(
+            status="failed", model=model, summary_html=html_text, error_message=_safe_summary_error(exc, api_key)
+        )
 
     max_chars = int(summary_config.get("max_transcript_chars", DEFAULT_MAX_TRANSCRIPT_CHARS))
     transcript_parts: List[str] = []
@@ -540,7 +580,9 @@ def summarize_daily_digest(
     try:
         for candidate_model in models:
             try:
-                data = _call_openai_json(client, candidate_model, system_prompt, user_prompt)
+                data = _call_openai_json(
+                    client, candidate_model, system_prompt, user_prompt, deepseek=credentials.provider == "deepseek"
+                )
                 summary_html = _render_daily_structured_digest(videos_for_render, content_source, data, transcript_note)
                 return SummaryResult(
                     status="success",
@@ -555,7 +597,9 @@ def summarize_daily_digest(
     except Exception as exc:
         html_text = render_daily_link_only_digest(
             videos_for_render,
-            f"LLM summary failed: {exc}. The original video links are provided.",
+            "模型摘要暂不可用，已保留原视频链接。",
             content_source=content_source,
         )
-        return SummaryResult(status="failed", model=model, summary_html=html_text, error_message=str(exc))
+        return SummaryResult(
+            status="failed", model=model, summary_html=html_text, error_message=_safe_summary_error(exc, api_key)
+        )

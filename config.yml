@@ -43,10 +43,10 @@ asr:
   allow_youtube_audio_download: true
 
 summary:
-  provider: "hkust_gz"
+  provider: "deepseek"
   language: "zh-CN"
-  model: "DeepSeek-V4-Pro"
-  fallback_models: ["gpt-3.5-turbo", "gpt-4o-mini", "gpt-4o"]
+  model: "deepseek-flash"
+  fallback_models: []
   max_key_points: 8
   include_financial_disclaimer: true
 

@@ -1,19 +1,22 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, Iterable, Optional
+from urllib.parse import urlsplit
 
 
 DEFAULT_HKUST_GZ_BASE_URL = "https://gpt-api.hkust-gz.edu.cn/v1"
+DEFAULT_DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 LOCAL_HKUST_GZ_PROJECT = Path("/Users/alan/Documents/Life/hkustgz-speech-tools")
+SHARED_PROVIDERS_ENV = Path("/Users/alan/.config/janus-ai/providers.env")
 
 
 @dataclass
 class AICredentials:
     provider: str
-    api_key: str
+    api_key: str = field(repr=False)
     base_url: Optional[str] = None
 
 
@@ -30,8 +33,8 @@ def _dotenv_candidates(extra_paths: Optional[Iterable[Path]] = None) -> list[Pat
     return candidates
 
 
-def read_dotenv_value(name: str, extra_paths: Optional[Iterable[Path]] = None) -> Optional[str]:
-    for env_file in _dotenv_candidates(extra_paths):
+def _read_dotenv_value(name: str, paths: Iterable[Path]) -> Optional[str]:
+    for env_file in paths:
         if not env_file.exists():
             continue
         for raw_line in env_file.read_text(encoding="utf-8").splitlines():
@@ -48,12 +51,43 @@ def read_dotenv_value(name: str, extra_paths: Optional[Iterable[Path]] = None) -
     return None
 
 
+def read_dotenv_value(name: str, extra_paths: Optional[Iterable[Path]] = None) -> Optional[str]:
+    return _read_dotenv_value(name, _dotenv_candidates(extra_paths))
+
+
 def env_or_dotenv(name: str, extra_paths: Optional[Iterable[Path]] = None) -> Optional[str]:
     return os.getenv(name) or read_dotenv_value(name, extra_paths)
 
 
 def resolve_ai_credentials(config: Dict[str, Any], default_provider: str = "hkust_gz") -> AICredentials:
     provider = config.get("provider", default_provider)
+    if provider == "deepseek":
+        local_paths = [Path.cwd() / ".env"]
+        api_key = (
+            os.getenv("DEEPSEEK_API_KEY")
+            or _read_dotenv_value("DEEPSEEK_API_KEY", local_paths)
+            or _read_dotenv_value("DEEPSEEK_API_KEY", [SHARED_PROVIDERS_ENV])
+        )
+        if not api_key:
+            raise ValueError("Missing DEEPSEEK_API_KEY")
+        base_url = (
+            os.getenv("DEEPSEEK_BASE_URL")
+            or _read_dotenv_value("DEEPSEEK_BASE_URL", local_paths)
+            or config.get("base_url")
+            or _read_dotenv_value("DEEPSEEK_BASE_URL", [SHARED_PROVIDERS_ENV])
+            or DEFAULT_DEEPSEEK_BASE_URL
+        ).rstrip("/")
+        endpoint = urlsplit(base_url)
+        if (
+            endpoint.scheme != "https"
+            or endpoint.netloc != "api.deepseek.com"
+            or endpoint.path not in {"", "/v1"}
+            or endpoint.query
+            or endpoint.fragment
+        ):
+            raise ValueError("DEEPSEEK_BASE_URL must use the official DeepSeek HTTPS API endpoint")
+        return AICredentials(provider=provider, api_key=api_key, base_url=base_url)
+
     if provider == "openai":
         api_key = os.getenv("OPENAI_API_KEY") or read_dotenv_value("OPENAI_API_KEY")
         if not api_key:
