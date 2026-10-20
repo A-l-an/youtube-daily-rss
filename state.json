@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-18T06:57:39.902771+00:00",
+  "last_run_at": "2026-10-20T02:04:25.871579+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2460,6 +2460,36 @@
       "asr_status": "failed",
       "summary_status": "failed",
       "source_status": "link-only"
+    },
+    "XMs6mASFtbE": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 AMZN撑起半边天！多空决战蓄势待发！杠杆ETF抄底创纪录！ SPCX、TSLA、META财报波动！",
+      "url": "https://www.youtube.com/watch?v=XMs6mASFtbE",
+      "published": null,
+      "processed_at": "2026-10-20T02:04:25.871579+00:00",
+      "daily_digest_id": "daily-XMs6mASFtbE-dMjajqQL9-0",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
+    },
+    "dMjajqQL9-0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "老乡别走！NaNa说美股(2026.10.19)",
+      "url": "https://www.youtube.com/watch?v=dMjajqQL9-0",
+      "published": null,
+      "processed_at": "2026-10-20T02:04:25.871579+00:00",
+      "daily_digest_id": "daily-XMs6mASFtbE-dMjajqQL9-0",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3417,6 +3447,16 @@
       "source_video_ids": [
         "A4p5t_F4mQs",
         "IkWe67W44f0"
+      ],
+      "summary_status": "failed",
+      "summary_model": "DeepSeek-V4-Pro",
+      "source_status": "mixed"
+    },
+    "daily-XMs6mASFtbE-dMjajqQL9-0": {
+      "processed_at": "2026-10-20T02:04:25.871579+00:00",
+      "source_video_ids": [
+        "XMs6mASFtbE",
+        "dMjajqQL9-0"
       ],
       "summary_status": "failed",
       "summary_model": "DeepSeek-V4-Pro",
