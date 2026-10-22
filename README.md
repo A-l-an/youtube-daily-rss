@@ -269,3 +269,123 @@ Cloudflare Pages scheduled builds are not as direct as GitHub Actions cron. A pr
 ## Notes
 
 The generated summary is for information organization only and is not investment advice. The prompt asks the model to avoid unsupported claims, separate creator opinions from factual market information, preserve ticker symbols and company names, and call out uncertainty.
+
+## Private portfolio guidance (opt-in)
+
+`python scripts/portfolio_guidance.py` creates a separate local report from both
+Futu and HSBC holdings recorded in Portfolio Local, plus the latest available day
+and an inclusive seven-calendar-day window of this repository's channel evidence.
+It reads `summaries.json` without changing the public feed, state, or Pages files.
+The analysis always requests official **`deepseek-v4-pro`**, high thinking, and JSON
+output, with a 32768-token output budget for the full private portfolio report.
+A `finish_reason=length` response still fails without producing a partial report.
+`SUMMARY_MODEL` does not affect it; there is no Flash fallback or automatic
+retry after a model failure. Model reasoning is never saved.
+
+The default configuration is
+`~/.config/youtube-daily-rss/portfolio-guidance.json`. A missing configuration or
+`"enabled": false` safely skips the private feature. Keep the configuration and
+password file outside Git with permissions `600`. The following is a template;
+account-name mapping keys must be the exact names in the local app, and every
+mapped, non-archived account must be present. Other accounts remain out of scope.
+
+```json
+{
+  "enabled": false,
+  "model": "deepseek-v4-pro",
+  "holdings_confirmed_at": "2026-10-23",
+  "source": {
+    "base_url": "https://portfolio.example.test:8447",
+    "password_file": "~/.config/youtube-daily-rss/portfolio-password",
+    "account_aliases": {
+      "YOUR_FUTU_HKD_ACCOUNT_NAME": {"alias": "Futu-HKD", "broker": "futu"},
+      "YOUR_FUTU_USD_ACCOUNT_NAME": {"alias": "Futu-USD", "broker": "futu"},
+      "YOUR_HSBC_USD_ACCOUNT_NAME": {"alias": "HSBC-USD", "broker": "hsbc"}
+    }
+  },
+  "output_dir": "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Life Knowledge Vault/02 Areas/Finance/持仓指导",
+  "cache_dir": "~/.cache/youtube-daily-rss/portfolio-guidance"
+}
+```
+
+Use the actual date on which the person confirmed the holdings; the script never
+advances that date. An optional `source.connect_address` may be an IP address to
+connect to while retaining the `base_url` hostname for SNI and full TLS certificate
+verification. HTTPS is required. Session cookies and profile scope stay in memory;
+the only authenticated operations are login, profile-state read, accounts,
+holdings-list, snapshots, and stored latest-quote reads. No portfolio mutation,
+quote refresh, historical ASR, or trading operation is called.
+
+```bash
+# Validate local paths, read holdings and cached/available evidence, without a model call.
+python scripts/portfolio_guidance.py --check-only
+# Generate for the Shanghai calendar date; the latest opinion date is separately labelled.
+python scripts/portfolio_guidance.py --date 2026-10-23
+# Use a different private configuration.
+python scripts/portfolio_guidance.py --config ~/.config/youtube-daily-rss/portfolio-guidance.json
+# Explicitly pay for a fresh generation and save a new revision.
+python scripts/portfolio_guidance.py --force
+```
+
+Only aliases, tickers, currencies, direction, percentages, cost/valuation status,
+and source dates reach the model/report. Raw account names/IDs, quantities,
+portfolio amounts, notes, passwords, and cookies do not. Account weight is the
+ledger's recorded weight. Combined security weights exclude cash and require
+complete valuations in one base currency. Missing quotes or invalid valuations
+remain unknown, including the affected weight denominator. Cost-to-price deviation
+is `(cost / security market value - 1) × 100%`, not investment performance; zero or
+unknown costs are not divided. Snapshot dates are sparse bookkeeping dates, not
+broker verification dates; quote dates and the human-confirmed date are separate.
+
+Only successful, source-attributed summaries count as opinions. Empty or punctuated
+“not mentioned” placeholders are excluded. Direct summary coverage is limited to
+assets with a real source view; mixed absence/industry comments remain indirect.
+Recovered captions use their actual body, never titles or quality notes, to
+establish direct coverage. The model also receives a locally computed map of
+allowed direct evidence IDs for each position; unsupported direct claims still
+fail validation. For failed daily
+entries whose captions previously succeeded, the script can recover captions and
+cache them privately. It never requests historical ASR. Success caches are
+`cache_dir/captions/<video_id>.json`, schema version 1, with `video_id`,
+`status: "success"`, `source: "captions"`, full `text`, its UTF-8 `sha256`, and
+`fetched_on` (`YYYY-MM-DD`). The cache verifies video identity and text hash.
+Unavailable captions are attempted at most once per report date. A repeated video
+counts once on its earliest known source date, not once per daily digest. Reports
+list missing days and unavailable sources; incomplete coverage is explicitly
+`insufficient`. Captions beyond 60,000 characters per source are marked truncated.
+`--check-only` uses existing caption caches but does not fetch missing captions.
+The private CLI initializes the existing `youtube_access` settings before recovery;
+explicit environment settings retain priority. Known ASR/transcription uncertainty
+is retained in the model evidence and the report.
+
+All generated directories are `700` and files `600`; repository-contained paths
+and symlinks are rejected. Reports are named `持仓指导_日报_YY-MM-DD.md`; collisions
+produce `_v2`, `_v3`, etc. without overwriting user files. Archived version gaps
+are not refilled: matching regular files with permissions `600` are searched for
+identical content first; otherwise a new file follows the highest existing version
+for that stem, date and suffix. Other dates, suffixes and archive contents are
+excluded. Identical input reuses a
+validated private result without another model call; fetched-at timestamps do not
+change the input fingerprint. A process lock prevents simultaneous paid runs.
+Model prose is escaped as text, and source links are generated locally from the
+validated video IDs. Guidance remains conditional because investment horizon and
+risk budget are unknown. For the latest available day, matching direct views
+from successful structured summaries are displayed separately under each channel,
+using the original summary view rather than a model-written merger. Without such
+views, the existing text is labelled as model-organized and the structured-summary
+gap is stated. Pro still supplies the week comparison, impact and conditional
+analysis. This display-only change reuses validated paid analyses; the original
+analysis/cache is retained and changed reports receive a revision. The exact
+internal phrase `week_status=insufficient` is displayed as “周证据不足”.
+Every model prose field is checked for explicit share
+counts, trading amounts, target allocations, and profit guarantees (including
+Chinese numerals), while price conditions and descriptions of current weights
+remain allowed. Reports display states in Chinese and the ledger-read time in
+Beijing time; cached timestamps remain UTC.
+
+The workflow's final private step runs only when repository variable
+`PORTFOLIO_GUIDANCE_ENABLED` equals `true` **and** the runner's local configuration is
+enabled. It is placed after the public commit and Pages deployment. Private files
+are never staged, uploaded as an artifact, or copied into `public/`. Adding this
+code does not enable the variable or create a scheduled task; enablement and
+pushing the feature require separate authorization.
