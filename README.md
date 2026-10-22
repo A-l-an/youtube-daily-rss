@@ -161,6 +161,41 @@ not install a service or download a model. Legacy `hkust_gz` and `openai` ASR
 providers remain available only when explicitly selected in `config.yml` with
 their own credentials and supported model. There is no automatic provider switch.
 
+## Evidence and source-retention practices
+
+The daily feed already prefers captions before ASR and asks the summary model to
+separate creator opinions from facts mentioned in the source. A source's stated
+facts are not independently fact-checked market data. Do not add unsupported
+market interpretations or describe a partial input as a full-video analysis.
+
+The following gaps remain in the production pipeline; these are implementation
+priorities, not capabilities supplied by this documentation:
+
+- **Time anchors:** caption `start`/`duration` and ASR segments are currently
+  flattened to text. Preserve those segments before adding timestamped evidence
+  and links back to the exact part of each source video.
+- **Input coverage:** merged input is currently limited to a 60,000-character
+  prefix. A long first source can consume the budget before the second source's
+  text is included. Record each source's available and included text range, and
+  report missing or truncated coverage explicitly before claiming both sources
+  were analyzed.
+- **Reproducible originals:** production stores summaries and source metadata,
+  but not immutable transcripts, content hashes, or resumable transcription
+  receipts. Keep originals, their source IDs, timestamps, extraction method and
+  hashes separate from derived summaries. Temporary ASR validation artifacts do
+  not establish production retention or resume support.
+
+For a user-supplied cross-platform link, locate and check the original author and
+video identity before extraction; an official title/author check such as YouTube
+oEmbed can help. Fixed configured channel IDs and RSS discovery do not need an
+extra cross-platform search on every daily run.
+
+When a long-form source is intentionally retained in Alan's knowledge vault,
+reuse the existing media-capture validator and no-overwrite publisher. Keep the
+original transcript, neutral source record and explicitly requested AI guide
+separate. Vault publication is not part of the current RSS pipeline, and should
+not silently duplicate every daily item or create Alan's personal reflections.
+
 ## GitHub Pages Deployment
 
 1. Push this project to a GitHub repository.
