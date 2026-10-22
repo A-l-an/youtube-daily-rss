@@ -147,7 +147,7 @@ ASR is optional and only runs when:
 
 If direct YouTube audio extraction fails or is not appropriate, ASR is skipped or marked failed and the RSS item falls back to the original video link.
 
-The pipeline splits audio into at most 60-second chunks, including the final
+The pipeline splits audio into at most 30-second chunks, including the final
 short chunk, then calls the CLI sequentially with `--language zh --model
 large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per chunk
 and permits SIGTERM cleanup. Every chunk must return non-empty text with the

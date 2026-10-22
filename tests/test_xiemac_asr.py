@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+import threading
+import time
 import unittest
 from unittest.mock import patch
 
@@ -81,7 +83,7 @@ class XiemacASRTests(unittest.TestCase):
             [str(chunk), "--language", "zh", "--model", "large-v3-turbo", "--timeout", "180"]
             for chunk in self.chunks
         ])
-        self.assertEqual(self.chunk_audio.call_args.args[2], 60)
+        self.assertEqual(self.chunk_audio.call_args.args[2], 30)
 
     def test_default_config_uses_xiemac_while_summary_stays_deepseek(self) -> None:
         config = yaml.safe_load((ROOT / "config.yml").read_text())
@@ -90,7 +92,8 @@ class XiemacASRTests(unittest.TestCase):
         self.assertEqual(result.status, "success", result.error_message)
         self.assertEqual(config["summary"]["provider"], "deepseek")
         self.assertEqual(config["asr"]["language_candidates"], ["zh"])
-        self.assertEqual(self.chunk_audio.call_args.args[2], 60)
+        self.assertEqual(config["asr"]["chunk_seconds"], 30)
+        self.assertEqual(self.chunk_audio.call_args.args[2], 30)
 
     def test_empty_malformed_or_wrong_provenance_never_becomes_text(self) -> None:
         payloads = [
@@ -150,6 +153,7 @@ class XiemacASRTests(unittest.TestCase):
 
     def test_outer_timeout_sends_sigterm_and_allows_cli_cleanup(self) -> None:
         cleaned = self.tmp / "cleanup-completed"
+        ready = self.tmp / "handler-ready"
         self.cli.write_text(
             "#!/usr/bin/env python3\n"
             "import pathlib, signal, time\n"
@@ -157,9 +161,27 @@ class XiemacASRTests(unittest.TestCase):
             f"    pathlib.Path({str(cleaned)!r}).write_text('cleaned')\n"
             "    raise SystemExit(1)\n"
             "signal.signal(signal.SIGTERM, stop)\n"
+            f"pathlib.Path({str(ready)!r}).write_text('ready')\n"
             "while True: time.sleep(0.05)\n"
         )
-        with patch.object(asr, "XIEMAC_PROCESS_TIMEOUT", 0.3, create=True):
+        real_popen = asr.subprocess.Popen
+
+        def start_ready_cli(*args, **kwargs):
+            process = real_popen(*args, **kwargs)
+            deadline = time.monotonic() + 5
+            while not ready.exists():
+                if process.poll() is not None or time.monotonic() >= deadline:
+                    if process.poll() is None:
+                        process.kill()
+                    process.communicate()
+                    self.fail("Fake CLI did not install its signal handler")
+                threading.Event().wait(0.01)
+            return process
+
+        with (
+            patch.object(asr.subprocess, "Popen", side_effect=start_ready_cli),
+            patch.object(asr, "XIEMAC_PROCESS_TIMEOUT", 0.3, create=True),
+        ):
             result = self.run_asr()
         self.assertEqual(result.status, "failed")
         self.assertIn("timeout", result.error_message)

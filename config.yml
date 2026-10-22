@@ -37,7 +37,7 @@ asr:
   provider: "xiemac"
   model: "large-v3-turbo"
   language_candidates: ["zh"]
-  chunk_seconds: 60
+  chunk_seconds: 30
   download_attempts: 3
   download_sleep_seconds: 5
   allow_youtube_audio_download: true

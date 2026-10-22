@@ -256,7 +256,7 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
             chunk_paths = _chunk_audio(
                 audio_path,
                 tmpdir,
-                min(int(asr_config.get("chunk_seconds", 60)), 60) if provider == "xiemac"
+                min(int(asr_config.get("chunk_seconds", 30)), 30) if provider == "xiemac"
                 else int(asr_config.get("chunk_seconds", 300)),
             )
 
