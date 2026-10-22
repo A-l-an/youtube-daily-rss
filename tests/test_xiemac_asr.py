@@ -83,7 +83,7 @@ class XiemacASRTests(unittest.TestCase):
             [str(chunk), "--language", "zh", "--model", "large-v3-turbo", "--timeout", "180"]
             for chunk in self.chunks
         ])
-        self.assertEqual(self.chunk_audio.call_args.args[2], 30)
+        self.assertEqual(self.chunk_audio.call_args.args[2], 15)
 
     def test_default_config_uses_xiemac_while_summary_stays_deepseek(self) -> None:
         config = yaml.safe_load((ROOT / "config.yml").read_text())
@@ -92,8 +92,8 @@ class XiemacASRTests(unittest.TestCase):
         self.assertEqual(result.status, "success", result.error_message)
         self.assertEqual(config["summary"]["provider"], "deepseek")
         self.assertEqual(config["asr"]["language_candidates"], ["zh"])
-        self.assertEqual(config["asr"]["chunk_seconds"], 30)
-        self.assertEqual(self.chunk_audio.call_args.args[2], 30)
+        self.assertEqual(config["asr"]["chunk_seconds"], 15)
+        self.assertEqual(self.chunk_audio.call_args.args[2], 15)
 
     def test_empty_malformed_or_wrong_provenance_never_becomes_text(self) -> None:
         payloads = [

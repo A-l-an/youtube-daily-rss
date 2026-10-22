@@ -147,7 +147,7 @@ ASR is optional and only runs when:
 
 If direct YouTube audio extraction fails or is not appropriate, ASR is skipped or marked failed and the RSS item falls back to the original video link.
 
-The pipeline splits audio into at most 30-second chunks, including the final
+The pipeline splits audio into at most 15-second chunks, including the final
 short chunk, then calls the CLI sequentially with `--language zh --model
 large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per chunk
 and permits SIGTERM cleanup. Every chunk must return non-empty text with the
@@ -155,6 +155,11 @@ expected `remote-whisper.cpp` provider and model before the combined transcript
 is accepted. Malformed responses, timeouts, or `remote_busy` fail explicitly;
 partial text is not published as a complete transcript, and busy tasks are not
 preempted or restarted.
+
+The 15-second limit was calibrated on a full captionless video: a 30-second
+request repeatedly returned invalid word timestamps near minute 29, while
+shorter requests passed the existing response validation. No timestamps are
+discarded or repaired to turn an invalid response into a success.
 
 The CLI and its SSH/Tailscale setup must already be installed; this project does
 not install a service or download a model. Legacy `hkust_gz` and `openai` ASR
