@@ -23,9 +23,7 @@ Edit `.env` and set:
 ```bash
 DEEPSEEK_API_KEY=your_deepseek_api_key
 DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
-# Optional, for the independent ASR fallback:
-HKUST_GZ_API_KEY=your_hkust_gz_api_key
-HKUST_GZ_BASE_URL=https://gpt-api.hkust-gz.edu.cn/v1
+ASR_MODEL=large-v3-turbo
 ```
 
 Summaries use the official DeepSeek API with `deepseek-flash`. DeepSeek credentials
@@ -34,7 +32,10 @@ read-only local fallback `/Users/alan/.config/janus-ai/providers.env`. Only the
 `deepseek` provider reads that shared file, and it reads only `DEEPSEEK_API_KEY`
 and `DEEPSEEK_BASE_URL`; it never substitutes an HKUST-GZ or OpenAI key. The base
 URL must be `https://api.deepseek.com/v1` or `https://api.deepseek.com`.
-ASR continues to use its separate HKUST-GZ credentials and `whisper-1` model.
+ASR uses Alan's existing `/Users/alan/.local/bin/xiemac-transcribe` CLI and the
+`large-v3-turbo` model on the owned xiemac server over SSH/Tailscale. It requires
+no school or OpenAI API key. Models stay on xiemac; there is no local-model or
+paid-cloud fallback.
 
 The DeepSeek request uses JSON output, disables thinking, and caps output at 16384
 tokens. Empty content, an empty JSON object, or `finish_reason=length` is treated
@@ -110,7 +111,7 @@ Processing order:
 2. Skip only when the current pair of latest videos already has a merged `daily_digest` item.
 3. For each video, try captions with `youtube-transcript-api`.
 4. If captions fail, try public subtitles and auto captions through `yt-dlp`, preferring manual subtitles before auto captions.
-5. If captions still fail and this is not a dry run, try optional ASR through the HKUST-GZ OpenAI-compatible speech endpoint.
+5. If captions still fail and this is not a dry run, try optional ASR through the existing xiemac Whisper CLI over SSH/Tailscale.
 6. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
 7. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
 8. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
@@ -138,12 +139,27 @@ Caption extraction depends on public YouTube transcript availability. Some video
 ASR is optional and only runs when:
 
 - `asr.enabled` is `true`
-- `HKUST_GZ_API_KEY` is set
+- the existing `~/.local/bin/xiemac-transcribe` CLI is executable for the runner user
+- Tailscale and the existing `ssh xiemac` configuration can reach the owned server, with SSH host verification intact
 - `ffmpeg` is installed
 - `yt-dlp` can technically access the video audio
 - using ASR is appropriate for your deployment and use case
 
 If direct YouTube audio extraction fails or is not appropriate, ASR is skipped or marked failed and the RSS item falls back to the original video link.
+
+The pipeline splits audio into at most 60-second chunks, including the final
+short chunk, then calls the CLI sequentially with `--language zh --model
+large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per chunk
+and permits SIGTERM cleanup. Every chunk must return non-empty text with the
+expected `remote-whisper.cpp` provider and model before the combined transcript
+is accepted. Malformed responses, timeouts, or `remote_busy` fail explicitly;
+partial text is not published as a complete transcript, and busy tasks are not
+preempted or restarted.
+
+The CLI and its SSH/Tailscale setup must already be installed; this project does
+not install a service or download a model. Legacy `hkust_gz` and `openai` ASR
+providers remain available only when explicitly selected in `config.yml` with
+their own credentials and supported model. There is no automatic provider switch.
 
 ## GitHub Pages Deployment
 
@@ -152,17 +168,20 @@ If direct YouTube audio extraction fails or is not appropriate, ASR is skipped o
    - Required labels: `self-hosted`, `macOS`, `youtube-rss`
    - Keep the Mac awake, online, and able to access YouTube at the scheduled time.
    - Install `ffmpeg` and GNU tar (`brew install gnu-tar`) and ensure `python`, `ffmpeg`, and `gtar` are available on the runner service PATH.
+   - Keep the existing xiemac CLI executable at `~/.local/bin/xiemac-transcribe` and ensure the runner's SSH/Tailscale route is available.
 3. On the Janus `alan` runner, keep the DeepSeek key in the canonical local
    `/Users/alan/.config/janus-ai/providers.env` with permissions `600`. The
    credential resolver uses this file read-only when the workflow's DeepSeek
    secret is empty; no copy to GitHub Secrets is required on this runner.
    For other runners, add the repository secret `DEEPSEEK_API_KEY` for summaries.
-   Keep `HKUST_GZ_API_KEY` for the independent ASR fallback.
 4. Optionally add repository variables:
    - `DEEPSEEK_BASE_URL`: `https://api.deepseek.com/v1` (the default if unset)
-   - `HKUST_GZ_BASE_URL`: `https://gpt-api.hkust-gz.edu.cn/v1`
    - `SUMMARY_MODEL`: `deepseek-flash`
-   - `ASR_MODEL`: `whisper-1`
+   - `ASR_MODEL`: `large-v3-turbo`
+   - When migrating ASR, **change the old `ASR_MODEL=whisper-1` repository
+     variable (and any local `.env` override) to `large-v3-turbo`, or remove it**.
+     The environment overrides `config.yml`; xiemac rejects the old school model
+     ID with `unsupported_model` rather than calling a different provider.
    - When migrating an existing deployment, **change the old `SUMMARY_MODEL`
      repository variable from `DeepSeek-V4-Pro` to `deepseek-flash`, or remove it**.
      This variable overrides `config.yml`; the old school model ID is not valid
@@ -185,7 +204,7 @@ Recommended setup:
 
 - Build command: `python -m pip install -r requirements.txt && python scripts/main.py`
 - Output directory: `public`
-- Environment variables: `DEEPSEEK_API_KEY`, plus `HKUST_GZ_API_KEY` if ASR is enabled
+- Environment variable: `DEEPSEEK_API_KEY`. Default xiemac ASR requires the self-hosted runner's CLI and SSH/Tailscale setup; disable ASR for a hosted-cloud build that lacks them.
 
 Cloudflare Pages scheduled builds are not as direct as GitHub Actions cron. A practical setup is to keep GitHub Actions generating and committing `public/feed.xml`, then let Cloudflare Pages deploy from the repository.
 

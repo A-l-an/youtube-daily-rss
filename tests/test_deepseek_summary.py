@@ -176,14 +176,13 @@ class DeepSeekSummaryTests(unittest.TestCase):
         config = yaml.safe_load((ROOT / "config.yml").read_text())
         with patch.dict(os.environ, {name: values.get(value, "") for name, value in step["env"].items()}, clear=True):
             summary = ai_client.resolve_ai_credentials(config["summary"])
-            asr = ai_client.resolve_ai_credentials(config["asr"])
+            asr = ai_client.resolve_ai_credentials({"provider": "hkust_gz", "model": "whisper-1"})
         self.assertEqual(summary.provider, "deepseek")
         self.assertEqual(summary.api_key, "deepseek-workflow-test-key")
         self.assertEqual(summary.base_url, "https://api.deepseek.com/v1")
         self.assertEqual(asr.provider, "hkust_gz")
         self.assertEqual(asr.api_key, "school-workflow-test-key")
         self.assertEqual(asr.base_url, "https://gpt-api.hkust-gz.edu.cn/v1")
-        self.assertEqual(config["asr"]["model"], "whisper-1")
 
 
 if __name__ == "__main__":

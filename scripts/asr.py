@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import json
 import os
 import shutil
+import subprocess
 import tempfile
 import time
 from dataclasses import dataclass, asdict
@@ -9,6 +11,10 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from ai_client import make_openai_compatible_client, resolve_ai_credentials
+
+
+XIEMAC_TRANSCRIBE = Path.home() / ".local/bin/xiemac-transcribe"
+XIEMAC_PROCESS_TIMEOUT = 210
 
 
 @dataclass
@@ -150,15 +156,62 @@ def _transcribe_file(
     raise RuntimeError(str(last_error))
 
 
+def _transcribe_xiemac_file(model: str, audio_path: Path, language: Optional[str]) -> str:
+    try:
+        with subprocess.Popen(
+            [str(XIEMAC_TRANSCRIBE), str(audio_path), "--language", language or "auto",
+             "--model", model, "--timeout", "180"],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            text=True, encoding="utf-8", errors="replace",
+        ) as process:
+            try:
+                stdout, _ = process.communicate(timeout=XIEMAC_PROCESS_TIMEOUT)
+            except subprocess.TimeoutExpired:
+                # The CLI handles SIGTERM and cleans its own SSH/ffmpeg process groups.
+                process.terminate()
+                try:
+                    process.communicate(timeout=10)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.communicate()
+                raise RuntimeError("xiemac ASR: timeout") from None
+            returncode = process.returncode
+    except OSError:
+        raise RuntimeError("xiemac ASR: cli_unavailable") from None
+
+    try:
+        result = json.loads(stdout)
+    except ValueError:
+        raise RuntimeError("xiemac ASR: invalid_response") from None
+    if not isinstance(result, dict) or result.get("provider") != "remote-whisper.cpp":
+        raise RuntimeError("xiemac ASR: invalid_response")
+    if returncode != 0 or "error" in result:
+        error = result.get("error")
+        code = error.get("code") if isinstance(error, dict) else None
+        if code not in {"remote_busy", "timeout", "remote_unavailable", "ssh_unavailable",
+                        "invalid_response", "audio_too_large", "response_too_large", "cancelled"}:
+            code = "client_failed"
+        raise RuntimeError(f"xiemac ASR: {code}")
+    text = result.get("text")
+    if result.get("model") != model or not isinstance(text, str) or not text.strip():
+        raise RuntimeError("xiemac ASR: invalid_response")
+    return text.strip()
+
+
 def _transcribe_chunks(
     client: Any,
     model: str,
     chunk_paths: List[Path],
     language: Optional[str],
+    *,
+    provider: str = "hkust_gz",
 ) -> str:
     parts: List[str] = []
     for chunk_path in chunk_paths:
-        text = _transcribe_file(client, model, chunk_path, language).strip()
+        if provider == "xiemac":
+            text = _transcribe_xiemac_file(model, chunk_path, language)
+        else:
+            text = _transcribe_file(client, model, chunk_path, language).strip()
         if text:
             parts.append(text)
         time.sleep(1)
@@ -169,11 +222,16 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
     if not asr_config.get("enabled", False):
         return ASRResult(status="skipped", error_message="ASR is disabled in config")
 
-    model = os.getenv("ASR_MODEL") or asr_config.get("model", "whisper-1")
-    try:
-        credentials = resolve_ai_credentials(asr_config, default_provider="hkust_gz")
-    except Exception as exc:
-        return ASRResult(status="skipped", model=model, error_message=str(exc))
+    provider = asr_config.get("provider", "hkust_gz")
+    model = os.getenv("ASR_MODEL") or asr_config.get("model", "large-v3-turbo" if provider == "xiemac" else "whisper-1")
+    if provider == "xiemac":
+        if model not in {"large-v3", "large-v3-turbo"}:
+            return ASRResult(status="failed", model=model, error_message="xiemac ASR: unsupported_model; check ASR_MODEL")
+    else:
+        try:
+            credentials = resolve_ai_credentials(asr_config, default_provider="hkust_gz")
+        except Exception as exc:
+            return ASRResult(status="skipped", model=model, error_message=str(exc))
 
     if not asr_config.get("allow_youtube_audio_download", True):
         return ASRResult(
@@ -186,7 +244,7 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
         return ASRResult(status="failed", model=model, error_message="ffmpeg is required for ASR")
 
     try:
-        client = make_openai_compatible_client(credentials)
+        client = None if provider == "xiemac" else make_openai_compatible_client(credentials)
         with tempfile.TemporaryDirectory(prefix="youtube-rss-asr-") as tmp:
             tmpdir = Path(tmp)
             audio_path = _download_audio(
@@ -198,7 +256,8 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
             chunk_paths = _chunk_audio(
                 audio_path,
                 tmpdir,
-                int(asr_config.get("chunk_seconds", 300)),
+                min(int(asr_config.get("chunk_seconds", 60)), 60) if provider == "xiemac"
+                else int(asr_config.get("chunk_seconds", 300)),
             )
 
             language_candidates = asr_config.get("language_candidates")
@@ -209,11 +268,13 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
             text = ""
             for language in language_candidates:
                 try:
-                    text = _transcribe_chunks(client, model, chunk_paths, language)
+                    text = _transcribe_chunks(client, model, chunk_paths, language, provider=provider)
                     if text:
                         break
                 except Exception as exc:
                     errors.append(f"{language or 'auto'}: {exc}")
+                    if provider == "xiemac":
+                        break
 
         if not text:
             message = "; ".join(errors) if errors else "ASR returned empty text"
