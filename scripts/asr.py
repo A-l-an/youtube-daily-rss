@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import shlex
 import shutil
 import subprocess
 import tempfile
@@ -15,6 +17,22 @@ from ai_client import make_openai_compatible_client, resolve_ai_credentials
 
 XIEMAC_TRANSCRIBE = Path.home() / ".local/bin/xiemac-transcribe"
 XIEMAC_PROCESS_TIMEOUT = 210
+XIEMAC_SSH = "ssh"
+XIEMAC_IDLE_PROBE = """import json,subprocess,urllib.request,urllib.error
+health={}
+for port in (18766,18768):
+    try:
+        response=urllib.request.urlopen('http://127.0.0.1:%s/health'%port,timeout=5)
+    except urllib.error.HTTPError as error:
+        response=error
+    with response:
+        health[str(port)]={'code':response.code,'status':json.load(response).get('status')}
+result=subprocess.run(['lsof','-nP','-iTCP:18766','-iTCP:18768','-iTCP:18769','-iTCP:18770',
+                       '-sTCP:ESTABLISHED','-Fpcn'],capture_output=True,text=True,timeout=3)
+if result.returncode not in (0,1) or result.stderr.strip():
+    raise SystemExit(2)
+print(json.dumps({'health':health,'connections':len(result.stdout.strip().splitlines())}))
+"""
 
 
 @dataclass
@@ -156,7 +174,38 @@ def _transcribe_file(
     raise RuntimeError(str(last_error))
 
 
+def _check_xiemac_idle() -> None:
+    host = os.environ.get("XIEMAC_ASR_HOST", "xiemac")
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", host) is None:
+        raise RuntimeError("xiemac ASR: ssh_unavailable")
+    try:
+        probe = subprocess.run(
+            [str(XIEMAC_SSH), "-T", "-oBatchMode=yes", "-oStrictHostKeyChecking=yes",
+             "-oConnectTimeout=5", host, "python3 -c " + shlex.quote(XIEMAC_IDLE_PROBE)],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            text=True, timeout=20, check=True,
+        )
+        result = json.loads(probe.stdout)
+        health, connections = result["health"], result["connections"]
+        live = health["18766"]
+        refined = health["18768"]
+        known = (live, refined) in (
+            ({"code": 200, "status": "process_running"}, {"code": 200, "status": "standby"}),
+            ({"code": 200, "status": "process_running"}, {"code": 503, "status": "live_priority"}),
+            ({"code": 200, "status": "standby"}, {"code": 200, "status": "process_running"}),
+            ({"code": 200, "status": "standby"}, {"code": 200, "status": "standby"}),
+        )
+        if not known or type(connections) is not int or connections < 0:
+            raise ValueError("Uncertain shared ASR status")
+    except (OSError, subprocess.SubprocessError, ValueError, TypeError, KeyError):
+        raise RuntimeError("xiemac ASR: remote_unavailable") from None
+    if connections:
+        raise RuntimeError("xiemac ASR: remote_busy")
+
+
 def _transcribe_xiemac_file(model: str, audio_path: Path, language: Optional[str]) -> str:
+    # This read-only snapshot avoids observed busy work; it is not an atomic reservation.
+    _check_xiemac_idle()
     try:
         with subprocess.Popen(
             [str(XIEMAC_TRANSCRIBE), str(audio_path), "--language", language or "auto",

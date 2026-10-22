@@ -153,8 +153,13 @@ large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per chunk
 and permits SIGTERM cleanup. Every chunk must return non-empty text with the
 expected `remote-whisper.cpp` provider and model before the combined transcript
 is accepted. Malformed responses, timeouts, or `remote_busy` fail explicitly;
-partial text is not published as a complete transcript, and busy tasks are not
-preempted or restarted.
+partial text is not published as a complete transcript. Before each CLI call,
+the project reads health and established inference connections over strict SSH
+to the same host used by the CLI (`XIEMAC_ASR_HOST`, default `xiemac`). Observed
+busy work or an uncertain check stops the call without starting transcription.
+This snapshot avoids observed busy work; it cannot provide an atomic scheduling
+guarantee if another task starts between the check and the request. The project
+does not change the shared service or its priority policy.
 
 The 15-second limit was calibrated on a full captionless video: a 30-second
 request repeatedly returned invalid word timestamps near minute 29, while

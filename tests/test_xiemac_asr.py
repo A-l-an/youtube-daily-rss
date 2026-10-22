@@ -27,6 +27,24 @@ class XiemacASRTests(unittest.TestCase):
         self.cli = self.tmp / "xiemac-transcribe"
         self.reply = self.tmp / "reply.json"
         self.calls = self.tmp / "calls.jsonl"
+        self.ssh = self.tmp / "ssh"
+        self.probe_reply = self.tmp / "probe.json"
+        self.probe_calls = self.tmp / "probe-calls.jsonl"
+        self.probe_reply.write_text(json.dumps({"stdout": json.dumps({
+            "health": {"18766": {"code": 200, "status": "process_running"},
+                       "18768": {"code": 200, "status": "standby"}},
+            "connections": 0,
+        })}))
+        self.ssh.write_text(
+            "#!/usr/bin/env python3\n"
+            "import json, pathlib, sys\n"
+            f"reply = json.loads(pathlib.Path({str(self.probe_reply)!r}).read_text())\n"
+            f"with pathlib.Path({str(self.probe_calls)!r}).open('a') as output:\n"
+            "    output.write(json.dumps(sys.argv[1:]) + '\\n')\n"
+            "sys.stdout.write(reply['stdout'])\n"
+            "sys.exit(reply.get('returncode', 0))\n"
+        )
+        self.ssh.chmod(0o700)
         self.audio = self.tmp / "audio with spaces;echo nope.mp3"
         self.audio.write_bytes(b"synthetic audio")
         self.chunks = [self.audio, self.tmp / "chunk-002.mp3"]
@@ -51,6 +69,7 @@ class XiemacASRTests(unittest.TestCase):
         self.set_reply(self.success("第一段"), second=self.success("第二段"))
         stack.enter_context(patch.dict(os.environ, {"PATH": os.environ.get("PATH", os.defpath)}, clear=True))
         stack.enter_context(patch.object(asr, "XIEMAC_TRANSCRIBE", self.cli, create=True))
+        stack.enter_context(patch.object(asr, "XIEMAC_SSH", self.ssh, create=True))
         stack.enter_context(patch.object(asr.shutil, "which", return_value="/usr/bin/ffmpeg"))
         stack.enter_context(patch.object(asr, "_download_audio", return_value=self.audio))
         self.chunk_audio = stack.enter_context(patch.object(asr, "_chunk_audio", return_value=self.chunks))
@@ -94,6 +113,39 @@ class XiemacASRTests(unittest.TestCase):
         self.assertEqual(config["asr"]["language_candidates"], ["zh"])
         self.assertEqual(config["asr"]["chunk_seconds"], 15)
         self.assertEqual(self.chunk_audio.call_args.args[2], 15)
+
+    def test_observed_live_or_refined_work_never_invokes_cli(self) -> None:
+        for live, refined in (("process_running", "live_priority"), ("standby", "process_running")):
+            with self.subTest(live=live):
+                self.probe_reply.write_text(json.dumps({"stdout": json.dumps({
+                    "health": {"18766": {"code": 200, "status": live},
+                               "18768": {"code": 503 if refined == "live_priority" else 200,
+                                         "status": refined}}, "connections": 1,
+                })}))
+                result = self.run_asr()
+                self.assertEqual(result.status, "failed")
+                self.assertIn("remote_busy", result.error_message)
+                self.assertFalse(self.calls.exists())
+
+    def test_uncertain_preflight_never_invokes_cli_or_exposes_output(self) -> None:
+        for reply in ({"stdout": "synthetic-private"}, {"stdout": "{}"},
+                      {"stdout": "synthetic-private", "returncode": 255}):
+            with self.subTest(reply=reply):
+                self.probe_reply.write_text(json.dumps(reply))
+                result = self.run_asr()
+                self.assertEqual(result.status, "failed")
+                self.assertNotIn("synthetic-private", result.error_message)
+                self.assertFalse(self.calls.exists())
+
+    def test_preflight_uses_cli_host_and_runs_before_every_chunk(self) -> None:
+        os.environ["XIEMAC_ASR_HOST"] = "xiemac-test"
+        result = self.run_asr()
+        self.assertEqual(result.status, "success", result.error_message)
+        self.assertTrue(self.probe_calls.exists())
+        calls = [json.loads(line) for line in self.probe_calls.read_text().splitlines()]
+        self.assertEqual(len(calls), 2)
+        self.assertTrue(all(call[-2] == "xiemac-test" for call in calls))
+        self.assertTrue(all("-oStrictHostKeyChecking=yes" in call for call in calls))
 
     def test_empty_malformed_or_wrong_provenance_never_becomes_text(self) -> None:
         payloads = [
@@ -179,6 +231,7 @@ class XiemacASRTests(unittest.TestCase):
             return process
 
         with (
+            patch.object(asr, "_check_xiemac_idle", create=True),
             patch.object(asr.subprocess, "Popen", side_effect=start_ready_cli),
             patch.object(asr, "XIEMAC_PROCESS_TIMEOUT", 0.3, create=True),
         ):
