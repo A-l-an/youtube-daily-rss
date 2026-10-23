@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-22T11:14:49.860095+00:00",
+  "last_run_at": "2026-10-23T03:00:03.958199+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2527,14 +2527,14 @@
       "title": "美股 空头杀红眼5倍加码！META自保，含糊27年资本支出！TSLA、LRCX、GOOG！",
       "url": "https://www.youtube.com/watch?v=DQ0Yn27pdgk",
       "published": null,
-      "processed_at": "2026-10-22T11:14:49.860095+00:00",
-      "daily_digest_id": "daily-DQ0Yn27pdgk-V4rkU57SEdw",
+      "processed_at": "2026-10-23T03:00:03.958199+00:00",
+      "daily_digest_id": "daily-DQ0Yn27pdgk-TzNmNY6VgrM",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "success",
+      "asr_status": "failed",
       "summary_status": "success",
-      "source_status": "ASR"
+      "source_status": "link-only"
     },
     "V4rkU57SEdw": {
       "channel_name": "NaNa说美股",
@@ -2544,6 +2544,21 @@
       "published": null,
       "processed_at": "2026-10-22T11:14:49.860095+00:00",
       "daily_digest_id": "daily-DQ0Yn27pdgk-V4rkU57SEdw",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
+    },
+    "TzNmNY6VgrM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "韭菜根都被刨完了！NaNa说美股(2026.10.22)",
+      "url": "https://www.youtube.com/watch?v=TzNmNY6VgrM",
+      "published": "2026-10-22T23:01:06+00:00",
+      "processed_at": "2026-10-23T03:00:03.958199+00:00",
+      "daily_digest_id": "daily-DQ0Yn27pdgk-TzNmNY6VgrM",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
@@ -3537,6 +3552,16 @@
       "source_video_ids": [
         "DQ0Yn27pdgk",
         "V4rkU57SEdw"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
+    },
+    "daily-DQ0Yn27pdgk-TzNmNY6VgrM": {
+      "processed_at": "2026-10-23T03:00:03.958199+00:00",
+      "source_video_ids": [
+        "DQ0Yn27pdgk",
+        "TzNmNY6VgrM"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
