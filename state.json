@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-24T03:14:09.574175+00:00",
+  "last_run_at": "2026-10-24T04:06:40.452450+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2586,15 +2586,30 @@
       "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
       "title": "下周不想再被美股毒打了！NaNa说美股(2026.10.23)",
       "url": "https://www.youtube.com/watch?v=tPO8uSovMbE",
-      "published": "2026-10-23T23:07:24+00:00",
-      "processed_at": "2026-10-24T03:14:09.574175+00:00",
-      "daily_digest_id": "daily-4_uytm7I_XQ-tPO8uSovMbE",
+      "published": null,
+      "processed_at": "2026-10-24T04:06:40.452450+00:00",
+      "daily_digest_id": "daily-b_ZVO8_QfJ0-tPO8uSovMbE",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
-      "summary_status": "failed",
+      "summary_status": "success",
       "source_status": "captions"
+    },
+    "b_ZVO8_QfJ0": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 对冲基金8天7减偏紧！下周注意QQQ！OpenAI也降估值！AMZN停建一数据中心！",
+      "url": "https://www.youtube.com/watch?v=b_ZVO8_QfJ0",
+      "published": null,
+      "processed_at": "2026-10-24T04:06:40.452450+00:00",
+      "daily_digest_id": "daily-b_ZVO8_QfJ0-tPO8uSovMbE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -3614,6 +3629,16 @@
         "tPO8uSovMbE"
       ],
       "summary_status": "failed",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
+    },
+    "daily-b_ZVO8_QfJ0-tPO8uSovMbE": {
+      "processed_at": "2026-10-24T04:06:40.452450+00:00",
+      "source_video_ids": [
+        "b_ZVO8_QfJ0",
+        "tPO8uSovMbE"
+      ],
+      "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed"
     }
