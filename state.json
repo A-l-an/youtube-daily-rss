@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-24T04:06:40.452450+00:00",
+  "last_run_at": "2026-10-27T02:09:00.604342+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2610,6 +2610,36 @@
       "asr_status": "failed",
       "summary_status": "success",
       "source_status": "link-only"
+    },
+    "QHrNWTgD7DA": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 三个需求利好推动SOXX反弹！大科技资本支出四选一！Anthropic更新发布S-1文件！",
+      "url": "https://www.youtube.com/watch?v=QHrNWTgD7DA",
+      "published": null,
+      "processed_at": "2026-10-27T02:09:00.604342+00:00",
+      "daily_digest_id": "daily-QHrNWTgD7DA-seKz_DVegsQ",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "seKz_DVegsQ": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "俩兄弟都下场做空了吧！NaNa说美股(2026.10.26)",
+      "url": "https://www.youtube.com/watch?v=seKz_DVegsQ",
+      "published": null,
+      "processed_at": "2026-10-27T02:09:00.604342+00:00",
+      "daily_digest_id": "daily-QHrNWTgD7DA-seKz_DVegsQ",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3637,6 +3667,16 @@
       "source_video_ids": [
         "b_ZVO8_QfJ0",
         "tPO8uSovMbE"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
+    },
+    "daily-QHrNWTgD7DA-seKz_DVegsQ": {
+      "processed_at": "2026-10-27T02:09:00.604342+00:00",
+      "source_video_ids": [
+        "QHrNWTgD7DA",
+        "seKz_DVegsQ"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
