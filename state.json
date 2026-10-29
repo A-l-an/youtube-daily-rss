@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-10-28T02:05:22.538024+00:00",
+  "last_run_at": "2026-10-29T02:09:51.075487+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2647,8 +2647,8 @@
       "title": "美股 GOOG、MSFT、AMZN！多空决战有望本周分胜负！前方SOXX大波动！大摩：好消息和坏消息！",
       "url": "https://www.youtube.com/watch?v=H8eS_qeBelc",
       "published": null,
-      "processed_at": "2026-10-28T02:05:22.538024+00:00",
-      "daily_digest_id": "daily-H8eS_qeBelc-QQfF7ZvBQAM",
+      "processed_at": "2026-10-29T02:09:51.075487+00:00",
+      "daily_digest_id": "daily-H8eS_qeBelc-pslPykhJoh0",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
@@ -2664,6 +2664,21 @@
       "published": null,
       "processed_at": "2026-10-28T02:05:22.538024+00:00",
       "daily_digest_id": "daily-H8eS_qeBelc-QQfF7ZvBQAM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
+    },
+    "pslPykhJoh0": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "心都碎了！糟老头子坏的很！NaNa说美股(2026.10.29)",
+      "url": "https://www.youtube.com/watch?v=pslPykhJoh0",
+      "published": null,
+      "processed_at": "2026-10-29T02:09:51.075487+00:00",
+      "daily_digest_id": "daily-H8eS_qeBelc-pslPykhJoh0",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
@@ -3717,6 +3732,16 @@
       "source_video_ids": [
         "H8eS_qeBelc",
         "QQfF7ZvBQAM"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
+    },
+    "daily-H8eS_qeBelc-pslPykhJoh0": {
+      "processed_at": "2026-10-29T02:09:51.075487+00:00",
+      "source_video_ids": [
+        "H8eS_qeBelc",
+        "pslPykhJoh0"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
