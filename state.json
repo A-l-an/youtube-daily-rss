@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-03T02:37:39.543361+00:00",
+  "last_run_at": "2026-11-03T10:01:34.264233+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2781,15 +2781,30 @@
       "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
       "title": "翻车接人了！NaNa说美股(2026.11.02)",
       "url": "https://www.youtube.com/watch?v=NTnAZferrZo",
-      "published": null,
-      "processed_at": "2026-11-03T02:37:39.543361+00:00",
-      "daily_digest_id": "daily--C0B7AEwOcU-NTnAZferrZo",
+      "published": "2026-11-02T23:34:22+00:00",
+      "processed_at": "2026-11-03T10:01:34.264233+00:00",
+      "daily_digest_id": "daily-qcdt6yQKt_4-NTnAZferrZo",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
-      "summary_status": "success",
+      "summary_status": "failed",
       "source_status": "captions"
+    },
+    "qcdt6yQKt_4": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 AAPL多个增速放缓！ORCL再融资，信贷雪上加霜！MRVL收购LITE，双方股东都不满意！基金损失惨重，多头仓位保守！",
+      "url": "https://www.youtube.com/watch?v=qcdt6yQKt_4",
+      "published": "2026-11-03T02:35:17+00:00",
+      "processed_at": "2026-11-03T10:01:34.264233+00:00",
+      "daily_digest_id": "daily-qcdt6yQKt_4-NTnAZferrZo",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "failed",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -3918,6 +3933,16 @@
         "NTnAZferrZo"
       ],
       "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
+    },
+    "daily-qcdt6yQKt_4-NTnAZferrZo": {
+      "processed_at": "2026-11-03T10:01:34.264233+00:00",
+      "source_video_ids": [
+        "qcdt6yQKt_4",
+        "NTnAZferrZo"
+      ],
+      "summary_status": "failed",
       "summary_model": "deepseek-flash",
       "source_status": "mixed"
     }
