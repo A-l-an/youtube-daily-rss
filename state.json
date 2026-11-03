@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-02T02:03:04.599089+00:00",
+  "last_run_at": "2026-11-03T02:04:02.096195+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2775,6 +2775,21 @@
       "asr_status": "failed",
       "summary_status": "success",
       "source_status": "link-only"
+    },
+    "NTnAZferrZo": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "翻车接人了！NaNa说美股(2026.11.02)",
+      "url": "https://www.youtube.com/watch?v=NTnAZferrZo",
+      "published": null,
+      "processed_at": "2026-11-03T02:04:02.096195+00:00",
+      "daily_digest_id": "daily-NTnAZferrZo",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3886,6 +3901,15 @@
       "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed"
+    },
+    "daily-NTnAZferrZo": {
+      "processed_at": "2026-11-03T02:04:02.096195+00:00",
+      "source_video_ids": [
+        "NTnAZferrZo"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "captions"
     }
   }
 }
