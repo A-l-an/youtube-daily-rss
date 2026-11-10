@@ -103,26 +103,47 @@ No YouTube API key is required for this.
 
 ## Pipeline Behavior
 
-For each run, the pipeline fetches the latest public video from each channel and creates one merged daily RSS item for that pair of videos unless the same pair has already been published. Use `--force` to rebuild the latest pair.
+For each run, the pipeline fetches the latest public video from each channel and creates one merged daily RSS item for that pair of videos. A pair is complete only when every selected source has usable text and its merged summary succeeded. Incomplete pairs retry without `--force`; complete pairs keep the current skip behavior. Use `--force` to rebuild the latest pair, retaining the existing complete digest if that attempt fails.
 
 Processing order:
 
 1. Fetch the latest video from each channel Atom feed.
-2. Skip only when the current pair of latest videos already has a merged `daily_digest` item.
+2. Skip the current pair only when its `daily_digest` is complete. If channel discovery is incomplete, do not create a single-source replacement for the configured pair.
 3. For each video, try captions with `youtube-transcript-api`.
 4. If captions fail, try public subtitles and auto captions through `yt-dlp`, preferring manual subtitles before auto captions.
-5. If captions still fail and this is not a dry run, try optional ASR through the existing xiemac Whisper CLI over SSH/Tailscale.
+5. If captions still fail and this is not a dry run, download the public video audio and try optional ASR through the existing xiemac Whisper CLI over SSH/Tailscale.
 6. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
 7. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
-8. If text or LLM summary is unavailable, still publish a link-only daily RSS item containing both original video links.
-9. Write `state.json`, `summaries.json`, and `public/feed.xml`. A repeated non-force run is a true no-op when its latest pair or dated item already exists.
+8. If some text is missing, retain useful partial analysis or publish a fallback containing the original links. The public item displays pending coverage and the concrete caption/ASR failure. Source acquisition (`coverage_status`) and overall completion (`completion_status`) are separate from `summary_status`: a successful partial summary remains pending.
+9. Write `state.json`, `summaries.json`, and `public/feed.xml`. Retries update the existing GUID and preserve its original `published` date. A repeated non-force run is a no-op when its current pair is complete and no older pending digest needs a retry.
+
+Each ordinary run also attempts at most one older pending digest, choosing the
+least recently attempted eligible item (newest publication breaks a tie),
+using its stored original video records rather than replacing them with new
+uploads. For migration, only the most recent pre-existing incomplete item is
+automatically considered; the historical archive is not automatically backfilled.
+Selected or attempted incomplete items retain pending state until repaired.
+The last-attempt time is persisted, so a permanently unavailable newer source
+cannot prevent other registered pending digests from being retried.
+Explicit dated retries likewise use their stored original records. If all channel
+feeds fail, the run keeps existing files unchanged.
+
+Successful source text is cached locally, with video metadata and a text hash,
+so later retries reuse completed sources. The digest records a hash of the
+summary input and of the latest attempted input. An unchanged input with missing
+text does not make another summary request; recovered text triggers regeneration.
+A summary failure with all source text available retries on the next run. If a
+retry fails, useful existing analysis is retained and stale analysis stays pending.
+Legacy items lack input hashes, so the first retry retains their successful partial
+summary when the same sources remain missing. `--dry-run` does not write outputs
+or caches and does not invoke ASR or the summary API.
 
 RSS items include:
 
 - title: one merged daily digest title
 - link: hosted digest page, for example `https://a-l-an.github.io/youtube-daily-rss/items/daily-VIDEO_ID-VIDEO_ID.html`
 - guid: merged digest ID built from the latest video IDs
-- pubDate: digest processing time
+- pubDate: first publication time, preserved on retry
 - description and `content:encoded`: HTML digest
 - categories: `YouTube Digest`, `Finance`, `Stock Market`, and source status
 
@@ -146,6 +167,19 @@ ASR is optional and only runs when:
 - using ASR is appropriate for your deployment and use case
 
 If direct YouTube audio extraction fails or is not appropriate, ASR is skipped or marked failed and the RSS item falls back to the original video link.
+
+ASR audio, chunks, and completed chunk receipts persist outside Git under
+`~/.cache/youtube-daily-rss/asr`; `asr.cache_dir` can override this location.
+The cache identity includes the video URL, actual provider, model, language, and
+effective chunk duration. Audio, the ordered chunk plan, chunk files, and completed
+text receipts are hash checked before reuse. Receipts are written atomically after
+each successful chunk. A transient failure keeps completed work but returns no
+partial transcript; a subsequent run resumes from the remaining chunks. Corrupt
+or mismatched cache entries are ignored and regenerated. A local per-video file
+lock prevents overlapping ASR work on the same cache host; it does not reserve
+the remote shared service. Cache files are not automatically expired, shared
+between runners, or committed. Deleting this cache loses resumable work and may
+require reacquiring source text.
 
 The pipeline splits audio into at most 15-second chunks, including the final
 short chunk, then calls the CLI sequentially with `--language zh --model
@@ -189,11 +223,14 @@ priorities, not capabilities supplied by this documentation:
   text is included. Record each source's available and included text range, and
   report missing or truncated coverage explicitly before claiming both sources
   were analyzed.
-- **Reproducible originals:** production stores summaries and source metadata,
-  but not immutable transcripts, content hashes, or resumable transcription
-  receipts. Keep originals, their source IDs, timestamps, extraction method and
-  hashes separate from derived summaries. Temporary ASR validation artifacts do
-  not establish production retention or resume support.
+- **Reproducible originals:** local caches now retain source text hashes and
+  resumable ASR receipts, while public state retains source metadata and summaries.
+  This is a recovery cache, not an immutable archival record or timestamped
+  transcript archive. Coverage counts text currently available for a refreshed
+  analysis, independently of retained historical source success metadata. Public
+  status uses “正文待补齐” or “正文已齐” and explains common failures in Chinese;
+  raw diagnostics remain in the item metadata. Coverage does
+  not certify caption accuracy or that the model consumed every character.
 
 For a user-supplied cross-platform link, locate and check the original author and
 video identity before extraction; an official title/author check such as YouTube

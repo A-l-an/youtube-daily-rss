@@ -98,6 +98,7 @@ class ASRCompatibilityTests(unittest.TestCase):
                 ):
                     result = asr.transcribe_video("https://example.test/video", {
                         "enabled": True, "provider": provider, "model": "whisper-1", "language_candidates": ["zh"],
+                        "cache_dir": str(Path(tmp) / "cache"),
                     })
                     self.assertEqual(result.status, "success", result.error_message)
                     self.assertEqual(result.text, "first chunk\n\nsecond chunk")

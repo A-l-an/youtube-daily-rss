@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import fcntl
+import hashlib
 import os
 import re
 import shlex
@@ -254,17 +256,116 @@ def _transcribe_chunks(
     language: Optional[str],
     *,
     provider: str = "hkust_gz",
+    checkpoint: Optional[Dict[str, Any]] = None,
+    manifest_path: Optional[Path] = None,
 ) -> str:
     parts: List[str] = []
-    for chunk_path in chunk_paths:
+    for index, chunk_path in enumerate(chunk_paths):
+        receipt = checkpoint["chunks"][index] if checkpoint is not None else {}
+        saved = receipt.get("text")
+        if isinstance(saved, str) and saved.strip() and receipt.get("text_sha256") == hashlib.sha256(saved.encode()).hexdigest():
+            parts.append(saved)
+            continue
         if provider == "xiemac":
             text = _transcribe_xiemac_file(model, chunk_path, language)
         else:
             text = _transcribe_file(client, model, chunk_path, language).strip()
-        if text:
-            parts.append(text)
+        if not text:
+            raise RuntimeError("ASR returned empty chunk text")
+        parts.append(text)
+        if checkpoint is not None:
+            receipt.update(text=text, text_sha256=hashlib.sha256(text.encode()).hexdigest())
+            atomic_json(manifest_path, checkpoint)
         time.sleep(1)
     return "\n\n".join(parts)
+
+
+def cache_root(config: Dict[str, Any]) -> Path:
+    return Path(config.get("cache_dir") or "~/.cache/youtube-daily-rss/asr").expanduser()
+
+
+def atomic_json(path: Path, value: Dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(dir=path.parent, prefix=".checkpoint-")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as output:
+            json.dump(value, output, ensure_ascii=False)
+            output.flush()
+            os.fsync(output.fileno())
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def read_checkpoint(path: Path) -> Dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+        return value if isinstance(value, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        for block in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _cached_file(directory: Path, receipt: Any) -> Optional[Path]:
+    if not isinstance(receipt, dict):
+        return None
+    name = receipt.get("file")
+    if not isinstance(name, str) or Path(name).name != name:
+        return None
+    path = directory / name
+    try:
+        if not path.is_symlink() and path.stat().st_size > 0 and file_sha256(path) == receipt.get("sha256"):
+            return path
+    except OSError:
+        pass
+    return None
+
+
+def _prepare_checkpoint(video_url: str, directory: Path, identity: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+    directory.mkdir(parents=True, exist_ok=True)
+    manifest_path = directory / "manifest.json"
+    manifest = read_checkpoint(manifest_path)
+    if manifest.get("version") != 1 or manifest.get("identity") != identity:
+        manifest = {}
+    audio = _cached_file(directory, manifest.get("audio"))
+    chunks = manifest.get("chunks")
+    if audio and isinstance(chunks, list) and chunks and all(_cached_file(directory, chunk) for chunk in chunks):
+        if manifest.get("chunks_plan_sha256") == _chunk_plan_hash(chunks):
+            return manifest
+    # Stage new files separately so an interrupted download cannot become a cache hit.
+    with tempfile.TemporaryDirectory(prefix="prepare-", dir=directory) as temporary:
+        stage = Path(temporary)
+        if audio is None:
+            audio = _download_audio(video_url, stage, attempts=int(config.get("download_attempts", 3)),
+                                    sleep_seconds=float(config.get("download_sleep_seconds", 5)))
+        chunk_paths = _chunk_audio(audio, stage, identity["chunk_seconds"])
+        if not chunk_paths:
+            raise RuntimeError("ASR produced no audio chunks")
+        manifest = {"version": 1, "identity": identity, "chunks": []}
+        for path in [audio, *chunk_paths]:
+            if not path.is_file() or not path.stat().st_size:
+                raise RuntimeError("ASR produced empty audio")
+            target = directory / path.name
+            if path != target:
+                shutil.copyfile(path, target)
+        manifest["audio"] = {"file": audio.name, "sha256": file_sha256(directory / audio.name)}
+        manifest["chunks"] = [{"file": path.name, "sha256": file_sha256(directory / path.name)} for path in chunk_paths]
+        manifest["chunks_plan_sha256"] = _chunk_plan_hash(manifest["chunks"])
+        atomic_json(manifest_path, manifest)
+    return manifest
+
+
+def _chunk_plan_hash(chunks: List[Dict[str, Any]]) -> str:
+    plan = [{"file": chunk["file"], "sha256": chunk["sha256"]} for chunk in chunks]
+    return hashlib.sha256(json.dumps(plan, sort_keys=True).encode()).hexdigest()
 
 
 def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
@@ -294,21 +395,14 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
 
     try:
         client = None if provider == "xiemac" else make_openai_compatible_client(credentials)
-        with tempfile.TemporaryDirectory(prefix="youtube-rss-asr-") as tmp:
-            tmpdir = Path(tmp)
-            audio_path = _download_audio(
-                video_url,
-                tmpdir,
-                attempts=int(asr_config.get("download_attempts", 3)),
-                sleep_seconds=float(asr_config.get("download_sleep_seconds", 5)),
-            )
-            chunk_paths = _chunk_audio(
-                audio_path,
-                tmpdir,
-                min(int(asr_config.get("chunk_seconds", 15)), 15) if provider == "xiemac"
-                else int(asr_config.get("chunk_seconds", 300)),
-            )
-
+        root = cache_root(asr_config)
+        root.mkdir(parents=True, exist_ok=True)
+        video_key = hashlib.sha256(video_url.encode()).hexdigest()
+        with (root / f"{video_key}.lock").open("a") as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return ASRResult(status="failed", model=model, error_message="ASR: cache_busy")
             language_candidates = asr_config.get("language_candidates")
             if not language_candidates:
                 language_candidates = [asr_config.get("language", "zh")]
@@ -317,7 +411,16 @@ def transcribe_video(video_url: str, asr_config: Dict[str, Any]) -> ASRResult:
             text = ""
             for language in language_candidates:
                 try:
-                    text = _transcribe_chunks(client, model, chunk_paths, language, provider=provider)
+                    identity = {"video_url": video_url, "provider": "remote-whisper.cpp" if provider == "xiemac" else credentials.provider,
+                                "model": model, "language": language or "auto",
+                                "chunk_seconds": max(1, min(int(asr_config.get("chunk_seconds", 15)), 15)) if provider == "xiemac"
+                                else max(1, int(asr_config.get("chunk_seconds", 300)))}
+                    key = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+                    directory = root / video_key / key
+                    manifest = _prepare_checkpoint(video_url, directory, identity, asr_config)
+                    chunk_paths = [directory / chunk["file"] for chunk in manifest["chunks"]]
+                    text = _transcribe_chunks(client, model, chunk_paths, language, provider=provider,
+                                              checkpoint=manifest, manifest_path=directory / "manifest.json")
                     if text:
                         break
                 except Exception as exc:

@@ -142,10 +142,12 @@ class HistoricalAtomSelectionTests(unittest.TestCase):
 
 class ReportDateBehaviorTests(unittest.TestCase):
     def setUp(self) -> None:
+        self.cache_dir = self.enterContext(tempfile.TemporaryDirectory())
         self.config = {
             "timezone": "Asia/Shanghai",
             "channels": [{"name": "A", "channel_id": "UCA"}, {"name": "B", "channel_id": "UCB"}],
             "summary": {},
+            "asr": {"cache_dir": self.cache_dir},
             "rss": {
                 "title": "Test feed",
                 "description": "Test description",
@@ -284,7 +286,8 @@ class ReportDateBehaviorTests(unittest.TestCase):
     def test_existing_dated_item_non_force_is_zero_write_and_zero_fetch(self) -> None:
         state = {"last_run_at": "old", "processed_videos": {}, "daily_digests": {}}
         summaries = {
-            "items": [{"item_type": "daily_digest", "digest_id": "daily-date-2026-07-20", "video_id": "daily-date-2026-07-20"}]
+            "items": [{"item_type": "daily_digest", "digest_id": "daily-date-2026-07-20", "video_id": "daily-date-2026-07-20",
+                       "summary_status": "success", "source_videos": [record(video("a")), record(video("b"))]}]
         }
         args = argparse.Namespace(dry_run=False, force=False, report_date="2026-07-20")
         with (
@@ -308,7 +311,8 @@ class ReportDateBehaviorTests(unittest.TestCase):
             "daily_digests": {"daily-a-b": {}},
         }
         summaries = {
-            "items": [{"item_type": "daily_digest", "digest_id": "daily-a-b", "video_id": "daily-a-b"}]
+            "items": [{"item_type": "daily_digest", "digest_id": "daily-a-b", "video_id": "daily-a-b",
+                       "summary_status": "success", "source_videos": [record(video("a")), record(video("b"))]}]
         }
         args = argparse.Namespace(dry_run=False, force=False, report_date=None)
         with (

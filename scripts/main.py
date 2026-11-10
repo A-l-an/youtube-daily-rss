@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import html
 import json
 import logging
 import re
@@ -12,7 +14,7 @@ from zoneinfo import ZoneInfo
 import yaml
 from dotenv import load_dotenv
 
-from asr import ASRResult, transcribe_video
+from asr import ASRResult, atomic_json, cache_root, read_checkpoint, transcribe_video
 from fetch_youtube import Video, fetch_latest_video, fetch_video_for_report_date
 from rss import write_rss
 from summarize import SummaryResult, retitle_rendered_daily_summary, summarize_daily_digest
@@ -171,7 +173,35 @@ def daily_digest_id(videos: List[Video]) -> str:
 
 
 def has_daily_summary(summaries: Dict[str, Any], digest_id: str) -> bool:
-    return any((item.get("digest_id") or item.get("video_id")) == digest_id for item in summaries.get("items", []))
+    item = find_daily_summary(summaries, digest_id)
+    return bool(item and digest_complete(item))
+
+
+def find_daily_summary(summaries: Dict[str, Any], digest_id: str) -> Optional[Dict[str, Any]]:
+    return next((item for item in summaries.get("items", [])
+                 if (item.get("digest_id") or item.get("video_id")) == digest_id), None)
+
+
+def source_available(record: Dict[str, Any]) -> bool:
+    if "text" in record:
+        return source_has_text(record)
+    return (record.get("source_status") == "captions" and record.get("transcript_status") == "success"
+            or record.get("source_status") == "ASR" and record.get("asr_status") == "success")
+
+
+def source_has_text(record: Dict[str, Any]) -> bool:
+    return bool(str(record.get("text") or "").strip())
+
+
+def digest_complete(item: Dict[str, Any]) -> bool:
+    sources = item.get("source_videos") or []
+    return bool(item.get("completion_status") != "pending" and item.get("summary_status") == "success"
+                and sources and all(source_available(source) for source in sources))
+
+
+def original_videos(item: Dict[str, Any]) -> List[Video]:
+    return [Video(**{key: source[key] for key in Video.__dataclass_fields__})
+            for source in item["source_videos"]]
 
 
 def combined_source_status(records: List[Dict[str, Any]]) -> str:
@@ -281,6 +311,8 @@ def source_video_snapshot(record: Dict[str, Any]) -> Dict[str, Any]:
             "asr_status",
             "asr_model",
             "asr_error",
+            "text_sha256",
+            "retry_error",
         }
     }
 
@@ -320,7 +352,9 @@ def build_daily_item(
         "summary_data": summary_data or None,
         "source_videos": source_videos,
         "summary_html": summary_result.summary_html,
+        "coverage_status": "complete" if records and all(source_has_text(record) for record in records) else "pending",
     }
+    item["completion_status"] = "complete" if item["coverage_status"] == "complete" and summary_result.status == "success" else "pending"
     if report_date is not None:
         item["report_date"] = report_date.isoformat()
     return item
@@ -362,14 +396,145 @@ def mark_state_processed(
 
     daily_digest = {
         "processed_at": processed_at,
+        "last_attempted_at": processed_at,
         "source_video_ids": [record.get("video_id") for record in records],
         "summary_status": summary_result.status,
         "summary_model": getattr(summary_result, "model", None),
         "source_status": combined_source_status(records),
+        "coverage_status": "complete" if records and all(source_has_text(record) for record in records) else "pending",
     }
+    daily_digest["completion_status"] = "complete" if daily_digest["coverage_status"] == "complete" and summary_result.status == "success" else "pending"
     if report_date is not None:
         daily_digest["report_date"] = report_date.isoformat()
     state["daily_digests"][digest_id] = daily_digest
+
+
+def _source_cache_path(video: Video, config: Dict[str, Any]) -> Path:
+    return cache_root(config.get("asr", {})) / "sources" / (hashlib.sha256(video.url.encode()).hexdigest() + ".json")
+
+
+def _cached_source(video: Video, config: Dict[str, Any]) -> Dict[str, Any]:
+    record = read_checkpoint(_source_cache_path(video, config))
+    text = record.get("text")
+    if (all(record.get(key) == value for key, value in video.to_dict().items())
+            and isinstance(text, str) and text.strip()
+            and record.get("text_sha256") == hashlib.sha256(text.encode()).hexdigest()):
+        return record
+    return {}
+
+
+def _summary_from_item(item: Dict[str, Any]) -> SummaryResult:
+    body = re.sub(r"<!-- coverage -->.*?<!-- /coverage -->", "", item.get("summary_html") or "", flags=re.S)
+    return SummaryResult(status=item["summary_status"], summary_html=body,
+                         model=item.get("summary_model"), error_message=item.get("summary_error"),
+                         summary_data=item.get("summary_data"))
+
+
+def _input_hash(records: List[Dict[str, Any]]) -> str:
+    fields = [*Video.__dataclass_fields__, "source_status", "content_source", "text"]
+    inputs = [{key: record.get(key) for key in fields} for record in records]
+    return hashlib.sha256(json.dumps(inputs, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
+def _public_source_failure(error: Any) -> str:
+    diagnostic = str(error or "").lower()
+    if any(code in diagnostic for code in ("remote_busy", "cache_busy")):
+        return "转录服务繁忙，稍后重试"
+    if any(code in diagnostic for code in ("remote_unavailable", "ssh_unavailable", "cli_unavailable")):
+        return "转录服务暂不可用，稍后重试"
+    if "timeout" in diagnostic or "timed out" in diagnostic:
+        return "转录请求超时，稍后重试"
+    if any(code in diagnostic for code in ("members-only", "members only", "private video", "access denied", "forbidden", "sign in", "403")):
+        return "视频访问受限，需确认访问权限"
+    if "download" in diagnostic or "yt-dlp" in diagnostic:
+        return "暂时无法获取视频音频，稍后重试"
+    return "暂未取得可用正文，稍后重试"
+
+
+def _process_digest(digest_id: str, videos: List[Video], existing: Optional[Dict[str, Any]],
+                    config: Dict[str, Any], state: Dict[str, Any], summaries: Dict[str, Any], *,
+                    dry_run: bool, force: bool, report_date: Optional[date], older: bool = False) -> bool:
+    records = []
+    previous_sources = {source["video_id"]: source for source in (existing or {}).get("source_videos", [])}
+    for video in videos:
+        record = {} if dry_run or force else _cached_source(video, config)
+        if not record:
+            try:
+                record = collect_video_content(video, config, dry_run=dry_run)
+            except Exception as exc:
+                logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
+                record = failed_video_record(video, exc)
+            if source_available(record) and not dry_run:
+                record["text_sha256"] = hashlib.sha256(record["text"].encode()).hexdigest()
+                atomic_json(_source_cache_path(video, config), record)
+            elif not dry_run:
+                cached = _cached_source(video, config)
+                previous = previous_sources.get(video.video_id, {})
+                if cached:
+                    record = cached
+                elif source_available(previous):
+                    record = {**previous, "retry_error": record.get("asr_error") or record.get("transcript_error")}
+        records.append(record)
+    if dry_run:
+        logging.info("dry-run complete; digest=%s text_sources=%d/%d; no files were modified",
+                     digest_id, sum(source_available(record) for record in records), len(records))
+        return False
+
+    text_complete = all(source_has_text(record) for record in records)
+    if existing and digest_complete(existing) and not text_complete:
+        logging.warning("[daily] failed forced retry; retained complete digest %s", digest_id)
+        return False
+    fingerprint = _input_hash(records)
+    unchanged = bool(existing and existing.get("summary_attempt_input_hash", existing.get("summary_input_hash")) == fingerprint)
+    # Legacy items did not retain text hashes; an unchanged missing-source set keeps their useful analysis.
+    legacy_unchanged = bool(existing and "summary_attempt_input_hash" not in existing and not existing.get("summary_input_hash")
+                            and existing.get("summary_status") == "success"
+                            and all(source_available(record) == source_available(previous_sources.get(record["video_id"], {}))
+                                    for record in records))
+    retain = bool(existing and (not text_complete and (unchanged or legacy_unchanged)
+                               or any(source_available(record) and not record.get("text") for record in records)))
+    result = _summary_from_item(existing) if retain else summarize_daily_digest(records, config.get("summary", {}))
+    attempt_status = existing.get("summary_attempt_status", result.status) if retain else result.status
+    attempt_error = existing.get("summary_attempt_error", result.error_message) if retain else result.error_message
+    summary_current = not retain or existing.get("summary_input_hash") == fingerprint or legacy_unchanged
+    if existing and result.status != "success" and existing.get("summary_status") == "success":
+        if digest_complete(existing):
+            logging.warning("[daily] failed forced summary retry; retained complete digest %s", digest_id)
+            return False
+        result = _summary_from_item(existing)
+        summary_current = False
+    published = (existing or {}).get("published") or (report_date_published_iso(report_date, config) if report_date else None)
+    item = build_daily_item(digest_id, records, result, config, report_date=report_date, published=published)
+    if existing:
+        item["video_id"] = existing.get("video_id") or digest_id
+    item["summary_input_hash"] = fingerprint if summary_current else (existing or {}).get("summary_input_hash")
+    item["summary_attempt_input_hash"] = fingerprint
+    item["summary_attempt_status"] = attempt_status
+    item["summary_attempt_error"] = attempt_error
+    if not summary_current:
+        item["completion_status"] = "pending"
+    if item["completion_status"] == "pending":
+        details = []
+        for record in records:
+            if not source_has_text(record) or record.get("retry_error"):
+                reason = record.get("retry_error") or record.get("asr_error") or record.get("transcript_error") or "source text unavailable"
+                details.append(f"{record.get('channel_name')}：{_public_source_failure(reason)}。")
+        if attempt_status != "success":
+            details.append("本次摘要更新失败，已保留已有分析，稍后重试。" if result.status == "success"
+                           else "摘要暂未生成，稍后重试。")
+        elif not summary_current:
+            details.append("已有摘要已保留，等待完整原文后更新。")
+        coverage = "正文已齐" if item["coverage_status"] == "complete" else "正文待补齐"
+        status = f"{coverage}（{sum(source_has_text(record) for record in records)}/{len(records)}）；摘要待更新。"
+        item["summary_html"] += "<!-- coverage --><p>" + html.escape(status + " ".join(details)) + "</p><!-- /coverage -->"
+    upsert_daily_summary(summaries, item)
+    mark_state_processed(state, digest_id, records, result, item["processed_at"], report_date=report_date,
+                         preserve_existing_video_links=report_date is not None or older)
+    state["daily_digests"][digest_id].update({key: item[key] for key in ("coverage_status", "completion_status")})
+    state["last_run_at"] = item["processed_at"]
+    logging.info("[daily] digest=%s coverage=%s completion=%s summary=%s", digest_id,
+                 item["coverage_status"], item["completion_status"], item["summary_status"])
+    return True
 
 
 def run(args: argparse.Namespace) -> int:
@@ -403,7 +568,10 @@ def run(args: argparse.Namespace) -> int:
     latest_videos: List[Video] = []
     channels = config.get("channels", []) or []
     fetch_failed = False
-    for channel in channels:
+    dated_existing = find_daily_summary(summaries, digest_id) if digest_id else None
+    if dated_existing and dated_existing.get("source_videos"):
+        latest_videos = original_videos(dated_existing)
+    for channel in ([] if latest_videos else channels):
         try:
             if target_report_date is not None:
                 video = fetch_video_for_report_date(
@@ -437,7 +605,10 @@ def run(args: argparse.Namespace) -> int:
         for video in latest_videos
         if video.video_id not in state.get("processed_videos", {})
     ]
-    should_process = dry_run or force or not daily_exists or bool(new_video_ids)
+    selection_complete = not fetch_failed and len(latest_videos) == len(channels)
+    should_process = selection_complete and (dry_run or force or not daily_exists)
+    if not selection_complete:
+        logging.error("Incomplete channel selection; no new daily digest will be created")
 
     logging.info(
         "latest daily digest candidate=%s videos=%s daily_exists=%s new_video_ids=%s",
@@ -447,67 +618,41 @@ def run(args: argparse.Namespace) -> int:
         ", ".join(new_video_ids) or "none",
     )
 
-    if not should_process:
-        logging.info("skip daily digest; latest video set already has a merged RSS item; no files were modified")
-        return 0
-
-    records: List[Dict[str, Any]] = []
-    for video in latest_videos:
+    existing = find_daily_summary(summaries, digest_id)
+    if existing and existing.get("source_videos"):
+        latest_videos = original_videos(existing)
+    candidates = sorted(summaries.get("items", []), key=lambda item: item.get("published") or "", reverse=True)
+    older_candidates = [item for index, item in enumerate(candidates)
+                       if (item.get("digest_id") or item.get("video_id")) != digest_id
+                       and not digest_complete(item)
+                       and (item.get("completion_status") == "pending"
+                            or state["daily_digests"].get(item.get("digest_id") or item.get("video_id"), {}).get("completion_status") == "pending"
+                            or index == 0)] if target_report_date is None and not dry_run else []
+    older_item = min(older_candidates, key=lambda item: (
+        state["daily_digests"].get(item.get("digest_id") or item.get("video_id"), {}).get("last_attempted_at")
+        or item.get("processed_at") or ""), default=None)
+    changed = False
+    if should_process:
+        changed = _process_digest(digest_id, latest_videos, existing, config, state, summaries,
+                                  dry_run=dry_run, force=force, report_date=target_report_date)
+    if older_item:
+        older_id = older_item.get("digest_id") or older_item["video_id"]
+        state["daily_digests"].setdefault(older_id, {}).update(
+            last_attempted_at=utc_now_iso(), completion_status="pending")
+        changed = True
         try:
-            records.append(collect_video_content(video, config, dry_run=dry_run))
-        except Exception as exc:
-            logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
-            records.append(failed_video_record(video, exc))
-
-    if dry_run:
-        source_status = combined_source_status(records)
-        available_text = sum(1 for record in records if str(record.get("text") or "").strip())
-        logging.info(
-            "dry-run complete; would generate one merged daily digest %s source_status=%s text_sources=%d/%d; no files were modified",
-            digest_id,
-            source_status,
-            available_text,
-            len(records),
-        )
-        return 0
-
-    summary_result = summarize_daily_digest(records, config.get("summary", {}))
-    logging.info(
-        "[daily] summary status=%s model=%s error=%s",
-        summary_result.status,
-        getattr(summary_result, "model", None),
-        getattr(summary_result, "error_message", None),
-    )
-
-    daily_item = build_daily_item(
-        digest_id,
-        records,
-        summary_result,
-        config,
-        report_date=target_report_date,
-        published=(
-            report_date_published_iso(target_report_date, config)
-            if target_report_date is not None
-            else None
-        ),
-    )
-    upsert_daily_summary(summaries, daily_item)
-    mark_state_processed(
-        state,
-        digest_id,
-        records,
-        summary_result,
-        daily_item["processed_at"],
-        report_date=target_report_date,
-        preserve_existing_video_links=target_report_date is not None,
-    )
-    logging.info("[daily] RSS item prepared digest_id=%s source_status=%s", digest_id, daily_item["source_status"])
-
-    state["last_run_at"] = daily_item["processed_at"]
-    save_json(STATE_PATH, state)
-    save_json(SUMMARIES_PATH, summaries)
-    feed_path = write_rss(config, summaries.get("items", []), ROOT)
-    logging.info("RSS feed generated: %s (1 new/updated daily item)", feed_path)
+            old_videos = original_videos(older_item)
+            old_date = date.fromisoformat(older_item["report_date"]) if older_item.get("report_date") else None
+        except (KeyError, TypeError, ValueError):
+            logging.error("Cannot reconstruct original videos for pending digest %s", older_id)
+        else:
+            changed = _process_digest(older_id, old_videos, older_item, config, state, summaries,
+                                      dry_run=False, force=False, report_date=old_date, older=True) or changed
+    if changed:
+        save_json(STATE_PATH, state)
+        save_json(SUMMARIES_PATH, summaries)
+        feed_path = write_rss(config, summaries.get("items", []), ROOT)
+        logging.info("RSS feed generated: %s", feed_path)
     return 0
 
 

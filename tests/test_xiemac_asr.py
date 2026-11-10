@@ -52,6 +52,7 @@ class XiemacASRTests(unittest.TestCase):
         self.config = {
             "enabled": True, "provider": "xiemac", "model": "large-v3-turbo",
             "language_candidates": ["zh"], "chunk_seconds": 60,
+            "cache_dir": str(self.tmp / "cache"),
         }
         self.cli.write_text(
             "#!/usr/bin/env python3\n"
@@ -98,8 +99,8 @@ class XiemacASRTests(unittest.TestCase):
         self.assertEqual(result.model, "large-v3-turbo")
         self.assertEqual(result.text, "第一段\n\n第二段")
         calls = [json.loads(line) for line in self.calls.read_text().splitlines()]
-        self.assertEqual(calls, [
-            [str(chunk), "--language", "zh", "--model", "large-v3-turbo", "--timeout", "180"]
+        self.assertEqual([[Path(call[0]).name, *call[1:]] for call in calls], [
+            [chunk.name, "--language", "zh", "--model", "large-v3-turbo", "--timeout", "180"]
             for chunk in self.chunks
         ])
         self.assertEqual(self.chunk_audio.call_args.args[2], 15)
@@ -107,6 +108,7 @@ class XiemacASRTests(unittest.TestCase):
     def test_default_config_uses_xiemac_while_summary_stays_deepseek(self) -> None:
         config = yaml.safe_load((ROOT / "config.yml").read_text())
         self.config = config["asr"]
+        self.config["cache_dir"] = str(self.tmp / "cache")
         result = self.run_asr()
         self.assertEqual(result.status, "success", result.error_message)
         self.assertEqual(config["summary"]["provider"], "deepseek")
