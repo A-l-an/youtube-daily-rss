@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-10T16:00:46.971253+00:00",
+  "last_run_at": "2026-11-11T03:11:08.076951+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2835,6 +2835,36 @@
       "asr_status": "skipped",
       "summary_status": "success",
       "source_status": "captions"
+    },
+    "4OV3C6IIjhg": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 Anthropic确定IPO，办公软件横刀MSFT！CRWV盘中不够，盘后凑！软银AI基建亏损的警告！电力设备GEV怎么了？美银一级投资名单，移除三家半导体！",
+      "url": "https://www.youtube.com/watch?v=4OV3C6IIjhg",
+      "published": null,
+      "processed_at": "2026-11-11T03:11:08.076951+00:00",
+      "daily_digest_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "L9qouu123Kk": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "每天默念价值投资一百遍！NaNa说美股(2026.11.10)",
+      "url": "https://www.youtube.com/watch?v=L9qouu123Kk",
+      "published": null,
+      "processed_at": "2026-11-11T03:11:08.076951+00:00",
+      "daily_digest_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -3988,6 +4018,16 @@
       "source_status": "mixed",
       "coverage_status": "complete",
       "completion_status": "complete"
+    },
+    "daily-4OV3C6IIjhg-L9qouu123Kk": {
+      "processed_at": "2026-11-11T03:11:08.076951+00:00",
+      "source_video_ids": [
+        "4OV3C6IIjhg",
+        "L9qouu123Kk"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed"
     }
   }
 }
