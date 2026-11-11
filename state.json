@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-11T06:10:44.992232+00:00",
+  "last_run_at": "2026-11-11T08:47:48.926269+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2842,7 +2842,7 @@
       "title": "美股 Anthropic确定IPO，办公软件横刀MSFT！CRWV盘中不够，盘后凑！软银AI基建亏损的警告！电力设备GEV怎么了？美银一级投资名单，移除三家半导体！",
       "url": "https://www.youtube.com/watch?v=4OV3C6IIjhg",
       "published": null,
-      "processed_at": "2026-11-11T06:10:44.992232+00:00",
+      "processed_at": "2026-11-11T08:47:48.926269+00:00",
       "daily_digest_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
       "transcript_status": "unavailable",
       "transcript_language": null,
@@ -2857,7 +2857,7 @@
       "title": "每天默念价值投资一百遍！NaNa说美股(2026.11.10)",
       "url": "https://www.youtube.com/watch?v=L9qouu123Kk",
       "published": null,
-      "processed_at": "2026-11-11T06:10:44.992232+00:00",
+      "processed_at": "2026-11-11T08:47:48.926269+00:00",
       "daily_digest_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
@@ -4020,8 +4020,8 @@
       "completion_status": "complete"
     },
     "daily-4OV3C6IIjhg-L9qouu123Kk": {
-      "processed_at": "2026-11-11T06:10:44.992232+00:00",
-      "last_attempted_at": "2026-11-11T06:10:44.992232+00:00",
+      "processed_at": "2026-11-11T08:47:48.926269+00:00",
+      "last_attempted_at": "2026-11-11T08:47:48.926269+00:00",
       "source_video_ids": [
         "4OV3C6IIjhg",
         "L9qouu123Kk"
