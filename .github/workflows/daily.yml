@@ -12,6 +12,11 @@ on:
       - ".github/backfill-request-sequence"
   workflow_dispatch:
     inputs:
+      publish_only:
+        description: "Deploy existing committed public output only; skip source, summary, and private guidance generation"
+        required: false
+        default: false
+        type: boolean
       force:
         description: "Reprocess the selected latest or report-date item even if it already exists"
         required: false
@@ -73,12 +78,14 @@ jobs:
           .venv-ci/bin/python -c "import curl_cffi, yt_dlp; print('curl_cffi', curl_cffi.__version__, '| yt-dlp', yt_dlp.version.__version__)"
 
       - name: Preflight YouTube RSS feeds
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.publish_only }}
         run: .venv-ci/bin/python scripts/preflight_youtube_feeds.py --allow-transient-outage
 
       - name: Run tests
         run: .venv-ci/bin/python -m unittest discover -s tests
 
       - name: Generate feed
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.publish_only }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_BASE_URL: ${{ vars.DEEPSEEK_BASE_URL }}
@@ -113,6 +120,7 @@ jobs:
           .venv-ci/bin/python scripts/main.py "${args[@]}"
 
       - name: Commit generated state and feed
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.publish_only }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -139,7 +147,7 @@ jobs:
         uses: actions/deploy-pages@v5
 
       - name: Generate private portfolio guidance (opt-in)
-        if: ${{ vars.PORTFOLIO_GUIDANCE_ENABLED == 'true' }}
+        if: ${{ (github.event_name != 'workflow_dispatch' || !inputs.publish_only) && vars.PORTFOLIO_GUIDANCE_ENABLED == 'true' }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_BASE_URL: ${{ vars.DEEPSEEK_BASE_URL }}

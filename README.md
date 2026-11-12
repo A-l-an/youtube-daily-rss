@@ -288,6 +288,15 @@ https://a-l-an.github.io/youtube-daily-rss/feed.xml
 
 Update `rss.link` in `config.yml` to the final URL once known.
 
+For a manual deployment of already generated files, set `publish_only` to `true`
+when running **Daily YouTube RSS Digest**. This deploys the committed `public/`
+directory from the selected ref, after the normal runner checks, dependency
+setup, and tests. It skips YouTube preflight, feed/summary generation, generated
+state commits, and private portfolio guidance, even when private guidance is
+enabled. It does not fetch video sources, call summary models, or read holdings.
+`force` and `report_date` have no effect in this mode. The input defaults to
+`false`; scheduled runs and ordinary manual runs retain their existing behavior.
+
 ## Cloudflare Pages Deployment
 
 Cloudflare Pages can serve the generated `public/` directory.
