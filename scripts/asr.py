@@ -267,7 +267,25 @@ def _transcribe_chunks(
             parts.append(saved)
             continue
         if provider == "xiemac":
-            text = _transcribe_xiemac_file(model, chunk_path, language)
+            try:
+                text = _transcribe_xiemac_file(model, chunk_path, language)
+            except RuntimeError as exc:
+                if str(exc) != "xiemac ASR: invalid_response":
+                    raise
+                with tempfile.TemporaryDirectory(prefix="youtube-rss-asr-short-") as temporary:
+                    short_paths = _chunk_audio(chunk_path, Path(temporary), 5)
+                    if len(short_paths) < 2:
+                        raise
+                    short_parts = []
+                    for short_path in short_paths:
+                        # Call the strict validator directly: child failures never recurse.
+                        short_text = _transcribe_xiemac_file(model, short_path, language).strip()
+                        if not short_text:
+                            raise RuntimeError("xiemac ASR: invalid_response")
+                        short_parts.append(short_text)
+                        time.sleep(1)
+                    text = "\n\n".join(short_parts)
+                    receipt["retry_chunk_seconds"] = 5
         else:
             text = _transcribe_file(client, model, chunk_path, language).strip()
         if not text:

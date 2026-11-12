@@ -183,12 +183,22 @@ require reacquiring source text.
 
 The pipeline splits audio into at most 15-second chunks, including the final
 short chunk, then calls the CLI sequentially with `--language zh --model
-large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per chunk
+large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per CLI call
 and permits SIGTERM cleanup. Every chunk must return non-empty text with the
 expected `remote-whisper.cpp` provider and model before the combined transcript
-is accepted. Malformed responses, timeouts, or `remote_busy` fail explicitly;
-partial text is not published as a complete transcript. Before each CLI call,
-the project reads health and established inference connections over strict SSH
+is accepted. Only the exact `xiemac ASR: invalid_response` error triggers one
+fallback: split that failed chunk into at most 5-second pieces and submit them
+sequentially through the same CLI validation and idle checks. An input already
+at most 5 seconds is not resubmitted unchanged. Child failures never trigger
+another split; any failed or empty child leaves the parent incomplete and returns
+no partial transcript. Timeouts, `remote_busy`, and unavailable-service errors
+do not trigger this fallback. Once all children succeed, their joined text is
+saved as one parent receipt with `retry_chunk_seconds: 5`; the cache identity and
+earlier completed receipts remain reusable. Child results are temporary, so a
+failed fallback must redo that parent's children on a later run.
+
+Before each CLI call, the project reads health and established inference
+connections over strict SSH
 to the same host used by the CLI (`XIEMAC_ASR_HOST`, default `xiemac`). Observed
 busy work or an uncertain check stops the call without starting transcription.
 This snapshot avoids observed busy work; it cannot provide an atomic scheduling

@@ -138,6 +138,98 @@ class ASRCheckpointTests(unittest.TestCase):
         self.assertIn('cache_busy', result.error_message)
         self.assertEqual(len(self.calls), before)
 
+    def short_retry_fakes(self, parent_error='xiemac ASR: invalid_response', child_error=None, empty_child=False, already_short=False):
+        self.short_splits = []
+        self.child_error = child_error
+        self.calls.clear()
+
+        def split(audio, directory, seconds):
+            if seconds != 5:
+                return self.split(audio, directory, seconds)
+            self.short_splits.append((audio.read_bytes(), seconds))
+            if already_short:
+                return [audio]
+            paths = [directory / f'short-{index}.mp3' for index in range(1, 4)]
+            for path in paths:
+                path.write_bytes(audio.read_bytes())
+            return paths
+
+        def transcribe(model, path, language):
+            self.calls.append((model, path.name, language))
+            if path.name == 'chunk-001.mp3':
+                return 'first'
+            if path.name == 'chunk-002.mp3':
+                raise RuntimeError(parent_error)
+            if path.name == 'short-2.mp3':
+                if self.child_error:
+                    raise RuntimeError(self.child_error)
+                if empty_child:
+                    return ''
+            return {'short-1.mp3': 'one', 'short-2.mp3': 'two', 'short-3.mp3': 'three'}[path.name]
+
+        self.enterContext(patch.object(asr, '_chunk_audio', side_effect=split))
+        self.enterContext(patch.object(asr, '_transcribe_xiemac_file', side_effect=transcribe))
+
+    def test_invalid_parent_retries_short_children_and_saves_one_reusable_parent(self):
+        self.short_retry_fakes()
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('success', 'first\n\none\n\ntwo\n\nthree'))
+        self.assertEqual(self.short_splits, [(self.url.encode() + b'1', 5)])
+        self.assertEqual([call[1] for call in self.calls],
+                         ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.mp3', 'short-2.mp3', 'short-3.mp3'])
+        manifest = json.loads(next(self.root.rglob('manifest.json')).read_text())
+        self.assertEqual(len(manifest['chunks']), 2)
+        self.assertEqual(manifest['chunks'][1]['retry_chunk_seconds'], 5)
+        self.assertEqual(manifest['chunks'][1]['text_sha256'], hashlib.sha256(b'one\n\ntwo\n\nthree').hexdigest())
+        before = len(self.calls)
+        self.assertEqual(self.run_asr().text, result.text)
+        self.assertEqual(len(self.calls), before)
+        self.assertEqual(self.downloads, 1)
+
+    def test_invalid_child_is_not_recursively_retried_or_saved_as_parent(self):
+        self.short_retry_fakes(child_error='xiemac ASR: invalid_response')
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('failed', ''))
+        self.assertEqual(len(self.short_splits), 1)
+        self.assertEqual([call[1] for call in self.calls],
+                         ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.mp3', 'short-2.mp3'])
+        manifest = json.loads(next(self.root.rglob('manifest.json')).read_text())
+        self.assertEqual(manifest['chunks'][0]['text'], 'first')
+        self.assertNotIn('text', manifest['chunks'][1])
+        self.assertNotIn('retry_chunk_seconds', manifest['chunks'][1])
+        self.child_error = None
+        before = len(self.calls)
+        self.assertEqual(self.run_asr().text, 'first\n\none\n\ntwo\n\nthree')
+        self.assertEqual([call[1] for call in self.calls[before:]],
+                         ['chunk-002.mp3', 'short-1.mp3', 'short-2.mp3', 'short-3.mp3'])
+
+    def test_busy_unavailable_timeout_and_nonexact_errors_do_not_split_or_retry(self):
+        for code in ('remote_busy', 'remote_unavailable', 'timeout', 'invalid_response extra'):
+            with self.subTest(code=code):
+                self.config['cache_dir'] = str(self.root / code)
+                self.short_retry_fakes(parent_error='xiemac ASR: ' + code)
+                result = self.run_asr()
+                self.assertEqual((result.status, result.text), ('failed', ''))
+                self.assertEqual(self.short_splits, [])
+                self.assertEqual([call[1] for call in self.calls], ['chunk-001.mp3', 'chunk-002.mp3'])
+
+    def test_empty_child_does_not_become_a_complete_parent(self):
+        self.short_retry_fakes(empty_child=True)
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('failed', ''))
+        self.assertEqual(len(self.short_splits), 1)
+        self.assertEqual([call[1] for call in self.calls],
+                         ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.mp3', 'short-2.mp3'])
+        manifest = json.loads(next(self.root.rglob('manifest.json')).read_text())
+        self.assertNotIn('text', manifest['chunks'][1])
+
+    def test_already_short_invalid_input_is_not_retried_unchanged(self):
+        self.short_retry_fakes(already_short=True)
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('failed', ''))
+        self.assertEqual(len(self.short_splits), 1)
+        self.assertEqual([call[1] for call in self.calls], ['chunk-001.mp3', 'chunk-002.mp3'])
+
 
 if __name__ == '__main__':
     unittest.main()
