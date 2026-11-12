@@ -32575,6 +32575,618 @@
     },
     {
       "item_type": "daily_digest",
+      "digest_id": "daily-4OV3C6IIjhg-42iCPjmE-lQ",
+      "video_id": "daily-4OV3C6IIjhg-42iCPjmE-lQ",
+      "source_video_ids": [
+        "4OV3C6IIjhg",
+        "42iCPjmE-lQ"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "每日融合摘要：CRWV财报引爆AI硬件轧空，Anthropic IPO与软件板块承压",
+      "url": "",
+      "published": "2026-11-12T02:03:51.606903+00:00",
+      "processed_at": "2026-11-12T02:03:51.606903+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "summary_error": null,
+      "summary_data": {
+        "title": "每日融合摘要：CRWV财报引爆AI硬件轧空，Anthropic IPO与软件板块承压",
+        "one_sentence_summary": "NaNa说美股认为CRWV强劲财报与Anthropic IPO超额认购点燃了AI硬件与半导体的轧空反弹，但指数已到关键阻力位需谨慎；视野环球财经仅有标题元数据，无法核实其具体观点。",
+        "source_quality_note": "视野环球财经（来源1）仅有标题和元数据，无字幕文本，其观点无法核实，本摘要中该频道一律标注为未提及或仅依据标题提示；NaNa说美股（来源2）有YouTube字幕，但发布时间未知，文本为ASR转写，存在个别数字与表述可能不精确（如指数点位、均线名称混用），未见明显截断。",
+        "asset_sections": [
+          {
+            "name": "CRWV / CoreWeave",
+            "type": "stock",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股称CRWV财报后股价暴涨，管理层强调未来3个月约90亿美元客户预付款和定金、不依赖无担保债务融资、2027年调整后净亏损显著收窄、2028年上半年盈利，缓解了neocloud信贷担忧，并带动neocloud与半导体板块反弹；视野环球财经标题提及“CRWV盘中不够，盘后凑”，但无正文内容，具体观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "财报电话会议表现超预期，资金担忧缓解，股价大涨并拯救英伟达与半导体板块；但也认为反弹主因是回调已深、空头获利、机构吸筹及为Anthropic IPO造势。",
+                "evidence": "“未来3个月有约90亿美元的客户预付款和定金”“2028年上半年实现盈利”“以一己之力拯救了它大哥英伟达和整个半导体板块”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（仅有标题“CRWV盘中不够，盘后凑”，无正文可核实）",
+                "evidence": "来源为metadata only，link-only"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经无正文）"
+            ],
+            "differences": [
+              "未发现明显差异（视野环球财经无正文可比）"
+            ],
+            "factual_context": [
+              "CRWV发布财报，管理层给出客户预付款、融资方式与盈利时间表指引",
+              "本轮AI硬件抛售潮源于neocloud信贷担忧"
+            ],
+            "risks": [
+              "管理层指引能否兑现存在不确定性",
+              "反弹部分归因于轧空与情绪，持续性待观察"
+            ]
+          },
+          {
+            "name": "NVDA / 英伟达",
+            "type": "stock",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股称英伟达在猛烈抛售后反弹但力度弱，摸到5日均线即回落，超跌修复仍可能延续，但黄仁勋下周财报会议与国会听证前需注意风险；视野环球财经标题未直接提及英伟达，正文缺失，观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "反弹偏弱但超跌修复有机会延续，财报与听证前有风险。",
+                "evidence": "“摸到5日均线就缩回去了”“在黄仁勋下周财报会议和国会听证之前仍需要注意风险”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "英伟达近日遭猛烈抛售",
+              "黄仁勋下周有财报会议和国会听证"
+            ],
+            "risks": [
+              "财报与听证事件可能带来波动"
+            ]
+          },
+          {
+            "name": "Anthropic IPO",
+            "type": "other",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股称Anthropic IPO获数倍超额认购，认购意向远超发行数量，若需求持续强劲可能上调定价，并提振科技股情绪；视野环球财经标题称“Anthropic确定IPO”，但无正文，具体观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "IPO超额认购提振科技股乐观情绪，并可能成为AI硬件炒作的由头。",
+                "evidence": "“认购意向远超可供发行的股票数量”“如果后续认购需求持续强劲，公司仍可能在发行过程中上调定价”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（标题仅称Anthropic确定IPO）",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "两个来源标题/正文均指向Anthropic IPO是当日焦点（视野仅标题层面）"
+            ],
+            "differences": [
+              "视野环球财经无正文，无法比较细节"
+            ],
+            "risks": [
+              "IPO定价与上市节奏存在不确定性",
+              "围绕IPO的板块炒作可能反复"
+            ]
+          },
+          {
+            "name": "MSFT / 微软",
+            "type": "stock",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股称Anthropic推出视频会议助手与Claude Sheets等AI办公工具，直接切入微软Excel市场，导致微软股价下跌，微软成为“AI硬件的血包”，与亚马逊、META同属被避险资金抱团后下跌的一组；视野环球财经标题提及“办公软件横刀MSFT”，但无正文，具体观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "AI办公工具竞争冲击微软，股价承压，资金从软件流向硬件。",
+                "evidence": "“直接切入微软Excel所在市场，导致微软股价下跌”“微软现在又成了AI硬件的血包了”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（标题仅提示办公软件对MSFT的冲击）",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "两个来源标题/正文均指向AI办公工具对微软的竞争压力（视野仅标题层面）"
+            ],
+            "differences": [
+              "视野环球财经无正文，无法比较"
+            ],
+            "factual_context": [
+              "Anthropic推出视频会议助手与Claude Sheets等AI办公工具"
+            ],
+            "risks": [
+              "AI对软件行业的颠覆叙事可能放大板块波动"
+            ]
+          },
+          {
+            "name": "IGV / 软件板块",
+            "type": "sector",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股称软件板块IGV走势疲软，OpenAI进军旅游平台引发AI加剧旅游竞争的忧虑，Expedia、Booking、Airbnb下跌；并认为为捧Anthropic可能炒作AI颠覆软件行业，从软件板块抽走流动性去捧硬件；视野环球财经标题提及“办公软件横刀MSFT”，但无正文，对软件板块整体观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "软件板块疲软，AI竞争叙事压制估值，资金可能流向硬件。",
+                "evidence": "“软件板块IGV最近走势疲软”“借此从软件板块中拉走流动性去给硬件捧场子”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "OpenAI进军旅游平台",
+              "Anthropic推出AI办公工具"
+            ],
+            "risks": [
+              "AI颠覆叙事可能持续压制软件板块情绪"
+            ]
+          },
+          {
+            "name": "费城半导体指数 / SOX",
+            "type": "index",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股称费城半导体指数站上250日均线，AI硬件股全线飙升，光通信、芯片、存储、Neocloud等AI基建概念为最强主线，下一目标挑战年线，但年线与月均线交叉及上方缺口构成多重压力；视野环球财经标题提及“移除三家半导体”来自美银一级投资名单，但无正文，具体观点未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "半导体强势反弹，但上方压力重重，需观察能否站稳。",
+                "evidence": "“费城半导体指数今天终于站上了250日均线”“年线与月均线交叉并且有上方缺口”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（标题仅提及美银一级投资名单移除三家半导体）",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "AI硬件股全线反弹",
+              "美银一级投资名单移除三家半导体（仅标题信息）"
+            ],
+            "risks": [
+              "上方缺口与均线压力可能导致回踩"
+            ]
+          },
+          {
+            "name": "SPY / 标普500",
+            "type": "index",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股称标普500在轧空推动下重新站上7600点且收盘守住，若突破下行通道并超越11月4日7715高点，将打破10月高点以来下移走势，焦点转向历史前高；若不能突破，轧空结束后趋势可能掉头，当前位置需谨慎、短线应锁定利润；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "反弹至关键阻力位，短线谨慎、锁定利润，不宜追高。",
+                "evidence": "“现在指数反弹来到了关键阻力位附近”“我认为要开始谨慎一些了”“不能再追进去了”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "标普500重新站上7600点",
+              "11月4日高点为7715"
+            ],
+            "risks": [
+              "量价背离",
+              "轧空结束后可能回落"
+            ]
+          },
+          {
+            "name": "QQQ / 纳指100",
+            "type": "index",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股称纳指100站上200日均线后引发大规模空头回补与量化买单，QQQ涨至695接近700强阻力，站上700则前两周波动可视作未发生，若被压回则需震荡消化；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "700为关键阻力，突破与否决定短期方向。",
+                "evidence": "“对应QQQ，就是700这个强阻力”“今天已经很接近了，涨到695了”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "纳指100站上200日均线触发空头回补"
+            ],
+            "risks": [
+              "阻力位附近可能反复"
+            ]
+          },
+          {
+            "name": "美国通胀与美联储政策",
+            "type": "macro",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股称近期通胀数据火热、宏观压力升温，芝加哥联储主席古尔斯比称CPI接近令人担忧程度、服务业通胀未降、价格压力蔓延；费城联储主席Paulson称若通胀恶化将更积极行动、进一步加息合适但倾向循序渐进；市场尚未完全消化CPI冲击，美债开市后可能令FOMO降温；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "通胀压力上升、美联储官员偏鹰，构成美股反弹的宏观逆风。",
+                "evidence": "“CPI已接近令人担忧的程度”“进一步加息是合适的”“市场其实还未完全消化昨天的CPI通胀冲击”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "CPI数据火热",
+              "多位美联储官员发表鹰派讲话",
+              "美国债市因退休军人节休市"
+            ],
+            "risks": [
+              "加息预期升温可能压制风险资产"
+            ]
+          },
+          {
+            "name": "VIX / 波动率",
+            "type": "macro",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股称VIX四个交易日累计跌幅超38%，快速崩塌为轧空提供燃料；若反抽冲破22需警惕二次探底，若稳定在18下方则短期尾部风险定价基本解除，有利多头；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "VIX急跌助推轧空，但需关注反抽风险。",
+                "evidence": "“仅仅4个交易日累计跌幅超38%”“若VIX能稳定在18下方……有利美股多头行情延续”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "VIX短期大幅回落"
+            ],
+            "risks": [
+              "波动率反抽可能引发二次探底"
+            ]
+          },
+          {
+            "name": "散户与机构资金流",
+            "type": "macro",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股引用美银数据称，上周抛售最猛烈时机构净买入61亿美元（21亿个股、40亿ETF），对冲基金4周来首次小幅净买入，散户净卖出21亿美元（卖出34亿个股、增持14亿ETF），认为底部常出现在散户集体投降之后；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "散户在低点割肉，机构吸筹，散户并非大鳄主要目标。",
+                "evidence": "“只有散户在上周没有坚持一贯的逢低买入策略”“散户只不过是夹在其中的小点心罢了”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "美银资金流数据"
+            ],
+            "risks": [
+              "单周资金流数据不代表趋势"
+            ]
+          },
+          {
+            "name": "地缘政治（俄乌、美伊）",
+            "type": "macro",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股称俄美乌三方会谈时隔9个月重启，原则同意新一轮大规模在押人员交换，但首日近4小时仍谈不拢；伊朗警告任何新袭击将遭报复、不移除浓缩核材料并提出核谈判七项先决条件，市场对美伊消息已疲惫；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "地缘消息短期提振情绪但实质进展有限。",
+                "evidence": "“实际上还是谈不拢”“大家对美伊肥皂剧已经彻底腻歪了”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "俄美乌三方会谈重启",
+              "伊朗提出核谈判先决条件"
+            ],
+            "risks": [
+              "地缘局势反复可能扰动市场"
+            ]
+          },
+          {
+            "name": "NBIS / Nebius",
+            "type": "stock",
+            "overall_stance": "偏多",
+            "merged_summary": "NaNa说美股称NBIS股价随CRWV大涨，将于周四盘后公布财报，市场预期普遍乐观，反弹或再挑战年线；视野环球财经无正文，未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "财报预期乐观，反弹有望挑战年线。",
+                "evidence": "“公司将在明天周四盘后公布财报”“市场对它业绩预期普遍乐观”"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "无正文"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "NBIS周四盘后发布财报"
+            ],
+            "risks": [
+              "财报不及预期可能逆转反弹"
+            ]
+          },
+          {
+            "name": "GEV / 电力设备",
+            "type": "stock",
+            "overall_stance": "不明确",
+            "merged_summary": "视野环球财经标题提及“电力设备GEV怎么了？”，但无正文内容，具体观点未提及；NaNa说美股未提及GEV。",
+            "source_views": [
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（仅标题设问，无正文）",
+                "evidence": "无正文"
+              },
+              {
+                "channel_name": "NaNa说美股",
+                "view": "未提及",
+                "evidence": "文本中无GEV相关内容"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "无正文事实背景"
+            ],
+            "risks": [
+              "来源缺失，无法评估"
+            ]
+          },
+          {
+            "name": "软银 / AI基建",
+            "type": "other",
+            "overall_stance": "不明确",
+            "merged_summary": "视野环球财经标题提及“软银AI基建亏损的警告”，但无正文，具体观点未提及；NaNa说美股未提及软银。",
+            "source_views": [
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（仅标题提示软银AI基建亏损警告）",
+                "evidence": "无正文"
+              },
+              {
+                "channel_name": "NaNa说美股",
+                "view": "未提及",
+                "evidence": "文本中无软银相关内容"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "无正文事实背景"
+            ],
+            "risks": [
+              "来源缺失，无法评估"
+            ]
+          },
+          {
+            "name": "美银一级投资名单",
+            "type": "other",
+            "overall_stance": "不明确",
+            "merged_summary": "视野环球财经标题提及“美银一级投资名单，移除三家半导体”，但无正文，具体名单与观点未提及；NaNa说美股未提及。",
+            "source_views": [
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（仅标题信息）",
+                "evidence": "无正文"
+              },
+              {
+                "channel_name": "NaNa说美股",
+                "view": "未提及",
+                "evidence": "文本中无相关内容"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "无正文事实背景"
+            ],
+            "risks": [
+              "来源缺失，无法评估"
+            ]
+          }
+        ],
+        "core_key_points": [
+          "CRWV财报缓解neocloud信贷担忧，带动AI硬件与半导体板块轧空反弹（NaNa说美股）",
+          "Anthropic IPO获数倍超额认购，提振科技股情绪，并被视为AI硬件炒作的由头（NaNa说美股；视野环球财经仅标题提及确定IPO）",
+          "Anthropic推出AI办公工具冲击微软Excel，微软股价下跌，软件板块IGV疲软（NaNa说美股；视野环球财经标题提及办公软件横刀MSFT）",
+          "标普500站上7600点、QQQ逼近700强阻力，NaNa说美股认为已到关键阻力位，短线应谨慎、锁定利润",
+          "通胀数据火热、美联储官员偏鹰，构成反弹的宏观逆风（NaNa说美股）",
+          "VIX四个交易日跌超38%，为轧空提供燃料，但需警惕反抽（NaNa说美股）",
+          "美银数据显示上周机构净买入、散户净卖出，NaNa说美股称底部常出现在散户投降后",
+          "视野环球财经仅有标题元数据，其关于GEV、软银AI基建、美银名单移除三家半导体的具体观点无法核实"
+        ],
+        "market_views": [
+          "NaNa说美股：本轮反弹是深度回调后的轧空，催化剂为CRWV财报与美伊外交希望，负伽马与VIX崩塌放大涨幅",
+          "NaNa说美股：指数到关键阻力位，短线应锁定利润，不宜追高，正股/ETF已减仓一半",
+          "NaNa说美股：AI颠覆软件叙事可能从软件板块抽走流动性去捧硬件",
+          "NaNa说美股：通胀与美联储鹰派讲话是后续风险，美债开市后FOMO可能降温",
+          "视野环球财经：无正文，无法提供可核实的市场观点"
+        ],
+        "mentioned_assets_events": [
+          "CRWV / CoreWeave",
+          "NVDA / 英伟达",
+          "MSFT / 微软",
+          "NBIS / Nebius",
+          "GEV（仅标题）",
+          "IGV / 软件板块",
+          "费城半导体指数 / SOX",
+          "SPY / 标普500",
+          "QQQ / 纳指100",
+          "VIX",
+          "Anthropic IPO",
+          "OpenAI进军旅游平台",
+          "Expedia、Booking、Airbnb",
+          "美国CPI与美联储官员讲话",
+          "俄美乌三方会谈",
+          "美伊核谈判",
+          "美银一级投资名单（仅标题）",
+          "软银AI基建（仅标题）"
+        ],
+        "investor_takeaways": [
+          "关注轧空行情的持续性，关键阻力位附近波动可能加大",
+          "AI硬件与软件的叙事分化值得跟踪，但需区分情绪驱动与基本面",
+          "宏观通胀与美联储表态仍是风险资产的重要变量",
+          "单一来源（视野环球财经）仅有标题，不宜据此形成判断"
+        ],
+        "watch_original": "只看部分",
+        "uncertainties_or_risks": [
+          "视野环球财经无字幕正文，其观点无法核实",
+          "NaNa说美股字幕为ASR转写，点位与均线表述可能存在误差",
+          "轧空行情可能快速反转",
+          "通胀与加息预期可能压制估值",
+          "地缘事件进展不确定"
+        ],
+        "disclaimer": "该摘要仅用于信息整理，不构成投资建议"
+      },
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "4OV3C6IIjhg",
+          "title": "美股 Anthropic确定IPO，办公软件横刀MSFT！CRWV盘中不够，盘后凑！软银AI基建亏损的警告！电力设备GEV怎么了？美银一级投资名单，移除三家半导体！",
+          "url": "https://www.youtube.com/watch?v=4OV3C6IIjhg",
+          "published": "2026-11-11T02:31:18+00:00",
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "unavailable",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=4OV3C6IIjhg! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: yt-dlp did not produce manual subtitles for zh-Hans; manual zh: yt-dlp did not produce manual subtitles for zh; manual zh-CN: yt-dlp did not produce manual subtitles for zh-CN; manual en: yt-dlp did not produce manual subtitles for en; auto zh-Hans: yt-dlp did not produce auto subtitles for zh-Hans; auto zh: yt-dlp did not produce auto subtitles for zh; auto zh-CN: yt-dlp did not produce auto subtitles for zh-CN; auto en: yt-dlp did not produce auto subtitles for en",
+          "asr_status": "failed",
+          "asr_model": "large-v3-turbo",
+          "asr_error": "zh: xiemac ASR: invalid_response"
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "42iCPjmE-lQ",
+          "title": "为什么受伤的总是我？NaNa说美股(2026.11.11)",
+          "url": "https://www.youtube.com/watch?v=42iCPjmE-lQ",
+          "published": null,
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR",
+          "text_sha256": "bcee8662f5bc7f3fc828c68b2a7c38700a1e2312dc9ac3a15e678bbab4a87f72"
+        }
+      ],
+      "summary_html": "<h2>每日融合摘要：CRWV财报引爆AI硬件轧空，Anthropic IPO与软件板块承压</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><p><strong>文本质量提示：</strong>以下来源没有可用字幕或转写文本，仅按元数据保留：视野环球财经。 视野环球财经（来源1）仅有标题和元数据，无字幕文本，其观点无法核实，本摘要中该频道一律标注为未提及或仅依据标题提示；NaNa说美股（来源2）有YouTube字幕，但发布时间未知，文本为ASR转写，存在个别数字与表述可能不精确（如指数点位、均线名称混用），未见明显截断。</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=4OV3C6IIjhg\">美股 Anthropic确定IPO，办公软件横刀MSFT！CRWV盘中不够，盘后凑！软银AI基建亏损的警告！电力设备GEV怎么了？美银一级投资名单，移除三家半导体！</a><br><small>2026-11-11T02:31:18+00:00 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=42iCPjmE-lQ\">为什么受伤的总是我？NaNa说美股(2026.11.11)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p><strong>一句话总结：</strong>NaNa说美股认为CRWV强劲财报与Anthropic IPO超额认购点燃了AI硬件与半导体的轧空反弹，但指数已到关键阻力位需谨慎；视野环球财经仅有标题元数据，无法核实其具体观点。</p><h3>按股票 / 指数 / 行业 / 宏观主题融合</h3><section><h3>CRWV / CoreWeave <small>(stock / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称CRWV财报后股价暴涨，管理层强调未来3个月约90亿美元客户预付款和定金、不依赖无担保债务融资、2027年调整后净亏损显著收窄、2028年上半年盈利，缓解了neocloud信贷担忧，并带动neocloud与半导体板块反弹；视野环球财经标题提及“CRWV盘中不够，盘后凑”，但无正文内容，具体观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>财报电话会议表现超预期，资金担忧缓解，股价大涨并拯救英伟达与半导体板块；但也认为反弹主因是回调已深、空头获利、机构吸筹及为Anthropic IPO造势。 证据/依据：“未来3个月有约90亿美元的客户预付款和定金”“2028年上半年实现盈利”“以一己之力拯救了它大哥英伟达和整个半导体板块”</li><li><strong>视野环球财经：</strong>未提及（仅有标题“CRWV盘中不够，盘后凑”，无正文可核实） 证据/依据：来源为metadata only，link-only</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经无正文）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（视野环球财经无正文可比）</li></ul><p><strong>事实背景：</strong></p><ul><li>CRWV发布财报，管理层给出客户预付款、融资方式与盈利时间表指引</li><li>本轮AI硬件抛售潮源于neocloud信贷担忧</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>管理层指引能否兑现存在不确定性</li><li>反弹部分归因于轧空与情绪，持续性待观察</li></ul></section><section><h3>NVDA / 英伟达 <small>(stock / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称英伟达在猛烈抛售后反弹但力度弱，摸到5日均线即回落，超跌修复仍可能延续，但黄仁勋下周财报会议与国会听证前需注意风险；视野环球财经标题未直接提及英伟达，正文缺失，观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>反弹偏弱但超跌修复有机会延续，财报与听证前有风险。 证据/依据：“摸到5日均线就缩回去了”“在黄仁勋下周财报会议和国会听证之前仍需要注意风险”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>英伟达近日遭猛烈抛售</li><li>黄仁勋下周有财报会议和国会听证</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>财报与听证事件可能带来波动</li></ul></section><section><h3>Anthropic IPO <small>(other / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称Anthropic IPO获数倍超额认购，认购意向远超发行数量，若需求持续强劲可能上调定价，并提振科技股情绪；视野环球财经标题称“Anthropic确定IPO”，但无正文，具体观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>IPO超额认购提振科技股乐观情绪，并可能成为AI硬件炒作的由头。 证据/依据：“认购意向远超可供发行的股票数量”“如果后续认购需求持续强劲，公司仍可能在发行过程中上调定价”</li><li><strong>视野环球财经：</strong>未提及（标题仅称Anthropic确定IPO） 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>两个来源标题/正文均指向Anthropic IPO是当日焦点（视野仅标题层面）</li></ul><p><strong>差异：</strong></p><ul><li>视野环球财经无正文，无法比较细节</li></ul><p><strong>事实背景：</strong></p><ul><li>未提及或无法从文本中可靠识别。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>IPO定价与上市节奏存在不确定性</li><li>围绕IPO的板块炒作可能反复</li></ul></section><section><h3>MSFT / 微软 <small>(stock / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称Anthropic推出视频会议助手与Claude Sheets等AI办公工具，直接切入微软Excel市场，导致微软股价下跌，微软成为“AI硬件的血包”，与亚马逊、META同属被避险资金抱团后下跌的一组；视野环球财经标题提及“办公软件横刀MSFT”，但无正文，具体观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>AI办公工具竞争冲击微软，股价承压，资金从软件流向硬件。 证据/依据：“直接切入微软Excel所在市场，导致微软股价下跌”“微软现在又成了AI硬件的血包了”</li><li><strong>视野环球财经：</strong>未提及（标题仅提示办公软件对MSFT的冲击） 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>两个来源标题/正文均指向AI办公工具对微软的竞争压力（视野仅标题层面）</li></ul><p><strong>差异：</strong></p><ul><li>视野环球财经无正文，无法比较</li></ul><p><strong>事实背景：</strong></p><ul><li>Anthropic推出视频会议助手与Claude Sheets等AI办公工具</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>AI对软件行业的颠覆叙事可能放大板块波动</li></ul></section><section><h3>IGV / 软件板块 <small>(sector / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称软件板块IGV走势疲软，OpenAI进军旅游平台引发AI加剧旅游竞争的忧虑，Expedia、Booking、Airbnb下跌；并认为为捧Anthropic可能炒作AI颠覆软件行业，从软件板块抽走流动性去捧硬件；视野环球财经标题提及“办公软件横刀MSFT”，但无正文，对软件板块整体观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>软件板块疲软，AI竞争叙事压制估值，资金可能流向硬件。 证据/依据：“软件板块IGV最近走势疲软”“借此从软件板块中拉走流动性去给硬件捧场子”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>OpenAI进军旅游平台</li><li>Anthropic推出AI办公工具</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>AI颠覆叙事可能持续压制软件板块情绪</li></ul></section><section><h3>费城半导体指数 / SOX <small>(index / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称费城半导体指数站上250日均线，AI硬件股全线飙升，光通信、芯片、存储、Neocloud等AI基建概念为最强主线，下一目标挑战年线，但年线与月均线交叉及上方缺口构成多重压力；视野环球财经标题提及“移除三家半导体”来自美银一级投资名单，但无正文，具体观点未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>半导体强势反弹，但上方压力重重，需观察能否站稳。 证据/依据：“费城半导体指数今天终于站上了250日均线”“年线与月均线交叉并且有上方缺口”</li><li><strong>视野环球财经：</strong>未提及（标题仅提及美银一级投资名单移除三家半导体） 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>AI硬件股全线反弹</li><li>美银一级投资名单移除三家半导体（仅标题信息）</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>上方缺口与均线压力可能导致回踩</li></ul></section><section><h3>SPY / 标普500 <small>(index / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称标普500在轧空推动下重新站上7600点且收盘守住，若突破下行通道并超越11月4日7715高点，将打破10月高点以来下移走势，焦点转向历史前高；若不能突破，轧空结束后趋势可能掉头，当前位置需谨慎、短线应锁定利润；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>反弹至关键阻力位，短线谨慎、锁定利润，不宜追高。 证据/依据：“现在指数反弹来到了关键阻力位附近”“我认为要开始谨慎一些了”“不能再追进去了”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>标普500重新站上7600点</li><li>11月4日高点为7715</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>量价背离</li><li>轧空结束后可能回落</li></ul></section><section><h3>QQQ / 纳指100 <small>(index / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称纳指100站上200日均线后引发大规模空头回补与量化买单，QQQ涨至695接近700强阻力，站上700则前两周波动可视作未发生，若被压回则需震荡消化；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>700为关键阻力，突破与否决定短期方向。 证据/依据：“对应QQQ，就是700这个强阻力”“今天已经很接近了，涨到695了”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>纳指100站上200日均线触发空头回补</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>阻力位附近可能反复</li></ul></section><section><h3>美国通胀与美联储政策 <small>(macro / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称近期通胀数据火热、宏观压力升温，芝加哥联储主席古尔斯比称CPI接近令人担忧程度、服务业通胀未降、价格压力蔓延；费城联储主席Paulson称若通胀恶化将更积极行动、进一步加息合适但倾向循序渐进；市场尚未完全消化CPI冲击，美债开市后可能令FOMO降温；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>通胀压力上升、美联储官员偏鹰，构成美股反弹的宏观逆风。 证据/依据：“CPI已接近令人担忧的程度”“进一步加息是合适的”“市场其实还未完全消化昨天的CPI通胀冲击”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>CPI数据火热</li><li>多位美联储官员发表鹰派讲话</li><li>美国债市因退休军人节休市</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>加息预期升温可能压制风险资产</li></ul></section><section><h3>VIX / 波动率 <small>(macro / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称VIX四个交易日累计跌幅超38%，快速崩塌为轧空提供燃料；若反抽冲破22需警惕二次探底，若稳定在18下方则短期尾部风险定价基本解除，有利多头；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>VIX急跌助推轧空，但需关注反抽风险。 证据/依据：“仅仅4个交易日累计跌幅超38%”“若VIX能稳定在18下方……有利美股多头行情延续”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>VIX短期大幅回落</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>波动率反抽可能引发二次探底</li></ul></section><section><h3>散户与机构资金流 <small>(macro / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股引用美银数据称，上周抛售最猛烈时机构净买入61亿美元（21亿个股、40亿ETF），对冲基金4周来首次小幅净买入，散户净卖出21亿美元（卖出34亿个股、增持14亿ETF），认为底部常出现在散户集体投降之后；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>散户在低点割肉，机构吸筹，散户并非大鳄主要目标。 证据/依据：“只有散户在上周没有坚持一贯的逢低买入策略”“散户只不过是夹在其中的小点心罢了”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>美银资金流数据</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>单周资金流数据不代表趋势</li></ul></section><section><h3>地缘政治（俄乌、美伊） <small>(macro / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称俄美乌三方会谈时隔9个月重启，原则同意新一轮大规模在押人员交换，但首日近4小时仍谈不拢；伊朗警告任何新袭击将遭报复、不移除浓缩核材料并提出核谈判七项先决条件，市场对美伊消息已疲惫；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>地缘消息短期提振情绪但实质进展有限。 证据/依据：“实际上还是谈不拢”“大家对美伊肥皂剧已经彻底腻歪了”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>俄美乌三方会谈重启</li><li>伊朗提出核谈判先决条件</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>地缘局势反复可能扰动市场</li></ul></section><section><h3>NBIS / Nebius <small>(stock / 偏多)</small></h3><p><strong>合并摘要：</strong>NaNa说美股称NBIS股价随CRWV大涨，将于周四盘后公布财报，市场预期普遍乐观，反弹或再挑战年线；视野环球财经无正文，未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>财报预期乐观，反弹有望挑战年线。 证据/依据：“公司将在明天周四盘后公布财报”“市场对它业绩预期普遍乐观”</li><li><strong>视野环球财经：</strong>未提及 证据/依据：无正文</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>NBIS周四盘后发布财报</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>财报不及预期可能逆转反弹</li></ul></section><section><h3>GEV / 电力设备 <small>(stock / 不明确)</small></h3><p><strong>合并摘要：</strong>视野环球财经标题提及“电力设备GEV怎么了？”，但无正文内容，具体观点未提及；NaNa说美股未提及GEV。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>视野环球财经：</strong>未提及（仅标题设问，无正文） 证据/依据：无正文</li><li><strong>NaNa说美股：</strong>未提及 证据/依据：文本中无GEV相关内容</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>无正文事实背景</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>来源缺失，无法评估</li></ul></section><section><h3>软银 / AI基建 <small>(other / 不明确)</small></h3><p><strong>合并摘要：</strong>视野环球财经标题提及“软银AI基建亏损的警告”，但无正文，具体观点未提及；NaNa说美股未提及软银。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>视野环球财经：</strong>未提及（仅标题提示软银AI基建亏损警告） 证据/依据：无正文</li><li><strong>NaNa说美股：</strong>未提及 证据/依据：文本中无软银相关内容</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>无正文事实背景</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>来源缺失，无法评估</li></ul></section><section><h3>美银一级投资名单 <small>(other / 不明确)</small></h3><p><strong>合并摘要：</strong>视野环球财经标题提及“美银一级投资名单，移除三家半导体”，但无正文，具体名单与观点未提及；NaNa说美股未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>视野环球财经：</strong>未提及（仅标题信息） 证据/依据：无正文</li><li><strong>NaNa说美股：</strong>未提及 证据/依据：文本中无相关内容</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>无正文事实背景</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>来源缺失，无法评估</li></ul></section><h3>核心要点</h3><ul><li>CRWV财报缓解neocloud信贷担忧，带动AI硬件与半导体板块轧空反弹（NaNa说美股）</li><li>Anthropic IPO获数倍超额认购，提振科技股情绪，并被视为AI硬件炒作的由头（NaNa说美股；视野环球财经仅标题提及确定IPO）</li><li>Anthropic推出AI办公工具冲击微软Excel，微软股价下跌，软件板块IGV疲软（NaNa说美股；视野环球财经标题提及办公软件横刀MSFT）</li><li>标普500站上7600点、QQQ逼近700强阻力，NaNa说美股认为已到关键阻力位，短线应谨慎、锁定利润</li><li>通胀数据火热、美联储官员偏鹰，构成反弹的宏观逆风（NaNa说美股）</li><li>VIX四个交易日跌超38%，为轧空提供燃料，但需警惕反抽（NaNa说美股）</li><li>美银数据显示上周机构净买入、散户净卖出，NaNa说美股称底部常出现在散户投降后</li><li>视野环球财经仅有标题元数据，其关于GEV、软银AI基建、美银名单移除三家半导体的具体观点无法核实</li></ul><h3>关键市场观点</h3><ul><li>NaNa说美股：本轮反弹是深度回调后的轧空，催化剂为CRWV财报与美伊外交希望，负伽马与VIX崩塌放大涨幅</li><li>NaNa说美股：指数到关键阻力位，短线应锁定利润，不宜追高，正股/ETF已减仓一半</li><li>NaNa说美股：AI颠覆软件叙事可能从软件板块抽走流动性去捧硬件</li><li>NaNa说美股：通胀与美联储鹰派讲话是后续风险，美债开市后FOMO可能降温</li><li>视野环球财经：无正文，无法提供可核实的市场观点</li></ul><h3>涉及的股票、指数、行业或宏观事件</h3><ul><li>CRWV / CoreWeave</li><li>NVDA / 英伟达</li><li>MSFT / 微软</li><li>NBIS / Nebius</li><li>GEV（仅标题）</li><li>IGV / 软件板块</li><li>费城半导体指数 / SOX</li><li>SPY / 标普500</li><li>QQQ / 纳指100</li><li>VIX</li><li>Anthropic IPO</li><li>OpenAI进军旅游平台</li><li>Expedia、Booking、Airbnb</li><li>美国CPI与美联储官员讲话</li><li>俄美乌三方会谈</li><li>美伊核谈判</li><li>美银一级投资名单（仅标题）</li><li>软银AI基建（仅标题）</li></ul><h3>对普通投资者的启发</h3><ul><li>关注轧空行情的持续性，关键阻力位附近波动可能加大</li><li>AI硬件与软件的叙事分化值得跟踪，但需区分情绪驱动与基本面</li><li>宏观通胀与美联储表态仍是风险资产的重要变量</li><li>单一来源（视野环球财经）仅有标题，不宜据此形成判断</li></ul><p><strong>值不值得看原视频：</strong>只看部分</p><h3>需要注意的不确定性或风险</h3><ul><li>视野环球财经无字幕正文，其观点无法核实</li><li>NaNa说美股字幕为ASR转写，点位与均线表述可能存在误差</li><li>轧空行情可能快速反转</li><li>通胀与加息预期可能压制估值</li><li>地缘事件进展不确定</li></ul><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p><!-- coverage --><p>正文待补齐（1/2）；摘要待更新。视野环球财经：暂未取得可用正文，稍后重试。</p><!-- /coverage -->",
+      "coverage_status": "pending",
+      "completion_status": "pending",
+      "summary_input_hash": "a2676413604d0a90deb023a4b673cbc1875b6302cba2a6a75a312452ba8c61d0",
+      "summary_attempt_input_hash": "a2676413604d0a90deb023a4b673cbc1875b6302cba2a6a75a312452ba8c61d0",
+      "summary_attempt_status": "success",
+      "summary_attempt_error": null
+    },
+    {
+      "item_type": "daily_digest",
       "digest_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
       "video_id": "daily-4OV3C6IIjhg-L9qouu123Kk",
       "source_video_ids": [
@@ -32585,7 +33197,7 @@
       "title": "每日融合摘要：CPI超预期与AI板块承压，Anthropic IPO与软银AI基建风险成焦点",
       "url": "",
       "published": "2026-11-11T03:11:08.076951+00:00",
-      "processed_at": "2026-11-11T08:47:48.926269+00:00",
+      "processed_at": "2026-11-12T02:05:46.453268+00:00",
       "source_status": "mixed",
       "content_source": "YouTube captions + metadata only",
       "summary_status": "success",
