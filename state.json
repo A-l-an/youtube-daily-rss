@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-13T02:05:46.852446+00:00",
+  "last_run_at": "2026-11-13T09:04:01.648143+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2901,15 +2901,30 @@
       "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
       "title": "一切尘埃落定！NaNa说美股(2026.11.12)",
       "url": "https://www.youtube.com/watch?v=DyrS1a1nGRc",
-      "published": null,
-      "processed_at": "2026-11-13T02:04:11.512198+00:00",
-      "daily_digest_id": "daily-84hnnVx-8AQ-DyrS1a1nGRc",
+      "published": "2026-11-12T23:57:17+00:00",
+      "processed_at": "2026-11-13T09:01:41.679978+00:00",
+      "daily_digest_id": "daily-f4X4h28Z44A-DyrS1a1nGRc",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
-      "summary_status": "failed",
+      "summary_status": "success",
       "source_status": "captions"
+    },
+    "f4X4h28Z44A": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 黄仁勋辞职，散户抄底！NVDA持仓计划补充！QQQ空头3年新高，对冲基金低仓位，会配合追涨吗？",
+      "url": "https://www.youtube.com/watch?v=f4X4h28Z44A",
+      "published": "2026-11-13T02:10:40+00:00",
+      "processed_at": "2026-11-13T09:01:41.679978+00:00",
+      "daily_digest_id": "daily-f4X4h28Z44A-DyrS1a1nGRc",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
     }
   },
   "daily_digests": {
@@ -4104,13 +4119,26 @@
       "completion_status": "pending"
     },
     "daily-84hnnVx-8AQ-DyrS1a1nGRc": {
-      "processed_at": "2026-11-13T02:04:11.512198+00:00",
-      "last_attempted_at": "2026-11-13T02:04:11.512198+00:00",
+      "processed_at": "2026-11-13T09:04:01.648143+00:00",
+      "last_attempted_at": "2026-11-13T09:04:01.648143+00:00",
       "source_video_ids": [
         "84hnnVx-8AQ",
         "DyrS1a1nGRc"
       ],
-      "summary_status": "failed",
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
+    },
+    "daily-f4X4h28Z44A-DyrS1a1nGRc": {
+      "processed_at": "2026-11-13T09:01:41.679978+00:00",
+      "last_attempted_at": "2026-11-13T09:01:41.679978+00:00",
+      "source_video_ids": [
+        "f4X4h28Z44A",
+        "DyrS1a1nGRc"
+      ],
+      "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
       "coverage_status": "pending",
