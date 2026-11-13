@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-13T09:04:01.648143+00:00",
+  "last_run_at": "2026-11-13T09:21:03.413989+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2902,7 +2902,7 @@
       "title": "一切尘埃落定！NaNa说美股(2026.11.12)",
       "url": "https://www.youtube.com/watch?v=DyrS1a1nGRc",
       "published": "2026-11-12T23:57:17+00:00",
-      "processed_at": "2026-11-13T09:01:41.679978+00:00",
+      "processed_at": "2026-11-13T09:21:03.413989+00:00",
       "daily_digest_id": "daily-f4X4h28Z44A-DyrS1a1nGRc",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
@@ -2917,14 +2917,14 @@
       "title": "美股 黄仁勋辞职，散户抄底！NVDA持仓计划补充！QQQ空头3年新高，对冲基金低仓位，会配合追涨吗？",
       "url": "https://www.youtube.com/watch?v=f4X4h28Z44A",
       "published": "2026-11-13T02:10:40+00:00",
-      "processed_at": "2026-11-13T09:01:41.679978+00:00",
+      "processed_at": "2026-11-13T09:21:03.413989+00:00",
       "daily_digest_id": "daily-f4X4h28Z44A-DyrS1a1nGRc",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "failed",
+      "asr_status": "success",
       "summary_status": "success",
-      "source_status": "link-only"
+      "source_status": "ASR"
     }
   },
   "daily_digests": {
@@ -4106,8 +4106,8 @@
       "completion_status": "complete"
     },
     "daily-84hnnVx-8AQ-42iCPjmE-lQ": {
-      "processed_at": "2026-11-13T02:05:46.852446+00:00",
-      "last_attempted_at": "2026-11-13T02:05:46.852446+00:00",
+      "processed_at": "2026-11-13T09:19:45.081280+00:00",
+      "last_attempted_at": "2026-11-13T09:19:45.081280+00:00",
       "source_video_ids": [
         "84hnnVx-8AQ",
         "42iCPjmE-lQ"
@@ -4115,12 +4115,12 @@
       "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
-      "coverage_status": "pending",
-      "completion_status": "pending"
+      "coverage_status": "complete",
+      "completion_status": "complete"
     },
     "daily-84hnnVx-8AQ-DyrS1a1nGRc": {
-      "processed_at": "2026-11-13T09:04:01.648143+00:00",
-      "last_attempted_at": "2026-11-13T09:04:01.648143+00:00",
+      "processed_at": "2026-11-13T09:20:23.903808+00:00",
+      "last_attempted_at": "2026-11-13T09:20:23.903808+00:00",
       "source_video_ids": [
         "84hnnVx-8AQ",
         "DyrS1a1nGRc"
@@ -4132,8 +4132,8 @@
       "completion_status": "complete"
     },
     "daily-f4X4h28Z44A-DyrS1a1nGRc": {
-      "processed_at": "2026-11-13T09:01:41.679978+00:00",
-      "last_attempted_at": "2026-11-13T09:01:41.679978+00:00",
+      "processed_at": "2026-11-13T09:21:03.413989+00:00",
+      "last_attempted_at": "2026-11-13T09:21:03.413989+00:00",
       "source_video_ids": [
         "f4X4h28Z44A",
         "DyrS1a1nGRc"
@@ -4141,8 +4141,8 @@
       "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
-      "coverage_status": "pending",
-      "completion_status": "pending"
+      "coverage_status": "complete",
+      "completion_status": "complete"
     }
   }
 }
