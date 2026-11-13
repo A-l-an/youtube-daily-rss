@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-12T09:33:43.572164+00:00",
+  "last_run_at": "2026-11-13T02:05:46.852446+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2886,15 +2886,30 @@
       "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
       "title": "美股 NVDA风暴继续，利好谁？持仓计划更新！大盘反弹最简单部分走完！",
       "url": "https://www.youtube.com/watch?v=84hnnVx-8AQ",
-      "published": "2026-11-12T02:19:34+00:00",
-      "processed_at": "2026-11-12T09:33:43.572164+00:00",
-      "daily_digest_id": "daily-84hnnVx-8AQ-42iCPjmE-lQ",
+      "published": null,
+      "processed_at": "2026-11-13T02:04:11.512198+00:00",
+      "daily_digest_id": "daily-84hnnVx-8AQ-DyrS1a1nGRc",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
       "asr_status": "failed",
-      "summary_status": "success",
+      "summary_status": "failed",
       "source_status": "link-only"
+    },
+    "DyrS1a1nGRc": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "一切尘埃落定！NaNa说美股(2026.11.12)",
+      "url": "https://www.youtube.com/watch?v=DyrS1a1nGRc",
+      "published": null,
+      "processed_at": "2026-11-13T02:04:11.512198+00:00",
+      "daily_digest_id": "daily-84hnnVx-8AQ-DyrS1a1nGRc",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "failed",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -4076,13 +4091,26 @@
       "completion_status": "complete"
     },
     "daily-84hnnVx-8AQ-42iCPjmE-lQ": {
-      "processed_at": "2026-11-12T09:33:43.572164+00:00",
-      "last_attempted_at": "2026-11-12T09:33:43.572164+00:00",
+      "processed_at": "2026-11-13T02:05:46.852446+00:00",
+      "last_attempted_at": "2026-11-13T02:05:46.852446+00:00",
       "source_video_ids": [
         "84hnnVx-8AQ",
         "42iCPjmE-lQ"
       ],
       "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "pending",
+      "completion_status": "pending"
+    },
+    "daily-84hnnVx-8AQ-DyrS1a1nGRc": {
+      "processed_at": "2026-11-13T02:04:11.512198+00:00",
+      "last_attempted_at": "2026-11-13T02:04:11.512198+00:00",
+      "source_video_ids": [
+        "84hnnVx-8AQ",
+        "DyrS1a1nGRc"
+      ],
+      "summary_status": "failed",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
       "coverage_status": "pending",
