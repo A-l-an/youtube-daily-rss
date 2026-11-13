@@ -1,5 +1,5 @@
 timezone: Asia/Shanghai
-schedule_time: "10:00"
+schedule_time: "12:00"
 
 channels:
   - name: "视野环球财经"

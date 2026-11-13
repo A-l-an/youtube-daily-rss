@@ -76,13 +76,13 @@ Use `--force` with `--report-date` only to replace that same date's deterministi
 
 The GitHub Actions workflow runs daily at:
 
-- `10:00` China Standard Time / Taipei Time
-- `02:00 UTC`
+- `12:00` China Standard Time / Taipei Time
+- `04:00 UTC`
 
 The cron expression is:
 
 ```yaml
-0 2 * * *
+0 4 * * *
 ```
 
 The workflow also supports manual `workflow_dispatch`. Manual runs default to reusing the latest existing daily item; set `report_date` to an ended local `YYYY-MM-DD` for a date backfill, and set `force=true` only when you intentionally want to replace the selected latest or dated item.

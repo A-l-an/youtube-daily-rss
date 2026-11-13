@@ -2,8 +2,8 @@ name: Daily YouTube RSS Digest
 
 on:
   schedule:
-    # 10:00 Asia/Shanghai / Taipei is 02:00 UTC.
-    - cron: "0 2 * * *"
+    # 12:00 Asia/Shanghai / Taipei is 04:00 UTC.
+    - cron: "0 4 * * *"
   push:
     branches:
       - master

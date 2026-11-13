@@ -509,7 +509,7 @@ class WorkflowTriggerTests(unittest.TestCase):
 
     def test_schedule_and_workflow_dispatch_triggers_remain_present(self) -> None:
         triggers = self.load_workflow()["on"]
-        self.assertEqual(triggers["schedule"], [{"cron": "0 2 * * *"}])
+        self.assertEqual(triggers["schedule"], [{"cron": "0 4 * * *"}])
         self.assertEqual(
             triggers["push"],
             {

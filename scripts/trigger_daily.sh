@@ -1,7 +1,7 @@
 #!/bin/bash
 # Reliable daily trigger for the YouTube RSS digest.
 #
-# Fired by ~/Library/LaunchAgents/com.alan.youtube-daily-rss.plist at 10:00 local
+# Fired by ~/Library/LaunchAgents/com.alan.youtube-daily-rss.plist at 12:00 local
 # time. GitHub's own scheduled-cron dispatch is chronically late/unreliable (runs
 # have landed 4-5h late, or not at all), so instead we kick the workflow ourselves
 # via workflow_dispatch, which GitHub processes within seconds and routes to the
