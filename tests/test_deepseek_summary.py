@@ -107,6 +107,31 @@ class DeepSeekSummaryTests(unittest.TestCase):
                 self.assertIsNone(result.summary_data)
                 self.assertIn("finish_reason=length", result.error_message)
 
+    def test_literal_json_string_whitespace_preserves_summary_content(self) -> None:
+        content = '{"title":"Test digest","one_sentence_summary":"NVDA\nsecond\rline\tend"}'
+        for kind in ("daily", "transcript"):
+            for wrapped in (False, True):
+                with self.subTest(kind=kind, wrapped=wrapped):
+                    self.content = "```json\n" + content + "\n```" if wrapped else content
+                    result = self.summarize(kind, {"provider": "deepseek"})
+                    self.assertEqual(result.status, "success", result.error_message)
+                    self.assertEqual(result.summary_data["one_sentence_summary"], "NVDA\nsecond\rline\tend")
+
+    def test_invalid_json_does_not_become_a_successful_summary(self) -> None:
+        for content in (
+            '{"title":"NVDA\nunfinished',
+            '{"title":"NVDA\nsecond",}',
+            '{"title":"NVDA\nsecond\x00"}',
+            '{"title":"NVDA\vsecond"}',
+        ):
+            for kind in ("daily", "transcript"):
+                with self.subTest(kind=kind, content=repr(content)):
+                    self.content = content
+                    result = self.summarize(kind, {"provider": "deepseek"})
+                    self.assertEqual(result.status, "failed")
+                    self.assertIsNone(result.summary_data)
+                    self.assertNotIn("NVDA", result.error_message)
+
     def test_legacy_providers_do_not_receive_deepseek_request_parameters(self) -> None:
         os.environ.update(HKUST_GZ_API_KEY="school-test-key", OPENAI_API_KEY="openai-test-key")
         for provider in ("hkust_gz", "openai"):

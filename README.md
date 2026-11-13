@@ -131,9 +131,12 @@ feeds fail, the run keeps existing files unchanged.
 Successful source text is cached locally, with video metadata and a text hash,
 so later retries reuse completed sources. The digest records a hash of the
 summary input and of the latest attempted input. An unchanged input with missing
-text does not make another summary request; recovered text triggers regeneration.
-A summary failure with all source text available retries on the next run. If a
-retry fails, useful existing analysis is retained and stale analysis stays pending.
+text avoids another summary request only when both the existing summary and its
+latest attempt succeeded; recovered text triggers regeneration. Failed summaries
+or failed updates retry on subsequent runs even while sources remain incomplete;
+`--force` retries while preserving an existing complete successful digest if source
+retrieval or summarization fails. If a retry fails, useful existing analysis is
+retained and stale analysis stays pending.
 Legacy items lack input hashes, so the first retry retains their successful partial
 summary when the same sources remain missing. `--dry-run` does not write outputs
 or caches and does not invoke ASR or the summary API.
@@ -186,16 +189,20 @@ short chunk, then calls the CLI sequentially with `--language zh --model
 large-v3-turbo --timeout 180`. The outer process limit is 210 seconds per CLI call
 and permits SIGTERM cleanup. Every chunk must return non-empty text with the
 expected `remote-whisper.cpp` provider and model before the combined transcript
-is accepted. Only the exact `xiemac ASR: invalid_response` error triggers one
+is accepted. Only the exact `xiemac ASR: invalid_response` error triggers a
 fallback: split that failed chunk into at most 5-second pieces and submit them
 sequentially through the same CLI validation and idle checks. An input already
-at most 5 seconds is not resubmitted unchanged. Child failures never trigger
-another split; any failed or empty child leaves the parent incomplete and returns
-no partial transcript. Timeouts, `remote_busy`, and unavailable-service errors
-do not trigger this fallback. Once all children succeed, their joined text is
-saved as one parent receipt with `retry_chunk_seconds: 5`; the cache identity and
-earlier completed receipts remain reusable. Child results are temporary, so a
-failed fallback must redo that parent's children on a later run.
+at most 5 seconds is not resubmitted unchanged. If a 5-second fallback child
+returns the same exact error and is longer than 2.5 seconds, split only that child
+at its audio-frame midpoint into two lossless WAV halves. Every decoded sample
+is retained in order, and both halves use the same strict CLI and idle checks.
+Halves are never subdivided; any failed or empty half leaves the parent incomplete
+and returns no partial transcript. Timeouts, `remote_busy`, and unavailable-service
+errors do not trigger extra attempts at either level. Once all children and any
+halves succeed, their joined text is saved as one parent receipt with
+`retry_chunk_seconds: 5` and, when halves were used, `retry_min_chunk_seconds: 2.5`.
+The cache identity and earlier completed receipts remain reusable. Child results
+are temporary, so a failed fallback must redo that parent's children on a later run.
 
 Before each CLI call, the project reads health and established inference
 connections over strict SSH
@@ -332,11 +339,19 @@ The generated summary is for information organization only and is not investment
 Futu and HSBC holdings recorded in Portfolio Local, plus the latest available day
 and an inclusive seven-calendar-day window of this repository's channel evidence.
 It reads `summaries.json` without changing the public feed, state, or Pages files.
-The analysis always requests official **`deepseek-v4-pro`**, high thinking, and JSON
+The analysis always requests official **`deepseek-v4-flash`**, high thinking, and JSON
 output, with a 32768-token output budget for the full private portfolio report.
+The [official API documentation](https://api-docs.deepseek.com/) identifies this
+legacy name as a compatibility alias routed to current Flash; it does not mean
+the retired native V4 backend served the request. Only response model names
+`deepseek-v4-flash` and `deepseek-flash` are accepted. The private report, cache,
+and CLI status record both `requested_model` and the actual returned `model`;
+`--check-only` reports `model: null` because it makes no model request.
 A `finish_reason=length` response still fails without producing a partial report.
-`SUMMARY_MODEL` does not affect it; there is no Flash fallback or automatic
-retry after a model failure. Model reasoning is never saved.
+`SUMMARY_MODEL` does not affect it; there is no Pro fallback or automatic
+retry after a model failure. Model reasoning is never saved. Literal tab, carriage
+return, or newline characters inside JSON strings can be recovered by the shared
+JSON parser; malformed/truncated JSON and invalid analysis still fail validation.
 
 The default configuration is
 `~/.config/youtube-daily-rss/portfolio-guidance.json`. A missing configuration or
@@ -348,7 +363,7 @@ mapped, non-archived account must be present. Other accounts remain out of scope
 ```json
 {
   "enabled": false,
-  "model": "deepseek-v4-pro",
+  "model": "deepseek-v4-flash",
   "holdings_confirmed_at": "2026-10-23",
   "source": {
     "base_url": "https://portfolio.example.test:8447",
@@ -422,16 +437,19 @@ identical content first; otherwise a new file follows the highest existing versi
 for that stem, date and suffix. Other dates, suffixes and archive contents are
 excluded. Identical input reuses a
 validated private result without another model call; fetched-at timestamps do not
-change the input fingerprint. A process lock prevents simultaneous paid runs.
+change the input fingerprint. The requested model is part of that fingerprint;
+old Pro results are retained but never reused for Flash. New report cache records
+use schema version 2 and require matching requested/returned Flash model metadata.
+A process lock prevents simultaneous paid runs.
 Model prose is escaped as text, and source links are generated locally from the
 validated video IDs. Guidance remains conditional because investment horizon and
 risk budget are unknown. For the latest available day, matching direct views
 from successful structured summaries are displayed separately under each channel,
 using the original summary view rather than a model-written merger. Without such
 views, the existing text is labelled as model-organized and the structured-summary
-gap is stated. Pro still supplies the week comparison, impact and conditional
-analysis. This display-only change reuses validated paid analyses; the original
-analysis/cache is retained and changed reports receive a revision. The exact
+gap is stated. Flash supplies the week comparison, impact and conditional
+analysis. Display-only changes reuse validated analyses from the same model route;
+the original analysis/cache is retained and changed reports receive a revision. The exact
 internal phrase `week_status=insufficient` is displayed as “周证据不足”.
 Every model prose field is checked for explicit share
 counts, trading amounts, target allocations, and profit guarantees (including

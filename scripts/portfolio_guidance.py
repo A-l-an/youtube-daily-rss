@@ -15,12 +15,13 @@ from zoneinfo import ZoneInfo
 
 import yaml
 import ytdlp_opts
-from ai_client import resolve_ai_credentials, make_openai_compatible_client
+from ai_client import resolve_ai_credentials, make_openai_compatible_client, parse_model_json
 from portfolio_source import fetch_portfolio, PortfolioSourceError
 from portfolio_evidence import (REPO_ROOT, PortfolioEvidenceError, build_evidence, supports_direct, _direct_summary_views, private_path,
     private_directory, read_private_json, write_private_json, write_private_text)
 
-MODEL = 'deepseek-v4-pro'
+MODEL = 'deepseek-v4-flash'
+RESPONSE_MODELS = ('deepseek-v4-flash', 'deepseek-flash')
 DEFAULT_CONFIG = Path('~/.config/youtube-daily-rss/portfolio-guidance.json')
 POSITION_FIELDS = ('key', 'account_alias', 'broker', 'symbol', 'currency', 'direction',
     'recorded_account_weight_pct', 'portfolio_security_weight_pct', 'cost_to_price_deviation_pct',
@@ -94,6 +95,8 @@ GUARANTEE = re.compile(r'(?:保证|确保|保底)(?:收益|盈利|回报)|(?:收
 
 
 def _check_guidance_text(value):
+    # Whitespace must not hide an order, guarantee, or its negation from validation.
+    value = ''.join(value.split())
     if EXACT_TRADE.search(value):
         raise PortfolioGuidanceError('model_action_invalid')
     for match in GUARANTEE.finditer(value):
@@ -175,14 +178,14 @@ def analyze(payload):
     except Exception:
         raise PortfolioGuidanceError('model_unavailable') from None
     try:
-        if response.model != MODEL:
+        if response.model not in RESPONSE_MODELS:
             raise PortfolioGuidanceError('model_mismatch')
         if not response.choices or response.choices[0].finish_reason != 'stop':
             raise PortfolioGuidanceError('model_response_incomplete')
         content = response.choices[0].message.content
         if not content or not content.strip():
             raise PortfolioGuidanceError('model_response_empty')
-        return validate_analysis(json.loads(content), payload)
+        return validate_analysis(parse_model_json(content), payload), response.model
     except PortfolioGuidanceError:
         raise
     except Exception:
@@ -217,12 +220,13 @@ def _label(value):
     return LABELS.get(value, '未知')
 
 
-def render_report(portfolio, evidence, data, confirmed):
+def render_report(portfolio, evidence, data, confirmed, model):
     sources = {s['evidence_id']: s for s in evidence['sources']}
     fetched_local = datetime.fromisoformat(portfolio['fetched_at'].replace('Z', '+00:00')).astimezone(ZoneInfo('Asia/Shanghai'))
     def links(refs):
         return '；'.join(f"[{_plain(sources[r]['channel'])} · {sources[r]['date']}]({sources[r]['url']})" for r in refs) or '无可用证据'
-    lines = [f"# 持仓指导 · {portfolio['as_of_date']}", '', f'模型：{MODEL}（高思考强度）',
+    lines = [f"# 持仓指导 · {portfolio['as_of_date']}", '', f'请求模型：{MODEL}（高思考强度）',
+             f'实际返回模型：{model}', '旧版 V4 名称为兼容别名，不表示已退役的原生 V4 服务。',
              f"持仓人工确认日期：{confirmed}", f"本地账本读取时间：{fetched_local:%Y-%m-%d %H:%M:%S}（北京时间）",
              f"最新可用观点日期：{evidence['latest_date'] or '无'}",
              f"近七日窗口：{evidence['window_start']} 至 {evidence['window_end']}（含首尾）",
@@ -312,7 +316,7 @@ def _run(config_path, as_of, force, check_only):
     if not config['enabled']:
         return {'status': 'skipped', 'reason': 'disabled'}
     if config.get('model', MODEL) != MODEL:
-        raise PortfolioGuidanceError('model_must_be_pro')
+        raise PortfolioGuidanceError('model_must_be_flash')
     confirmed = date.fromisoformat(config['holdings_confirmed_at'])
     if confirmed > as_of or not isinstance(config.get('source'), dict):
         raise PortfolioGuidanceError('config_invalid')
@@ -338,7 +342,8 @@ def _run(config_path, as_of, force, check_only):
         evidence = build_evidence(summaries, as_of, cache, public_config.get('transcript', {}), recover_captions=not check_only)
         payload = _payload(portfolio, evidence, confirmed.isoformat())
         if check_only:
-            return {'status': 'checked', 'model': MODEL, 'output_dir': str(output), 'cache_dir': str(cache)}
+            return {'status': 'checked', 'requested_model': MODEL, 'model': None,
+                    'output_dir': str(output), 'cache_dir': str(cache)}
         fingerprint = hashlib.sha256(json.dumps({'model': MODEL, 'prompt': PROMPT, 'payload': payload},
             ensure_ascii=False, sort_keys=True, allow_nan=False).encode()).hexdigest()
         records = private_directory(cache / 'reports')
@@ -347,17 +352,21 @@ def _run(config_path, as_of, force, check_only):
         record = None
         if existing and not force:
             record = read_private_json(existing[-1])
-            if record.get('schema_version') != 1 or record.get('fingerprint') != fingerprint:
+            if (record.get('schema_version') != 2 or record.get('fingerprint') != fingerprint
+                    or record.get('requested_model') != MODEL or record.get('model') not in RESPONSE_MODELS):
                 raise PortfolioGuidanceError('report_cache_invalid')
             validate_analysis(record['analysis'], payload)
             datetime.fromisoformat(record['fetched_at'].replace('Z', '+00:00'))
         if record is None:
-            record = {'schema_version': 1, 'fingerprint': fingerprint, 'analysis': analyze(payload),
+            analysis, model = analyze(payload)
+            record = {'schema_version': 2, 'fingerprint': fingerprint, 'analysis': analysis,
+                      'requested_model': MODEL, 'model': model,
                       'fetched_at': portfolio['fetched_at']}
             _revision(records, fingerprint, '.json', json.dumps(record, ensure_ascii=False, sort_keys=True) + '\n')
-        report = render_report({**portfolio, 'fetched_at': record['fetched_at']}, evidence, record['analysis'], confirmed.isoformat())
+        report = render_report({**portfolio, 'fetched_at': record['fetched_at']}, evidence, record['analysis'],
+                               confirmed.isoformat(), record['model'])
         path, status = _revision(output, '持仓指导_日报', '.md', report, reuse=not force, date_suffix=f'_{as_of:%y-%m-%d}')
-        return {'status': status, 'model': MODEL, 'path': str(path)}
+        return {'status': status, 'requested_model': MODEL, 'model': record['model'], 'path': str(path)}
 
 
 def run(config_path: Path = DEFAULT_CONFIG, as_of: date | None = None, force: bool = False,

@@ -249,6 +249,31 @@ def _transcribe_xiemac_file(model: str, audio_path: Path, language: Optional[str
     return text.strip()
 
 
+def _transcribe_xiemac_halves(model: str, audio_path: Path, language: Optional[str]) -> str:
+    from pydub import AudioSegment
+
+    with audio_path.open("rb") as source:
+        audio = AudioSegment.from_file(source, format=audio_path.suffix.lstrip("."))
+    frames = int(audio.frame_count())
+    if frames <= audio.frame_rate * 2.5:
+        raise RuntimeError("xiemac ASR: invalid_response")
+    midpoint = frames // 2
+    parts = []
+    with tempfile.TemporaryDirectory(prefix="youtube-rss-asr-halves-") as temporary:
+        for index, (start, end) in enumerate(((0, midpoint), (midpoint, frames)), start=1):
+            half_path = Path(temporary) / f"half-{index}.wav"
+            # Frame slices retain every decoded sample, including an odd final frame.
+            with half_path.open("wb") as output:
+                audio.get_sample_slice(start, end).export(output, format="wav")
+            if index == 2:
+                time.sleep(1)
+            text = _transcribe_xiemac_file(model, half_path, language).strip()
+            if not text:
+                raise RuntimeError("xiemac ASR: invalid_response")
+            parts.append(text)
+    return "\n\n".join(parts)
+
+
 def _transcribe_chunks(
     client: Any,
     model: str,
@@ -277,15 +302,23 @@ def _transcribe_chunks(
                     if len(short_paths) < 2:
                         raise
                     short_parts = []
+                    used_halves = False
                     for short_path in short_paths:
-                        # Call the strict validator directly: child failures never recurse.
-                        short_text = _transcribe_xiemac_file(model, short_path, language).strip()
+                        try:
+                            short_text = _transcribe_xiemac_file(model, short_path, language).strip()
+                        except RuntimeError as child_error:
+                            if str(child_error) != "xiemac ASR: invalid_response":
+                                raise
+                            short_text = _transcribe_xiemac_halves(model, short_path, language)
+                            used_halves = True
                         if not short_text:
                             raise RuntimeError("xiemac ASR: invalid_response")
                         short_parts.append(short_text)
                         time.sleep(1)
                     text = "\n\n".join(short_parts)
                     receipt["retry_chunk_seconds"] = 5
+                    if used_halves:
+                        receipt["retry_min_chunk_seconds"] = 2.5
         else:
             text = _transcribe_file(client, model, chunk_path, language).strip()
         if not text:

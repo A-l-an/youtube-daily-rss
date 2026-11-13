@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import ExitStack
+import json
 import os
 from pathlib import Path
 import sys
@@ -13,6 +14,41 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import ai_client
+
+
+class ModelJSONTests(unittest.TestCase):
+    def test_preserves_whitespace_escapes_unicode_and_json_types(self) -> None:
+        content = '{"标题":"观点\n续行\r结束\t列", "nested":["\\\"quoted\\\"", "\\n", "\\u0000", true, null, 2]}'
+        self.assertEqual(ai_client.parse_model_json(content), {
+            "标题": "观点\n续行\r结束\t列",
+            "nested": ['"quoted"', "\n", "\x00", True, None, 2],
+        })
+        for content, expected in (("{}", {}), ("[]", []), ("null", None), ('"text"', "text")):
+            with self.subTest(content=content):
+                self.assertEqual(ai_client.parse_model_json(content), expected)
+
+    def test_rejects_every_other_literal_c0_control_even_after_allowed_newline(self) -> None:
+        for code in range(32):
+            if chr(code) in "\t\r\n":
+                continue
+            for prefix in ("", "\n"):
+                with self.subTest(code=code, prefix=repr(prefix)):
+                    with self.assertRaises(json.JSONDecodeError):
+                        ai_client.parse_model_json('{"value":"' + prefix + chr(code) + '"}')
+
+    def test_rejects_malformed_truncated_or_extra_json(self) -> None:
+        for content in (
+            '{"value":"line\nunfinished',
+            '{"value":"line\nsecond"',
+            '{"value":"line\nsecond",}',
+            '{"value":"line\nsecond"} {"extra":1}',
+            '{"value":"line\nsecond\\x"}',
+            '{"value":unquoted}',
+            '```json\n{"value":"line\nsecond"}\n```',
+        ):
+            with self.subTest(content=repr(content)):
+                with self.assertRaises(json.JSONDecodeError):
+                    ai_client.parse_model_json(content)
 
 
 class AICredentialsTests(unittest.TestCase):

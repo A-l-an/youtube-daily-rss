@@ -7,7 +7,7 @@ import re
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional
 
-from ai_client import make_openai_compatible_client, resolve_ai_credentials
+from ai_client import make_openai_compatible_client, parse_model_json, resolve_ai_credentials
 
 
 DEFAULT_MAX_TRANSCRIPT_CHARS = 60000
@@ -271,12 +271,12 @@ def _render_daily_structured_digest(
 
 def _extract_json(text: str) -> Dict[str, Any]:
     try:
-        return json.loads(text)
+        return parse_model_json(text)
     except json.JSONDecodeError:
         match = re.search(r"\{.*\}", text, flags=re.S)
         if not match:
             raise
-        return json.loads(match.group(0))
+        return parse_model_json(match.group(0))
 
 
 def _response_content(response: Any, *, reject_truncated: bool = False) -> str:

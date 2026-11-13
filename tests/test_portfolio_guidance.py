@@ -64,23 +64,25 @@ class GuidanceTests(unittest.TestCase):
         self.config = self.tmp / 'config.json'
         self.config_data = {'enabled': True, 'source': {}, 'output_dir': str(self.tmp / 'output'),
                             'cache_dir': str(self.tmp / 'cache'), 'holdings_confirmed_at': '2026-10-23',
-                            'model': 'deepseek-v4-pro'}
+                            'model': 'deepseek-v4-flash'}
         self.save_config()
         self.fetch = self.enterContext(patch.object(guidance, 'fetch_portfolio', return_value=portfolio()))
         self.build = self.enterContext(patch.object(guidance, 'build_evidence', return_value=source_evidence()))
         self.enterContext(patch.dict(os.environ, {'DEEPSEEK_API_KEY': 'test-only', 'SUMMARY_MODEL': 'deepseek-flash'}, clear=True))
         self.requests = []
         self.answer = analysis()
+        self.raw_content = None
         self.finish = 'stop'
         self.status = 200
-        self.response_model = 'deepseek-v4-pro'
+        self.response_model = 'deepseek-flash'
         def handle(request):
             self.requests.append(request)
             if self.status != 200:
                 return httpx.Response(self.status, json={'error': {'message': 'SECRET PRIVATE HOLDINGS'}})
             return httpx.Response(200, json={'id': 'synthetic', 'object': 'chat.completion', 'created': 1,
                 'model': self.response_model, 'choices': [{'index': 0, 'finish_reason': self.finish,
-                'message': {'role': 'assistant', 'content': json.dumps(self.answer) if self.answer is not None else '',
+                'message': {'role': 'assistant', 'content': self.raw_content if self.raw_content is not None else
+                            (json.dumps(self.answer) if self.answer is not None else ''),
                             'reasoning_content': 'DO NOT SAVE REASONING'}}]})
         def client(credentials):
             c = OpenAI(api_key=credentials.api_key, base_url=credentials.base_url,
@@ -95,11 +97,13 @@ class GuidanceTests(unittest.TestCase):
     def run_guidance(self, **kwargs):
         return guidance.run(self.config, TODAY, **kwargs)
 
-    def test_fixed_pro_request_and_private_report_truthful_dates(self):
+    def test_flash_alias_request_and_private_report_record_actual_model_and_truthful_dates(self):
         result = self.run_guidance()
         self.assertEqual(result['status'], 'created')
         body = json.loads(self.requests[0].content)
-        self.assertEqual(body['model'], 'deepseek-v4-pro')
+        self.assertEqual(body['model'], 'deepseek-v4-flash')
+        self.assertEqual(result['requested_model'], 'deepseek-v4-flash')
+        self.assertEqual(result['model'], 'deepseek-flash')
         self.assertEqual(body['thinking'], {'type': 'enabled'})
         self.assertEqual(body['reasoning_effort'], 'high')
         self.assertEqual(body['max_tokens'], 32768)
@@ -108,11 +112,19 @@ class GuidanceTests(unittest.TestCase):
         target = Path(result['path'])
         self.assertEqual(target.stat().st_mode & 0o777, 0o600)
         report = target.read_text()
-        for expected in ['最新可用观点日期：2026-10-22', '持仓人工确认日期：2026-10-23', '证据不足', '2026-09-07',
+        for expected in ['请求模型：deepseek-v4-flash', '实际返回模型：deepseek-flash',
+                         '最新可用观点日期：2026-10-22', '持仓人工确认日期：2026-10-23', '证据不足', '2026-09-07',
                          'https://www.youtube.com/watch?v=abcdefghijk', '未知', '语音转写', '证券名称可能识别错误']:
             self.assertIn(expected, report)
         self.assertNotIn('DO NOT SAVE REASONING', report)
         self.assertFalse(target.is_relative_to(evidence.REPO_ROOT))
+        records = list((self.tmp / 'cache' / 'reports').glob('*.json'))
+        self.assertEqual(len(records), 1)
+        cached = json.loads(records[0].read_text())
+        self.assertEqual(cached['requested_model'], 'deepseek-v4-flash')
+        self.assertEqual(cached['model'], 'deepseek-flash')
+        self.assertEqual(cached['analysis'], analysis())
+        self.assertNotIn('DO NOT SAVE REASONING', records[0].read_text())
 
     def test_missing_disabled_and_check_only_do_not_call_model(self):
         self.assertEqual(guidance.run(self.tmp / 'missing.json', TODAY)['status'], 'skipped')
@@ -120,14 +132,21 @@ class GuidanceTests(unittest.TestCase):
         self.assertEqual(self.run_guidance()['status'], 'skipped')
         self.fetch.assert_not_called()
         self.config_data['enabled'] = True; self.save_config()
-        self.assertEqual(self.run_guidance(check_only=True)['status'], 'checked')
+        checked = self.run_guidance(check_only=True)
+        self.assertEqual(checked['status'], 'checked')
+        self.assertEqual(checked['requested_model'], 'deepseek-v4-flash')
+        self.assertIsNone(checked['model'])
         self.assertEqual(self.requests, [])
         self.assertEqual(list((self.tmp / 'output').glob('*.md')), [])
 
     def test_model_override_invalid_json_length_unknown_refs_and_missing_position_fail(self):
-        self.config_data['model'] = 'deepseek-flash'; self.save_config()
-        with self.assertRaisesRegex(guidance.PortfolioGuidanceError, '^model_must_be_pro$'): self.run_guidance()
-        self.config_data['model'] = 'deepseek-v4-pro'; self.save_config()
+        for model in ('deepseek-v4-pro', 'deepseek-flash', 'unknown'):
+            self.config_data['model'] = model; self.save_config()
+            with self.subTest(model=model), self.assertRaisesRegex(
+                    guidance.PortfolioGuidanceError, '^model_must_be_flash$'):
+                self.run_guidance()
+        self.assertEqual(self.requests, [])
+        self.config_data['model'] = 'deepseek-v4-flash'; self.save_config()
         cases = []
         invalid = analysis(); invalid['positions'] = []; cases.append(invalid)
         invalid = analysis(); invalid['positions'][0]['evidence_ids'] = ['video:FAKE']; cases.append(invalid)
@@ -193,17 +212,83 @@ class GuidanceTests(unittest.TestCase):
         self.assertNotIn('SECRET', repr(raised.exception))
 
     def test_response_model_mismatch_rejected_and_forced_run_is_revision(self):
-        self.response_model = 'deepseek-flash'
-        with self.assertRaisesRegex(guidance.PortfolioGuidanceError, '^model_mismatch$'):
-            self.run_guidance()
-        self.response_model = 'deepseek-v4-pro'
+        for model in ('deepseek-v4-pro', 'unknown', ''):
+            self.response_model = model
+            with self.subTest(model=model), self.assertRaisesRegex(
+                    guidance.PortfolioGuidanceError, '^model_mismatch$'):
+                self.run_guidance()
+        self.response_model = 'deepseek-v4-flash'
         first = self.run_guidance()
+        self.assertEqual(first['model'], 'deepseek-v4-flash')
+        self.assertIn('实际返回模型：deepseek-v4-flash', Path(first['path']).read_text())
         forced = self.run_guidance(force=True)
         self.assertTrue(forced['path'].endswith('_v2_26-10-23.md'))
         self.assertNotEqual(first['path'], forced['path'])
         repeat = self.run_guidance()
         self.assertEqual(repeat['status'], 'reused')
-        self.assertEqual(len(self.requests), 3)
+        self.assertEqual(repeat['model'], 'deepseek-v4-flash')
+        self.assertEqual(len(self.requests), 5)
+
+    def test_legacy_pro_cache_is_not_reused_as_flash(self):
+        payload = guidance._payload(portfolio(), source_evidence(), TODAY.isoformat())
+        fingerprint = hashlib.sha256(json.dumps({'model': 'deepseek-v4-pro', 'prompt': guidance.PROMPT,
+            'payload': payload}, ensure_ascii=False, sort_keys=True, allow_nan=False).encode()).hexdigest()
+        cached_analysis = analysis(); cached_analysis['portfolio_overview']['text'] = 'Legacy Pro analysis'
+        record = {'schema_version': 1, 'fingerprint': fingerprint, 'analysis': cached_analysis,
+                  'fetched_at': portfolio()['fetched_at']}
+        records = evidence.private_directory(self.tmp / 'cache' / 'reports')
+        legacy = records / f'{fingerprint}.json'
+        evidence.write_private_json(legacy, record)
+        before = legacy.read_bytes()
+        result = self.run_guidance()
+        self.assertEqual(result['model'], 'deepseek-flash')
+        self.assertEqual(len(self.requests), 1)
+        self.assertNotIn('Legacy Pro analysis', Path(result['path']).read_text())
+        self.assertEqual(legacy.read_bytes(), before)
+        self.assertEqual(len(list(records.glob('*.json'))), 2)
+
+    def test_cache_requires_requested_and_actual_flash_model_attribution(self):
+        self.run_guidance()
+        record_path, = (self.tmp / 'cache' / 'reports').glob('*.json')
+        original = json.loads(record_path.read_text())
+        for changes in ({'requested_model': 'deepseek-v4-pro'}, {'model': 'deepseek-v4-pro'},
+                        {'model': 'unknown'}, {'model': None}, {'schema_version': 1}):
+            record_path.write_text(json.dumps({**original, **changes}))
+            with self.subTest(changes=changes), self.assertRaisesRegex(
+                    guidance.PortfolioGuidanceError, '^report_cache_invalid$'):
+                self.run_guidance()
+        missing_model = {key: value for key, value in original.items() if key != 'model'}
+        record_path.write_text(json.dumps(missing_model))
+        with self.assertRaisesRegex(guidance.PortfolioGuidanceError, '^report_cache_invalid$'):
+            self.run_guidance()
+        record_path.write_text(json.dumps(original))
+        repeated = self.run_guidance()
+        self.assertEqual(repeated['status'], 'reused')
+        self.assertEqual(repeated['requested_model'], 'deepseek-v4-flash')
+        self.assertEqual(repeated['model'], 'deepseek-flash')
+        self.assertEqual(len(self.requests), 1)
+
+    def test_literal_json_line_controls_recover_without_skipping_schema_validation(self):
+        self.answer['positions'][0]['impact'] = '条件一\n条件二\t待核对\r仍未知。'
+        self.raw_content = json.dumps(self.answer, ensure_ascii=False).replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
+        result = self.run_guidance()
+        self.assertIn('持仓影响：条件一 条件二 待核对 仍未知。', Path(result['path']).read_text())
+        record_path, = (self.tmp / 'cache' / 'reports').glob('*.json')
+        self.assertEqual(json.loads(record_path.read_text())['analysis'], self.answer)
+        self.answer['positions'][0]['unexpected'] = 'invalid'
+        self.raw_content = json.dumps(self.answer, ensure_ascii=False).replace('\\n', '\n')
+        with self.assertRaisesRegex(guidance.PortfolioGuidanceError, '^model_schema_invalid$'):
+            self.run_guidance(force=True)
+
+    def test_malformed_and_truncated_json_are_not_cached_or_rendered(self):
+        for content in ('{"portfolio_overview":', '{"portfolio_overview": {"text": "incomplete}',
+                        json.dumps(analysis())[:-1], json.dumps(analysis()).replace('observe', 'bad\x00value')):
+            self.raw_content = content
+            with self.subTest(content=content), self.assertRaisesRegex(
+                    guidance.PortfolioGuidanceError, '^model_schema_invalid$'):
+                self.run_guidance()
+        self.assertEqual(list((self.tmp / 'cache' / 'reports').glob('*.json')), [])
+        self.assertEqual(list((self.tmp / 'output').glob('*.md')), [])
 
     def test_unexpected_raw_fields_do_not_reach_model_or_report(self):
         self.fetch.return_value.update(accountId='PRIVATE-ACCOUNT', notes='PRIVATE-NOTE')
@@ -219,6 +304,42 @@ class GuidanceTests(unittest.TestCase):
         self.answer['positions'][0]['conditional_action'] = '若下跌，卖出100股。'
         with self.assertRaisesRegex(guidance.PortfolioGuidanceError, '^model_action_invalid$'):
             self.run_guidance()
+
+    def test_literal_and_escaped_json_whitespace_cannot_hide_orders_or_guarantees(self):
+        for whitespace, escaped in (('\t', '\\t'), ('\r', '\\r'), ('\n', '\\n')):
+            for literal in (False, True):
+                for template in ('建议买入{}NVDA 100股。', '卖出{}100股。', '买{}入100股。',
+                                 '目标仓位{}10%。', '保证{}收益。', '保{}证收益。', '收益有{}保障。'):
+                    self.answer['positions'][0]['conditional_action'] = template.format(whitespace)
+                    self.raw_content = json.dumps(self.answer, ensure_ascii=False)
+                    if literal:
+                        self.raw_content = self.raw_content.replace(escaped, whitespace)
+                    with self.subTest(whitespace=escaped, literal=literal, template=template), self.assertRaisesRegex(
+                            guidance.PortfolioGuidanceError, '^model_action_invalid$'):
+                        self.run_guidance(force=True)
+        self.assertEqual(list((self.tmp / 'cache' / 'reports').glob('*.json')), [])
+        self.assertEqual(list((self.tmp / 'output').glob('*.md')), [])
+
+    def test_literal_and_escaped_whitespace_keeps_negation_prices_and_conditional_views(self):
+        payload = guidance._payload(portfolio(), source_evidence(), TODAY.isoformat())
+        for whitespace, escaped in (('\t', '\\t'), ('\r', '\\r'), ('\n', '\\n')):
+            for literal in (False, True):
+                for template in ('不{}能保证{}收益，需先明确风险预算。',
+                                 '无法{}保证{}盈利，应观察风险。',
+                                 '不{}作{}任何{}保证收益。',
+                                 '继续持有至股价跌破{}100美元时重新评估。',
+                                 '买入条件为股价突破{}100美元且盈利改善。',
+                                 '若增长预期下修，再{}评估减仓。'):
+                    value = template.format(whitespace, whitespace, whitespace)
+                    self.answer['positions'][0]['conditional_action'] = value
+                    self.raw_content = json.dumps(self.answer, ensure_ascii=False)
+                    if literal:
+                        self.raw_content = self.raw_content.replace(escaped, whitespace)
+                    with self.subTest(whitespace=escaped, literal=literal, template=template):
+                        data, model = guidance.analyze(payload)
+                        self.assertEqual(data['positions'][0]['conditional_action'], value)
+                        report = guidance.render_report(portfolio(), source_evidence(), data, TODAY.isoformat(), model)
+                        self.assertIn('条件式思路：' + ' '.join(value.split()), report)
 
     def test_summary_shell_or_quality_note_cannot_establish_direct_support(self):
         payload = guidance._payload(portfolio(), source_evidence(), TODAY.isoformat())
@@ -324,7 +445,7 @@ class GuidanceTests(unittest.TestCase):
         holdings = portfolio(); holdings['positions'][0]['cost_status'] = 'known'
         ev = source_evidence(); ev['source_gaps'] = [{'date': '2026-10-21', 'channel': 'Other channel',
             'url': 'https://www.youtube.com/watch?v=ABCDEFGHIJK', 'reason': 'source_unavailable'}]
-        report = guidance.render_report(holdings, ev, data, TODAY.isoformat())
+        report = guidance.render_report(holdings, ev, data, TODAY.isoformat(), 'deepseek-flash')
         for internal in ('direct', 'conditional_reduce', 'known', 'CALCULATED', 'insufficient', 'first_digest_date', 'summary', 'source_unavailable'):
             self.assertNotIn(internal, report)
         for label in ('直接观点', '满足条件再评估减仓', '已知成本', '账本计算快照', '证据不足', '首次日报收录日', '成功摘要', '来源不可用'):
@@ -407,7 +528,7 @@ class GuidanceTests(unittest.TestCase):
         ev['sources'].append(second)
         data = analysis(); data['positions'][0]['latest_day_view'] = '两来源均认为错误混合论断。'
         before = deepcopy(data)
-        report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat())
+        report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat(), 'deepseek-flash')
         latest = report.split('最新可用日观点', 1)[1].split('七日窗口中的变化与分歧', 1)[0]
         self.assertIn(f'[甲频道 · 2026-10-22](https://www.youtube.com/watch?v=abcdefghijk)：{original_a}', latest)
         self.assertIn(f'[乙频道 · 2026-10-22](https://www.youtube.com/watch?v=12345678901)：{original_b}', latest)
@@ -433,7 +554,7 @@ class GuidanceTests(unittest.TestCase):
             source['content'] = changes.get('content', json.dumps([record]))
             data = analysis(); data['positions'][0].update(coverage='indirect', latest_day_view='只有间接信息，需补充证据。')
             with self.subTest(changes=changes):
-                report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat())
+                report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat(), 'deepseek-flash')
                 latest = report.split('最新可用日观点', 1)[1].split('七日窗口中的变化与分歧', 1)[0]
                 self.assertIn('模型整理', latest)
                 self.assertIn('无可展示的结构化直接摘要', latest)
@@ -445,7 +566,7 @@ class GuidanceTests(unittest.TestCase):
         ev['sources'][0]['content'] = json.dumps([{'asset': 'NVDA', 'type': 'stock',
             'view': '需求待观察。<img src=x> ![x](https://evil.test/exfil)', 'evidence': ''}])
         data = analysis(); data['positions'][0]['impact'] = 'week_status=insufficient，需谨慎。'
-        report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat())
+        report = guidance.render_report(portfolio(), ev, data, TODAY.isoformat(), 'deepseek-flash')
         self.assertIn('需求待观察。', report)
         self.assertIn(r'&lt;img src\=x&gt;', report)
         self.assertNotIn('<img', report); self.assertNotIn('https://evil.test', report)

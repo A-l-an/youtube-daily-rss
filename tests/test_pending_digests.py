@@ -227,22 +227,33 @@ class PendingDigestTests(unittest.TestCase):
         self.run_daily()
         self.assertEqual([v.video_id for v in self.collected], ['c', 'd', 'b'])
 
-    def test_failed_partial_summary_does_not_repeat_model_call_until_source_recovers(self):
+    def test_failed_partial_summary_retries_unchanged_input_and_recovers_before_source(self):
         summaries = json.loads(main.SUMMARIES_PATH.read_text())
         summaries['items'][0]['summary_status'] = 'failed'
         main.save_json(main.SUMMARIES_PATH, summaries)
         self.summary_status = 'failed'
         self.run_daily()
         self.run_daily()
-        self.assertEqual(len(self.summary_calls), 1)
+        self.assertEqual(len(self.summary_calls), 2)
         self.assertIn('摘要暂未生成，稍后重试', self.items()['daily-a-b']['summary_html'])
-        self.available.add('b')
         self.summary_status = 'success'
         self.run_daily()
-        self.assertEqual(len(self.summary_calls), 2)
+        self.run_daily()
+        self.assertEqual(len(self.summary_calls), 3)
+        item = self.items()['daily-a-b']
+        self.assertEqual(item['summary_status'], 'success')
+        self.assertEqual(item['summary_attempt_status'], 'success')
+        self.assertEqual(item['coverage_status'], 'pending')
+        self.assertEqual(item['completion_status'], 'pending')
+        self.assertEqual(item['video_id'], 'daily-a-b')
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+        self.assertIn('Useful analysis', item['summary_html'])
+        self.available.add('b')
+        self.run_daily()
+        self.assertEqual(len(self.summary_calls), 4)
         self.assertEqual(self.items()['daily-a-b']['completion_status'], 'complete')
 
-    def test_failed_changed_partial_input_is_not_resubmitted_each_run(self):
+    def test_failed_changed_partial_retries_while_preserving_previous_analysis(self):
         self.run_daily()
         source_path = next((self.root / 'cache/sources').glob('*.json'))
         source_path.unlink()
@@ -256,10 +267,41 @@ class PendingDigestTests(unittest.TestCase):
         with patch.object(main, 'collect_video_content', side_effect=changed):
             self.run_daily()
             self.run_daily()
-        self.assertEqual(len(self.summary_calls), 1)
+        self.assertEqual(len(self.summary_calls), 2)
         item = self.items()['daily-a-b']
         self.assertIn('Existing useful analysis', item['summary_html'])
         self.assertEqual(item['summary_attempt_status'], 'failed')
+        self.assertEqual(item['completion_status'], 'pending')
+        self.summary_status = 'success'
+        self.run_daily()
+        self.run_daily()
+        self.assertEqual(len(self.summary_calls), 3)
+        item = self.items()['daily-a-b']
+        self.assertEqual(item['summary_attempt_status'], 'success')
+        self.assertIn('Useful analysis', item['summary_html'])
+        self.assertNotIn('Existing useful analysis', item['summary_html'])
+        self.assertEqual(item['completion_status'], 'pending')
+
+    def test_force_retries_unchanged_successful_partial_summary(self):
+        self.run_daily()
+        main.run(argparse.Namespace(dry_run=False, force=True, report_date=None))
+        self.assertEqual(len(self.summary_calls), 1)
+        item = self.items()['daily-a-b']
+        self.assertIn('Useful analysis', item['summary_html'])
+        self.assertNotIn('Existing useful analysis', item['summary_html'])
+        self.assertEqual(item['completion_status'], 'pending')
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+
+    def test_failed_summary_with_missing_historical_text_still_retries(self):
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        summaries['items'][0]['summary_status'] = 'failed'
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        self.available = {'b'}
+        self.run_daily()
+        self.assertEqual(len(self.summary_calls), 1)
+        item = self.items()['daily-a-b']
+        self.assertEqual(item['summary_status'], 'success')
+        self.assertEqual(item['coverage_status'], 'pending')
         self.assertEqual(item['completion_status'], 'pending')
 
     def test_missing_previous_text_cannot_promote_stale_partial_summary_to_complete(self):

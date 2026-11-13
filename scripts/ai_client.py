@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -11,6 +12,18 @@ DEFAULT_HKUST_GZ_BASE_URL = "https://gpt-api.hkust-gz.edu.cn/v1"
 DEFAULT_DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 LOCAL_HKUST_GZ_PROJECT = Path("/Users/alan/Documents/Life/hkustgz-speech-tools")
 SHARED_PROVIDERS_ENV = Path("/Users/alan/.config/janus-ai/providers.env")
+
+
+def parse_model_json(text: str) -> Any:
+    """Allow only literal tab/newline whitespace in otherwise valid JSON strings."""
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        if not exc.msg.startswith("Invalid control character"):
+            raise
+        if any(ord(char) < 32 and char not in "\t\r\n" for char in text):
+            raise
+        return json.loads(text, strict=False)
 
 
 @dataclass

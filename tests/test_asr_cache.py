@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from array import array
+from contextlib import nullcontext
 import fcntl
 import hashlib
 import json
@@ -7,8 +9,11 @@ import os
 from pathlib import Path
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
+
+from pydub import AudioSegment
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import asr
@@ -186,22 +191,131 @@ class ASRCheckpointTests(unittest.TestCase):
         self.assertEqual(len(self.calls), before)
         self.assertEqual(self.downloads, 1)
 
-    def test_invalid_child_is_not_recursively_retried_or_saved_as_parent(self):
-        self.short_retry_fakes(child_error='xiemac ASR: invalid_response')
+    def half_retry_fakes(self, child_error='xiemac ASR: invalid_response', half_error=None,
+                         child_ms=5000, empty_half=False):
+        self.short_splits = []
+        self.half_error = half_error
+        self.half_audio = []
+        self.calls.clear()
+        self.child_audio = AudioSegment(
+            data=array('h', (index % 20000 - 10000 for index in range(int(child_ms * 8)))).tobytes(),
+            sample_width=2, frame_rate=8000, channels=1,
+        )
+
+        def split(audio, directory, seconds):
+            if seconds != 5:
+                return self.split(audio, directory, seconds)
+            self.short_splits.append((audio.read_bytes(), seconds))
+            paths = [directory / f'short-{index}.wav' for index in range(1, 4)]
+            for path in paths:
+                with path.open('wb') as output:
+                    self.child_audio.export(output, format='wav')
+            return paths
+
+        def transcribe(model, path, language):
+            self.calls.append((model, path.name, language))
+            if path.name == 'chunk-001.mp3':
+                return 'first'
+            if path.name == 'chunk-002.mp3':
+                raise RuntimeError('xiemac ASR: invalid_response')
+            if path.name == 'short-2.wav':
+                raise RuntimeError(child_error)
+            if path.name.startswith('half-'):
+                with path.open('rb') as source:
+                    self.half_audio.append(AudioSegment.from_file(source, format='wav'))
+                if path.name == 'half-2.wav':
+                    if self.half_error:
+                        raise RuntimeError(self.half_error)
+                    if empty_half:
+                        return ''
+                return 'left' if path.name == 'half-1.wav' else 'right'
+            return {'short-1.wav': 'one', 'short-3.wav': 'three'}[path.name]
+
+        self.enterContext(patch.object(asr, '_chunk_audio', side_effect=split))
+        self.enterContext(patch.object(asr, '_transcribe_xiemac_file', side_effect=transcribe))
+
+    def test_invalid_five_second_child_uses_lossless_halves_and_reuses_parent_receipt(self):
+        self.half_retry_fakes()
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('success', 'first\n\none\n\nleft\n\nright\n\nthree'))
+        self.assertEqual([call[1] for call in self.calls], [
+            'chunk-001.mp3', 'chunk-002.mp3', 'short-1.wav', 'short-2.wav',
+            'half-1.wav', 'half-2.wav', 'short-3.wav',
+        ])
+        self.assertEqual(len(self.short_splits), 1)
+        self.assertEqual([len(part) for part in self.half_audio], [2500, 2500])
+        self.assertEqual(b''.join(part.raw_data for part in self.half_audio), self.child_audio.raw_data)
+        manifest_path = next(self.root.rglob('manifest.json'))
+        manifest = json.loads(manifest_path.read_text())
+        self.assertEqual(manifest['chunks'][1]['retry_chunk_seconds'], 5)
+        self.assertEqual(manifest['chunks'][1]['retry_min_chunk_seconds'], 2.5)
+        self.assertEqual(manifest['chunks'][1]['text_sha256'], hashlib.sha256(b'one\n\nleft\n\nright\n\nthree').hexdigest())
+        before = len(self.calls)
+        self.assertEqual(self.run_asr().text, result.text)
+        self.assertEqual(len(self.calls), before)
+        self.assertEqual(json.loads(manifest_path.read_text()), manifest)
+        self.assertEqual(self.downloads, 1)
+
+    def test_invalid_half_is_not_subdivided_or_saved_as_parent_and_resume_keeps_completed_work(self):
+        self.half_retry_fakes(half_error='xiemac ASR: invalid_response')
         result = self.run_asr()
         self.assertEqual((result.status, result.text), ('failed', ''))
         self.assertEqual(len(self.short_splits), 1)
         self.assertEqual([call[1] for call in self.calls],
-                         ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.mp3', 'short-2.mp3'])
-        manifest = json.loads(next(self.root.rglob('manifest.json')).read_text())
+                         ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.wav', 'short-2.wav', 'half-1.wav', 'half-2.wav'])
+        manifest_path = next(self.root.rglob('manifest.json'))
+        manifest = json.loads(manifest_path.read_text())
         self.assertEqual(manifest['chunks'][0]['text'], 'first')
         self.assertNotIn('text', manifest['chunks'][1])
         self.assertNotIn('retry_chunk_seconds', manifest['chunks'][1])
-        self.child_error = None
+        self.assertNotIn('retry_min_chunk_seconds', manifest['chunks'][1])
+        self.half_error = None
         before = len(self.calls)
-        self.assertEqual(self.run_asr().text, 'first\n\none\n\ntwo\n\nthree')
+        self.assertEqual(self.run_asr().text, 'first\n\none\n\nleft\n\nright\n\nthree')
         self.assertEqual([call[1] for call in self.calls[before:]],
-                         ['chunk-002.mp3', 'short-1.mp3', 'short-2.mp3', 'short-3.mp3'])
+                         ['chunk-002.mp3', 'short-1.wav', 'short-2.wav', 'half-1.wav', 'half-2.wav', 'short-3.wav'])
+        recovered = json.loads(manifest_path.read_text())
+        for field in ('version', 'identity', 'audio', 'chunks_plan_sha256'):
+            self.assertEqual(recovered[field], manifest[field])
+        self.assertEqual(recovered['chunks'][0], manifest['chunks'][0])
+
+    def test_child_at_most_two_point_five_seconds_is_not_retried(self):
+        for duration in (2499, 2500):
+            with self.subTest(duration=duration):
+                self.config['cache_dir'] = str(self.root / str(duration))
+                self.half_retry_fakes(child_ms=duration)
+                result = self.run_asr()
+                self.assertEqual((result.status, result.text), ('failed', ''))
+                self.assertIn('invalid_response', result.error_message)
+                self.assertEqual(self.half_audio, [])
+                self.assertEqual([call[1] for call in self.calls],
+                                 ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.wav', 'short-2.wav'])
+
+    def test_odd_frame_count_is_preserved_without_millisecond_rounding(self):
+        self.half_retry_fakes(child_ms=2500.125)
+        self.assertEqual(self.run_asr().status, 'success')
+        self.assertEqual([int(part.frame_count()) for part in self.half_audio], [10000, 10001])
+        self.assertEqual(b''.join(part.raw_data for part in self.half_audio), self.child_audio.raw_data)
+
+    def test_child_busy_unavailable_timeout_and_nonexact_error_do_not_split(self):
+        for code in ('remote_busy', 'remote_unavailable', 'timeout', 'invalid_response extra'):
+            with self.subTest(code=code):
+                self.config['cache_dir'] = str(self.root / code)
+                self.half_retry_fakes(child_error='xiemac ASR: ' + code)
+                result = self.run_asr()
+                self.assertEqual((result.status, result.text), ('failed', ''))
+                self.assertEqual(self.half_audio, [])
+                self.assertEqual([call[1] for call in self.calls],
+                                 ['chunk-001.mp3', 'chunk-002.mp3', 'short-1.wav', 'short-2.wav'])
+
+    def test_empty_half_cannot_complete_parent(self):
+        self.half_retry_fakes(empty_half=True)
+        result = self.run_asr()
+        self.assertEqual((result.status, result.text), ('failed', ''))
+        self.assertEqual([call[1] for call in self.calls][-2:], ['half-1.wav', 'half-2.wav'])
+        manifest = json.loads(next(self.root.rglob('manifest.json')).read_text())
+        self.assertNotIn('text', manifest['chunks'][1])
+        self.assertNotIn('retry_min_chunk_seconds', manifest['chunks'][1])
 
     def test_busy_unavailable_timeout_and_nonexact_errors_do_not_split_or_retry(self):
         for code in ('remote_busy', 'remote_unavailable', 'timeout', 'invalid_response extra'):
@@ -229,6 +343,48 @@ class ASRCheckpointTests(unittest.TestCase):
         self.assertEqual((result.status, result.text), ('failed', ''))
         self.assertEqual(len(self.short_splits), 1)
         self.assertEqual([call[1] for call in self.calls], ['chunk-001.mp3', 'chunk-002.mp3'])
+
+
+class ASRHalfTransportTests(unittest.TestCase):
+    def test_halves_keep_strict_cli_validation_and_idle_check_before_every_call(self):
+        success = {'provider': 'remote-whisper.cpp', 'model': 'large-v3-turbo', 'text': 'second'}
+        replies = [
+            (success, None),
+            ({**success, 'provider': 'wrong'}, 'invalid_response'),
+            ({**success, 'model': 'wrong'}, 'invalid_response'),
+            ({**success, 'text': ''}, 'invalid_response'),
+            *[({'provider': 'remote-whisper.cpp', 'error': {'code': code}}, code)
+              for code in ('invalid_response', 'remote_busy', 'remote_unavailable', 'timeout')],
+        ]
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / 'child.wav'
+            with source.open('wb') as output:
+                AudioSegment.silent(duration=5000, frame_rate=8000).export(output, format='wav')
+            for reply, error in replies:
+                with self.subTest(error=error, reply=reply):
+                    events = []
+
+                    def popen(command, **kwargs):
+                        self.assertEqual(events[-1], 'idle')
+                        path = Path(command[1])
+                        events.append(path.name)
+                        payload = {**success, 'text': 'first'} if path.name == 'half-1.wav' else reply
+                        return nullcontext(SimpleNamespace(
+                            returncode=0,
+                            communicate=lambda timeout: (json.dumps(payload), None),
+                        ))
+
+                    with (
+                        patch.object(asr, '_check_xiemac_idle', side_effect=lambda: events.append('idle')),
+                        patch.object(asr.subprocess, 'Popen', side_effect=popen),
+                        patch.object(asr.time, 'sleep'),
+                    ):
+                        if error:
+                            with self.assertRaisesRegex(RuntimeError, 'xiemac ASR: ' + error):
+                                asr._transcribe_xiemac_halves('large-v3-turbo', source, 'zh')
+                        else:
+                            self.assertEqual(asr._transcribe_xiemac_halves('large-v3-turbo', source, 'zh'), 'first\n\nsecond')
+                    self.assertEqual(events, ['idle', 'half-1.wav', 'idle', 'half-2.wav'])
 
 
 if __name__ == '__main__':

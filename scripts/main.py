@@ -491,8 +491,11 @@ def _process_digest(digest_id: str, videos: List[Video], existing: Optional[Dict
                             and existing.get("summary_status") == "success"
                             and all(source_available(record) == source_available(previous_sources.get(record["video_id"], {}))
                                     for record in records))
-    retain = bool(existing and (not text_complete and (unchanged or legacy_unchanged)
-                               or any(source_available(record) and not record.get("text") for record in records)))
+    retain = bool(existing and not force
+                  and existing.get("summary_status") == "success"
+                  and existing.get("summary_attempt_status", "success") == "success"
+                  and (not text_complete and (unchanged or legacy_unchanged)
+                       or any(source_available(record) and not record.get("text") for record in records)))
     result = _summary_from_item(existing) if retain else summarize_daily_digest(records, config.get("summary", {}))
     attempt_status = existing.get("summary_attempt_status", result.status) if retain else result.status
     attempt_error = existing.get("summary_attempt_error", result.error_message) if retain else result.error_message
