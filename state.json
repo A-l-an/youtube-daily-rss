@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-13T09:21:03.413989+00:00",
+  "last_run_at": "2026-11-14T04:04:39.940975+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2925,6 +2925,36 @@
       "asr_status": "success",
       "summary_status": "success",
       "source_status": "ASR"
+    },
+    "sLKfEeiSTKs": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 循环信贷、梯云纵裂痕！半导体全军覆没！黄仁勋辞职，有融资机构要跑！ AMD、AVGO、MRVL、TSM！",
+      "url": "https://www.youtube.com/watch?v=sLKfEeiSTKs",
+      "published": null,
+      "processed_at": "2026-11-14T04:04:39.940975+00:00",
+      "daily_digest_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "failed",
+      "summary_status": "success",
+      "source_status": "link-only"
+    },
+    "i_8Nw7IrBvM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)",
+      "url": "https://www.youtube.com/watch?v=i_8Nw7IrBvM",
+      "published": null,
+      "processed_at": "2026-11-14T04:04:39.940975+00:00",
+      "daily_digest_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions"
     }
   },
   "daily_digests": {
@@ -4143,6 +4173,19 @@
       "source_status": "mixed",
       "coverage_status": "complete",
       "completion_status": "complete"
+    },
+    "daily-sLKfEeiSTKs-i_8Nw7IrBvM": {
+      "processed_at": "2026-11-14T04:04:39.940975+00:00",
+      "last_attempted_at": "2026-11-14T04:04:39.940975+00:00",
+      "source_video_ids": [
+        "sLKfEeiSTKs",
+        "i_8Nw7IrBvM"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "pending",
+      "completion_status": "pending"
     }
   }
 }
