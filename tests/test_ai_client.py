@@ -4,6 +4,7 @@ from contextlib import ExitStack
 import json
 import os
 from pathlib import Path
+import runpy
 import sys
 import tempfile
 import unittest
@@ -118,6 +119,24 @@ class AICredentialsTests(unittest.TestCase):
         self.assertEqual(credentials.base_url, "https://api.deepseek.com/v1")
         self.assertEqual(self.shared.read_text(), content)
         self.assertEqual(self.shared.stat().st_mode & 0o777, 0o400)
+
+    def test_deepseek_fallback_uses_current_runner_home(self) -> None:
+        runner_home = self.tmp / "runner-home"
+        provider_file = runner_home / ".config/janus-ai/providers.env"
+        provider_file.parent.mkdir(parents=True)
+        provider_file.write_text("DEEPSEEK_API_KEY=runner-home-test-key\n")
+        original_exists = Path.exists
+        # Restrict file reads to fixtures even before the hard-coded path is fixed.
+        with patch.dict(os.environ, {"HOME": str(runner_home)}), patch.object(
+            Path, "exists", lambda path: path.is_relative_to(self.tmp) and original_exists(path)
+        ):
+            module = runpy.run_path(str(ROOT / "scripts/ai_client.py"))
+            try:
+                credentials = module["resolve_ai_credentials"]({"provider": "deepseek"})
+            except ValueError:
+                self.fail("DeepSeek fallback did not resolve the current runner HOME")
+        self.assertEqual(credentials.api_key, "runner-home-test-key")
+        self.assertEqual(credentials.base_url, "https://api.deepseek.com/v1")
 
     def test_missing_deepseek_key_does_not_use_school_or_openai_key(self) -> None:
         os.environ.update(HKUST_GZ_API_KEY="school-test-key", OPENAI_API_KEY="openai-test-key")

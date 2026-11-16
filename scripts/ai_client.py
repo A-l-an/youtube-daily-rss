@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 DEFAULT_HKUST_GZ_BASE_URL = "https://gpt-api.hkust-gz.edu.cn/v1"
 DEFAULT_DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 LOCAL_HKUST_GZ_PROJECT = Path("/Users/alan/Documents/Life/hkustgz-speech-tools")
-SHARED_PROVIDERS_ENV = Path("/Users/alan/.config/janus-ai/providers.env")
+SHARED_PROVIDERS_ENV = Path.home() / ".config/janus-ai/providers.env"
 
 
 def parse_model_json(text: str) -> Any:

@@ -5,6 +5,8 @@ curl_cffi>=0.7.0
 httpx[socks]>=0.28.1
 openai>=1.70.0
 pydub>=0.25.1
+# pydub imports audioop, which left the Python standard library in 3.13.
+audioop-lts>=0.2.2; python_version >= "3.13"
 python-dotenv>=1.0.1
 PyYAML>=6.0.2
 requests>=2.32.0

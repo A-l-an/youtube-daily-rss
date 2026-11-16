@@ -5,7 +5,8 @@
 # time. GitHub's own scheduled-cron dispatch is chronically late/unreliable (runs
 # have landed 4-5h late, or not at all), so instead we kick the workflow ourselves
 # via workflow_dispatch, which GitHub processes within seconds and routes to the
-# self-hosted runner on this same Mac. The full pipeline (discovery -> transcript/
+# xiemac-youtube-rss runner on xiemac (label youtube-rss-xiemac). Run this trigger
+# on xiemac so Janus does not need to be online. The full pipeline (discovery -> transcript/
 # ASR -> summary -> commit -> Pages deploy) is unchanged; only the trigger moves
 # off GitHub cron. The GitHub `schedule:` trigger stays in place as a backup.
 set -u

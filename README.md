@@ -28,12 +28,15 @@ ASR_MODEL=large-v3-turbo
 
 Summaries use the official DeepSeek API with `deepseek-flash`. DeepSeek credentials
 are resolved from environment variables, then the project's `.env`, then the
-read-only local fallback `/Users/alan/.config/janus-ai/providers.env`. Only the
+read-only local fallback `~/.config/janus-ai/providers.env` under the runner user's
+home directory. Only the
 `deepseek` provider reads that shared file, and it reads only `DEEPSEEK_API_KEY`
 and `DEEPSEEK_BASE_URL`; it never substitutes an HKUST-GZ or OpenAI key. The base
 URL must be `https://api.deepseek.com/v1` or `https://api.deepseek.com`.
-ASR uses Alan's existing `/Users/alan/.local/bin/xiemac-transcribe` CLI and the
-`large-v3-turbo` model on the owned xiemac server over SSH/Tailscale. It requires
+ASR uses the existing `~/.local/bin/xiemac-transcribe` CLI and the
+`large-v3-turbo` model on the owned xiemac server over strict SSH. On xiemac, set
+`XIEMAC_ASR_HOST=xiemac-local` to use verified loopback SSH through the same CLI,
+including its idle guard and transcript validation. It requires
 no school or OpenAI API key. Models stay on xiemac; there is no local-model or
 paid-cloud fallback.
 
@@ -87,7 +90,13 @@ The cron expression is:
 
 The workflow also supports manual `workflow_dispatch`. Manual runs default to reusing the latest existing daily item; set `report_date` to an ended local `YYYY-MM-DD` for a date backfill, and set `force=true` only when you intentionally want to replace the selected latest or dated item.
 
-The scheduled workflow is designed for a macOS self-hosted runner, not a GitHub-hosted cloud runner. This avoids common YouTube blocking against cloud provider IP ranges.
+The entire pipeline runs on the Intel xiemac self-hosted runner
+`xiemac-youtube-rss`, with the exclusive label `youtube-rss-xiemac`. Janus does not
+need to be online for discovery, ASR, summaries, public deployment, or private
+report generation. This also avoids common YouTube blocking against cloud provider
+IP ranges. The xiemac launchd trigger dispatches at 12:00 Asia/Shanghai, with the
+existing 12:30 watchdog and GitHub cron retained as backups. Keep the old Janus
+trigger and watchdog disabled after cutover to avoid duplicate dispatches.
 
 ## Configuration
 
@@ -111,7 +120,7 @@ Processing order:
 2. Skip the current pair only when its `daily_digest` is complete. If channel discovery is incomplete, do not create a single-source replacement for the configured pair.
 3. For each video, try captions with `youtube-transcript-api`.
 4. If captions fail, try public subtitles and auto captions through `yt-dlp`, preferring manual subtitles before auto captions.
-5. If captions still fail and this is not a dry run, download the public video audio and try optional ASR through the existing xiemac Whisper CLI over SSH/Tailscale.
+5. If captions still fail and this is not a dry run, download the public video audio and try optional ASR through the existing xiemac Whisper CLI over strict SSH (loopback when running on xiemac).
 6. If text exists from either video, generate one Simplified Chinese merged digest through the configured OpenAI-compatible chat endpoint.
 7. The merge prompt groups the same stock, index, sector, or macro event into one section and shows each creator's view, common points, and differences.
 8. If some text is missing, retain useful partial analysis or publish a fallback containing the original links. The public item displays pending coverage and the concrete caption/ASR failure. Source acquisition (`coverage_status`) and overall completion (`completion_status`) are separate from `summary_status`: a successful partial summary remains pending.
@@ -181,7 +190,7 @@ ASR is optional and only runs when:
 
 - `asr.enabled` is `true`
 - the existing `~/.local/bin/xiemac-transcribe` CLI is executable for the runner user
-- Tailscale and the existing `ssh xiemac` configuration can reach the owned server, with SSH host verification intact
+- the configured SSH host is reachable with host verification intact: `xiemac-local` for loopback execution on xiemac, or the existing `xiemac` Tailscale route from another machine
 - `ffmpeg` is installed
 - `yt-dlp` can technically access the video audio
 - using ASR is appropriate for your deployment and use case
@@ -280,13 +289,14 @@ not silently duplicate every daily item or create Alan's personal reflections.
 ## GitHub Pages Deployment
 
 1. Push this project to a GitHub repository.
-2. Register a macOS self-hosted runner for the repository.
-   - Required labels: `self-hosted`, `macOS`, `youtube-rss`
+2. Register the macOS self-hosted runner `xiemac-youtube-rss` on xiemac for the repository.
+   - Required labels: `self-hosted`, `macOS`, `youtube-rss-xiemac`; assign this exclusive label only to the production xiemac runner.
    - Keep the Mac awake, online, and able to access YouTube at the scheduled time.
-   - Install `ffmpeg` and GNU tar (`brew install gnu-tar`) and ensure `python`, `ffmpeg`, and `gtar` are available on the runner service PATH.
-   - Keep the existing xiemac CLI executable at `~/.local/bin/xiemac-transcribe` and ensure the runner's SSH/Tailscale route is available.
-3. On the Janus `alan` runner, keep the DeepSeek key in the canonical local
-   `/Users/alan/.config/janus-ai/providers.env` with permissions `600`. The
+   - Install Homebrew Python >=3.11, `ffmpeg`, GNU tar, and Deno (for example, `brew install python@3.13 ffmpeg gnu-tar deno`). Preflight checks the tools before generation; it does not install them. The workflow handles Intel `/usr/local` and ARM `/opt/homebrew`, and fails if no supported Homebrew Python is available instead of using macOS system Python.
+   - `requirements.txt` installs `audioop-lts>=0.2.2` only on Python >=3.13 so pydub can keep using `audioop`, [removed from the standard library in 3.13](https://docs.python.org/3/library/audioop.html). The [LTS port's recommended Python version marker](https://pypi.org/project/audioop-lts/) leaves Python 3.11/3.12 on their built-in module; audio processing is unchanged.
+   - Keep the existing xiemac CLI executable at `~/.local/bin/xiemac-transcribe`. Set `XIEMAC_ASR_HOST=xiemac-local` in the runner environment and configure this SSH alias for localhost with verified host keys and a dedicated key restricted to loopback, without forwarding or PTY. The existing strict SSH client and shared ASR service remain unchanged.
+3. Under the xiemac runner user's home, keep the DeepSeek key in the canonical local
+   `~/.config/janus-ai/providers.env` with permissions `600`. The
    credential resolver uses this file read-only when the workflow's DeepSeek
    secret is empty; no copy to GitHub Secrets is required on this runner.
    For other runners, add the repository secret `DEEPSEEK_API_KEY` for summaries.
@@ -403,6 +413,13 @@ verification. HTTPS is required. Session cookies and profile scope stay in memor
 the only authenticated operations are login, profile-state read, accounts,
 holdings-list, snapshots, and stored latest-quote reads. No portfolio mutation,
 quote refresh, historical ASR, or trading operation is called.
+
+On xiemac, retain the existing portfolio HTTPS hostname and its verified
+`connect_address` pointing to xiemac's own Tailscale address; this reads the
+existing primary ledger without depending on Janus. Keep the private output in
+the iCloud Vault path above. iCloud delivers the generated report to Janus when
+that Mac is online and synced; report generation does not require Janus, while
+cross-device delivery must be checked separately.
 
 ```bash
 # Validate local paths, read holdings and cached/available evidence, without a model call.
