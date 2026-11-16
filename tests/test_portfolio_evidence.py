@@ -49,6 +49,29 @@ class PortfolioEvidenceTests(unittest.TestCase):
         self.assertEqual(len(result['source_gaps']), 1)
         self.get.assert_called_once_with('abcdefghijk', {})
 
+    def test_gap_uses_latest_access_status_without_changing_original_source_date(self):
+        blocked = video(status='link-only')
+        blocked.update(access_status='blocked', access_reason='members-only')
+        transient = video(status='link-only')
+        transient['asr_error'] = 'HTTP Error 403: Forbidden'
+        old = daily('2026-10-21', [blocked])
+        new = daily('2026-10-22', [transient])
+        old['processed_at'] = '2026-10-23T08:30:00+08:00'
+        new['processed_at'] = '2026-10-23T01:00:00Z'
+        for entries in ([old, new], [new, old]):
+            with self.subTest(order=[entry['published'] for entry in entries]):
+                result = self.build(entries, recover_captions=False)
+                self.assertEqual(result['source_gaps'][0]['reason'], 'source_unavailable')
+                self.assertEqual(result['source_gaps'][0]['date'], '2026-10-21')
+                self.assertEqual(result['source_gaps'][0]['date_basis'], 'first_digest_date')
+                self.assertEqual(result['covered_dates'], [])
+                self.assertEqual(result['week_status'], 'insufficient')
+        old['processed_at'] = '2026-10-23T10:00:00+08:00'
+        result = self.build([old, new], recover_captions=False)
+        self.assertEqual(result['source_gaps'][0]['reason'], 'access_blocked')
+        self.assertEqual(result['source_gaps'][0]['date'], '2026-10-21')
+        self.get.assert_not_called()
+
     def test_duplicate_video_earliest_date_no_week_inflation_and_7day_boundary(self):
         result = self.build([daily('2026-10-16'), daily('2026-10-17'), daily('2026-10-23'),
                              daily('2026-10-17', [video('12345678901')]), daily('2026-10-24', [video('12345678902')])])

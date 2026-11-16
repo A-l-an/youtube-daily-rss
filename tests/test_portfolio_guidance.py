@@ -451,6 +451,29 @@ class GuidanceTests(unittest.TestCase):
         for label in ('直接观点', '满足条件再评估减仓', '已知成本', '账本计算快照', '证据不足', '首次日报收录日', '成功摘要', '来源不可用'):
             self.assertIn(label, report)
 
+    def test_confirmed_access_gap_has_specific_private_report_label(self):
+        source_records = [
+            {'video_id': 'abcdefghijk', 'channel_name': 'Synthetic channel', 'source_status': 'ASR', 'asr_status': 'success'},
+            {'video_id': 'ABCDEFGHIJK', 'channel_name': 'Restricted channel', 'source_status': 'link-only',
+             'access_status': 'blocked', 'access_reason': 'members-only'},
+            {'video_id': '12345678901', 'channel_name': 'Transient channel', 'source_status': 'link-only',
+             'asr_error': 'HTTP Error 403: Forbidden'},
+        ]
+        summaries = {'items': [{'published': '2026-10-22T00:00:00Z', 'summary_status': 'success',
+                               'source_videos': source_records, 'summary_data': {'asset_sections': [
+                                   {'name': 'NVDA', 'source_views': [
+                                       {'channel_name': 'Synthetic channel', 'view': 'NVDA spending risk.'}]}]}}]}
+        ev = evidence.build_evidence(summaries, TODAY, self.tmp / 'evidence-cache', {}, recover_captions=False)
+        gaps = {gap['channel']: gap['reason'] for gap in ev['source_gaps']}
+        self.assertEqual(gaps, {'Restricted channel': 'access_blocked', 'Transient channel': 'source_unavailable'})
+        self.assertEqual(ev['covered_dates'], ['2026-10-22'])
+        self.assertEqual(ev['week_status'], 'insufficient')
+        report = guidance.render_report(portfolio(), ev, analysis(), TODAY.isoformat(), 'deepseek-flash')
+        self.assertIn('Restricted channel](https://www.youtube.com/watch?v=ABCDEFGHIJK)：访问受限（需权限或登录）', report)
+        self.assertIn('Transient channel](https://www.youtube.com/watch?v=12345678901)：来源不可用', report)
+        self.assertNotIn('access_blocked', report)
+        self.assertNotIn('HTTP Error', report)
+
     def test_report_displays_beijing_time_without_changing_cached_utc(self):
         timestamp = '2026-10-22T18:30:00Z'
         self.fetch.return_value['fetched_at'] = timestamp

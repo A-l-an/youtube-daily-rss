@@ -14,6 +14,13 @@ YOUTUBE_FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id={channel
 REQUEST_TIMEOUT_SECONDS = 20
 MAX_FETCH_ATTEMPTS = 3
 BODY_PREVIEW_CHARS = 500
+MAX_DISCOVERY_CANDIDATES = 10
+ACCESS_RESTRICTIONS = {
+    "subscriber_only": "members-only",
+    "premium_only": "premium-only",
+    "private": "private video",
+    "needs_auth": "sign in to view this video",
+}
 FEED_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -158,13 +165,26 @@ def fetch_video_for_report_date(
     return max(candidates, key=lambda candidate: candidate[0])[1]
 
 
-def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Exception) -> Video:
-    """Discovery fallback for when YouTube's Atom feed endpoint is down/404.
+def confirmed_access_restriction(error: Any) -> Optional[str]:
+    """Recognize content access restrictions, never generic transport/bot failures."""
+    diagnostic = str(error or "").lower()
+    if any(marker in diagnostic for marker in ("members-only", "members only", "available to this channel's members")):
+        return "members-only"
+    if "private video" in diagnostic or "video is private" in diagnostic:
+        return "private video"
+    if "premium-only" in diagnostic or "youtube premium members" in diagnostic:
+        return "premium-only"
+    if any(marker in diagnostic for marker in ("sign in to confirm your age", "sign in to view this video")):
+        return "sign in to view this video"
+    return None
 
-    Lists the channel's newest upload via yt-dlp (channel /videos tab), reusing the
-    cookies + impersonate + EJS hardening from ytdlp_opts. The /feeds/videos.xml
-    endpoint has been observed returning Google 404 pages site-wide while the
-    channel page itself stays reachable.
+
+def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Optional[Exception], parsed: Any = None) -> Video:
+    """Check bounded flat metadata, probing only the first undecided candidate.
+
+    Atom remains authoritative for publication timestamps when it is available.
+    Unknown availability stops selection: only confirmed restrictions justify
+    moving to an older upload.
     """
     channel_id = channel["channel_id"]
     url = f"https://www.youtube.com/channel/{channel_id}/videos"
@@ -173,7 +193,7 @@ def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Exception) -> Vid
         "no_warnings": True,
         "skip_download": True,
         "extract_flat": "in_playlist",
-        "playlistend": 1,
+        "playlistend": MAX_DISCOVERY_CANDIDATES,
     }
     try:
         import ytdlp_opts
@@ -187,30 +207,44 @@ def _fetch_latest_via_ytdlp(channel: Dict[str, Any], feed_exc: Exception) -> Vid
 
         with yt_dlp.YoutubeDL(options) as ydl:
             info = ydl.extract_info(url, download=False)
+            entries = list((info or {}).get("entries") or [])[:MAX_DISCOVERY_CANDIDATES]
+            if not entries or any(not entry or not entry.get("id") for entry in entries):
+                raise RuntimeError("yt-dlp discovery returned no usable candidate list")
+            metadata = {entry["id"]: entry for entry in entries}
+            if parsed is not None:
+                candidates = [_video_from_entry(channel, parsed, entry)
+                              for entry in parsed.entries[:MAX_DISCOVERY_CANDIDATES]]
+            else:
+                candidates = [Video(
+                    channel_name=channel.get("name", channel_id), channel_id=channel_id,
+                    handle=channel.get("handle", ""), video_id=entry["id"],
+                    title=entry.get("title") or f"YouTube video {entry['id']}",
+                    url=f"https://www.youtube.com/watch?v={entry['id']}", published=None,
+                ) for entry in entries]
+            for video in candidates:
+                availability = metadata.get(video.video_id, {}).get("availability")
+                if availability not in ACCESS_RESTRICTIONS and availability != "public":
+                    try:
+                        detail = ydl.extract_info(video.url, download=False)
+                    except Exception as exc:
+                        restriction = confirmed_access_restriction(exc)
+                        if not restriction:
+                            raise
+                        logging.info("[%s] skipping %s: %s", channel_id, video.video_id, restriction)
+                        continue
+                    availability = (detail or {}).get("availability")
+                if availability in ACCESS_RESTRICTIONS:
+                    logging.info("[%s] skipping %s: %s", channel_id, video.video_id, availability)
+                    continue
+                if availability != "public":
+                    raise RuntimeError(f"Unconfirmed public availability for {video.video_id}: {availability!r}")
+                return video
+            raise RuntimeError(f"All {len(candidates)} latest candidates are access-restricted")
     except Exception as ytdlp_exc:
+        context = f"Atom feed error [{feed_exc}]; yt-dlp fallback error" if feed_exc else "yt-dlp availability error"
         raise RuntimeError(
-            f"Failed to fetch latest video for {channel_id}: "
-            f"Atom feed error [{feed_exc}]; yt-dlp fallback error [{ytdlp_exc}]"
+            f"Failed to fetch latest public video for {channel_id}: {context} [{ytdlp_exc}]"
         ) from ytdlp_exc
-
-    entries = [e for e in ((info or {}).get("entries") or []) if e and e.get("id")]
-    if not entries:
-        raise RuntimeError(
-            f"Failed to fetch latest video for {channel_id}: "
-            f"Atom feed error [{feed_exc}]; yt-dlp fallback returned no videos"
-        )
-
-    entry = entries[0]
-    video_id = entry["id"]
-    return Video(
-        channel_name=channel.get("name", channel_id),
-        channel_id=channel_id,
-        handle=channel.get("handle", ""),
-        video_id=video_id,
-        title=entry.get("title") or f"YouTube video {video_id}",
-        url=entry.get("url") or entry.get("webpage_url") or f"https://www.youtube.com/watch?v={video_id}",
-        published=None,
-    )
 
 
 def fetch_latest_video(channel: Dict[str, Any]) -> Video:
@@ -226,4 +260,4 @@ def fetch_latest_video(channel: Dict[str, Any]) -> Video:
         )
         return _fetch_latest_via_ytdlp(channel, feed_exc)
 
-    return _video_from_entry(channel, parsed, parsed.entries[0])
+    return _fetch_latest_via_ytdlp(channel, None, parsed)

@@ -19,6 +19,30 @@ from transcript import TranscriptResult
 
 
 class MainFailurePolicyTests(unittest.TestCase):
+    def test_confirmed_caption_restriction_skips_audio_attempt_and_marks_blocked(self):
+        video = Video('Example', 'UCexample', '@example', 'abc123', 'Example',
+                      'https://www.youtube.com/watch?v=abc123', None)
+        with patch.object(main_module, 'get_transcript', return_value=TranscriptResult(
+                status='failed', error_message='This video is available to members only')), \
+                patch.object(main_module, 'transcribe_video', side_effect=AssertionError('audio must not run')):
+            record = main_module.collect_video_content(video, {}, dry_run=False)
+        self.assertEqual(record['access_status'], 'blocked')
+        self.assertEqual(record['access_reason'], 'members-only')
+        self.assertEqual(record['text'], '')
+
+    def test_transient_and_bot_errors_are_never_access_blocked(self):
+        video = Video('Example', 'UCexample', '@example', 'abc123', 'Example',
+                      'https://www.youtube.com/watch?v=abc123', None)
+        for error in ('remote_busy', 'timeout', 'HTTP Error 403: Forbidden',
+                      'Tunnel connection failed: 407 Proxy Authentication Required',
+                      "Sign in to confirm you’re not a bot", 'remote_unavailable'):
+            with self.subTest(error=error), \
+                    patch.object(main_module, 'get_transcript', return_value=TranscriptResult(status='failed', error_message=error)), \
+                    patch.object(main_module, 'transcribe_video', return_value=ASRResult(status='failed', error_message=error)):
+                record = main_module.collect_video_content(video, {}, dry_run=False)
+                self.assertNotEqual(record.get('access_status'), 'blocked')
+                self.assertEqual(record['asr_status'], 'failed')
+
     def test_all_channel_fetch_failures_keep_existing_outputs_and_succeed(self) -> None:
         args = argparse.Namespace(dry_run=False, force=False)
 

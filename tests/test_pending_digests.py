@@ -12,6 +12,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import main
+import portfolio_evidence
 from fetch_youtube import Video
 from summarize import SummaryResult
 
@@ -383,6 +384,233 @@ class PendingDigestTests(unittest.TestCase):
                 self.assertIn(explanation, item['summary_html'])
                 self.assertNotIn(error, item['summary_html'])
                 self.assertEqual(item['source_videos'][1]['asr_error'], error)
+
+    def restrict_old_source(self):
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        item = summaries['items'][0]
+        item['completion_status'] = 'pending'
+        item['source_videos'][1]['asr_error'] = (
+            'Join this channel to get access to members-only content like this video')
+        main.save_json(main.SUMMARIES_PATH, summaries)
+
+    def test_confirmed_restricted_older_source_stops_retries_and_retains_report(self):
+        self.restrict_old_source()
+        self.latest = [video('c'), video('d')]
+        self.available.update({'c', 'd'})
+        self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual([v.video_id for v in self.collected], ['c', 'd', 'a'])
+        self.assertEqual(item['coverage_status'], 'access-blocked')
+        self.assertEqual(item['completion_status'], 'access-blocked')
+        self.assertFalse(main.digest_complete(item))
+        self.assertEqual(item['video_id'], 'daily-a-b')
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+        self.assertIn('Existing useful analysis', item['summary_html'])
+        self.assertIn('视频访问受限', item['summary_html'])
+        self.assertIn('暂停自动重试', item['summary_html'])
+        self.assertEqual(item['source_videos'][1]['access_reason'], 'members-only')
+        state = json.loads(main.STATE_PATH.read_text())
+        self.assertEqual(state['daily_digests']['daily-a-b']['completion_status'], 'access-blocked')
+        before = main.SUMMARIES_PATH.read_bytes()
+        self.collected.clear()
+        self.run_daily()
+        self.assertEqual(self.collected, [])
+        self.assertEqual(main.SUMMARIES_PATH.read_bytes(), before)
+
+    def test_mixed_blocked_and_transient_sources_keep_retrying_only_transient_source(self):
+        self.available.clear()
+        self.seed_legacy()
+        self.restrict_old_source()
+        self.latest = [video('c'), video('d')]
+        self.available.update({'c', 'd'})
+        self.run_daily()
+        self.assertEqual(self.items()['daily-a-b']['completion_status'], 'pending')
+        self.assertEqual([v.video_id for v in self.collected], ['c', 'd', 'a'])
+        self.available.add('a')
+        self.collected.clear()
+        self.run_daily()
+        self.assertEqual([v.video_id for v in self.collected], ['a'])
+        self.assertEqual(self.items()['daily-a-b']['completion_status'], 'access-blocked')
+
+    def test_current_selection_can_recover_previously_blocked_source(self):
+        self.restrict_old_source()
+        self.latest = [video('c'), video('d')]
+        self.available.update({'c', 'd'})
+        self.run_daily()
+        self.assertEqual(self.items()['daily-a-b']['completion_status'], 'access-blocked')
+        self.latest = [video('a'), video('b')]
+        self.available.add('b')
+        self.collected.clear()
+        self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual([v.video_id for v in self.collected], ['b'])
+        self.assertEqual(item['completion_status'], 'complete')
+        self.assertNotIn('access_reason', item['source_videos'][1])
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+
+    def test_explicit_dated_retry_recovers_blocked_digest(self):
+        self.restrict_old_source()
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        item = summaries['items'][0]
+        item.update(digest_id='daily-date-2026-11-09', video_id='daily-date-2026-11-09',
+                    report_date='2026-11-09', coverage_status='access-blocked', completion_status='access-blocked')
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        self.available.add('b')
+        status = main.run(argparse.Namespace(dry_run=False, force=False, report_date='2026-11-09'))
+        self.assertEqual(status, 0)
+        item = self.items()['daily-date-2026-11-09']
+        self.assertEqual(item['completion_status'], 'complete')
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+
+    def test_current_transient_retry_clears_stale_block_on_retained_historical_source(self):
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        item = summaries['items'][0]
+        item.update(completion_status='access-blocked', coverage_status='access-blocked')
+        item['source_videos'][1].update(source_status='ASR', asr_status='success',
+                                        access_status='blocked', access_reason='members-only',
+                                        retry_error='members-only')
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual(item['completion_status'], 'pending')
+        self.assertNotIn('access_status', item['source_videos'][1])
+        self.assertIn('转录服务暂不可用', item['summary_html'])
+
+    def test_historical_asr_success_does_not_reuse_older_caption_access_error(self):
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        item = summaries['items'][0]
+        item.update(completion_status='pending')
+        item['source_videos'][1].update(source_status='ASR', asr_status='success', asr_error=None,
+                                        transcript_error='members-only')
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        self.latest = [video('c'), video('d')]
+        self.available.update({'b', 'c', 'd'})
+        self.run_daily()
+        self.assertIn('b', [v.video_id for v in self.collected])
+        self.assertEqual(self.items()['daily-a-b']['completion_status'], 'complete')
+
+    def test_blocked_older_source_does_not_stop_failed_summary_update_retry(self):
+        self.available.clear()
+        self.seed_legacy()
+        self.restrict_old_source()
+        self.latest = [video('c'), video('d')]
+        self.available.update({'a', 'c', 'd'})
+
+        def fail_older_summary(records, config):
+            self.summary_status = 'failed' if records[0]['video_id'] == 'a' else 'success'
+            return self.summarize(records, config)
+
+        with patch.object(main, 'summarize_daily_digest', side_effect=fail_older_summary):
+            self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual(item['coverage_status'], 'access-blocked')
+        self.assertEqual(item['completion_status'], 'pending')
+        self.assertEqual(item['summary_attempt_status'], 'failed')
+        self.assertIn('Existing useful analysis', item['summary_html'])
+        self.assertNotIn('b', [source.video_id for source in self.collected])
+
+        # A previously persisted blocked state must not hide its failed summary attempt.
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        main.find_daily_summary(summaries, 'daily-a-b')['completion_status'] = 'access-blocked'
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        state = json.loads(main.STATE_PATH.read_text())
+        state['daily_digests']['daily-a-b']['completion_status'] = 'access-blocked'
+        main.save_json(main.STATE_PATH, state)
+        self.summary_status = 'success'
+        self.collected.clear()
+        self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual(self.collected, [])
+        self.assertEqual(len(self.summary_calls), 3)
+        self.assertEqual([source['video_id'] for source in self.summary_calls[-1]], ['a', 'b'])
+        self.assertEqual(item['completion_status'], 'access-blocked')
+        self.assertEqual(item['summary_attempt_status'], 'success')
+        self.assertIn('Useful analysis', item['summary_html'])
+        self.assertNotIn('Existing useful analysis', item['summary_html'])
+        self.assertEqual(item['video_id'], 'daily-a-b')
+        self.assertEqual(item['published'], '2026-11-10T02:00:00+00:00')
+
+    def test_failed_new_summary_remains_pending_despite_blocked_source_coverage(self):
+        blocked = source_record(video('b'), False)
+        blocked['asr_error'] = 'members-only'
+        records = [source_record(video('a')), blocked]
+        result = SummaryResult('failed', '<p>Summary unavailable</p>')
+        item = main.build_daily_item('daily-a-b', records, result, self.config)
+        state = main.ensure_state_shape({})
+        main.mark_state_processed(state, 'daily-a-b', records, result, '2026-11-10T02:00:00+00:00')
+        self.assertEqual(item['coverage_status'], 'access-blocked')
+        self.assertEqual(item['completion_status'], 'pending')
+        self.assertEqual(state['daily_digests']['daily-a-b']['completion_status'], 'pending')
+
+    def test_successful_attempt_hash_does_not_keep_stale_partial_analysis(self):
+        self.restrict_old_source()
+        self.latest = [video('c'), video('d')]
+        self.available.update({'c', 'd'})
+        self.run_daily()
+        summaries = json.loads(main.SUMMARIES_PATH.read_text())
+        stale = main.find_daily_summary(summaries, 'daily-a-b')
+        stale['summary_input_hash'] = 'stale-analysis-hash'
+        self.assertEqual(stale['summary_attempt_status'], 'success')
+        main.save_json(main.SUMMARIES_PATH, summaries)
+        calls_before = len(self.summary_calls)
+        self.collected.clear()
+        self.run_daily()
+        self.run_daily()
+        item = self.items()['daily-a-b']
+        self.assertEqual(len(self.summary_calls), calls_before + 1)
+        self.assertEqual([source['video_id'] for source in self.summary_calls[-1]], ['a', 'b'])
+        self.assertEqual(self.collected, [])
+        self.assertEqual(item['summary_input_hash'], item['summary_attempt_input_hash'])
+        self.assertNotEqual(item['summary_input_hash'], 'stale-analysis-hash')
+        self.assertEqual(item['completion_status'], 'access-blocked')
+        self.assertNotIn('Existing useful analysis', item['summary_html'])
+
+    def test_skipped_older_block_does_not_replace_newer_observed_transient_status(self):
+        a, b, c = [video(letter * 11) for letter in ('a', 'b', 'c')]
+        self.available = {a.video_id, c.video_id}
+        old = deepcopy(self.items()['daily-a-b'])
+        old.update(digest_id='daily-old-a-b', video_id='daily-old-a-b',
+                   processed_at='2026-11-10T00:00:00+00:00', completion_status='pending',
+                   source_video_ids=[a.video_id, b.video_id], source_videos=[
+                       main.source_video_snapshot(source_record(a)),
+                       main.source_video_snapshot(source_record(b, False))])
+        old['source_videos'][1]['asr_error'] = 'members-only'
+        summaries = {'items': [old]}
+        state = main.ensure_state_shape({})
+
+        def collect(source, config, dry_run):
+            record = self.collect(source, config, dry_run)
+            if source.video_id == b.video_id:
+                record['asr_error'] = 'HTTP Error 403: Forbidden'
+            return record
+
+        with patch.object(main, 'collect_video_content', side_effect=collect):
+            with patch.object(main, 'utc_now_iso', return_value='2026-11-10T01:00:00+00:00'):
+                main._process_digest('daily-current-c-b', [c, b], None, self.config, state, summaries,
+                                     dry_run=False, force=False, report_date=None)
+            with patch.object(main, 'utc_now_iso', return_value='2026-11-10T01:01:00+00:00'):
+                main._process_digest('daily-old-a-b', [a, b], old, self.config, state, summaries,
+                                     dry_run=False, force=False, report_date=None, older=True)
+
+        self.assertEqual([source.video_id for source in self.collected], [c.video_id, b.video_id, a.video_id])
+        evidence = portfolio_evidence.build_evidence(summaries, date(2026, 11, 10),
+                                                     self.root.resolve() / 'private-evidence', {}, recover_captions=False)
+        gap = next(gap for gap in evidence['source_gaps'] if gap['video_id'] == b.video_id)
+        self.assertEqual(gap['reason'], 'source_unavailable')
+        self.assertEqual(gap['date'], '2026-11-09')
+        current = main.find_daily_summary(summaries, 'daily-current-c-b')
+        older = main.find_daily_summary(summaries, 'daily-old-a-b')
+        self.assertEqual(current['source_videos'][1]['status_observed_at'], '2026-11-10T01:00:00+00:00')
+        self.assertEqual(older['source_videos'][1]['status_observed_at'], '2026-11-10T00:00:00+00:00')
+        cached_c = main._source_cache_path(c, self.config).read_bytes()
+        with patch.object(main, 'utc_now_iso', return_value='2026-11-10T01:02:00+00:00'), \
+                patch.object(main, 'collect_video_content', side_effect=collect):
+            main._process_digest('daily-current-c-b', [c, b], current, self.config, state, summaries,
+                                 dry_run=False, force=False, report_date=None)
+        current = main.find_daily_summary(summaries, 'daily-current-c-b')
+        self.assertEqual(current['source_videos'][0]['status_observed_at'], '2026-11-10T01:00:00+00:00')
+        self.assertEqual(current['source_videos'][1]['status_observed_at'], '2026-11-10T01:02:00+00:00')
+        self.assertEqual(main._source_cache_path(c, self.config).read_bytes(), cached_c)
 
 
 if __name__ == '__main__':

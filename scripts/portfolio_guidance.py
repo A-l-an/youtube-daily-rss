@@ -211,6 +211,7 @@ LABELS = {
     'UNKNOWN': '未知来源', 'summary': '成功摘要', 'recovered_captions': '恢复字幕',
     'first_digest_date': '首次日报收录日', 'video_published': '视频发布日',
     'ASR': '语音转写', 'captions': '字幕', 'source_unavailable': '来源不可用',
+    'access_blocked': '访问受限（需权限或登录）',
     'caption_cache_invalid': '字幕缓存校验失败', 'captions_unavailable': '字幕暂不可用',
     'captions_not_recovered': '字幕尚未恢复', 'caption_too_large': '字幕超过处理上限',
 }

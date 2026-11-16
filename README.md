@@ -107,7 +107,7 @@ For each run, the pipeline fetches the latest public video from each channel and
 
 Processing order:
 
-1. Fetch the latest video from each channel Atom feed.
+1. Read each channel Atom feed and check at most 10 newest candidates against yt-dlp channel metadata. Skip confirmed member, premium, private, or authentication restrictions; inspect watch metadata only when a candidate's public availability is unknown. Unknown status, bot challenges, and transient failures stop selection rather than silently selecting an older upload. If Atom is unavailable, use the bounded channel list; retain Atom publication timestamps when available. Historical `--report-date` selection still requires trusted Atom timestamps and has no channel-list fallback.
 2. Skip the current pair only when its `daily_digest` is complete. If channel discovery is incomplete, do not create a single-source replacement for the configured pair.
 3. For each video, try captions with `youtube-transcript-api`.
 4. If captions fail, try public subtitles and auto captions through `yt-dlp`, preferring manual subtitles before auto captions.
@@ -122,17 +122,34 @@ least recently attempted eligible item (newest publication breaks a tie),
 using its stored original video records rather than replacing them with new
 uploads. For migration, only the most recent pre-existing incomplete item is
 automatically considered; the historical archive is not automatically backfilled.
-Selected or attempted incomplete items retain pending state until repaired.
+Selected or attempted incomplete items retain pending state until repaired, except
+when all remaining missing sources have confirmed access restrictions: these use
+`coverage_status: access-blocked`, never `complete`. Completion stays `pending`
+while a summary is new, failed, or stale; only a successful current partial summary
+uses `completion_status: access-blocked`. Older restricted sources are not sent through captions/audio/ASR again,
+including restrictions already recorded in legacy failure diagnostics. Mixed
+restricted/transient pairs remain pending and retry only the transient sources.
+Existing GUIDs, publication dates, links, and useful analysis are retained, with a
+human-readable access reason. An ordinary current selection can recover a video
+that becomes public; an explicit dated retry also rechecks its original sources.
+Generic HTTP 403, bot challenges, timeouts, and busy services are not permanent
+content restrictions.
 The last-attempt time is persisted, so a permanently unavailable newer source
 cannot prevent other registered pending digests from being retried.
 Explicit dated retries likewise use their stored original records. If all channel
 feeds fail, the run keeps existing files unchanged.
 
 Successful source text is cached locally, with video metadata and a text hash,
-so later retries reuse completed sources. The digest records a hash of the
+so later retries reuse completed sources. `status_observed_at` changes only after
+an actual source collection attempt; cached or skipped sources retain their prior
+observation time. Legacy skipped restrictions freeze their original digest time,
+so reprocessing an old digest cannot supersede a newer observed access result.
+The digest records a hash of the
 summary input and of the latest attempted input. An unchanged input with missing
 text avoids another summary request only when both the existing summary and its
-latest attempt succeeded; recovered text triggers regeneration. Failed summaries
+latest attempt succeeded and the successful summary input hash matches the current
+text. A matching attempt hash alone cannot prove that old analysis was updated;
+recovered text triggers regeneration. Failed summaries
 or failed updates retry on subsequent runs even while sources remain incomplete;
 `--force` retries while preserving an existing complete successful digest if source
 retrieval or summarization fails. If a retry fails, useful existing analysis is

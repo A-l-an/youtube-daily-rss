@@ -15,7 +15,7 @@ import yaml
 from dotenv import load_dotenv
 
 from asr import ASRResult, atomic_json, cache_root, read_checkpoint, transcribe_video
-from fetch_youtube import Video, fetch_latest_video, fetch_video_for_report_date
+from fetch_youtube import Video, confirmed_access_restriction, fetch_latest_video, fetch_video_for_report_date
 from rss import write_rss
 from summarize import SummaryResult, retitle_rendered_daily_summary, summarize_daily_digest
 from transcript import TranscriptResult, get_transcript
@@ -193,9 +193,34 @@ def source_has_text(record: Dict[str, Any]) -> bool:
     return bool(str(record.get("text") or "").strip())
 
 
+def source_access_restriction(record: Dict[str, Any]) -> Optional[str]:
+    if source_has_text(record):
+        return None
+    if record.get("retry_error"):
+        return confirmed_access_restriction(record["retry_error"])
+    if record.get("access_status") == "blocked":
+        return confirmed_access_restriction(record.get("access_reason"))
+    if source_available(record):
+        return None
+    for key in ("asr_error", "transcript_error"):
+        reason = confirmed_access_restriction(record.get(key))
+        if reason:
+            return reason
+    return None
+
+
+def coverage_status(records: List[Dict[str, Any]]) -> str:
+    missing = [record for record in records if not source_has_text(record)]
+    if records and not missing:
+        return "complete"
+    if missing and all(source_access_restriction(record) for record in missing):
+        return "access-blocked"
+    return "pending"
+
+
 def digest_complete(item: Dict[str, Any]) -> bool:
     sources = item.get("source_videos") or []
-    return bool(item.get("completion_status") != "pending" and item.get("summary_status") == "success"
+    return bool(item.get("completion_status") not in {"pending", "access-blocked"} and item.get("summary_status") == "success"
                 and sources and all(source_available(source) for source in sources))
 
 
@@ -238,7 +263,10 @@ def collect_video_content(
 
     asr_result = ASRResult(status="skipped", error_message="Transcript succeeded or dry-run skipped ASR")
     text = transcript_result.text if transcript_result.status == "success" else ""
-    if not text and not dry_run:
+    restriction = confirmed_access_restriction(transcript_result.error_message) if not text else None
+    if restriction:
+        asr_result = ASRResult(status="skipped", error_message=restriction)
+    elif not text and not dry_run:
         asr_result = transcribe_video(video.url, config.get("asr", {}))
         logging.info(
             "[%s] ASR status=%s model=%s error=%s",
@@ -256,7 +284,7 @@ def collect_video_content(
         preview = text[:1200].replace("\n", " ") if text else "(no transcript text available)"
         logging.info("[%s] dry-run source_status=%s; text preview: %s", video.channel_name, source_status, preview)
 
-    return {
+    record = {
         **video_dict,
         "source_status": source_status,
         "content_source": content_source(source_status),
@@ -269,6 +297,9 @@ def collect_video_content(
         "asr_error": asr_result.error_message,
         "text": text,
     }
+    if reason := source_access_restriction(record):
+        record.update(access_status="blocked", access_reason=reason)
+    return record
 
 
 def failed_video_record(video: Video, exc: Exception) -> Dict[str, Any]:
@@ -313,6 +344,9 @@ def source_video_snapshot(record: Dict[str, Any]) -> Dict[str, Any]:
             "asr_error",
             "text_sha256",
             "retry_error",
+            "access_status",
+            "access_reason",
+            "status_observed_at",
         }
     }
 
@@ -352,9 +386,9 @@ def build_daily_item(
         "summary_data": summary_data or None,
         "source_videos": source_videos,
         "summary_html": summary_result.summary_html,
-        "coverage_status": "complete" if records and all(source_has_text(record) for record in records) else "pending",
+        "coverage_status": coverage_status(records),
     }
-    item["completion_status"] = "complete" if item["coverage_status"] == "complete" and summary_result.status == "success" else "pending"
+    item["completion_status"] = item["coverage_status"] if summary_result.status == "success" else "pending"
     if report_date is not None:
         item["report_date"] = report_date.isoformat()
     return item
@@ -389,6 +423,9 @@ def mark_state_processed(
             "asr_status": record.get("asr_status"),
             "summary_status": summary_result.status,
             "source_status": record.get("source_status"),
+            "access_status": record.get("access_status"),
+            "access_reason": record.get("access_reason"),
+            "status_observed_at": record.get("status_observed_at"),
         }
         if report_date is not None:
             processed_video["report_date"] = report_date.isoformat()
@@ -401,9 +438,9 @@ def mark_state_processed(
         "summary_status": summary_result.status,
         "summary_model": getattr(summary_result, "model", None),
         "source_status": combined_source_status(records),
-        "coverage_status": "complete" if records and all(source_has_text(record) for record in records) else "pending",
+        "coverage_status": coverage_status(records),
     }
-    daily_digest["completion_status"] = "complete" if daily_digest["coverage_status"] == "complete" and summary_result.status == "success" else "pending"
+    daily_digest["completion_status"] = daily_digest["coverage_status"] if summary_result.status == "success" else "pending"
     if report_date is not None:
         daily_digest["report_date"] = report_date.isoformat()
     state["daily_digests"][digest_id] = daily_digest
@@ -444,8 +481,8 @@ def _public_source_failure(error: Any) -> str:
         return "转录服务暂不可用，稍后重试"
     if "timeout" in diagnostic or "timed out" in diagnostic:
         return "转录请求超时，稍后重试"
-    if any(code in diagnostic for code in ("members-only", "members only", "private video", "access denied", "forbidden", "sign in", "403")):
-        return "视频访问受限，需确认访问权限"
+    if confirmed_access_restriction(error):
+        return "视频访问受限，暂停自动重试；公开后可重新选择或手动重试"
     if "download" in diagnostic or "yt-dlp" in diagnostic:
         return "暂时无法获取视频音频，稍后重试"
     return "暂未取得可用正文，稍后重试"
@@ -457,23 +494,37 @@ def _process_digest(digest_id: str, videos: List[Video], existing: Optional[Dict
     records = []
     previous_sources = {source["video_id"]: source for source in (existing or {}).get("source_videos", [])}
     for video in videos:
+        previous = previous_sources.get(video.video_id, {})
         record = {} if dry_run or force else _cached_source(video, config)
+        if not record and older and not force and source_access_restriction(previous):
+            record = {**previous, "text": ""}
+        if record:
+            record.setdefault("status_observed_at", previous.get("status_observed_at",
+                              (existing or {}).get("processed_at") or (existing or {}).get("published")))
         if not record:
             try:
                 record = collect_video_content(video, config, dry_run=dry_run)
             except Exception as exc:
                 logging.exception("[%s] unexpected processing failure: %s", video.channel_name, exc)
                 record = failed_video_record(video, exc)
+            observed_at = utc_now_iso()
+            record["status_observed_at"] = observed_at
             if source_available(record) and not dry_run:
                 record["text_sha256"] = hashlib.sha256(record["text"].encode()).hexdigest()
                 atomic_json(_source_cache_path(video, config), record)
             elif not dry_run:
                 cached = _cached_source(video, config)
-                previous = previous_sources.get(video.video_id, {})
                 if cached:
                     record = cached
                 elif source_available(previous):
-                    record = {**previous, "retry_error": record.get("asr_error") or record.get("transcript_error")}
+                    record = {**previous, "retry_error": source_access_restriction(record)
+                              or record.get("asr_error") or record.get("transcript_error")}
+            record["status_observed_at"] = observed_at
+        if reason := source_access_restriction(record):
+            record.update(access_status="blocked", access_reason=reason)
+        else:
+            record.pop("access_status", None)
+            record.pop("access_reason", None)
         records.append(record)
     if dry_run:
         logging.info("dry-run complete; digest=%s text_sources=%d/%d; no files were modified",
@@ -485,7 +536,7 @@ def _process_digest(digest_id: str, videos: List[Video], existing: Optional[Dict
         logging.warning("[daily] failed forced retry; retained complete digest %s", digest_id)
         return False
     fingerprint = _input_hash(records)
-    unchanged = bool(existing and existing.get("summary_attempt_input_hash", existing.get("summary_input_hash")) == fingerprint)
+    unchanged = bool(existing and existing.get("summary_input_hash") == fingerprint)
     # Legacy items did not retain text hashes; an unchanged missing-source set keeps their useful analysis.
     legacy_unchanged = bool(existing and "summary_attempt_input_hash" not in existing and not existing.get("summary_input_hash")
                             and existing.get("summary_status") == "success"
@@ -514,21 +565,22 @@ def _process_digest(digest_id: str, videos: List[Video], existing: Optional[Dict
     item["summary_attempt_input_hash"] = fingerprint
     item["summary_attempt_status"] = attempt_status
     item["summary_attempt_error"] = attempt_error
-    if not summary_current:
+    if not summary_current or attempt_status != "success":
         item["completion_status"] = "pending"
-    if item["completion_status"] == "pending":
+    if item["completion_status"] != "complete":
         details = []
         for record in records:
             if not source_has_text(record) or record.get("retry_error"):
-                reason = record.get("retry_error") or record.get("asr_error") or record.get("transcript_error") or "source text unavailable"
+                reason = source_access_restriction(record) or record.get("retry_error") or record.get("asr_error") or record.get("transcript_error") or "source text unavailable"
                 details.append(f"{record.get('channel_name')}：{_public_source_failure(reason)}。")
         if attempt_status != "success":
             details.append("本次摘要更新失败，已保留已有分析，稍后重试。" if result.status == "success"
                            else "摘要暂未生成，稍后重试。")
         elif not summary_current:
             details.append("已有摘要已保留，等待完整原文后更新。")
-        coverage = "正文已齐" if item["coverage_status"] == "complete" else "正文待补齐"
-        status = f"{coverage}（{sum(source_has_text(record) for record in records)}/{len(records)}）；摘要待更新。"
+        coverage = {"complete": "正文已齐", "pending": "正文待补齐", "access-blocked": "正文访问受限"}[item["coverage_status"]]
+        summary_notice = "受限来源暂停自动重试。" if item["completion_status"] == "access-blocked" else "摘要待更新。"
+        status = f"{coverage}（{sum(source_has_text(record) for record in records)}/{len(records)}）；{summary_notice}"
         item["summary_html"] += "<!-- coverage --><p>" + html.escape(status + " ".join(details)) + "</p><!-- /coverage -->"
     upsert_daily_summary(summaries, item)
     mark_state_processed(state, digest_id, records, result, item["processed_at"], report_date=report_date,
@@ -628,8 +680,12 @@ def run(args: argparse.Namespace) -> int:
     older_candidates = [item for index, item in enumerate(candidates)
                        if (item.get("digest_id") or item.get("video_id")) != digest_id
                        and not digest_complete(item)
-                       and (item.get("completion_status") == "pending"
-                            or state["daily_digests"].get(item.get("digest_id") or item.get("video_id"), {}).get("completion_status") == "pending"
+                       and (item.get("completion_status") != "access-blocked"
+                            or item.get("summary_status") != "success"
+                            or item.get("summary_attempt_status", "success") != "success"
+                            or item.get("summary_attempt_input_hash") != item.get("summary_input_hash"))
+                       and (item.get("completion_status") in {"pending", "access-blocked"}
+                            or state["daily_digests"].get(item.get("digest_id") or item.get("video_id"), {}).get("completion_status") in {"pending", "access-blocked"}
                             or index == 0)] if target_report_date is None and not dry_run else []
     older_item = min(older_candidates, key=lambda item: (
         state["daily_digests"].get(item.get("digest_id") or item.get("video_id"), {}).get("last_attempted_at")

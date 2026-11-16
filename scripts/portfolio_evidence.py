@@ -91,6 +91,22 @@ def _date(value):
         return None
 
 
+def _status_timestamp(item, source):
+    values = ([source['status_observed_at']] if 'status_observed_at' in source
+              else [item.get(key) for key in ('processed_at', 'published', 'report_date')])
+    for value in values:
+        if not isinstance(value, str):
+            continue
+        try:
+            stamp = datetime.fromisoformat(value.replace('Z', '+00:00'))
+            if stamp.tzinfo is None:
+                stamp = stamp.replace(tzinfo=ZoneInfo('Asia/Shanghai'))
+            return stamp.timestamp()
+        except ValueError:
+            continue
+    return float('-inf')
+
+
 def _recover(video_id, as_of, cache, config, recover):
     path = cache / f'{video_id}.json'
     failure = cache / f'{video_id}.{as_of.isoformat()}.failed.json'
@@ -273,6 +289,10 @@ def build_evidence(summaries: dict, as_of: date, cache_dir: Path, transcript_con
             sources.append({**common, **origin, 'evidence_id': 'video:' + video_id, 'kind': kind,
                             'direct_assets': direct_assets, 'content': text[:MAX_SOURCE_CHARS], 'content_truncated': len(text) > MAX_SOURCE_CHARS})
         else:
+            # Access status follows the latest observation, not the video's original evidence date.
+            latest = max(entries, key=lambda pair: (_status_timestamp(*pair), pair[1].get('access_status') != 'blocked'))[1]
+            if latest.get('access_status') == 'blocked':
+                reason = 'access_blocked'
             gaps.append({**common, 'reason': reason})
     covered = sorted({s['date'] for s in sources})
     all_dates = [(start + timedelta(days=i)).isoformat() for i in range(7)]
