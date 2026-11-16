@@ -35725,6 +35725,433 @@
     },
     {
       "item_type": "daily_digest",
+      "digest_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
+      "video_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
+      "source_video_ids": [
+        "_2bUPesoEWo",
+        "i_8Nw7IrBvM"
+      ],
+      "channel_name": "视野环球财经 + NaNa说美股",
+      "title": "每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）",
+      "url": "",
+      "published": "2026-11-15T04:03:16.598836+00:00",
+      "processed_at": "2026-11-16T04:03:02.012180+00:00",
+      "source_status": "mixed",
+      "content_source": "YouTube captions + metadata only",
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "summary_error": null,
+      "summary_data": {
+        "title": "每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）",
+        "one_sentence_summary": "NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体并关注英伟达财报与Anthropic上市；视野环球财经关于Anthropic IPO的内容因仅有元数据无法纳入。",
+        "source_quality_note": "视野环球财经视频仅有标题和链接元数据，无字幕或正文内容，无法提取其观点；NaNa说美股使用YouTube自动字幕，文本完整但ASR可能存在个别数字或专有名词识别误差，摘要仅基于所给文本。",
+        "asset_sections": [
+          {
+            "name": "半导体板块 / 费城半导体指数 / SMH / SOXX",
+            "type": "sector",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股指出半导体板块再度遭遇猛烈抛售，AMD、AVGO等AI芯片龙头集体被资金抛售，费城半导体指数短期上涨主要靠博弈情绪，情绪反转后回落；其认为市场对半导体的交易逻辑正在变化，AI行业从狂飙转向强监管与资本审视，硬件股中短期缺乏持续上涨动力，因此短期暂避半导体板块，不做多也不做空，预计费半指数在更宽区间反复震荡。Michael Burry加大了对纳指100和半导体股的看跌押注，偏好做空SMH而非SOXX，认为SMH估值仍有下行空间且未来几年盈利将下滑。视野环球财经未提及该主题。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "短期规避半导体板块，既不做多也不做空；认为费半指数将在更宽波动范围反复震荡，单日急涨急跌难以把握；提到Burry做空SMH而非SOXX。",
+                "evidence": "“短期会暂避整个半导体板块”“不是要做空半导体，而是规避”“费半指数后面可能会在一个更宽的波动范围里反复震荡”“Burry更偏好SMH而非SOXX”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "标普500跌0.4%，纳指跌0.91%，道指微涨0.10%。",
+              "10月PPI同比上涨6.5%，略低于预期6.6%，前值6.3%；环比0.3%，低于预期0.4%。",
+              "美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。",
+              "Michael Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间；持有SMH相关put期权将于明年6月到期。"
+            ],
+            "risks": [
+              "半导体已大幅调整，继续向下空间可能有限，追空风险较大。",
+              "若出现利好，半导体可能快速反弹，短期博弈难度高。",
+              "Burry的看跌押注为个人观点，不代表市场共识。"
+            ]
+          },
+          {
+            "name": "NVDA / 英伟达",
+            "type": "stock",
+            "overall_stance": "分歧",
+            "merged_summary": "NaNa说美股讨论英伟达CEO黄仁勋相关事件被视为AI行业转向强监管与资本审视的分水岭，并影响整个AI产业链估值；CFO Colette Kress出任临时CEO后，华尔街预期英伟达将收缩激进的对外生态输血，对Neocloud扶持可能熄火；报道称Kress将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从2500亿美元砍至约1050亿美元。Burry认为英伟达下周财报会很出色，但这份财报是多头抛售良机而非入场机会。视野环球财经未提及英伟达。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "英伟达领导层变化和对外输血收缩将影响AI产业链和Neocloud；Burry认为英伟达财报出色但为抛售良机。",
+                "evidence": "“老黄的事儿不是一起孤立的个人危机，而是AI行业从此前的狂飙突进转向强监管与资本审视的分水岭”“华尔街普遍预期英伟达将收缩激进的对外生态输血”“Burry表示英伟达下周公布的财报会很出色，但他认为这份财报为多头提供了抛售良机”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "英伟达下周二盘后公布财报。",
+              "《华尔街日报》报道CFO Kress主动将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从最初谈判的2500亿美元砍至约1050亿美元。",
+              "高盛分析师指出现有承诺大概率会被履行，但没有黄仁勋的视野、人脉和召集力，下一轮同等规模的多方生态投资将更难落地。"
+            ],
+            "risks": [
+              "英伟达财报可能引发股价大幅波动。",
+              "领导层变化和对外投资收缩可能影响其生态伙伴关系。",
+              "市场对AI产业链估值重估可能压制英伟达股价。"
+            ]
+          },
+          {
+            "name": "Neocloud / 新云股 / NBIS",
+            "type": "sector",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股指出新云股被打击最狠，因过去英伟达扮演“AI中央银行”角色输血，如今随着CFO Kress出任临时CEO，华尔街预期英伟达收缩对外生态输血，新云公司失去背书后不确定性加深；Gartner预计未来2-3年行业大洗牌，2030年80%新云公司出局，黄仁勋离开后洗牌可能提前。技术面上NBIS自6月底300美元附近高点形成下降通道，目前下探下轨支撑，成交量放大，MACD空头动能主导，中期空头趋势末端测试，短期有超跌反抽空间但不宜追空，若下轨支撑被击穿，86-75美元区间是历史颈线位与密集成交区。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "新云股受英伟达输血收缩冲击最大，行业洗牌可能提前；NBIS中期空头趋势，短期超跌反抽但不宜追空，关注下轨支撑。",
+                "evidence": "“新云股被打击的最狠”“Gartner说Neocloud行业将在未来2-3年内面临大洗牌，到2030年预计80%的新云公司会出局”“NBIS目前处于中期空头趋势的末端测试阶段，短期存在超跌反抽的博弈空间，不宜追空”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "Gartner预计Neocloud行业未来2-3年面临大洗牌，2030年80%新云公司出局。",
+              "NBIS自今年6月底触及300美元附近高点后形成下降通道，目前股价下探下轨支撑，成交量显著放大，MACD自10月中旬以来DIF与DEA在零轴下方深幅发散。"
+            ],
+            "risks": [
+              "新云公司依赖融资环境和英伟达支持，失去背书后不确定性大。",
+              "NBIS技术面若跌破下轨支撑，可能下探86-75美元区间。",
+              "行业洗牌可能提前到来，相关公司面临生存风险。"
+            ]
+          },
+          {
+            "name": "SPY / 标普500",
+            "type": "index",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股指出标普500跌0.4%，未能突破通道上轨，确认该区域强阻力，下方年线缓慢上行构成大周期动态防线，目前上有阻力下有支撑；日线反弹成交量萎缩，主要由空头回补驱动，缺乏增量资金；周线本周涨2.51%结束连续4周下跌，仍处长期上升趋势线之上，但中期高位回调阶段，可能需时间换空间甚至回踩50周均线。期权链上7500点为多空拉锯心理关口，跌破进入负Gamma区域，站稳7600进入正Gamma区域，下周最大Call Wall在7650-7700，最大Put Wall在7400-7450。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "标普500中期下降通道内弱势震荡，上有阻力下有支撑，短期关注7500和7450防守，突破通道上轨前难言转强。",
+                "evidence": "“指数目前仍处于中期下降通道内的弱势震荡格局”“短期重点观察7500点和7450点的防守有效性”“在突破通道上轨之前”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "标普500指数跌0.4%，本周录得2.51%涨幅，结束连续4周下跌。",
+              "10月PPI同比6.5%略低于预期，但商品与服务价格连续三个月同步上涨。",
+              "期权链上7500点聚集大量短期对冲盘，最大Call Wall位于7650-7700点，最大Put Wall位于7400-7450点。"
+            ],
+            "risks": [
+              "若跌破7500点进入负Gamma区域，可能加剧波动。",
+              "增量资金不足，反弹依赖空头回补，持续性存疑。",
+              "12月加息预期压制高估值资产。"
+            ]
+          },
+          {
+            "name": "NDX / 纳指100",
+            "type": "index",
+            "overall_stance": "分歧",
+            "merged_summary": "NaNa说美股指出纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹，有长线配置资金防御承接，但上攻动能衰减，上方29000点密集阻力区压制，未收复29000点与50/120日均线前，大概率在26800-28900点区间宽幅震荡筑底；若放量跌破0.5斐波那契位置，则一年半上升趋势破位，下方看25850点甚至24320点。多数交易员对年底行情看涨，但Burry例外，他加大了对纳指100的看跌押注，将put仓位翻倍，行权价较现价低20%的虚值区间，2027年初到期。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "纳指100短期区间震荡筑底，中期趋势未破但动能减弱；提到Burry看跌押注与市场主流看涨预期形成对比。",
+                "evidence": "“指数大概率在26800-28900点区间内进行宽幅震荡筑底”“若后续再次回踩并放量跌破0.5斐波那契位置，意味着长达一年半的上升趋势正式宣告破位”“Burry将纳指100的看跌期权put仓位翻倍”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "纳指收跌0.91%。",
+              "纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹。",
+              "Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间。"
+            ],
+            "risks": [
+              "若跌破0.5斐波那契位置，可能打开向下寻底空间。",
+              "29000点阻力区压制较重，突破需要增量资金。",
+              "Burry的看跌押注代表部分空头观点，市场存在分歧。"
+            ]
+          },
+          {
+            "name": "BABA / 阿里巴巴",
+            "type": "stock",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股指出阿里巴巴本周累计下跌13.77%，因曾通过Megaspeed公司租用Nvidia芯片被牵涉到相关事件，且市场担忧美国政府收紧对华芯片销售，中国AI相关股票整体承压；公司下周发布财报，投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问；彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "阿里巴巴受芯片事件和对华出口限制担忧影响，股价大跌，财报前不确定性高。",
+                "evidence": "“阿里巴巴本周累计下跌13.77%”“市场担忧美国政府将收紧对华芯片销售”“投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "阿里巴巴本周累计下跌13.77%。",
+              "阿里巴巴曾通过Megaspeed公司租用Nvidia芯片。",
+              "彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。",
+              "阿里巴巴将于下周发布财报。"
+            ],
+            "risks": [
+              "美国对华芯片出口限制可能进一步收紧。",
+              "AI芯片供应不确定性可能影响公司AI计划。",
+              "财报可能引发股价波动。"
+            ]
+          },
+          {
+            "name": "Anthropic IPO",
+            "type": "other",
+            "overall_stance": "不明确",
+            "merged_summary": "NaNa说美股仅提到下周四Anthropic登录纳斯达克交易所，未展开分析。视野环球财经视频标题涉及Anthropic IPO的估值、基本面、投资机会与风险，但仅有元数据无正文，无法提取具体观点。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "仅提及上市日期，未发表观点。",
+                "evidence": "“下周四Anthropic登录纳斯达克交易所”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及（仅有标题，无正文内容）",
+                "evidence": "标题为“Anthropic（ANT）IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！”，但无字幕或正文。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点"
+            ],
+            "differences": [
+              "未发现明显差异"
+            ],
+            "factual_context": [
+              "Anthropic计划下周四登录纳斯达克交易所。"
+            ],
+            "risks": [
+              "视野环球财经的具体分析内容缺失，无法评估其观点。",
+              "IPO表现存在不确定性。"
+            ]
+          },
+          {
+            "name": "美国10月PPI / 通胀",
+            "type": "macro",
+            "overall_stance": "中性",
+            "merged_summary": "NaNa说美股指出美国10月PPI同比上涨6.5%，创4年来新高，但略低于市场预期的6.6%，前值6.3%；环比0.3%低于预期0.4%，但商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚；核心PPI同比5%持平预期和前值，环比0.3%。数据表明食品价格及运输成本攀升推动批发通胀加速，企业成本转嫁难度加大，利润率或面临挤压。市场最初将PPI视为偏温和，股指小幅走高，但开盘后跳水。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "PPI数据表面略低于预期，但内部通胀压力广泛，企业利润率可能受挤压。",
+                "evidence": "“数据很不好，但由于比预期稍微低一点，市场把这份PPI当作偏温和来交易”“商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "美国10月PPI同比上涨6.5%，创4年来新高，预期6.6%，前值6.3%。",
+              "环比上涨0.3%，预期0.4%。",
+              "核心PPI同比5%持平预期和前值，环比0.3%。"
+            ],
+            "risks": [
+              "通胀压力可能促使美联储维持加息路径。",
+              "企业成本转嫁困难可能挤压利润率。"
+            ]
+          },
+          {
+            "name": "美联储加息预期 / 金融稳定报告",
+            "type": "macro",
+            "overall_stance": "偏空",
+            "merged_summary": "NaNa说美股指出10月PPI低于预期使激进加息预期小幅降温，但12月仍要加息，对高估值芯片股形成压制；美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险，认为让AI交易降温已是美联储的目的。视野环球财经未提及。",
+            "source_views": [
+              {
+                "channel_name": "NaNa说美股",
+                "view": "12月加息预期压制高估值资产，美联储有意让AI交易降温。",
+                "evidence": "“12月要加息，对高估值芯片股形成压制”“让AI交易降温已经是FED的目的了”。"
+              },
+              {
+                "channel_name": "视野环球财经",
+                "view": "未提及",
+                "evidence": "仅有标题和链接元数据，无正文内容。"
+              }
+            ],
+            "common_points": [
+              "未形成共同点（视野环球财经未提供可比较内容）"
+            ],
+            "differences": [
+              "未发现明显差异（仅一个频道有实质内容）"
+            ],
+            "factual_context": [
+              "美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。",
+              "10月PPI低于预期使激进加息预期小幅降温。"
+            ],
+            "risks": [
+              "加息可能进一步压制高估值成长股。",
+              "美联储政策转向可能引发市场波动。"
+            ]
+          }
+        ],
+        "core_key_points": [
+          "NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体板块，费半指数可能宽幅震荡。",
+          "英伟达CFO Kress出任临时CEO后，市场预期英伟达收缩对外生态输血，Neocloud新云股受冲击最大，行业洗牌可能提前。",
+          "Michael Burry加大看跌押注，做空纳指100和SMH，认为英伟达财报出色但为抛售良机。",
+          "标普500上有阻力下有支撑，短期关注7500和7450点防守；纳指100在26800-28900点区间震荡筑底。",
+          "美国10月PPI同比6.5%略低于预期，但内部通胀压力仍广泛，12月加息预期压制高估值资产。",
+          "阿里巴巴因芯片事件和对华出口限制担忧本周跌13.77%，下周财报受关注。",
+          "Anthropic下周四登录纳斯达克，但视野环球财经的具体分析因无正文无法纳入。",
+          "视野环球财经视频仅有元数据，其关于Anthropic IPO的观点无法提取。"
+        ],
+        "market_views": [
+          "NaNa说美股：短期规避半导体板块，既不做多也不做空，因交易逻辑变化且波动剧烈。",
+          "NaNa说美股：标普500中期弱势震荡，上有阻力下有支撑，突破通道上轨前难言转强。",
+          "NaNa说美股：纳指100短期区间震荡筑底，但若跌破0.5斐波那契位置则趋势破位。",
+          "NaNa说美股：新云股受英伟达输血收缩冲击，NBIS中期空头趋势，短期超跌反抽但不宜追空。",
+          "NaNa说美股引用Burry观点：看跌纳指100和SMH，认为英伟达财报是抛售机会。",
+          "视野环球财经：因无正文内容，无法提供其市场观点。"
+        ],
+        "mentioned_assets_events": [
+          "半导体板块",
+          "费城半导体指数",
+          "SMH",
+          "SOXX",
+          "NVDA / 英伟达",
+          "AMD",
+          "AVGO",
+          "Neocloud / 新云股",
+          "NBIS",
+          "SPY / 标普500",
+          "NDX / 纳指100",
+          "BABA / 阿里巴巴",
+          "Anthropic IPO",
+          "美国10月PPI",
+          "美联储加息预期",
+          "美联储半年度金融稳定报告",
+          "Michael Burry看跌押注"
+        ],
+        "investor_takeaways": [
+          "关注半导体板块交易逻辑变化，短期波动可能加剧，避免追涨杀跌。",
+          "英伟达财报可能成为市场情绪转折点，需关注其对外投资策略变化。",
+          "新云股行业面临洗牌风险，依赖单一巨头输血的商业模式值得警惕。",
+          "通胀数据内部压力仍存，加息预期可能压制高估值成长股。",
+          "中概股受地缘政治和芯片供应影响，财报前不确定性较高。",
+          "技术分析仅提供概率参考，需结合资金面、基本面等多重因素。"
+        ],
+        "watch_original": "只看部分",
+        "uncertainties_or_risks": [
+          "视野环球财经视频无正文内容，其关于Anthropic IPO的分析完全缺失。",
+          "NaNa说美股使用自动字幕，ASR可能存在数字或专有名词识别误差。",
+          "Burry的看跌押注为个人观点，不代表市场共识，且期权策略复杂。",
+          "技术分析结论基于历史价格，市场变量可能随时改变走势。",
+          "英伟达财报和Anthropic IPO等事件可能引发市场大幅波动。"
+        ],
+        "disclaimer": "该摘要仅用于信息整理，不构成投资建议"
+      },
+      "source_videos": [
+        {
+          "channel_name": "视野环球财经",
+          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+          "handle": "@RhinoFinance",
+          "video_id": "_2bUPesoEWo",
+          "title": "（会员第310期）Anthropic （ANT） IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！",
+          "url": "https://www.youtube.com/watch?v=_2bUPesoEWo",
+          "published": null,
+          "source_status": "link-only",
+          "content_source": "metadata only",
+          "transcript_status": "failed",
+          "transcript_language": null,
+          "transcript_source": "unknown",
+          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=_2bUPesoEWo! This is most likely caused by:\n\nThe video is unplayable for the following reason: Join this channel to get access to members-only content like this video, and other exclusive perks.\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh-CN: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual en: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-Hans: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-CN: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto en: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.",
+          "asr_status": "failed",
+          "asr_model": "large-v3-turbo",
+          "asr_error": "zh: yt-dlp audio download failed after 3 attempt(s): ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks."
+        },
+        {
+          "channel_name": "NaNa说美股",
+          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+          "handle": "@NaNaShuoMeiGu",
+          "video_id": "i_8Nw7IrBvM",
+          "title": "Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)",
+          "url": "https://www.youtube.com/watch?v=i_8Nw7IrBvM",
+          "published": null,
+          "source_status": "captions",
+          "content_source": "YouTube captions",
+          "transcript_status": "success",
+          "transcript_language": "zh-Hans",
+          "transcript_source": "manual_caption",
+          "transcript_error": null,
+          "asr_status": "skipped",
+          "asr_model": null,
+          "asr_error": "Transcript succeeded or dry-run skipped ASR",
+          "text_sha256": "3372c40499ea50a98899f0a28a7986b67d90dab440a6d3cfa775a7461581536f"
+        }
+      ],
+      "summary_html": "<h2>每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><p><strong>文本质量提示：</strong>以下来源没有可用字幕或转写文本，仅按元数据保留：视野环球财经。 视野环球财经视频仅有标题和链接元数据，无字幕或正文内容，无法提取其观点；NaNa说美股使用YouTube自动字幕，文本完整但ASR可能存在个别数字或专有名词识别误差，摘要仅基于所给文本。</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=_2bUPesoEWo\">（会员第310期）Anthropic （ANT） IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！</a><br><small>发布时间未知 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=i_8Nw7IrBvM\">Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p><strong>一句话总结：</strong>NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体并关注英伟达财报与Anthropic上市；视野环球财经关于Anthropic IPO的内容因仅有元数据无法纳入。</p><h3>按股票 / 指数 / 行业 / 宏观主题融合</h3><section><h3>半导体板块 / 费城半导体指数 / SMH / SOXX <small>(sector / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出半导体板块再度遭遇猛烈抛售，AMD、AVGO等AI芯片龙头集体被资金抛售，费城半导体指数短期上涨主要靠博弈情绪，情绪反转后回落；其认为市场对半导体的交易逻辑正在变化，AI行业从狂飙转向强监管与资本审视，硬件股中短期缺乏持续上涨动力，因此短期暂避半导体板块，不做多也不做空，预计费半指数在更宽区间反复震荡。Michael Burry加大了对纳指100和半导体股的看跌押注，偏好做空SMH而非SOXX，认为SMH估值仍有下行空间且未来几年盈利将下滑。视野环球财经未提及该主题。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>短期规避半导体板块，既不做多也不做空；认为费半指数将在更宽波动范围反复震荡，单日急涨急跌难以把握；提到Burry做空SMH而非SOXX。 证据/依据：“短期会暂避整个半导体板块”“不是要做空半导体，而是规避”“费半指数后面可能会在一个更宽的波动范围里反复震荡”“Burry更偏好SMH而非SOXX”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>标普500跌0.4%，纳指跌0.91%，道指微涨0.10%。</li><li>10月PPI同比上涨6.5%，略低于预期6.6%，前值6.3%；环比0.3%，低于预期0.4%。</li><li>美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。</li><li>Michael Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间；持有SMH相关put期权将于明年6月到期。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>半导体已大幅调整，继续向下空间可能有限，追空风险较大。</li><li>若出现利好，半导体可能快速反弹，短期博弈难度高。</li><li>Burry的看跌押注为个人观点，不代表市场共识。</li></ul></section><section><h3>NVDA / 英伟达 <small>(stock / 分歧)</small></h3><p><strong>合并摘要：</strong>NaNa说美股讨论英伟达CEO黄仁勋相关事件被视为AI行业转向强监管与资本审视的分水岭，并影响整个AI产业链估值；CFO Colette Kress出任临时CEO后，华尔街预期英伟达将收缩激进的对外生态输血，对Neocloud扶持可能熄火；报道称Kress将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从2500亿美元砍至约1050亿美元。Burry认为英伟达下周财报会很出色，但这份财报是多头抛售良机而非入场机会。视野环球财经未提及英伟达。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>英伟达领导层变化和对外输血收缩将影响AI产业链和Neocloud；Burry认为英伟达财报出色但为抛售良机。 证据/依据：“老黄的事儿不是一起孤立的个人危机，而是AI行业从此前的狂飙突进转向强监管与资本审视的分水岭”“华尔街普遍预期英伟达将收缩激进的对外生态输血”“Burry表示英伟达下周公布的财报会很出色，但他认为这份财报为多头提供了抛售良机”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>英伟达下周二盘后公布财报。</li><li>《华尔街日报》报道CFO Kress主动将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从最初谈判的2500亿美元砍至约1050亿美元。</li><li>高盛分析师指出现有承诺大概率会被履行，但没有黄仁勋的视野、人脉和召集力，下一轮同等规模的多方生态投资将更难落地。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>英伟达财报可能引发股价大幅波动。</li><li>领导层变化和对外投资收缩可能影响其生态伙伴关系。</li><li>市场对AI产业链估值重估可能压制英伟达股价。</li></ul></section><section><h3>Neocloud / 新云股 / NBIS <small>(sector / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出新云股被打击最狠，因过去英伟达扮演“AI中央银行”角色输血，如今随着CFO Kress出任临时CEO，华尔街预期英伟达收缩对外生态输血，新云公司失去背书后不确定性加深；Gartner预计未来2-3年行业大洗牌，2030年80%新云公司出局，黄仁勋离开后洗牌可能提前。技术面上NBIS自6月底300美元附近高点形成下降通道，目前下探下轨支撑，成交量放大，MACD空头动能主导，中期空头趋势末端测试，短期有超跌反抽空间但不宜追空，若下轨支撑被击穿，86-75美元区间是历史颈线位与密集成交区。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>新云股受英伟达输血收缩冲击最大，行业洗牌可能提前；NBIS中期空头趋势，短期超跌反抽但不宜追空，关注下轨支撑。 证据/依据：“新云股被打击的最狠”“Gartner说Neocloud行业将在未来2-3年内面临大洗牌，到2030年预计80%的新云公司会出局”“NBIS目前处于中期空头趋势的末端测试阶段，短期存在超跌反抽的博弈空间，不宜追空”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>Gartner预计Neocloud行业未来2-3年面临大洗牌，2030年80%新云公司出局。</li><li>NBIS自今年6月底触及300美元附近高点后形成下降通道，目前股价下探下轨支撑，成交量显著放大，MACD自10月中旬以来DIF与DEA在零轴下方深幅发散。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>新云公司依赖融资环境和英伟达支持，失去背书后不确定性大。</li><li>NBIS技术面若跌破下轨支撑，可能下探86-75美元区间。</li><li>行业洗牌可能提前到来，相关公司面临生存风险。</li></ul></section><section><h3>SPY / 标普500 <small>(index / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出标普500跌0.4%，未能突破通道上轨，确认该区域强阻力，下方年线缓慢上行构成大周期动态防线，目前上有阻力下有支撑；日线反弹成交量萎缩，主要由空头回补驱动，缺乏增量资金；周线本周涨2.51%结束连续4周下跌，仍处长期上升趋势线之上，但中期高位回调阶段，可能需时间换空间甚至回踩50周均线。期权链上7500点为多空拉锯心理关口，跌破进入负Gamma区域，站稳7600进入正Gamma区域，下周最大Call Wall在7650-7700，最大Put Wall在7400-7450。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>标普500中期下降通道内弱势震荡，上有阻力下有支撑，短期关注7500和7450防守，突破通道上轨前难言转强。 证据/依据：“指数目前仍处于中期下降通道内的弱势震荡格局”“短期重点观察7500点和7450点的防守有效性”“在突破通道上轨之前”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>标普500指数跌0.4%，本周录得2.51%涨幅，结束连续4周下跌。</li><li>10月PPI同比6.5%略低于预期，但商品与服务价格连续三个月同步上涨。</li><li>期权链上7500点聚集大量短期对冲盘，最大Call Wall位于7650-7700点，最大Put Wall位于7400-7450点。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>若跌破7500点进入负Gamma区域，可能加剧波动。</li><li>增量资金不足，反弹依赖空头回补，持续性存疑。</li><li>12月加息预期压制高估值资产。</li></ul></section><section><h3>NDX / 纳指100 <small>(index / 分歧)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹，有长线配置资金防御承接，但上攻动能衰减，上方29000点密集阻力区压制，未收复29000点与50/120日均线前，大概率在26800-28900点区间宽幅震荡筑底；若放量跌破0.5斐波那契位置，则一年半上升趋势破位，下方看25850点甚至24320点。多数交易员对年底行情看涨，但Burry例外，他加大了对纳指100的看跌押注，将put仓位翻倍，行权价较现价低20%的虚值区间，2027年初到期。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>纳指100短期区间震荡筑底，中期趋势未破但动能减弱；提到Burry看跌押注与市场主流看涨预期形成对比。 证据/依据：“指数大概率在26800-28900点区间内进行宽幅震荡筑底”“若后续再次回踩并放量跌破0.5斐波那契位置，意味着长达一年半的上升趋势正式宣告破位”“Burry将纳指100的看跌期权put仓位翻倍”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>纳指收跌0.91%。</li><li>纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹。</li><li>Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>若跌破0.5斐波那契位置，可能打开向下寻底空间。</li><li>29000点阻力区压制较重，突破需要增量资金。</li><li>Burry的看跌押注代表部分空头观点，市场存在分歧。</li></ul></section><section><h3>BABA / 阿里巴巴 <small>(stock / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出阿里巴巴本周累计下跌13.77%，因曾通过Megaspeed公司租用Nvidia芯片被牵涉到相关事件，且市场担忧美国政府收紧对华芯片销售，中国AI相关股票整体承压；公司下周发布财报，投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问；彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>阿里巴巴受芯片事件和对华出口限制担忧影响，股价大跌，财报前不确定性高。 证据/依据：“阿里巴巴本周累计下跌13.77%”“市场担忧美国政府将收紧对华芯片销售”“投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>阿里巴巴本周累计下跌13.77%。</li><li>阿里巴巴曾通过Megaspeed公司租用Nvidia芯片。</li><li>彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。</li><li>阿里巴巴将于下周发布财报。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>美国对华芯片出口限制可能进一步收紧。</li><li>AI芯片供应不确定性可能影响公司AI计划。</li><li>财报可能引发股价波动。</li></ul></section><section><h3>Anthropic IPO <small>(other / 不明确)</small></h3><p><strong>合并摘要：</strong>NaNa说美股仅提到下周四Anthropic登录纳斯达克交易所，未展开分析。视野环球财经视频标题涉及Anthropic IPO的估值、基本面、投资机会与风险，但仅有元数据无正文，无法提取具体观点。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>仅提及上市日期，未发表观点。 证据/依据：“下周四Anthropic登录纳斯达克交易所”。</li><li><strong>视野环球财经：</strong>未提及（仅有标题，无正文内容） 证据/依据：标题为“Anthropic（ANT）IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！”，但无字幕或正文。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>Anthropic计划下周四登录纳斯达克交易所。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>视野环球财经的具体分析内容缺失，无法评估其观点。</li><li>IPO表现存在不确定性。</li></ul></section><section><h3>美国10月PPI / 通胀 <small>(macro / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出美国10月PPI同比上涨6.5%，创4年来新高，但略低于市场预期的6.6%，前值6.3%；环比0.3%低于预期0.4%，但商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚；核心PPI同比5%持平预期和前值，环比0.3%。数据表明食品价格及运输成本攀升推动批发通胀加速，企业成本转嫁难度加大，利润率或面临挤压。市场最初将PPI视为偏温和，股指小幅走高，但开盘后跳水。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>PPI数据表面略低于预期，但内部通胀压力广泛，企业利润率可能受挤压。 证据/依据：“数据很不好，但由于比预期稍微低一点，市场把这份PPI当作偏温和来交易”“商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>美国10月PPI同比上涨6.5%，创4年来新高，预期6.6%，前值6.3%。</li><li>环比上涨0.3%，预期0.4%。</li><li>核心PPI同比5%持平预期和前值，环比0.3%。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>通胀压力可能促使美联储维持加息路径。</li><li>企业成本转嫁困难可能挤压利润率。</li></ul></section><section><h3>美联储加息预期 / 金融稳定报告 <small>(macro / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出10月PPI低于预期使激进加息预期小幅降温，但12月仍要加息，对高估值芯片股形成压制；美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险，认为让AI交易降温已是美联储的目的。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>12月加息预期压制高估值资产，美联储有意让AI交易降温。 证据/依据：“12月要加息，对高估值芯片股形成压制”“让AI交易降温已经是FED的目的了”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。</li><li>10月PPI低于预期使激进加息预期小幅降温。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>加息可能进一步压制高估值成长股。</li><li>美联储政策转向可能引发市场波动。</li></ul></section><h3>核心要点</h3><ul><li>NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体板块，费半指数可能宽幅震荡。</li><li>英伟达CFO Kress出任临时CEO后，市场预期英伟达收缩对外生态输血，Neocloud新云股受冲击最大，行业洗牌可能提前。</li><li>Michael Burry加大看跌押注，做空纳指100和SMH，认为英伟达财报出色但为抛售良机。</li><li>标普500上有阻力下有支撑，短期关注7500和7450点防守；纳指100在26800-28900点区间震荡筑底。</li><li>美国10月PPI同比6.5%略低于预期，但内部通胀压力仍广泛，12月加息预期压制高估值资产。</li><li>阿里巴巴因芯片事件和对华出口限制担忧本周跌13.77%，下周财报受关注。</li><li>Anthropic下周四登录纳斯达克，但视野环球财经的具体分析因无正文无法纳入。</li><li>视野环球财经视频仅有元数据，其关于Anthropic IPO的观点无法提取。</li></ul><h3>关键市场观点</h3><ul><li>NaNa说美股：短期规避半导体板块，既不做多也不做空，因交易逻辑变化且波动剧烈。</li><li>NaNa说美股：标普500中期弱势震荡，上有阻力下有支撑，突破通道上轨前难言转强。</li><li>NaNa说美股：纳指100短期区间震荡筑底，但若跌破0.5斐波那契位置则趋势破位。</li><li>NaNa说美股：新云股受英伟达输血收缩冲击，NBIS中期空头趋势，短期超跌反抽但不宜追空。</li><li>NaNa说美股引用Burry观点：看跌纳指100和SMH，认为英伟达财报是抛售机会。</li><li>视野环球财经：因无正文内容，无法提供其市场观点。</li></ul><h3>涉及的股票、指数、行业或宏观事件</h3><ul><li>半导体板块</li><li>费城半导体指数</li><li>SMH</li><li>SOXX</li><li>NVDA / 英伟达</li><li>AMD</li><li>AVGO</li><li>Neocloud / 新云股</li><li>NBIS</li><li>SPY / 标普500</li><li>NDX / 纳指100</li><li>BABA / 阿里巴巴</li><li>Anthropic IPO</li><li>美国10月PPI</li><li>美联储加息预期</li><li>美联储半年度金融稳定报告</li><li>Michael Burry看跌押注</li></ul><h3>对普通投资者的启发</h3><ul><li>关注半导体板块交易逻辑变化，短期波动可能加剧，避免追涨杀跌。</li><li>英伟达财报可能成为市场情绪转折点，需关注其对外投资策略变化。</li><li>新云股行业面临洗牌风险，依赖单一巨头输血的商业模式值得警惕。</li><li>通胀数据内部压力仍存，加息预期可能压制高估值成长股。</li><li>中概股受地缘政治和芯片供应影响，财报前不确定性较高。</li><li>技术分析仅提供概率参考，需结合资金面、基本面等多重因素。</li></ul><p><strong>值不值得看原视频：</strong>只看部分</p><h3>需要注意的不确定性或风险</h3><ul><li>视野环球财经视频无正文内容，其关于Anthropic IPO的分析完全缺失。</li><li>NaNa说美股使用自动字幕，ASR可能存在数字或专有名词识别误差。</li><li>Burry的看跌押注为个人观点，不代表市场共识，且期权策略复杂。</li><li>技术分析结论基于历史价格，市场变量可能随时改变走势。</li><li>英伟达财报和Anthropic IPO等事件可能引发市场大幅波动。</li></ul><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p><!-- coverage --><p>正文待补齐（1/2）；摘要待更新。视野环球财经：视频访问受限，需确认访问权限。</p><!-- /coverage -->",
+      "coverage_status": "pending",
+      "completion_status": "pending",
+      "summary_input_hash": "a9b44236dc5444ec60f5aa4d1ed79ff0ba334eb2bc8b54702258e535016bda26",
+      "summary_attempt_input_hash": "a9b44236dc5444ec60f5aa4d1ed79ff0ba334eb2bc8b54702258e535016bda26",
+      "summary_attempt_status": "success",
+      "summary_attempt_error": null
+    },
+    {
+      "item_type": "daily_digest",
       "digest_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
       "video_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
       "source_video_ids": [
@@ -35735,7 +36162,7 @@
       "title": "每日融合摘要：半导体抛售、英伟达生态变局与Burry看跌押注（2026-11-13）",
       "url": "",
       "published": "2026-11-14T04:04:39.940975+00:00",
-      "processed_at": "2026-11-15T11:52:10.383880+00:00",
+      "processed_at": "2026-11-16T04:04:46.332200+00:00",
       "source_status": "mixed",
       "content_source": "YouTube captions + metadata only",
       "summary_status": "success",
@@ -36346,433 +36773,6 @@
       "completion_status": "pending",
       "summary_input_hash": "d5a4dda139624234fabba0ff79ad5f33016add6719df403a915a9db78fc02ac6",
       "summary_attempt_input_hash": "d5a4dda139624234fabba0ff79ad5f33016add6719df403a915a9db78fc02ac6",
-      "summary_attempt_status": "success",
-      "summary_attempt_error": null
-    },
-    {
-      "item_type": "daily_digest",
-      "digest_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
-      "video_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
-      "source_video_ids": [
-        "_2bUPesoEWo",
-        "i_8Nw7IrBvM"
-      ],
-      "channel_name": "视野环球财经 + NaNa说美股",
-      "title": "每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）",
-      "url": "",
-      "published": "2026-11-15T04:03:16.598836+00:00",
-      "processed_at": "2026-11-15T11:53:36.374065+00:00",
-      "source_status": "mixed",
-      "content_source": "YouTube captions + metadata only",
-      "summary_status": "success",
-      "summary_model": "deepseek-flash",
-      "summary_error": null,
-      "summary_data": {
-        "title": "每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）",
-        "one_sentence_summary": "NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体并关注英伟达财报与Anthropic上市；视野环球财经关于Anthropic IPO的内容因仅有元数据无法纳入。",
-        "source_quality_note": "视野环球财经视频仅有标题和链接元数据，无字幕或正文内容，无法提取其观点；NaNa说美股使用YouTube自动字幕，文本完整但ASR可能存在个别数字或专有名词识别误差，摘要仅基于所给文本。",
-        "asset_sections": [
-          {
-            "name": "半导体板块 / 费城半导体指数 / SMH / SOXX",
-            "type": "sector",
-            "overall_stance": "偏空",
-            "merged_summary": "NaNa说美股指出半导体板块再度遭遇猛烈抛售，AMD、AVGO等AI芯片龙头集体被资金抛售，费城半导体指数短期上涨主要靠博弈情绪，情绪反转后回落；其认为市场对半导体的交易逻辑正在变化，AI行业从狂飙转向强监管与资本审视，硬件股中短期缺乏持续上涨动力，因此短期暂避半导体板块，不做多也不做空，预计费半指数在更宽区间反复震荡。Michael Burry加大了对纳指100和半导体股的看跌押注，偏好做空SMH而非SOXX，认为SMH估值仍有下行空间且未来几年盈利将下滑。视野环球财经未提及该主题。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "短期规避半导体板块，既不做多也不做空；认为费半指数将在更宽波动范围反复震荡，单日急涨急跌难以把握；提到Burry做空SMH而非SOXX。",
-                "evidence": "“短期会暂避整个半导体板块”“不是要做空半导体，而是规避”“费半指数后面可能会在一个更宽的波动范围里反复震荡”“Burry更偏好SMH而非SOXX”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "标普500跌0.4%，纳指跌0.91%，道指微涨0.10%。",
-              "10月PPI同比上涨6.5%，略低于预期6.6%，前值6.3%；环比0.3%，低于预期0.4%。",
-              "美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。",
-              "Michael Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间；持有SMH相关put期权将于明年6月到期。"
-            ],
-            "risks": [
-              "半导体已大幅调整，继续向下空间可能有限，追空风险较大。",
-              "若出现利好，半导体可能快速反弹，短期博弈难度高。",
-              "Burry的看跌押注为个人观点，不代表市场共识。"
-            ]
-          },
-          {
-            "name": "NVDA / 英伟达",
-            "type": "stock",
-            "overall_stance": "分歧",
-            "merged_summary": "NaNa说美股讨论英伟达CEO黄仁勋相关事件被视为AI行业转向强监管与资本审视的分水岭，并影响整个AI产业链估值；CFO Colette Kress出任临时CEO后，华尔街预期英伟达将收缩激进的对外生态输血，对Neocloud扶持可能熄火；报道称Kress将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从2500亿美元砍至约1050亿美元。Burry认为英伟达下周财报会很出色，但这份财报是多头抛售良机而非入场机会。视野环球财经未提及英伟达。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "英伟达领导层变化和对外输血收缩将影响AI产业链和Neocloud；Burry认为英伟达财报出色但为抛售良机。",
-                "evidence": "“老黄的事儿不是一起孤立的个人危机，而是AI行业从此前的狂飙突进转向强监管与资本审视的分水岭”“华尔街普遍预期英伟达将收缩激进的对外生态输血”“Burry表示英伟达下周公布的财报会很出色，但他认为这份财报为多头提供了抛售良机”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "英伟达下周二盘后公布财报。",
-              "《华尔街日报》报道CFO Kress主动将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从最初谈判的2500亿美元砍至约1050亿美元。",
-              "高盛分析师指出现有承诺大概率会被履行，但没有黄仁勋的视野、人脉和召集力，下一轮同等规模的多方生态投资将更难落地。"
-            ],
-            "risks": [
-              "英伟达财报可能引发股价大幅波动。",
-              "领导层变化和对外投资收缩可能影响其生态伙伴关系。",
-              "市场对AI产业链估值重估可能压制英伟达股价。"
-            ]
-          },
-          {
-            "name": "Neocloud / 新云股 / NBIS",
-            "type": "sector",
-            "overall_stance": "偏空",
-            "merged_summary": "NaNa说美股指出新云股被打击最狠，因过去英伟达扮演“AI中央银行”角色输血，如今随着CFO Kress出任临时CEO，华尔街预期英伟达收缩对外生态输血，新云公司失去背书后不确定性加深；Gartner预计未来2-3年行业大洗牌，2030年80%新云公司出局，黄仁勋离开后洗牌可能提前。技术面上NBIS自6月底300美元附近高点形成下降通道，目前下探下轨支撑，成交量放大，MACD空头动能主导，中期空头趋势末端测试，短期有超跌反抽空间但不宜追空，若下轨支撑被击穿，86-75美元区间是历史颈线位与密集成交区。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "新云股受英伟达输血收缩冲击最大，行业洗牌可能提前；NBIS中期空头趋势，短期超跌反抽但不宜追空，关注下轨支撑。",
-                "evidence": "“新云股被打击的最狠”“Gartner说Neocloud行业将在未来2-3年内面临大洗牌，到2030年预计80%的新云公司会出局”“NBIS目前处于中期空头趋势的末端测试阶段，短期存在超跌反抽的博弈空间，不宜追空”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "Gartner预计Neocloud行业未来2-3年面临大洗牌，2030年80%新云公司出局。",
-              "NBIS自今年6月底触及300美元附近高点后形成下降通道，目前股价下探下轨支撑，成交量显著放大，MACD自10月中旬以来DIF与DEA在零轴下方深幅发散。"
-            ],
-            "risks": [
-              "新云公司依赖融资环境和英伟达支持，失去背书后不确定性大。",
-              "NBIS技术面若跌破下轨支撑，可能下探86-75美元区间。",
-              "行业洗牌可能提前到来，相关公司面临生存风险。"
-            ]
-          },
-          {
-            "name": "SPY / 标普500",
-            "type": "index",
-            "overall_stance": "中性",
-            "merged_summary": "NaNa说美股指出标普500跌0.4%，未能突破通道上轨，确认该区域强阻力，下方年线缓慢上行构成大周期动态防线，目前上有阻力下有支撑；日线反弹成交量萎缩，主要由空头回补驱动，缺乏增量资金；周线本周涨2.51%结束连续4周下跌，仍处长期上升趋势线之上，但中期高位回调阶段，可能需时间换空间甚至回踩50周均线。期权链上7500点为多空拉锯心理关口，跌破进入负Gamma区域，站稳7600进入正Gamma区域，下周最大Call Wall在7650-7700，最大Put Wall在7400-7450。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "标普500中期下降通道内弱势震荡，上有阻力下有支撑，短期关注7500和7450防守，突破通道上轨前难言转强。",
-                "evidence": "“指数目前仍处于中期下降通道内的弱势震荡格局”“短期重点观察7500点和7450点的防守有效性”“在突破通道上轨之前”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "标普500指数跌0.4%，本周录得2.51%涨幅，结束连续4周下跌。",
-              "10月PPI同比6.5%略低于预期，但商品与服务价格连续三个月同步上涨。",
-              "期权链上7500点聚集大量短期对冲盘，最大Call Wall位于7650-7700点，最大Put Wall位于7400-7450点。"
-            ],
-            "risks": [
-              "若跌破7500点进入负Gamma区域，可能加剧波动。",
-              "增量资金不足，反弹依赖空头回补，持续性存疑。",
-              "12月加息预期压制高估值资产。"
-            ]
-          },
-          {
-            "name": "NDX / 纳指100",
-            "type": "index",
-            "overall_stance": "分歧",
-            "merged_summary": "NaNa说美股指出纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹，有长线配置资金防御承接，但上攻动能衰减，上方29000点密集阻力区压制，未收复29000点与50/120日均线前，大概率在26800-28900点区间宽幅震荡筑底；若放量跌破0.5斐波那契位置，则一年半上升趋势破位，下方看25850点甚至24320点。多数交易员对年底行情看涨，但Burry例外，他加大了对纳指100的看跌押注，将put仓位翻倍，行权价较现价低20%的虚值区间，2027年初到期。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "纳指100短期区间震荡筑底，中期趋势未破但动能减弱；提到Burry看跌押注与市场主流看涨预期形成对比。",
-                "evidence": "“指数大概率在26800-28900点区间内进行宽幅震荡筑底”“若后续再次回踩并放量跌破0.5斐波那契位置，意味着长达一年半的上升趋势正式宣告破位”“Burry将纳指100的看跌期权put仓位翻倍”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "纳指收跌0.91%。",
-              "纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹。",
-              "Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间。"
-            ],
-            "risks": [
-              "若跌破0.5斐波那契位置，可能打开向下寻底空间。",
-              "29000点阻力区压制较重，突破需要增量资金。",
-              "Burry的看跌押注代表部分空头观点，市场存在分歧。"
-            ]
-          },
-          {
-            "name": "BABA / 阿里巴巴",
-            "type": "stock",
-            "overall_stance": "偏空",
-            "merged_summary": "NaNa说美股指出阿里巴巴本周累计下跌13.77%，因曾通过Megaspeed公司租用Nvidia芯片被牵涉到相关事件，且市场担忧美国政府收紧对华芯片销售，中国AI相关股票整体承压；公司下周发布财报，投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问；彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "阿里巴巴受芯片事件和对华出口限制担忧影响，股价大跌，财报前不确定性高。",
-                "evidence": "“阿里巴巴本周累计下跌13.77%”“市场担忧美国政府将收紧对华芯片销售”“投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "阿里巴巴本周累计下跌13.77%。",
-              "阿里巴巴曾通过Megaspeed公司租用Nvidia芯片。",
-              "彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。",
-              "阿里巴巴将于下周发布财报。"
-            ],
-            "risks": [
-              "美国对华芯片出口限制可能进一步收紧。",
-              "AI芯片供应不确定性可能影响公司AI计划。",
-              "财报可能引发股价波动。"
-            ]
-          },
-          {
-            "name": "Anthropic IPO",
-            "type": "other",
-            "overall_stance": "不明确",
-            "merged_summary": "NaNa说美股仅提到下周四Anthropic登录纳斯达克交易所，未展开分析。视野环球财经视频标题涉及Anthropic IPO的估值、基本面、投资机会与风险，但仅有元数据无正文，无法提取具体观点。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "仅提及上市日期，未发表观点。",
-                "evidence": "“下周四Anthropic登录纳斯达克交易所”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及（仅有标题，无正文内容）",
-                "evidence": "标题为“Anthropic（ANT）IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！”，但无字幕或正文。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点"
-            ],
-            "differences": [
-              "未发现明显差异"
-            ],
-            "factual_context": [
-              "Anthropic计划下周四登录纳斯达克交易所。"
-            ],
-            "risks": [
-              "视野环球财经的具体分析内容缺失，无法评估其观点。",
-              "IPO表现存在不确定性。"
-            ]
-          },
-          {
-            "name": "美国10月PPI / 通胀",
-            "type": "macro",
-            "overall_stance": "中性",
-            "merged_summary": "NaNa说美股指出美国10月PPI同比上涨6.5%，创4年来新高，但略低于市场预期的6.6%，前值6.3%；环比0.3%低于预期0.4%，但商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚；核心PPI同比5%持平预期和前值，环比0.3%。数据表明食品价格及运输成本攀升推动批发通胀加速，企业成本转嫁难度加大，利润率或面临挤压。市场最初将PPI视为偏温和，股指小幅走高，但开盘后跳水。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "PPI数据表面略低于预期，但内部通胀压力广泛，企业利润率可能受挤压。",
-                "evidence": "“数据很不好，但由于比预期稍微低一点，市场把这份PPI当作偏温和来交易”“商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "美国10月PPI同比上涨6.5%，创4年来新高，预期6.6%，前值6.3%。",
-              "环比上涨0.3%，预期0.4%。",
-              "核心PPI同比5%持平预期和前值，环比0.3%。"
-            ],
-            "risks": [
-              "通胀压力可能促使美联储维持加息路径。",
-              "企业成本转嫁困难可能挤压利润率。"
-            ]
-          },
-          {
-            "name": "美联储加息预期 / 金融稳定报告",
-            "type": "macro",
-            "overall_stance": "偏空",
-            "merged_summary": "NaNa说美股指出10月PPI低于预期使激进加息预期小幅降温，但12月仍要加息，对高估值芯片股形成压制；美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险，认为让AI交易降温已是美联储的目的。视野环球财经未提及。",
-            "source_views": [
-              {
-                "channel_name": "NaNa说美股",
-                "view": "12月加息预期压制高估值资产，美联储有意让AI交易降温。",
-                "evidence": "“12月要加息，对高估值芯片股形成压制”“让AI交易降温已经是FED的目的了”。"
-              },
-              {
-                "channel_name": "视野环球财经",
-                "view": "未提及",
-                "evidence": "仅有标题和链接元数据，无正文内容。"
-              }
-            ],
-            "common_points": [
-              "未形成共同点（视野环球财经未提供可比较内容）"
-            ],
-            "differences": [
-              "未发现明显差异（仅一个频道有实质内容）"
-            ],
-            "factual_context": [
-              "美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。",
-              "10月PPI低于预期使激进加息预期小幅降温。"
-            ],
-            "risks": [
-              "加息可能进一步压制高估值成长股。",
-              "美联储政策转向可能引发市场波动。"
-            ]
-          }
-        ],
-        "core_key_points": [
-          "NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体板块，费半指数可能宽幅震荡。",
-          "英伟达CFO Kress出任临时CEO后，市场预期英伟达收缩对外生态输血，Neocloud新云股受冲击最大，行业洗牌可能提前。",
-          "Michael Burry加大看跌押注，做空纳指100和SMH，认为英伟达财报出色但为抛售良机。",
-          "标普500上有阻力下有支撑，短期关注7500和7450点防守；纳指100在26800-28900点区间震荡筑底。",
-          "美国10月PPI同比6.5%略低于预期，但内部通胀压力仍广泛，12月加息预期压制高估值资产。",
-          "阿里巴巴因芯片事件和对华出口限制担忧本周跌13.77%，下周财报受关注。",
-          "Anthropic下周四登录纳斯达克，但视野环球财经的具体分析因无正文无法纳入。",
-          "视野环球财经视频仅有元数据，其关于Anthropic IPO的观点无法提取。"
-        ],
-        "market_views": [
-          "NaNa说美股：短期规避半导体板块，既不做多也不做空，因交易逻辑变化且波动剧烈。",
-          "NaNa说美股：标普500中期弱势震荡，上有阻力下有支撑，突破通道上轨前难言转强。",
-          "NaNa说美股：纳指100短期区间震荡筑底，但若跌破0.5斐波那契位置则趋势破位。",
-          "NaNa说美股：新云股受英伟达输血收缩冲击，NBIS中期空头趋势，短期超跌反抽但不宜追空。",
-          "NaNa说美股引用Burry观点：看跌纳指100和SMH，认为英伟达财报是抛售机会。",
-          "视野环球财经：因无正文内容，无法提供其市场观点。"
-        ],
-        "mentioned_assets_events": [
-          "半导体板块",
-          "费城半导体指数",
-          "SMH",
-          "SOXX",
-          "NVDA / 英伟达",
-          "AMD",
-          "AVGO",
-          "Neocloud / 新云股",
-          "NBIS",
-          "SPY / 标普500",
-          "NDX / 纳指100",
-          "BABA / 阿里巴巴",
-          "Anthropic IPO",
-          "美国10月PPI",
-          "美联储加息预期",
-          "美联储半年度金融稳定报告",
-          "Michael Burry看跌押注"
-        ],
-        "investor_takeaways": [
-          "关注半导体板块交易逻辑变化，短期波动可能加剧，避免追涨杀跌。",
-          "英伟达财报可能成为市场情绪转折点，需关注其对外投资策略变化。",
-          "新云股行业面临洗牌风险，依赖单一巨头输血的商业模式值得警惕。",
-          "通胀数据内部压力仍存，加息预期可能压制高估值成长股。",
-          "中概股受地缘政治和芯片供应影响，财报前不确定性较高。",
-          "技术分析仅提供概率参考，需结合资金面、基本面等多重因素。"
-        ],
-        "watch_original": "只看部分",
-        "uncertainties_or_risks": [
-          "视野环球财经视频无正文内容，其关于Anthropic IPO的分析完全缺失。",
-          "NaNa说美股使用自动字幕，ASR可能存在数字或专有名词识别误差。",
-          "Burry的看跌押注为个人观点，不代表市场共识，且期权策略复杂。",
-          "技术分析结论基于历史价格，市场变量可能随时改变走势。",
-          "英伟达财报和Anthropic IPO等事件可能引发市场大幅波动。"
-        ],
-        "disclaimer": "该摘要仅用于信息整理，不构成投资建议"
-      },
-      "source_videos": [
-        {
-          "channel_name": "视野环球财经",
-          "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
-          "handle": "@RhinoFinance",
-          "video_id": "_2bUPesoEWo",
-          "title": "（会员第310期）Anthropic （ANT） IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！",
-          "url": "https://www.youtube.com/watch?v=_2bUPesoEWo",
-          "published": null,
-          "source_status": "link-only",
-          "content_source": "metadata only",
-          "transcript_status": "failed",
-          "transcript_language": null,
-          "transcript_source": "unknown",
-          "transcript_error": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=_2bUPesoEWo! This is most likely caused by:\n\nThe video is unplayable for the following reason: Join this channel to get access to members-only content like this video, and other exclusive perks.\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; manual zh-Hans: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual zh-CN: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; manual en: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-Hans: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto zh-CN: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.; auto en: ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks.",
-          "asr_status": "failed",
-          "asr_model": "large-v3-turbo",
-          "asr_error": "zh: yt-dlp audio download failed after 3 attempt(s): ERROR: [youtube] _2bUPesoEWo: Join this channel to get access to members-only content like this video, and other exclusive perks."
-        },
-        {
-          "channel_name": "NaNa说美股",
-          "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
-          "handle": "@NaNaShuoMeiGu",
-          "video_id": "i_8Nw7IrBvM",
-          "title": "Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)",
-          "url": "https://www.youtube.com/watch?v=i_8Nw7IrBvM",
-          "published": null,
-          "source_status": "captions",
-          "content_source": "YouTube captions",
-          "transcript_status": "success",
-          "transcript_language": "zh-Hans",
-          "transcript_source": "manual_caption",
-          "transcript_error": null,
-          "asr_status": "skipped",
-          "asr_model": null,
-          "asr_error": "Transcript succeeded or dry-run skipped ASR",
-          "text_sha256": "3372c40499ea50a98899f0a28a7986b67d90dab440a6d3cfa775a7461581536f"
-        }
-      ],
-      "summary_html": "<h2>每日融合摘要：半导体交易逻辑转向与AI产业链重估（2026-11-13）</h2><p><strong>内容来源：</strong>YouTube captions + metadata only</p><p><strong>文本质量提示：</strong>以下来源没有可用字幕或转写文本，仅按元数据保留：视野环球财经。 视野环球财经视频仅有标题和链接元数据，无字幕或正文内容，无法提取其观点；NaNa说美股使用YouTube自动字幕，文本完整但ASR可能存在个别数字或专有名词识别误差，摘要仅基于所给文本。</p><h3>来源视频</h3><ul><li><strong>视野环球财经：</strong><a href=\"https://www.youtube.com/watch?v=_2bUPesoEWo\">（会员第310期）Anthropic （ANT） IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！</a><br><small>发布时间未知 · 内容来源：metadata only</small></li><li><strong>NaNa说美股：</strong><a href=\"https://www.youtube.com/watch?v=i_8Nw7IrBvM\">Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)</a><br><small>发布时间未知 · 内容来源：YouTube captions</small></li></ul><p><strong>一句话总结：</strong>NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体并关注英伟达财报与Anthropic上市；视野环球财经关于Anthropic IPO的内容因仅有元数据无法纳入。</p><h3>按股票 / 指数 / 行业 / 宏观主题融合</h3><section><h3>半导体板块 / 费城半导体指数 / SMH / SOXX <small>(sector / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出半导体板块再度遭遇猛烈抛售，AMD、AVGO等AI芯片龙头集体被资金抛售，费城半导体指数短期上涨主要靠博弈情绪，情绪反转后回落；其认为市场对半导体的交易逻辑正在变化，AI行业从狂飙转向强监管与资本审视，硬件股中短期缺乏持续上涨动力，因此短期暂避半导体板块，不做多也不做空，预计费半指数在更宽区间反复震荡。Michael Burry加大了对纳指100和半导体股的看跌押注，偏好做空SMH而非SOXX，认为SMH估值仍有下行空间且未来几年盈利将下滑。视野环球财经未提及该主题。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>短期规避半导体板块，既不做多也不做空；认为费半指数将在更宽波动范围反复震荡，单日急涨急跌难以把握；提到Burry做空SMH而非SOXX。 证据/依据：“短期会暂避整个半导体板块”“不是要做空半导体，而是规避”“费半指数后面可能会在一个更宽的波动范围里反复震荡”“Burry更偏好SMH而非SOXX”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>标普500跌0.4%，纳指跌0.91%，道指微涨0.10%。</li><li>10月PPI同比上涨6.5%，略低于预期6.6%，前值6.3%；环比0.3%，低于预期0.4%。</li><li>美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。</li><li>Michael Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间；持有SMH相关put期权将于明年6月到期。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>半导体已大幅调整，继续向下空间可能有限，追空风险较大。</li><li>若出现利好，半导体可能快速反弹，短期博弈难度高。</li><li>Burry的看跌押注为个人观点，不代表市场共识。</li></ul></section><section><h3>NVDA / 英伟达 <small>(stock / 分歧)</small></h3><p><strong>合并摘要：</strong>NaNa说美股讨论英伟达CEO黄仁勋相关事件被视为AI行业转向强监管与资本审视的分水岭，并影响整个AI产业链估值；CFO Colette Kress出任临时CEO后，华尔街预期英伟达将收缩激进的对外生态输血，对Neocloud扶持可能熄火；报道称Kress将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从2500亿美元砍至约1050亿美元。Burry认为英伟达下周财报会很出色，但这份财报是多头抛售良机而非入场机会。视野环球财经未提及英伟达。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>英伟达领导层变化和对外输血收缩将影响AI产业链和Neocloud；Burry认为英伟达财报出色但为抛售良机。 证据/依据：“老黄的事儿不是一起孤立的个人危机，而是AI行业从此前的狂飙突进转向强监管与资本审视的分水岭”“华尔街普遍预期英伟达将收缩激进的对外生态输血”“Burry表示英伟达下周公布的财报会很出色，但他认为这份财报为多头提供了抛售良机”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>英伟达下周二盘后公布财报。</li><li>《华尔街日报》报道CFO Kress主动将英伟达对OpenAI俄亥俄州数据中心的兜底承诺从最初谈判的2500亿美元砍至约1050亿美元。</li><li>高盛分析师指出现有承诺大概率会被履行，但没有黄仁勋的视野、人脉和召集力，下一轮同等规模的多方生态投资将更难落地。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>英伟达财报可能引发股价大幅波动。</li><li>领导层变化和对外投资收缩可能影响其生态伙伴关系。</li><li>市场对AI产业链估值重估可能压制英伟达股价。</li></ul></section><section><h3>Neocloud / 新云股 / NBIS <small>(sector / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出新云股被打击最狠，因过去英伟达扮演“AI中央银行”角色输血，如今随着CFO Kress出任临时CEO，华尔街预期英伟达收缩对外生态输血，新云公司失去背书后不确定性加深；Gartner预计未来2-3年行业大洗牌，2030年80%新云公司出局，黄仁勋离开后洗牌可能提前。技术面上NBIS自6月底300美元附近高点形成下降通道，目前下探下轨支撑，成交量放大，MACD空头动能主导，中期空头趋势末端测试，短期有超跌反抽空间但不宜追空，若下轨支撑被击穿，86-75美元区间是历史颈线位与密集成交区。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>新云股受英伟达输血收缩冲击最大，行业洗牌可能提前；NBIS中期空头趋势，短期超跌反抽但不宜追空，关注下轨支撑。 证据/依据：“新云股被打击的最狠”“Gartner说Neocloud行业将在未来2-3年内面临大洗牌，到2030年预计80%的新云公司会出局”“NBIS目前处于中期空头趋势的末端测试阶段，短期存在超跌反抽的博弈空间，不宜追空”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>Gartner预计Neocloud行业未来2-3年面临大洗牌，2030年80%新云公司出局。</li><li>NBIS自今年6月底触及300美元附近高点后形成下降通道，目前股价下探下轨支撑，成交量显著放大，MACD自10月中旬以来DIF与DEA在零轴下方深幅发散。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>新云公司依赖融资环境和英伟达支持，失去背书后不确定性大。</li><li>NBIS技术面若跌破下轨支撑，可能下探86-75美元区间。</li><li>行业洗牌可能提前到来，相关公司面临生存风险。</li></ul></section><section><h3>SPY / 标普500 <small>(index / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出标普500跌0.4%，未能突破通道上轨，确认该区域强阻力，下方年线缓慢上行构成大周期动态防线，目前上有阻力下有支撑；日线反弹成交量萎缩，主要由空头回补驱动，缺乏增量资金；周线本周涨2.51%结束连续4周下跌，仍处长期上升趋势线之上，但中期高位回调阶段，可能需时间换空间甚至回踩50周均线。期权链上7500点为多空拉锯心理关口，跌破进入负Gamma区域，站稳7600进入正Gamma区域，下周最大Call Wall在7650-7700，最大Put Wall在7400-7450。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>标普500中期下降通道内弱势震荡，上有阻力下有支撑，短期关注7500和7450防守，突破通道上轨前难言转强。 证据/依据：“指数目前仍处于中期下降通道内的弱势震荡格局”“短期重点观察7500点和7450点的防守有效性”“在突破通道上轨之前”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>标普500指数跌0.4%，本周录得2.51%涨幅，结束连续4周下跌。</li><li>10月PPI同比6.5%略低于预期，但商品与服务价格连续三个月同步上涨。</li><li>期权链上7500点聚集大量短期对冲盘，最大Call Wall位于7650-7700点，最大Put Wall位于7400-7450点。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>若跌破7500点进入负Gamma区域，可能加剧波动。</li><li>增量资金不足，反弹依赖空头回补，持续性存疑。</li><li>12月加息预期压制高估值资产。</li></ul></section><section><h3>NDX / 纳指100 <small>(index / 分歧)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹，有长线配置资金防御承接，但上攻动能衰减，上方29000点密集阻力区压制，未收复29000点与50/120日均线前，大概率在26800-28900点区间宽幅震荡筑底；若放量跌破0.5斐波那契位置，则一年半上升趋势破位，下方看25850点甚至24320点。多数交易员对年底行情看涨，但Burry例外，他加大了对纳指100的看跌押注，将put仓位翻倍，行权价较现价低20%的虚值区间，2027年初到期。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>纳指100短期区间震荡筑底，中期趋势未破但动能减弱；提到Burry看跌押注与市场主流看涨预期形成对比。 证据/依据：“指数大概率在26800-28900点区间内进行宽幅震荡筑底”“若后续再次回踩并放量跌破0.5斐波那契位置，意味着长达一年半的上升趋势正式宣告破位”“Burry将纳指100的看跌期权put仓位翻倍”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>纳指收跌0.91%。</li><li>纳指100在长期上升趋势线与0.5斐波那契位置止跌反弹。</li><li>Burry在Substack发文称将纳指100看跌期权put仓位翻倍，行权日期2027年初、行权价较现价低20%的虚值区间。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>若跌破0.5斐波那契位置，可能打开向下寻底空间。</li><li>29000点阻力区压制较重，突破需要增量资金。</li><li>Burry的看跌押注代表部分空头观点，市场存在分歧。</li></ul></section><section><h3>BABA / 阿里巴巴 <small>(stock / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出阿里巴巴本周累计下跌13.77%，因曾通过Megaspeed公司租用Nvidia芯片被牵涉到相关事件，且市场担忧美国政府收紧对华芯片销售，中国AI相关股票整体承压；公司下周发布财报，投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问；彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>阿里巴巴受芯片事件和对华出口限制担忧影响，股价大跌，财报前不确定性高。 证据/依据：“阿里巴巴本周累计下跌13.77%”“市场担忧美国政府将收紧对华芯片销售”“投资者对其如何保障AI计划所需的芯片及算力供应存在诸多疑问”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>阿里巴巴本周累计下跌13.77%。</li><li>阿里巴巴曾通过Megaspeed公司租用Nvidia芯片。</li><li>彭博社报道中国政府周四敦促美国不要以此次丑闻为借口收紧出口限制。</li><li>阿里巴巴将于下周发布财报。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>美国对华芯片出口限制可能进一步收紧。</li><li>AI芯片供应不确定性可能影响公司AI计划。</li><li>财报可能引发股价波动。</li></ul></section><section><h3>Anthropic IPO <small>(other / 不明确)</small></h3><p><strong>合并摘要：</strong>NaNa说美股仅提到下周四Anthropic登录纳斯达克交易所，未展开分析。视野环球财经视频标题涉及Anthropic IPO的估值、基本面、投资机会与风险，但仅有元数据无正文，无法提取具体观点。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>仅提及上市日期，未发表观点。 证据/依据：“下周四Anthropic登录纳斯达克交易所”。</li><li><strong>视野环球财经：</strong>未提及（仅有标题，无正文内容） 证据/依据：标题为“Anthropic（ANT）IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！”，但无字幕或正文。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异</li></ul><p><strong>事实背景：</strong></p><ul><li>Anthropic计划下周四登录纳斯达克交易所。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>视野环球财经的具体分析内容缺失，无法评估其观点。</li><li>IPO表现存在不确定性。</li></ul></section><section><h3>美国10月PPI / 通胀 <small>(macro / 中性)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出美国10月PPI同比上涨6.5%，创4年来新高，但略低于市场预期的6.6%，前值6.3%；环比0.3%低于预期0.4%，但商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚；核心PPI同比5%持平预期和前值，环比0.3%。数据表明食品价格及运输成本攀升推动批发通胀加速，企业成本转嫁难度加大，利润率或面临挤压。市场最初将PPI视为偏温和，股指小幅走高，但开盘后跳水。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>PPI数据表面略低于预期，但内部通胀压力广泛，企业利润率可能受挤压。 证据/依据：“数据很不好，但由于比预期稍微低一点，市场把这份PPI当作偏温和来交易”“商品与服务价格连续三个月同步上涨，上游成本压力仍在积聚”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>美国10月PPI同比上涨6.5%，创4年来新高，预期6.6%，前值6.3%。</li><li>环比上涨0.3%，预期0.4%。</li><li>核心PPI同比5%持平预期和前值，环比0.3%。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>通胀压力可能促使美联储维持加息路径。</li><li>企业成本转嫁困难可能挤压利润率。</li></ul></section><section><h3>美联储加息预期 / 金融稳定报告 <small>(macro / 偏空)</small></h3><p><strong>合并摘要：</strong>NaNa说美股指出10月PPI低于预期使激进加息预期小幅降温，但12月仍要加息，对高估值芯片股形成压制；美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险，认为让AI交易降温已是美联储的目的。视野环球财经未提及。</p><p><strong>按频道拆分：</strong></p><ul><li><strong>NaNa说美股：</strong>12月加息预期压制高估值资产，美联储有意让AI交易降温。 证据/依据：“12月要加息，对高估值芯片股形成压制”“让AI交易降温已经是FED的目的了”。</li><li><strong>视野环球财经：</strong>未提及 证据/依据：仅有标题和链接元数据，无正文内容。</li></ul><p><strong>共同点：</strong></p><ul><li>未形成共同点（视野环球财经未提供可比较内容）</li></ul><p><strong>差异：</strong></p><ul><li>未发现明显差异（仅一个频道有实质内容）</li></ul><p><strong>事实背景：</strong></p><ul><li>美联储半年度金融稳定报告警示AI推升资产估值过高带来潜在风险。</li><li>10月PPI低于预期使激进加息预期小幅降温。</li></ul><p><strong>不确定性或风险：</strong></p><ul><li>加息可能进一步压制高估值成长股。</li><li>美联储政策转向可能引发市场波动。</li></ul></section><h3>核心要点</h3><ul><li>NaNa说美股认为半导体交易逻辑正从狂飙转向强监管与资本审视，短期规避半导体板块，费半指数可能宽幅震荡。</li><li>英伟达CFO Kress出任临时CEO后，市场预期英伟达收缩对外生态输血，Neocloud新云股受冲击最大，行业洗牌可能提前。</li><li>Michael Burry加大看跌押注，做空纳指100和SMH，认为英伟达财报出色但为抛售良机。</li><li>标普500上有阻力下有支撑，短期关注7500和7450点防守；纳指100在26800-28900点区间震荡筑底。</li><li>美国10月PPI同比6.5%略低于预期，但内部通胀压力仍广泛，12月加息预期压制高估值资产。</li><li>阿里巴巴因芯片事件和对华出口限制担忧本周跌13.77%，下周财报受关注。</li><li>Anthropic下周四登录纳斯达克，但视野环球财经的具体分析因无正文无法纳入。</li><li>视野环球财经视频仅有元数据，其关于Anthropic IPO的观点无法提取。</li></ul><h3>关键市场观点</h3><ul><li>NaNa说美股：短期规避半导体板块，既不做多也不做空，因交易逻辑变化且波动剧烈。</li><li>NaNa说美股：标普500中期弱势震荡，上有阻力下有支撑，突破通道上轨前难言转强。</li><li>NaNa说美股：纳指100短期区间震荡筑底，但若跌破0.5斐波那契位置则趋势破位。</li><li>NaNa说美股：新云股受英伟达输血收缩冲击，NBIS中期空头趋势，短期超跌反抽但不宜追空。</li><li>NaNa说美股引用Burry观点：看跌纳指100和SMH，认为英伟达财报是抛售机会。</li><li>视野环球财经：因无正文内容，无法提供其市场观点。</li></ul><h3>涉及的股票、指数、行业或宏观事件</h3><ul><li>半导体板块</li><li>费城半导体指数</li><li>SMH</li><li>SOXX</li><li>NVDA / 英伟达</li><li>AMD</li><li>AVGO</li><li>Neocloud / 新云股</li><li>NBIS</li><li>SPY / 标普500</li><li>NDX / 纳指100</li><li>BABA / 阿里巴巴</li><li>Anthropic IPO</li><li>美国10月PPI</li><li>美联储加息预期</li><li>美联储半年度金融稳定报告</li><li>Michael Burry看跌押注</li></ul><h3>对普通投资者的启发</h3><ul><li>关注半导体板块交易逻辑变化，短期波动可能加剧，避免追涨杀跌。</li><li>英伟达财报可能成为市场情绪转折点，需关注其对外投资策略变化。</li><li>新云股行业面临洗牌风险，依赖单一巨头输血的商业模式值得警惕。</li><li>通胀数据内部压力仍存，加息预期可能压制高估值成长股。</li><li>中概股受地缘政治和芯片供应影响，财报前不确定性较高。</li><li>技术分析仅提供概率参考，需结合资金面、基本面等多重因素。</li></ul><p><strong>值不值得看原视频：</strong>只看部分</p><h3>需要注意的不确定性或风险</h3><ul><li>视野环球财经视频无正文内容，其关于Anthropic IPO的分析完全缺失。</li><li>NaNa说美股使用自动字幕，ASR可能存在数字或专有名词识别误差。</li><li>Burry的看跌押注为个人观点，不代表市场共识，且期权策略复杂。</li><li>技术分析结论基于历史价格，市场变量可能随时改变走势。</li><li>英伟达财报和Anthropic IPO等事件可能引发市场大幅波动。</li></ul><p><strong>免责声明：</strong>该摘要仅用于信息整理，不构成投资建议</p><!-- coverage --><p>正文待补齐（1/2）；摘要待更新。视野环球财经：视频访问受限，需确认访问权限。</p><!-- /coverage -->",
-      "coverage_status": "pending",
-      "completion_status": "pending",
-      "summary_input_hash": "a9b44236dc5444ec60f5aa4d1ed79ff0ba334eb2bc8b54702258e535016bda26",
-      "summary_attempt_input_hash": "a9b44236dc5444ec60f5aa4d1ed79ff0ba334eb2bc8b54702258e535016bda26",
       "summary_attempt_status": "success",
       "summary_attempt_error": null
     }
