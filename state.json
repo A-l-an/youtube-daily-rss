@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-16T04:04:46.332200+00:00",
+  "last_run_at": "2026-11-16T04:37:31.362510+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2947,7 +2947,7 @@
       "title": "Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)",
       "url": "https://www.youtube.com/watch?v=i_8Nw7IrBvM",
       "published": null,
-      "processed_at": "2026-11-16T04:03:02.012180+00:00",
+      "processed_at": "2026-11-16T04:35:50.651410+00:00",
       "daily_digest_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
@@ -2962,7 +2962,7 @@
       "title": "（会员第310期）Anthropic （ANT） IPO，降估值后潜力大吗？基本面、估值、投资机会、风险！",
       "url": "https://www.youtube.com/watch?v=_2bUPesoEWo",
       "published": null,
-      "processed_at": "2026-11-16T04:03:02.012180+00:00",
+      "processed_at": "2026-11-16T04:35:50.651410+00:00",
       "daily_digest_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
       "transcript_status": "failed",
       "transcript_language": null,
@@ -4190,8 +4190,8 @@
       "completion_status": "complete"
     },
     "daily-sLKfEeiSTKs-i_8Nw7IrBvM": {
-      "processed_at": "2026-11-16T04:04:46.332200+00:00",
-      "last_attempted_at": "2026-11-16T04:04:46.332200+00:00",
+      "processed_at": "2026-11-16T04:37:31.362510+00:00",
+      "last_attempted_at": "2026-11-16T04:37:31.362510+00:00",
       "source_video_ids": [
         "sLKfEeiSTKs",
         "i_8Nw7IrBvM"
@@ -4203,8 +4203,8 @@
       "completion_status": "pending"
     },
     "daily-_2bUPesoEWo-i_8Nw7IrBvM": {
-      "processed_at": "2026-11-16T04:03:02.012180+00:00",
-      "last_attempted_at": "2026-11-16T04:03:02.012180+00:00",
+      "processed_at": "2026-11-16T04:35:50.651410+00:00",
+      "last_attempted_at": "2026-11-16T04:35:50.651410+00:00",
       "source_video_ids": [
         "_2bUPesoEWo",
         "i_8Nw7IrBvM"
