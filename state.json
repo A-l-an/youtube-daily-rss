@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-16T05:42:19.158240+00:00",
+  "last_run_at": "2026-11-16T10:53:15.896197+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2932,14 +2932,17 @@
       "title": "美股 循环信贷、梯云纵裂痕！半导体全军覆没！黄仁勋辞职，有融资机构要跑！ AMD、AVGO、MRVL、TSM！",
       "url": "https://www.youtube.com/watch?v=sLKfEeiSTKs",
       "published": null,
-      "processed_at": "2026-11-15T11:52:10.383880+00:00",
+      "processed_at": "2026-11-16T10:53:15.893406+00:00",
       "daily_digest_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
       "transcript_status": "unavailable",
       "transcript_language": null,
       "transcript_source": "unknown",
-      "asr_status": "failed",
+      "asr_status": "success",
       "summary_status": "success",
-      "source_status": "link-only"
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-16T10:52:44.857314+00:00"
     },
     "i_8Nw7IrBvM": {
       "channel_name": "NaNa说美股",
@@ -2947,14 +2950,17 @@
       "title": "Burry哥又磨刀霍霍！NaNa说美股(2026.11.13)",
       "url": "https://www.youtube.com/watch?v=i_8Nw7IrBvM",
       "published": null,
-      "processed_at": "2026-11-16T05:40:17.413509+00:00",
-      "daily_digest_id": "daily-_2bUPesoEWo-i_8Nw7IrBvM",
+      "processed_at": "2026-11-16T10:53:15.893406+00:00",
+      "daily_digest_id": "daily-sLKfEeiSTKs-i_8Nw7IrBvM",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
       "transcript_source": "manual_caption",
       "asr_status": "skipped",
       "summary_status": "success",
-      "source_status": "captions"
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-16T05:42:19.158240+00:00"
     },
     "_2bUPesoEWo": {
       "channel_name": "视野环球财经",
@@ -4190,8 +4196,8 @@
       "completion_status": "complete"
     },
     "daily-sLKfEeiSTKs-i_8Nw7IrBvM": {
-      "processed_at": "2026-11-16T05:42:19.158240+00:00",
-      "last_attempted_at": "2026-11-16T05:42:19.158240+00:00",
+      "processed_at": "2026-11-16T10:53:15.893406+00:00",
+      "last_attempted_at": "2026-11-16T10:53:15.893406+00:00",
       "source_video_ids": [
         "sLKfEeiSTKs",
         "i_8Nw7IrBvM"
@@ -4199,12 +4205,12 @@
       "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
-      "coverage_status": "pending",
-      "completion_status": "pending"
+      "coverage_status": "complete",
+      "completion_status": "complete"
     },
     "daily-_2bUPesoEWo-i_8Nw7IrBvM": {
-      "processed_at": "2026-11-16T05:40:17.413509+00:00",
-      "last_attempted_at": "2026-11-16T05:40:17.413509+00:00",
+      "processed_at": "2026-11-16T10:53:15.896197+00:00",
+      "last_attempted_at": "2026-11-16T10:53:15.896197+00:00",
       "source_video_ids": [
         "_2bUPesoEWo",
         "i_8Nw7IrBvM"
@@ -4212,8 +4218,8 @@
       "summary_status": "success",
       "summary_model": "deepseek-flash",
       "source_status": "mixed",
-      "coverage_status": "pending",
-      "completion_status": "pending"
+      "coverage_status": "access-blocked",
+      "completion_status": "access-blocked"
     }
   }
 }
