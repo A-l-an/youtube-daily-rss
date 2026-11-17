@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-16T10:53:15.896197+00:00",
+  "last_run_at": "2026-11-17T04:36:08.965357+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -2976,6 +2976,42 @@
       "asr_status": "failed",
       "summary_status": "success",
       "source_status": "link-only"
+    },
+    "cifo3KBc3FY": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 曙光快出现了吗？大盘年底前波动！NVDA财报风险看点！为何继续看好TSM！",
+      "url": "https://www.youtube.com/watch?v=cifo3KBc3FY",
+      "published": "2026-11-17T02:12:26+00:00",
+      "processed_at": "2026-11-17T04:36:08.965357+00:00",
+      "daily_digest_id": "daily-cifo3KBc3FY-ZOF6ci46vwY",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-17T04:35:35.580919+00:00"
+    },
+    "ZOF6ci46vwY": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "又开始搞事儿了！NaNa说美股(2026.11.16)",
+      "url": "https://www.youtube.com/watch?v=ZOF6ci46vwY",
+      "published": "2026-11-16T23:36:29+00:00",
+      "processed_at": "2026-11-17T04:36:08.965357+00:00",
+      "daily_digest_id": "daily-cifo3KBc3FY-ZOF6ci46vwY",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-17T04:35:37.909942+00:00"
     }
   },
   "daily_digests": {
@@ -4220,6 +4256,19 @@
       "source_status": "mixed",
       "coverage_status": "access-blocked",
       "completion_status": "access-blocked"
+    },
+    "daily-cifo3KBc3FY-ZOF6ci46vwY": {
+      "processed_at": "2026-11-17T04:36:08.965357+00:00",
+      "last_attempted_at": "2026-11-17T04:36:08.965357+00:00",
+      "source_video_ids": [
+        "cifo3KBc3FY",
+        "ZOF6ci46vwY"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
     }
   }
 }
