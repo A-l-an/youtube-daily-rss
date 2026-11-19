@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-18T04:45:07.795868+00:00",
+  "last_run_at": "2026-11-19T14:56:39.384837+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -3048,6 +3048,42 @@
       "access_status": null,
       "access_reason": null,
       "status_observed_at": "2026-11-18T04:44:11.883262+00:00"
+    },
+    "swuAt-IcoJE": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 好消息，CTA转向，三分之二情景买入！Anthropic IPO定价，增加募股数！PANW、DIS、NFLX！计划内清仓一只！",
+      "url": "https://www.youtube.com/watch?v=swuAt-IcoJE",
+      "published": "2026-11-19T01:58:45+00:00",
+      "processed_at": "2026-11-19T14:56:39.384837+00:00",
+      "daily_digest_id": "daily-swuAt-IcoJE-S7KhEKoSHuo",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-19T14:55:48.597587+00:00"
+    },
+    "S7KhEKoSHuo": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "明天全村人的希望！NaNa说美股(2026.11.18)",
+      "url": "https://www.youtube.com/watch?v=S7KhEKoSHuo",
+      "published": "2026-11-18T22:52:34+00:00",
+      "processed_at": "2026-11-19T14:56:39.384837+00:00",
+      "daily_digest_id": "daily-swuAt-IcoJE-S7KhEKoSHuo",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-19T14:55:51.574874+00:00"
     }
   },
   "daily_digests": {
@@ -4312,6 +4348,19 @@
       "source_video_ids": [
         "apOH0oyxUQM",
         "jZCHAiTSYoM"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
+    },
+    "daily-swuAt-IcoJE-S7KhEKoSHuo": {
+      "processed_at": "2026-11-19T14:56:39.384837+00:00",
+      "last_attempted_at": "2026-11-19T14:56:39.384837+00:00",
+      "source_video_ids": [
+        "swuAt-IcoJE",
+        "S7KhEKoSHuo"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
