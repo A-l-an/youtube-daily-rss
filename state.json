@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-19T14:56:39.384837+00:00",
+  "last_run_at": "2026-11-20T04:53:44.401080+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -3084,6 +3084,42 @@
       "access_status": null,
       "access_reason": null,
       "status_observed_at": "2026-11-19T14:55:51.574874+00:00"
+    },
+    "5RnWY2UkmA0": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 标普SPY反转破位！恐慌过后，关键点位！个人持仓计划一览！",
+      "url": "https://www.youtube.com/watch?v=5RnWY2UkmA0",
+      "published": "2026-11-20T02:24:14+00:00",
+      "processed_at": "2026-11-20T04:53:44.401080+00:00",
+      "daily_digest_id": "daily-5RnWY2UkmA0-iifny5VJyzM",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-20T04:51:59.302195+00:00"
+    },
+    "iifny5VJyzM": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "华尔街虾仁猪心啊😭！NaNa说美股(2026.11.19)",
+      "url": "https://www.youtube.com/watch?v=iifny5VJyzM",
+      "published": "2026-11-19T23:27:07+00:00",
+      "processed_at": "2026-11-20T04:53:44.401080+00:00",
+      "daily_digest_id": "daily-5RnWY2UkmA0-iifny5VJyzM",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "yt_dlp_manual_subtitle",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-20T04:52:54.623195+00:00"
     }
   },
   "daily_digests": {
@@ -4361,6 +4397,19 @@
       "source_video_ids": [
         "swuAt-IcoJE",
         "S7KhEKoSHuo"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
+    },
+    "daily-5RnWY2UkmA0-iifny5VJyzM": {
+      "processed_at": "2026-11-20T04:53:44.401080+00:00",
+      "last_attempted_at": "2026-11-20T04:53:44.401080+00:00",
+      "source_video_ids": [
+        "5RnWY2UkmA0",
+        "iifny5VJyzM"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
