@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-21T04:42:44.315677+00:00",
+  "last_run_at": "2026-11-21T12:26:06.196231+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -3127,7 +3127,7 @@
       "title": "美股 踩踏暴跌一步到位！好消息、坏消息！后市重要判断！",
       "url": "https://www.youtube.com/watch?v=v2KyRWv3SHc",
       "published": "2026-11-21T02:31:33+00:00",
-      "processed_at": "2026-11-21T04:42:44.315677+00:00",
+      "processed_at": "2026-11-21T12:26:06.196231+00:00",
       "daily_digest_id": "daily-v2KyRWv3SHc-jJ1Oirhggg8",
       "transcript_status": "unavailable",
       "transcript_language": null,
@@ -3137,7 +3137,7 @@
       "source_status": "link-only",
       "access_status": null,
       "access_reason": null,
-      "status_observed_at": "2026-11-21T04:42:08.185211+00:00"
+      "status_observed_at": "2026-11-21T12:26:06.194547+00:00"
     },
     "jJ1Oirhggg8": {
       "channel_name": "NaNa说美股",
@@ -3145,7 +3145,7 @@
       "title": "每天活在爆仓中！NaNa说美股(2026.11.20)",
       "url": "https://www.youtube.com/watch?v=jJ1Oirhggg8",
       "published": "2026-11-20T23:47:59+00:00",
-      "processed_at": "2026-11-21T04:42:44.315677+00:00",
+      "processed_at": "2026-11-21T12:26:06.196231+00:00",
       "daily_digest_id": "daily-v2KyRWv3SHc-jJ1Oirhggg8",
       "transcript_status": "success",
       "transcript_language": "zh-Hans",
@@ -4454,8 +4454,8 @@
       "completion_status": "complete"
     },
     "daily-v2KyRWv3SHc-jJ1Oirhggg8": {
-      "processed_at": "2026-11-21T04:42:44.315677+00:00",
-      "last_attempted_at": "2026-11-21T04:42:44.315677+00:00",
+      "processed_at": "2026-11-21T12:26:06.196231+00:00",
+      "last_attempted_at": "2026-11-21T12:26:06.196231+00:00",
       "source_video_ids": [
         "v2KyRWv3SHc",
         "jJ1Oirhggg8"
