@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-23T14:20:44.881551+00:00",
+  "last_run_at": "2026-11-24T06:28:07.477148+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -3156,6 +3156,42 @@
       "access_status": null,
       "access_reason": null,
       "status_observed_at": "2026-11-21T04:42:13.271032+00:00"
+    },
+    "ahHigtP50So": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 黄仁勋回归，暴涨创历史！反弹陷阱还是底部？计划内加仓一只！",
+      "url": "https://www.youtube.com/watch?v=ahHigtP50So",
+      "published": "2026-11-24T02:07:05+00:00",
+      "processed_at": "2026-11-24T06:24:54.436210+00:00",
+      "daily_digest_id": "daily-ahHigtP50So-Y0a2Pe1OhNI",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-24T06:23:54.743601+00:00"
+    },
+    "Y0a2Pe1OhNI": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "又相信爱情了！NaNa说美股(2026.11.23)",
+      "url": "https://www.youtube.com/watch?v=Y0a2Pe1OhNI",
+      "published": "2026-11-24T00:04:21+00:00",
+      "processed_at": "2026-11-24T06:24:54.436210+00:00",
+      "daily_digest_id": "daily-ahHigtP50So-Y0a2Pe1OhNI",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-24T06:24:00.054851+00:00"
     }
   },
   "daily_digests": {
@@ -4454,8 +4490,8 @@
       "completion_status": "complete"
     },
     "daily-v2KyRWv3SHc-jJ1Oirhggg8": {
-      "processed_at": "2026-11-23T14:20:44.881551+00:00",
-      "last_attempted_at": "2026-11-23T14:20:44.881551+00:00",
+      "processed_at": "2026-11-24T06:28:07.477148+00:00",
+      "last_attempted_at": "2026-11-24T06:28:07.477148+00:00",
       "source_video_ids": [
         "v2KyRWv3SHc",
         "jJ1Oirhggg8"
@@ -4465,6 +4501,19 @@
       "source_status": "mixed",
       "coverage_status": "pending",
       "completion_status": "pending"
+    },
+    "daily-ahHigtP50So-Y0a2Pe1OhNI": {
+      "processed_at": "2026-11-24T06:24:54.436210+00:00",
+      "last_attempted_at": "2026-11-24T06:24:54.436210+00:00",
+      "source_video_ids": [
+        "ahHigtP50So",
+        "Y0a2Pe1OhNI"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
     }
   }
 }
