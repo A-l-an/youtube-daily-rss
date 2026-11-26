@@ -1,5 +1,5 @@
 {
-  "last_run_at": "2026-11-25T14:02:15.636346+00:00",
+  "last_run_at": "2026-11-26T04:45:46.102770+00:00",
   "processed_videos": {
     "NSMf7BkBNgo": {
       "channel_name": "视野环球财经",
@@ -3228,6 +3228,42 @@
       "access_status": null,
       "access_reason": null,
       "status_observed_at": "2026-11-25T04:43:56.723014+00:00"
+    },
+    "aa5ps8bjF1o": {
+      "channel_name": "视野环球财经",
+      "channel_id": "UCFQsi7WaF5X41tcuOryDk8w",
+      "title": "美股 盘中V起来，发生了什么！多空不对称改善，后市看法！SOXX第一和第二目标位！",
+      "url": "https://www.youtube.com/watch?v=aa5ps8bjF1o",
+      "published": "2026-11-26T03:10:11+00:00",
+      "processed_at": "2026-11-26T04:44:11.802904+00:00",
+      "daily_digest_id": "daily-aa5ps8bjF1o-q_S7W4suSAE",
+      "transcript_status": "unavailable",
+      "transcript_language": null,
+      "transcript_source": "unknown",
+      "asr_status": "success",
+      "summary_status": "success",
+      "source_status": "ASR",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-26T04:43:15.595634+00:00"
+    },
+    "q_S7W4suSAE": {
+      "channel_name": "NaNa说美股",
+      "channel_id": "UCFhJ8ZFg9W4kLwFTBBNIjOw",
+      "title": "Burry哥都转多了！NaNa说美股(2026.11.25)",
+      "url": "https://www.youtube.com/watch?v=q_S7W4suSAE",
+      "published": "2026-11-26T00:33:49+00:00",
+      "processed_at": "2026-11-26T04:44:11.802904+00:00",
+      "daily_digest_id": "daily-aa5ps8bjF1o-q_S7W4suSAE",
+      "transcript_status": "success",
+      "transcript_language": "zh-Hans",
+      "transcript_source": "manual_caption",
+      "asr_status": "skipped",
+      "summary_status": "success",
+      "source_status": "captions",
+      "access_status": null,
+      "access_reason": null,
+      "status_observed_at": "2026-11-26T04:43:18.273031+00:00"
     }
   },
   "daily_digests": {
@@ -4526,8 +4562,8 @@
       "completion_status": "complete"
     },
     "daily-v2KyRWv3SHc-jJ1Oirhggg8": {
-      "processed_at": "2026-11-25T14:02:15.636346+00:00",
-      "last_attempted_at": "2026-11-25T14:02:15.636346+00:00",
+      "processed_at": "2026-11-26T04:45:46.102770+00:00",
+      "last_attempted_at": "2026-11-26T04:45:46.102770+00:00",
       "source_video_ids": [
         "v2KyRWv3SHc",
         "jJ1Oirhggg8"
@@ -4557,6 +4593,19 @@
       "source_video_ids": [
         "clJ37DZg2po",
         "ecG7k1bvu-w"
+      ],
+      "summary_status": "success",
+      "summary_model": "deepseek-flash",
+      "source_status": "mixed",
+      "coverage_status": "complete",
+      "completion_status": "complete"
+    },
+    "daily-aa5ps8bjF1o-q_S7W4suSAE": {
+      "processed_at": "2026-11-26T04:44:11.802904+00:00",
+      "last_attempted_at": "2026-11-26T04:44:11.802904+00:00",
+      "source_video_ids": [
+        "aa5ps8bjF1o",
+        "q_S7W4suSAE"
       ],
       "summary_status": "success",
       "summary_model": "deepseek-flash",
